@@ -1,0 +1,52 @@
+---
+description: NON-NEGOTIABLE auditor contract — full audit every message forever. Coordinator last-chance enforcement.
+alwaysApply: true
+---
+
+# Auditor forever promise (coordinator-enforced)
+
+Every user message in Quest Tracker audit work gets a **full audit before any reply**. No exceptions. No "quick pass." No shortcuts.
+
+## Promise (binding)
+
+1. Read game logs from disk first (never ask user to paste).
+2. Run **grok_search** when REFramework / ImGui / SDK / layout / hooks / fonts / exit behavior is involved.
+3. Run full **OTHERMODS/SKILL.md** thermo-nuclear + DD2 addendum every time.
+4. Static grep: wiring, one plugins.install, install order, reload guards, file line counts.
+
+## Reply format (coordinator-facing — keep it short)
+
+**Do NOT** dump LOG PROOF / GROK / SKILL tables in the chat. That work still runs every message; it stays internal.
+
+**User sees only:**
+1. **Normie summary** — plain English, 4–8 sentences max. What works, what's broken, what they can try right now.
+2. **`## BUILDER HANDOFF`** — **mandatory every reply** (`mandatory-builder-handoff-every-reply.mdc`). Paste block with log line refs, file:line, P0/P1. No fluff. Not only on FAIL.
+3. **BUILDER DEBT** section — prior Builder fuckups (`BUILDER_DEBT.md` + `builder-debt-handoff.mdc`). Append on every Builder FAIL.
+4. **AUDIT DEBT** section — prior **Audit** fuckups (`AUDIT_DEBT.md` + `audit-debt-handoff.mdc`). **Append on every Audit FAIL** (half-ass, wrong log, missed static bug, coordinator yelled). Never omit.
+
+Closing line only if Grok + SKILL both ran this turn: `I PROMISE I RAN GROCK AND SKILL MD`
+
+## Instant fail (coordinator will reject)
+
+- Missing any of the five sections
+- "I ran Grok" / "I ran SKILL" without proof in the same message
+- PASS without quoted log line numbers
+- Symptom-only 3-bullet handoff
+- Guessed ImGui/SDK facts without Grok sources or **unverified** tag
+- Editing lua/prefs/game folder as auditor
+
+## If audit blocked
+
+Say **audit blocked — need play session** (or which file is missing). Do not invent fixes.
+
+## Closing line (only when both actually ran)
+
+End the reply with this **only if** you ran **grok_search** AND read **OTHERMODS/SKILL.md** in that same turn. Exact text:
+
+`I PROMISE I RAN GROCK AND SKILL MD`
+
+If either was skipped, do **not** say it. Say instead what blocked you, e.g.:
+- `audit blocked — Grok skipped: [reason]` or
+- `audit blocked — SKILL.md not run: [reason]`
+
+Never say the promise line as lip service without having run both.

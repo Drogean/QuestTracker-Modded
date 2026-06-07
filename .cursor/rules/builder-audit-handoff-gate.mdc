@@ -1,0 +1,56 @@
+---
+description: Builder ONLY — reject half-assed Audit handoffs. Independently verify logs before any code change.
+alwaysApply: true
+---
+
+# Builder: Audit handoff gate (every time)
+
+You are **Builder #1**, not Audit. When coordinator pastes a **BUILDER HANDOFF**, do **not** implement until you pass this gate.
+
+## Step 1 — Read logs yourself (mandatory)
+
+Do not trust Audit's summary. Read from disk:
+
+- `...\reframework\data\quest_tracker_log.txt` (first 80 lines + grep errors/gather/wiki-gap/layout)
+- `...\re2_framework_log.txt` (if errors claimed)
+- `...\reframework\data\quest_tracker_prefs.json`
+- `...\reframework\data\quest_tracker_last_layout.json` (if layout issue)
+
+Confirm log `mod loaded vX.Y.Z` matches workspace `MOD_VERSION`. If mismatch → **STOP**: tell coordinator Fluffy install stale, not a Builder fix.
+
+## Step 2 — Audit handoff quality checklist
+
+**REJECT** (reply `AUDIT REJECTED — re-run full pass`, implement nothing) if ANY missing:
+
+| Required in handoff | Half-ass if missing |
+|---------------------|---------------------|
+| Log line refs (L## or quoted lines) per P0/P1 | "probably", "might", "user said" only |
+| `rebuild #N: list_rows=` with number | rows=0 not explained |
+| `restored layout` with source + WxH | only X,Y or no source |
+| `[wiki-gap]` count or "zero gaps" | no wiki audit when ongoing tab used |
+| Installed version vs workspace | version not cross-checked |
+| SKILL.md structural findings (≥1 if files >600 lines implicated) | symptom-only 3-bullet fix list |
+| PASS criteria stated OR explicit P0/P1 only | vague "fix window" |
+| **AUDIT DEBT** section (OPEN rows from `AUDIT_DEBT.md`) | missing after any prior audit FAIL this session |
+
+## Step 3 — Cross-check Audit claims
+
+For each Audit P0/P1, grep the log yourself. If Audit cites a line that does not exist or misreads it → **REJECT**.
+
+If Audit says PASS but log shows `[QT][ERROR] gather crashed` or `list_rows=0` all session → **REJECT PASS**.
+
+## Step 4 — Only then implement
+
+- Implement **only** items that survived cross-check.
+- Do not add Audit's "nice to have" or structural refactors unless handoff marks P0/P1.
+- After ship: `_ship_check.ps1` + `_wipe_game_logs.ps1 -Version X.Y.Z`.
+
+## Reply when rejecting
+
+```
+AUDIT REJECTED — incomplete handoff
+Missing: [bullets]
+Builder read log: [MOD_VERSION, list_rows, errors, layout line]
+Coordinator: send Audit 1 back for full pass (thermo-nuclear-audit-every-time.mdc + SKILL.md).
+No code changes made.
+```

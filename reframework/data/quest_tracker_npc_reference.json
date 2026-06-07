@@ -1,0 +1,7174 @@
+{
+  "version": 1,
+  "readonly": true,
+  "source": "CrowdDensityOverhaul.lua (reference only — not loaded by quest mod at runtime)",
+  "note": "enum = app.CharacterID field name. Numeric CharaID differs — resolve in-game via CharacterID enum or GUIBase.getName. Use when manually filling quest_tracker_meta chara_names.",
+  "counts": {
+    "total": 1018,
+    "story_ch310": 85
+  },
+  "categories": {
+    "story_ch310": [
+      {
+        "enum": "ch310000",
+        "name": "Allard",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310001",
+        "name": "Waldhar",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310002",
+        "name": "Wilhelmina",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310003",
+        "name": "Sven",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310004",
+        "name": "Disa",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310005",
+        "name": "Patrick",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310006",
+        "name": "Brant",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310007",
+        "name": "Rodge",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310008",
+        "name": "Darragh",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310009",
+        "name": "Phaesus",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310010",
+        "name": "Bermudo",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310011",
+        "name": "Menella",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310012",
+        "name": "The Dragonforged",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310013",
+        "name": "Luz",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310014",
+        "name": "Rivage Elder",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310015",
+        "name": "Rothais",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310016",
+        "name": "Beren",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310017",
+        "name": "Glyndwr",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310018",
+        "name": "Taliesin",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310019",
+        "name": "Doireann",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310020",
+        "name": "Sigurd",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310021",
+        "name": "Martin",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310022",
+        "name": "Ian",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310023",
+        "name": "Norbert",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310024",
+        "name": "Olven",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310025",
+        "name": "Sara",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310026",
+        "name": "Brokkr",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310027",
+        "name": "Trysha",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310028",
+        "name": "Eini",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310029",
+        "name": "Eino",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310030",
+        "name": "Myrddin",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310031",
+        "name": "Cliodhna",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310032",
+        "name": "Gautstafr",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310033",
+        "name": "Elena",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310034",
+        "name": "Nadinia",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310035",
+        "name": "Irmhild",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310036",
+        "name": "Benjamin",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310037",
+        "name": "Dietrich",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310038",
+        "name": "Simon",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310039",
+        "name": "Augustin",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310040",
+        "name": "Flora",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310041",
+        "name": "Ernesto",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310042",
+        "name": "Margit",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310043",
+        "name": "Fyoran",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310044",
+        "name": "Jonas",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310045",
+        "name": "Albert",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310046",
+        "name": "Hilda",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310047",
+        "name": "Benton",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310048",
+        "name": "Celina",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310049",
+        "name": "Kendrick",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310050",
+        "name": "Malcolm",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310051",
+        "name": "Lubomir",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310052",
+        "name": "Radcliff",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310053",
+        "name": "Jehan",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310054",
+        "name": "Bruno",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310055",
+        "name": "Daphne",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310056",
+        "name": "Sebastian",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310057",
+        "name": "Vidal",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310058",
+        "name": "Cyrus",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310059",
+        "name": "Adelina",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310060",
+        "name": "Godric",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310061",
+        "name": "Mildred",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310062",
+        "name": "Klaus",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310063",
+        "name": "Morris",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310064",
+        "name": "Lamond",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310065",
+        "name": "Jarle",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310066",
+        "name": "Isaac",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310067",
+        "name": "Ibrahim",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310068",
+        "name": "Fulvio",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310069",
+        "name": "Herman",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310070",
+        "name": "Offulve",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310071",
+        "name": "Everard",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310072",
+        "name": "Gregor",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310073",
+        "name": "Ulrika",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310074",
+        "name": "Pathfinder",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310075",
+        "name": "Hugo",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310076",
+        "name": "Lanzo",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310077",
+        "name": "Ambrosius",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310078",
+        "name": "Raghnall",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310079",
+        "name": "Rook",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310080",
+        "name": "Fiska",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310081",
+        "name": "Lennart",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310082",
+        "name": "Vera",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310086",
+        "name": "Srail",
+        "tier": "story",
+        "region": "story_ch310"
+      },
+      {
+        "enum": "ch310087",
+        "name": "?",
+        "tier": "story",
+        "region": "story_ch310"
+      }
+    ],
+    "oxcart": [
+      {
+        "enum": "ch300055",
+        "name": "Bradley",
+        "tier": "essential_whitelist",
+        "region": "oxcart"
+      },
+      {
+        "enum": "ch300056",
+        "name": "Margot",
+        "tier": "essential_whitelist",
+        "region": "oxcart"
+      },
+      {
+        "enum": "ch300057",
+        "name": "Jose",
+        "tier": "essential_whitelist",
+        "region": "oxcart"
+      },
+      {
+        "enum": "ch300258",
+        "name": "Behn",
+        "tier": "essential_whitelist",
+        "region": "oxcart"
+      },
+      {
+        "enum": "ch300260",
+        "name": "Agathe",
+        "tier": "essential_whitelist",
+        "region": "oxcart"
+      },
+      {
+        "enum": "ch300291",
+        "name": "Niann",
+        "tier": "essential_whitelist",
+        "region": "oxcart"
+      },
+      {
+        "enum": "ch300298",
+        "name": "Nikk",
+        "tier": "essential_whitelist",
+        "region": "oxcart"
+      },
+      {
+        "enum": "ch300367",
+        "name": "Antonio",
+        "tier": "essential_whitelist",
+        "region": "oxcart"
+      },
+      {
+        "enum": "ch300369",
+        "name": "Jaqueline",
+        "tier": "essential_whitelist",
+        "region": "oxcart"
+      },
+      {
+        "enum": "ch300383",
+        "name": "Chaque",
+        "tier": "essential_whitelist",
+        "region": "oxcart"
+      },
+      {
+        "enum": "ch300545",
+        "name": "Kodey",
+        "tier": "essential_whitelist",
+        "region": "oxcart"
+      },
+      {
+        "enum": "ch300558",
+        "name": "Clara",
+        "tier": "essential_whitelist",
+        "region": "oxcart"
+      },
+      {
+        "enum": "ch300793",
+        "name": "Igon",
+        "tier": "essential_whitelist",
+        "region": "oxcart"
+      },
+      {
+        "enum": "ch300794",
+        "name": "Ecletta",
+        "tier": "essential_whitelist",
+        "region": "oxcart"
+      },
+      {
+        "enum": "ch300795",
+        "name": "Gustavo",
+        "tier": "essential_whitelist",
+        "region": "oxcart"
+      },
+      {
+        "enum": "ch300796",
+        "name": "Jordan",
+        "tier": "essential_whitelist",
+        "region": "oxcart"
+      },
+      {
+        "enum": "ch300797",
+        "name": "Asgard",
+        "tier": "essential_whitelist",
+        "region": "oxcart"
+      },
+      {
+        "enum": "ch300798",
+        "name": "Senia",
+        "tier": "essential_whitelist",
+        "region": "oxcart"
+      },
+      {
+        "enum": "ch300799",
+        "name": "Gostoc",
+        "tier": "essential_whitelist",
+        "region": "oxcart"
+      },
+      {
+        "enum": "ch300800",
+        "name": "Anphina",
+        "tier": "essential_whitelist",
+        "region": "oxcart"
+      },
+      {
+        "enum": "ch300801",
+        "name": "Ionis",
+        "tier": "essential_whitelist",
+        "region": "oxcart"
+      },
+      {
+        "enum": "ch300802",
+        "name": "Valen",
+        "tier": "essential_whitelist",
+        "region": "oxcart"
+      },
+      {
+        "enum": "ch300803",
+        "name": "Tram",
+        "tier": "essential_whitelist",
+        "region": "oxcart"
+      },
+      {
+        "enum": "ch300804",
+        "name": "Kiara",
+        "tier": "essential_whitelist",
+        "region": "oxcart"
+      }
+    ],
+    "shops_services": [],
+    "sudden_quest_vernworth": [
+      {
+        "enum": "ch300070",
+        "name": "Lindsay",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300099",
+        "name": "Riddick",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300100",
+        "name": "Veronika",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300106",
+        "name": "Raymond",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300107",
+        "name": "Liam",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300108",
+        "name": "Miles",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300109",
+        "name": "Robert",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300135",
+        "name": "Leander",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300136",
+        "name": "Rochus",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300179",
+        "name": "Ehtgren",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300197",
+        "name": "Lorraine",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300368",
+        "name": "Willard",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300412",
+        "name": "Derek",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300413",
+        "name": "Donne",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300416",
+        "name": "Ryuka",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300417",
+        "name": "Bastian",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300423",
+        "name": "Annette",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300426",
+        "name": "Emoa",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300427",
+        "name": "Roxanne",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300430",
+        "name": "Sella",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300431",
+        "name": "Marielle",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300449",
+        "name": "Ranvelt",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300450",
+        "name": "Pietro",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300451",
+        "name": "Joachim",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300452",
+        "name": "Ashleigh",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300453",
+        "name": "Mona",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300455",
+        "name": "Ingrid",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300456",
+        "name": "Roy",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300457",
+        "name": "Kurtis",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300458",
+        "name": "Jho",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300464",
+        "name": "Eternna",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300465",
+        "name": "Amie",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300466",
+        "name": "Sandra",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300467",
+        "name": "Juliana",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300468",
+        "name": "Josephine",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300469",
+        "name": "Marjory",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300470",
+        "name": "Rachel",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300689",
+        "name": "Margus",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300690",
+        "name": "Azorka",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300692",
+        "name": "Zettra",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300693",
+        "name": "Barkin",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300884",
+        "name": "Missha",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300888",
+        "name": "Marlene",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300920",
+        "name": "Grouillard",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300921",
+        "name": "Schwantz",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300922",
+        "name": "Ksenia",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300923",
+        "name": "Brellia",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300924",
+        "name": "Monet",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300471",
+        "name": "Adorr",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300473",
+        "name": "Lingen",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300475",
+        "name": "Bordeau",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300476",
+        "name": "Navvan",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300477",
+        "name": "Azell",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300478",
+        "name": "Frey",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300479",
+        "name": "Asam",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300481",
+        "name": "Majaff",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300482",
+        "name": "Leigh",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300484",
+        "name": "Alexei",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300489",
+        "name": "Bonita",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300490",
+        "name": "Sheela",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300492",
+        "name": "Amelia",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300493",
+        "name": "Bianka",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300495",
+        "name": "Sibyl",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300496",
+        "name": "Kitry",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300497",
+        "name": "Cynthia",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300498",
+        "name": "Merrida",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300499",
+        "name": "Raja",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300500",
+        "name": "Beralta",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300501",
+        "name": "Gaiana",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300502",
+        "name": "Marina",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300525",
+        "name": "Gonzalo",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300526",
+        "name": "Madhif",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300527",
+        "name": "Adib",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300528",
+        "name": "Nonna",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300529",
+        "name": "Nicolette",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300531",
+        "name": "Sahl",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300532",
+        "name": "Rommes",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300533",
+        "name": "Hassel",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300534",
+        "name": "Jansen",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300535",
+        "name": "Tatiana",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300536",
+        "name": "Lisse",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300540",
+        "name": "Enoch",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300541",
+        "name": "Travvers",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300542",
+        "name": "Orlando",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300543",
+        "name": "Clarence",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300544",
+        "name": "Deegan",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300548",
+        "name": "Lynne",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300549",
+        "name": "Kasey",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300550",
+        "name": "Glennda",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300551",
+        "name": "Zoie",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300552",
+        "name": "Irma",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300553",
+        "name": "Annabel",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300554",
+        "name": "Karrin",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300555",
+        "name": "Chelsea",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300556",
+        "name": "Fredrika",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300557",
+        "name": "Alexandra",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300559",
+        "name": "Lisha",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300560",
+        "name": "Chloe",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300561",
+        "name": "Deo areas",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      },
+      {
+        "enum": "ch300567",
+        "name": "Morganna",
+        "tier": "essential_whitelist",
+        "region": "sudden_quest_vernworth"
+      }
+    ],
+    "castle_palace_vernworth": [
+      {
+        "enum": "ch300094",
+        "name": "Humphrey",
+        "tier": "essential_whitelist",
+        "region": "castle_palace_vernworth"
+      },
+      {
+        "enum": "ch300072",
+        "name": "Nem",
+        "tier": "essential_whitelist",
+        "region": "castle_palace_vernworth"
+      },
+      {
+        "enum": "ch300562",
+        "name": "Nothrais",
+        "tier": "essential_whitelist",
+        "region": "castle_palace_vernworth"
+      },
+      {
+        "enum": "ch300074",
+        "name": "Nox",
+        "tier": "essential_whitelist",
+        "region": "castle_palace_vernworth"
+      },
+      {
+        "enum": "ch300073",
+        "name": "Rex",
+        "tier": "essential_whitelist",
+        "region": "castle_palace_vernworth"
+      },
+      {
+        "enum": "ch300071",
+        "name": "Tarmo",
+        "tier": "essential_whitelist",
+        "region": "castle_palace_vernworth"
+      }
+    ],
+    "vernworth_ambient": [
+      {
+        "enum": "ch300199",
+        "name": "Abraham",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300067",
+        "name": "Achille",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300722",
+        "name": "Aguilera",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300150",
+        "name": "Aimee",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300110",
+        "name": "Aisha",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300036",
+        "name": "Akheem",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300308",
+        "name": "Alex",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300201",
+        "name": "Alexander",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300156",
+        "name": "Alois",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300443",
+        "name": "Amanda",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300677",
+        "name": "Anastasia",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300808",
+        "name": "Anya",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300356",
+        "name": "Ariadne",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300685",
+        "name": "Arkus",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300420",
+        "name": "Arno",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300027",
+        "name": "Arnold",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300463",
+        "name": "Aurgie",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300439",
+        "name": "Austin",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300735",
+        "name": "Azula",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300309",
+        "name": "Barton",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300037",
+        "name": "Benedict",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300297",
+        "name": "Berkut",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300026",
+        "name": "Bernall",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300028",
+        "name": "Billam",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300214",
+        "name": "Birgit",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300675",
+        "name": "Braun",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300144",
+        "name": "Brenda",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300213",
+        "name": "Brian",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300687",
+        "name": "Brounen",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300461",
+        "name": "Burnns",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300805",
+        "name": "Cayan",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300669",
+        "name": "Cecili",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300425",
+        "name": "Chantie",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300310",
+        "name": "Charley",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300190",
+        "name": "Charlotte",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300441",
+        "name": "Clyde",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300029",
+        "name": "Cragg",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300293",
+        "name": "Dagras",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300807",
+        "name": "Daimon",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300063",
+        "name": "Dann",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300670",
+        "name": "Dean",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300180",
+        "name": "Dimitri",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300462",
+        "name": "Dommel",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300718",
+        "name": "Donovan",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300211",
+        "name": "Dorothy",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300311",
+        "name": "Dylan",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300678",
+        "name": "Ecktarina",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300152",
+        "name": "Edda",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300013",
+        "name": "Edwarr",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300410",
+        "name": "Edwin",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300206",
+        "name": "Eliza",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300189",
+        "name": "Emile",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300031",
+        "name": "Etzo",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300202",
+        "name": "Eugene",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300435",
+        "name": "Evelyn",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300158",
+        "name": "Ewan",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300424",
+        "name": "Fabia",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300720",
+        "name": "Fedrico",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300175",
+        "name": "Fiachra",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300739",
+        "name": "Finnel",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300032",
+        "name": "Franc",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300433",
+        "name": "Francisca",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300218",
+        "name": "Franklin",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300312",
+        "name": "Frantz",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300200",
+        "name": "Friedrich",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300411",
+        "name": "Frio",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300674",
+        "name": "Frosst",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300737",
+        "name": "Ganorie",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300460",
+        "name": "Garrack",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300440",
+        "name": "Garrett",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300039",
+        "name": "George",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300104",
+        "name": "Gibran",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300012",
+        "name": "Giovanni",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300217",
+        "name": "Gisela",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300882",
+        "name": "Guerrero",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300160",
+        "name": "Gunther",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300024",
+        "name": "Gwen",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300679",
+        "name": "Hanspeter",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300148",
+        "name": "Harvey",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300315",
+        "name": "Haymish",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300020",
+        "name": "Heinz",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300017",
+        "name": "Henrietta",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300723",
+        "name": "Herald",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300688",
+        "name": "Herwicke",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300680",
+        "name": "Hildebrecht",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300219",
+        "name": "Hjalmar",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300210",
+        "name": "Holand",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300314",
+        "name": "Hollis",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300731",
+        "name": "Hount",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300409",
+        "name": "Howard",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300188",
+        "name": "Irena",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300437",
+        "name": "Irving",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300768",
+        "name": "Ishburn",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300444",
+        "name": "Ivanna",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300034",
+        "name": "Jak",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300316",
+        "name": "James",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300212",
+        "name": "Jarvis",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300102",
+        "name": "Jenniferr",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300419",
+        "name": "Jeremy",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300025",
+        "name": "Jessika",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300893",
+        "name": "Jesslia",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300196",
+        "name": "Jimmi",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300064",
+        "name": "Joel",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300159",
+        "name": "Johannes",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300671",
+        "name": "Judas",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300198",
+        "name": "Karl",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300207",
+        "name": "Karoline",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300186",
+        "name": "Katerina",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300447",
+        "name": "Katrina",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300276",
+        "name": "Keila",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300359",
+        "name": "Kellen",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300296",
+        "name": "Kenneth",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300442",
+        "name": "Kevine",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300454",
+        "name": "Kittey",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300171",
+        "name": "Klark",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300209",
+        "name": "Klein",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300691",
+        "name": "Kleyna",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300014",
+        "name": "Konstantin",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300191",
+        "name": "Landar",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300154",
+        "name": "Lawrence",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300673",
+        "name": "Leo",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300422",
+        "name": "Leslie",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300358",
+        "name": "Linda",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300153",
+        "name": "Lottie",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300208",
+        "name": "Lucia",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300736",
+        "name": "Luigino",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300850",
+        "name": "Lysetta",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300272",
+        "name": "Makenzie",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300295",
+        "name": "Mansenn",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300432",
+        "name": "Margaret",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300101",
+        "name": "Marissa",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300259",
+        "name": "Marshall",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300861",
+        "name": "Martha",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300428",
+        "name": "Midna",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300694",
+        "name": "Mikis",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300215",
+        "name": "Mirabeau",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300340",
+        "name": "Mirthe",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300155",
+        "name": "Monika",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300274",
+        "name": "Montague",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300132",
+        "name": "Mosse",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300732",
+        "name": "Naela",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300726",
+        "name": "Nahl",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300194",
+        "name": "Nannsi",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300339",
+        "name": "Natasha",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300294",
+        "name": "Navil",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300686",
+        "name": "Nebiru",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300733",
+        "name": "Nikita",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300015",
+        "name": "Nikolas",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300357",
+        "name": "Nirvane",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300769",
+        "name": "Nitra",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300062",
+        "name": "Norman",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300446",
+        "name": "Olivia",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300414",
+        "name": "Orellian",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300143",
+        "name": "Oswald",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300810",
+        "name": "Outena",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300098",
+        "name": "Pate",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300408",
+        "name": "Pein",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300193",
+        "name": "Peyton",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300038",
+        "name": "Phillippe",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300216",
+        "name": "Preston",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300174",
+        "name": "Rance",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300415",
+        "name": "Raul",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300429",
+        "name": "Rebekka",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300421",
+        "name": "Richare",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300273",
+        "name": "Richmond",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300149",
+        "name": "Rick",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300103",
+        "name": "Rionne",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300035",
+        "name": "Ritton",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300069",
+        "name": "Roddie",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300010",
+        "name": "Roland",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300097",
+        "name": "Rolf",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300347",
+        "name": "Roman",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300011",
+        "name": "Ronald",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300277",
+        "name": "Russell",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300809",
+        "name": "Sachatt",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300776",
+        "name": "Salvatore",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300019",
+        "name": "Samantha",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300018",
+        "name": "Scarlett",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300738",
+        "name": "Schieble",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300721",
+        "name": "Segnyth",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300434",
+        "name": "Serra",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300185",
+        "name": "Severino",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300022",
+        "name": "Shaun",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300719",
+        "name": "Siegvalt",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300000",
+        "name": "Silas",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300033",
+        "name": "Sonia",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300770",
+        "name": "Sovan",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300728",
+        "name": "Sover",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300065",
+        "name": "Stephen",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300023",
+        "name": "Stitalv",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300436",
+        "name": "Straffe",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300773",
+        "name": "Suabek",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300040",
+        "name": "Talib",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300192",
+        "name": "Tania",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300016",
+        "name": "Teodor",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300418",
+        "name": "Thed",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300360",
+        "name": "Thiemothee",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300448",
+        "name": "Thom",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300030",
+        "name": "Thurstan",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300313",
+        "name": "Thurston",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300275",
+        "name": "Tiffanie",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300195",
+        "name": "Todd",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300734",
+        "name": "Varsella",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300187",
+        "name": "Viktor",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300668",
+        "name": "Viola",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300151",
+        "name": "Vlasiy",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300438",
+        "name": "Wade",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300068",
+        "name": "Walt",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300445",
+        "name": "Wanda",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300676",
+        "name": "Waz",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300021",
+        "name": "William",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      },
+      {
+        "enum": "ch300372",
+        "name": "Zennan",
+        "tier": "essential_whitelist",
+        "region": "vernworth_ambient"
+      }
+    ],
+    "bakbattahl_ambient": [
+      {
+        "enum": "ch300777",
+        "name": "Adrea",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300140",
+        "name": "Akakios",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300515",
+        "name": "Akram",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300511",
+        "name": "Alezio",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300384",
+        "name": "Alque",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300507",
+        "name": "Amir",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300491",
+        "name": "Aveline",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300546",
+        "name": "Bakr",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300508",
+        "name": "Bertran",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300931",
+        "name": "Bizenta",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300932",
+        "name": "Cadmia",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300373",
+        "name": "Corette",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300778",
+        "name": "Corlatta",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300513",
+        "name": "Cy",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300512",
+        "name": "Dixon",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300503",
+        "name": "Dorica",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300161",
+        "name": "Earland",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300346",
+        "name": "Ekratt",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300518",
+        "name": "Elcela",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300169",
+        "name": "Esmerelda",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300505",
+        "name": "Eva",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300772",
+        "name": "Extia",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300474",
+        "name": "Falgo",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300563",
+        "name": "Farooq",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300539",
+        "name": "Farrell",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300504",
+        "name": "Felicia",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300521",
+        "name": "Fern",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300283",
+        "name": "Glintt",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300925",
+        "name": "Golfaz",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300480",
+        "name": "Gomez",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300076",
+        "name": "Guillaume",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300780",
+        "name": "Hamish",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300514",
+        "name": "Hans",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300524",
+        "name": "Hera",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300142",
+        "name": "Hillaire",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300510",
+        "name": "Hughie",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300928",
+        "name": "Isaas",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300517",
+        "name": "Johanna",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300494",
+        "name": "Kaeyla",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300775",
+        "name": "Karlheinz",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300345",
+        "name": "Karnel",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300509",
+        "name": "Keane",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300163",
+        "name": "Keith",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300522",
+        "name": "Klaudia",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300516",
+        "name": "Levohk",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300327",
+        "name": "Lillian",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300519",
+        "name": "Logge",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300472",
+        "name": "Luis",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300934",
+        "name": "Lyailim",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300506",
+        "name": "Madeline",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300487",
+        "name": "Magorr",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300165",
+        "name": "Matthieu",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300696",
+        "name": "Maurits",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300520",
+        "name": "Millei",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300547",
+        "name": "Minerva",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300929",
+        "name": "Mira",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300781",
+        "name": "Mulka",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300282",
+        "name": "Nabrah",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300326",
+        "name": "Niles",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300284",
+        "name": "Nomos",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300168",
+        "name": "Orley",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300167",
+        "name": "Pearl",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300779",
+        "name": "Peggy",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300170",
+        "name": "Raelia",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300488",
+        "name": "Rakim",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300166",
+        "name": "Rod",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300130",
+        "name": "Roger",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300281",
+        "name": "Scario",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300927",
+        "name": "Strannd",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300537",
+        "name": "Taleef",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300771",
+        "name": "Targa",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300538",
+        "name": "Theo",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300485",
+        "name": "Trekk",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300162",
+        "name": "Vachss",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300483",
+        "name": "Vandann",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300926",
+        "name": "Varga",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300695",
+        "name": "Vergil",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      },
+      {
+        "enum": "ch300930",
+        "name": "Yuna",
+        "tier": "essential_whitelist",
+        "region": "bakbattahl_ambient"
+      }
+    ],
+    "wandering": [
+      {
+        "enum": "ch300348",
+        "name": "Abdul",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300838",
+        "name": "Aelia",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300639",
+        "name": "Alessa",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300628",
+        "name": "Alphonse",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300652",
+        "name": "Altanna",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300667",
+        "name": "Arletta",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300133",
+        "name": "Ashe",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300827",
+        "name": "Audra",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300832",
+        "name": "Aurelia",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300655",
+        "name": "Aurelio",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300352",
+        "name": "Bahram",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300812",
+        "name": "Bakhtiar",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300814",
+        "name": "Billiam",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300621",
+        "name": "Blythe",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300853",
+        "name": "Boen",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300232",
+        "name": "Borden",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300134",
+        "name": "Brefft",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300633",
+        "name": "Bridget",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300790",
+        "name": "Brink",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300635",
+        "name": "Catherine",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300816",
+        "name": "Catrey",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300648",
+        "name": "Centina",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300231",
+        "name": "Daniella",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300642",
+        "name": "Daury",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300837",
+        "name": "Davis",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300818",
+        "name": "Demetrio",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300641",
+        "name": "Dinniel",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300613",
+        "name": "Dinno",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300645",
+        "name": "Donald",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300823",
+        "name": "Dorias",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300666",
+        "name": "Duke",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300615",
+        "name": "Dulles",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300788",
+        "name": "Eef",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300817",
+        "name": "Eklon",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300353",
+        "name": "Emerson",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300626",
+        "name": "Erik",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300785",
+        "name": "Eurius",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300822",
+        "name": "Evereck",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300815",
+        "name": "Evron",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300811",
+        "name": "Ezekias",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300622",
+        "name": "Felix",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300855",
+        "name": "Flamure",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300349",
+        "name": "Folka",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300656",
+        "name": "Forrest",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300610",
+        "name": "Galahad",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300176",
+        "name": "Gallad",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300643",
+        "name": "Galmul",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300664",
+        "name": "Ganora",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300829",
+        "name": "Gargant",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300813",
+        "name": "Garmin",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300654",
+        "name": "Geoff",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300830",
+        "name": "Gideon",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300640",
+        "name": "Gilmir",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300657",
+        "name": "Gus",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300355",
+        "name": "Harland",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300826",
+        "name": "Harnett",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300229",
+        "name": "Hazell",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300620",
+        "name": "Hoffman",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300630",
+        "name": "Ilona",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300836",
+        "name": "Iniesta",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300820",
+        "name": "Isla",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300608",
+        "name": "Janne",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300612",
+        "name": "Jenessa",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300637",
+        "name": "Jill",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300350",
+        "name": "Johan",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300629",
+        "name": "Johnson",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300632",
+        "name": "Kiera",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300617",
+        "name": "Kinno",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300230",
+        "name": "Kishore",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300607",
+        "name": "Kleis",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300821",
+        "name": "Kona",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300233",
+        "name": "Korban",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300857",
+        "name": "Lieke",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300614",
+        "name": "Luida",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300337",
+        "name": "Luz",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300856",
+        "name": "Machares",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300634",
+        "name": "Matilda",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300663",
+        "name": "Mell",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300638",
+        "name": "Meredia",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300661",
+        "name": "Miguel",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300858",
+        "name": "Moderina",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300609",
+        "name": "Morce",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300819",
+        "name": "Narcyz",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300649",
+        "name": "Narrouga",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300824",
+        "name": "Niam",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300351",
+        "name": "Oliver",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300791",
+        "name": "Ortansa",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300659",
+        "name": "Paelle",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300662",
+        "name": "Paola",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300852",
+        "name": "Parsimon",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300831",
+        "name": "Phiellma",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300787",
+        "name": "Pierce",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300324",
+        "name": "Quentin",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300825",
+        "name": "Quikkel",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300625",
+        "name": "Ramon",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300611",
+        "name": "Ramsey",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300336",
+        "name": "Regina",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300623",
+        "name": "Reijo",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300616",
+        "name": "Renton",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300646",
+        "name": "Riley",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300334",
+        "name": "Rolph",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300665",
+        "name": "Rowan",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300624",
+        "name": "Sanchen",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300325",
+        "name": "Sasha",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300619",
+        "name": "Senna",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300833",
+        "name": "Shnoss",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300354",
+        "name": "Sidney",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300618",
+        "name": "Siobhan",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300792",
+        "name": "Sora",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300828",
+        "name": "Stollan",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300636",
+        "name": "Suzan",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300658",
+        "name": "Svereth",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300834",
+        "name": "Tacoma",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300786",
+        "name": "Varmont",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300789",
+        "name": "Verona",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300651",
+        "name": "Vinevia",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300835",
+        "name": "Zuchna",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      },
+      {
+        "enum": "ch300631",
+        "name": "Zyanya",
+        "tier": "essential_whitelist",
+        "region": "wandering"
+      }
+    ],
+    "melve": [
+      {
+        "enum": "ch300118",
+        "name": "Abigail",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300712",
+        "name": "Agricio",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300704",
+        "name": "Algard",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300262",
+        "name": "Amr",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300379",
+        "name": "Amritta",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300900",
+        "name": "Astia",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300713",
+        "name": "Banford",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300699",
+        "name": "Bertil",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300124",
+        "name": "Capella",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300706",
+        "name": "Clarion",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300397",
+        "name": "Clarith",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300899",
+        "name": "Dajiel",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300129",
+        "name": "Dalton",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300710",
+        "name": "Dortmund",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300774",
+        "name": "Flander",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300116",
+        "name": "Gantt",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300700",
+        "name": "Gaute",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300896",
+        "name": "Gerare",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300127",
+        "name": "Graham",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300290",
+        "name": "Gretta",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300898",
+        "name": "Guiles",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300702",
+        "name": "Gyas",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300125",
+        "name": "Hartley",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300708",
+        "name": "Hayworth",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300126",
+        "name": "Heston",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300396",
+        "name": "Imelda",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300895",
+        "name": "Innes",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300709",
+        "name": "Jazeps",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300265",
+        "name": "Jonathan",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300703",
+        "name": "Josia",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300897",
+        "name": "Kaikhosru",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300115",
+        "name": "Kalle",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300714",
+        "name": "Kalyenti",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300119",
+        "name": "Kamil",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300901",
+        "name": "Kitanya",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300266",
+        "name": "Konan",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300715",
+        "name": "Magellan",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300263",
+        "name": "Marett",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300382",
+        "name": "Marilyn",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300705",
+        "name": "Mauritius",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300698",
+        "name": "Maxell",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300362",
+        "name": "Mia",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300122",
+        "name": "Milton",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300701",
+        "name": "Morton",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300716",
+        "name": "Mykolail",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300707",
+        "name": "Nagil",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300264",
+        "name": "Nina",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300120",
+        "name": "Noah",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300128",
+        "name": "Paul",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300717",
+        "name": "Persor",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300711",
+        "name": "Rakeem",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300123",
+        "name": "Rudolf",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300121",
+        "name": "Sousanna",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300061",
+        "name": "Stanley",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300268",
+        "name": "Suri",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300267",
+        "name": "Vanessa",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      },
+      {
+        "enum": "ch300117",
+        "name": "Vinse",
+        "tier": "essential_whitelist",
+        "region": "melve"
+      }
+    ],
+    "checkpoint_rest_town": [
+      {
+        "enum": "ch300380",
+        "name": "Henricks",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300403",
+        "name": "Lionel",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300002",
+        "name": "Alsa",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300903",
+        "name": "Auclair",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300913",
+        "name": "Christina",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300627",
+        "name": "Dante",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300374",
+        "name": "Edgar",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300300",
+        "name": "Floyd",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300301",
+        "name": "Gassh",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300075",
+        "name": "Gordon",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300322",
+        "name": "Hayne",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300001",
+        "name": "Jacint",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300908",
+        "name": "Kacina",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300910",
+        "name": "Lemone",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300008",
+        "name": "Lutz",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300320",
+        "name": "Lyssandro",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300178",
+        "name": "Moses",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300299",
+        "name": "Ortega",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300912",
+        "name": "Perrine",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300904",
+        "name": "Querick",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300905",
+        "name": "Quince",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300007",
+        "name": "Rikhard",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300177",
+        "name": "Robbe",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300318",
+        "name": "Saverio",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300321",
+        "name": "Seferinno",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300909",
+        "name": "Stella",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300902",
+        "name": "Thierad",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300907",
+        "name": "Thobson",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300323",
+        "name": "Thor",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300004",
+        "name": "Timothy",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300319",
+        "name": "Tobias",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300317",
+        "name": "Toumi",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300911",
+        "name": "Trenka",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300914",
+        "name": "Wemma",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300005",
+        "name": "Xavier",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300906",
+        "name": "Zellin",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      },
+      {
+        "enum": "ch300859",
+        "name": "Zeplin",
+        "tier": "essential_whitelist",
+        "region": "checkpoint_rest_town"
+      }
+    ],
+    "borderwatch": [
+      {
+        "enum": "ch300052",
+        "name": "Phill",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300137",
+        "name": "Accardo",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300059",
+        "name": "Warrick",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300138",
+        "name": "Geoffrey",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300058",
+        "name": "Joshua",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300225",
+        "name": "Justinn",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300009",
+        "name": "Roderick",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300060",
+        "name": "Tristan",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300066",
+        "name": "Otto",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300090",
+        "name": "Auriol",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300105",
+        "name": "Marie",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300157",
+        "name": "Glenna",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300164",
+        "name": "Ezekiel",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300173",
+        "name": "Philbert",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300234",
+        "name": "Kassandra",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300242",
+        "name": "Floris",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300261",
+        "name": "Runne",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300292",
+        "name": "Montgomery",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300335",
+        "name": "Oskar",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300338",
+        "name": "Diana",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300361",
+        "name": "Dudley",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300363",
+        "name": "Zachary",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300364",
+        "name": "Georg",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300366",
+        "name": "Ines",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300371",
+        "name": "Ursula",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300377",
+        "name": "Clovis",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300385",
+        "name": "Neomith",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300386",
+        "name": "Alexia",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300387",
+        "name": "Chandler",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300388",
+        "name": "Eldart",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300389",
+        "name": "Mondaine",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300390",
+        "name": "Tabitha",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300391",
+        "name": "Higgs",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300392",
+        "name": "Grisha",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300393",
+        "name": "Bjorn",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300394",
+        "name": "Bodas",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300395",
+        "name": "Awaran",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300398",
+        "name": "Celeste",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300399",
+        "name": "Beatrice",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300400",
+        "name": "Shakir",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300401",
+        "name": "Kough",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300407",
+        "name": "Walter",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300459",
+        "name": "Delphin",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300486",
+        "name": "Jinn",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300523",
+        "name": "Korinna",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300378",
+        "name": "Mettefere",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300404",
+        "name": "Denny",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300376",
+        "name": "Galian",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300741",
+        "name": "Arkholtz",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300381",
+        "name": "Keaton",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300530",
+        "name": "Lisette",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300644",
+        "name": "Angus",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300647",
+        "name": "Marcello",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300650",
+        "name": "Celica",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300653",
+        "name": "Domingo",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300660",
+        "name": "Evo",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300672",
+        "name": "Norah",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300684",
+        "name": "Folkes",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300724",
+        "name": "Victoria",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300740",
+        "name": "Pella",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300742",
+        "name": "Whitney",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300743",
+        "name": "Sorent",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300744",
+        "name": "Anemone",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300745",
+        "name": "Bartred",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300746",
+        "name": "Aella",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300747",
+        "name": "Fyodor",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300806",
+        "name": "Keltse",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300843",
+        "name": "Cecilia",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300854",
+        "name": "Petra",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300860",
+        "name": "Zonna",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300933",
+        "name": "Yolanda",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300226",
+        "name": "Alcott",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300182",
+        "name": "Anthony",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300725",
+        "name": "Arclad",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300782",
+        "name": "Avlan",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300054",
+        "name": "Brandon",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300681",
+        "name": "Capreth",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300727",
+        "name": "Cesaire",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300184",
+        "name": "Dahlia",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300203",
+        "name": "Damien",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300051",
+        "name": "Edie",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300091",
+        "name": "Eli",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300053",
+        "name": "Enrique",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300784",
+        "name": "Etrika",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300205",
+        "name": "Finn",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300783",
+        "name": "Gaeric",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300096",
+        "name": "Gilbert",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300183",
+        "name": "Heath",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300092",
+        "name": "Holgar",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300730",
+        "name": "Jester",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300204",
+        "name": "Josef",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300227",
+        "name": "Kris",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300181",
+        "name": "Kyrk",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300095",
+        "name": "Liotte",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300228",
+        "name": "Luksa",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300139",
+        "name": "Markus",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300729",
+        "name": "Olphen",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300093",
+        "name": "Randall",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300236",
+        "name": "Shellie",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300235",
+        "name": "Tarkoff",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300333",
+        "name": "Tremaine",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      },
+      {
+        "enum": "ch300682",
+        "name": "Zofie",
+        "tier": "essential_whitelist",
+        "region": "borderwatch"
+      }
+    ],
+    "excavation_site": [
+      {
+        "enum": "ch300765",
+        "name": "Acilia",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300042",
+        "name": "Ahdnel",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300245",
+        "name": "Alfred",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300041",
+        "name": "Andre",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300757",
+        "name": "Assam",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300046",
+        "name": "Barnham",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300256",
+        "name": "Battla",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300751",
+        "name": "Bayern",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300247",
+        "name": "Blade",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300238",
+        "name": "Boris",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300253",
+        "name": "Bouma",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300048",
+        "name": "Croft",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300748",
+        "name": "Cuvall",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300406",
+        "name": "Danton",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300753",
+        "name": "Darhm",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300758",
+        "name": "Devnia",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300286",
+        "name": "Diego",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300767",
+        "name": "Edina",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300289",
+        "name": "Edmilson",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300237",
+        "name": "Edmund",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300047",
+        "name": "Esse",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300249",
+        "name": "Fredey",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300365",
+        "name": "Gabriel",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300752",
+        "name": "Ganver",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300749",
+        "name": "Geloa",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300044",
+        "name": "Gilliam",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300255",
+        "name": "Henderson",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300285",
+        "name": "Henrique",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300755",
+        "name": "Hershey",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300288",
+        "name": "Hildegard",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300257",
+        "name": "Inga",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300244",
+        "name": "Jamilla",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300049",
+        "name": "Jeunesse",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300045",
+        "name": "Kahluya",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300841",
+        "name": "Kaiser",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300840",
+        "name": "Kiena",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300050",
+        "name": "Lax",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300246",
+        "name": "Lyla",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300043",
+        "name": "Lynn",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300762",
+        "name": "Maquia",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300241",
+        "name": "Mellanya",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300252",
+        "name": "Melvin",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300766",
+        "name": "Moana",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300287",
+        "name": "Moftahr",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300754",
+        "name": "Nathaniel",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300250",
+        "name": "Norris",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300254",
+        "name": "Pauline",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300764",
+        "name": "Pladika",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300763",
+        "name": "Quinia",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300248",
+        "name": "Rahnks",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300240",
+        "name": "Reuben",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300243",
+        "name": "Santiago",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300839",
+        "name": "Sevris",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300760",
+        "name": "Signora",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300251",
+        "name": "Tennyson",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300761",
+        "name": "Themlia",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300750",
+        "name": "Theodorus",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300759",
+        "name": "Unica",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300239",
+        "name": "Willem",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      },
+      {
+        "enum": "ch300756",
+        "name": "Zepet",
+        "tier": "essential_whitelist",
+        "region": "excavation_site"
+      }
+    ],
+    "flamebearer_palace": [
+      {
+        "enum": "ch300280",
+        "name": "Abba",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300565",
+        "name": "Archibald",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300575",
+        "name": "Astona",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300566",
+        "name": "Atharv",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300220",
+        "name": "Battrey",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300574",
+        "name": "Benthe",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300172",
+        "name": "Deborah",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300572",
+        "name": "Drothea",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300221",
+        "name": "Eggim",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300305",
+        "name": "Ekkihm",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300307",
+        "name": "Elizabeth",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300568",
+        "name": "Ella",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300080",
+        "name": "Emerich",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300270",
+        "name": "Giselbert",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300279",
+        "name": "Grantt",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300079",
+        "name": "Hubert",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300224",
+        "name": "Jackson",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300271",
+        "name": "Jahd",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300570",
+        "name": "Jarod",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300077",
+        "name": "Jerome",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300278",
+        "name": "Lazare",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300306",
+        "name": "Legga",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300571",
+        "name": "Lion",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300304",
+        "name": "Maxima",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300269",
+        "name": "Pamella",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300564",
+        "name": "Raggos",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300576",
+        "name": "Rivera",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300302",
+        "name": "Robellt",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300223",
+        "name": "Rufus",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300573",
+        "name": "Sanni",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300222",
+        "name": "Sekkah",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300569",
+        "name": "Sirius",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300842",
+        "name": "Tantra",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300303",
+        "name": "Thiem",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      },
+      {
+        "enum": "ch300078",
+        "name": "Yglie",
+        "tier": "essential_whitelist",
+        "region": "flamebearer_palace"
+      }
+    ],
+    "volcanic_island": [
+      {
+        "enum": "ch300141",
+        "name": "Barbas",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300088",
+        "name": "Bertha",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300087",
+        "name": "Blonco",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300868",
+        "name": "Cardash",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300089",
+        "name": "Cesar",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300876",
+        "name": "Clem",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300866",
+        "name": "Cosworth",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300082",
+        "name": "Daison",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300873",
+        "name": "Dracaena",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300865",
+        "name": "Entia",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300919",
+        "name": "Eutoria",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300084",
+        "name": "Garland",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300880",
+        "name": "Garren",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300916",
+        "name": "Gascole",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300864",
+        "name": "Gravas",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300881",
+        "name": "Hakea",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300862",
+        "name": "Idan",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300870",
+        "name": "Ignatz",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300867",
+        "name": "Illia",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300081",
+        "name": "Kimball",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300872",
+        "name": "Kunal",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300086",
+        "name": "Ladnian",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300918",
+        "name": "Loretta",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300343",
+        "name": "Marthe",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300405",
+        "name": "Melissa",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300917",
+        "name": "Messara",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300879",
+        "name": "Messina",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300863",
+        "name": "Muhsina",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300085",
+        "name": "Neveah",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300877",
+        "name": "Paulina",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300875",
+        "name": "Penelope",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300342",
+        "name": "Percival",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300083",
+        "name": "Peter",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300375",
+        "name": "Rozze",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300915",
+        "name": "Tauron",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300869",
+        "name": "Tezinha",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300871",
+        "name": "Tonya",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300344",
+        "name": "Torrence",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300341",
+        "name": "Tyrell",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300874",
+        "name": "Whitaker",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      },
+      {
+        "enum": "ch300878",
+        "name": "Wolt",
+        "tier": "essential_whitelist",
+        "region": "volcanic_island"
+      }
+    ],
+    "sacred_arbor": [
+      {
+        "enum": "ch300577",
+        "name": "Throndir",
+        "tier": "essential_whitelist",
+        "region": "sacred_arbor"
+      },
+      {
+        "enum": "ch300589",
+        "name": "Agrael",
+        "tier": "essential_whitelist",
+        "region": "sacred_arbor"
+      },
+      {
+        "enum": "ch300583",
+        "name": "Amras",
+        "tier": "essential_whitelist",
+        "region": "sacred_arbor"
+      },
+      {
+        "enum": "ch300591",
+        "name": "Caladomia",
+        "tier": "essential_whitelist",
+        "region": "sacred_arbor"
+      },
+      {
+        "enum": "ch300580",
+        "name": "Exelion",
+        "tier": "essential_whitelist",
+        "region": "sacred_arbor"
+      },
+      {
+        "enum": "ch300113",
+        "name": "Fearoth",
+        "tier": "essential_whitelist",
+        "region": "sacred_arbor"
+      },
+      {
+        "enum": "ch300588",
+        "name": "Fiorina",
+        "tier": "essential_whitelist",
+        "region": "sacred_arbor"
+      },
+      {
+        "enum": "ch300585",
+        "name": "Idorial",
+        "tier": "essential_whitelist",
+        "region": "sacred_arbor"
+      },
+      {
+        "enum": "ch300587",
+        "name": "Lenbren",
+        "tier": "essential_whitelist",
+        "region": "sacred_arbor"
+      },
+      {
+        "enum": "ch300579",
+        "name": "Leonel",
+        "tier": "essential_whitelist",
+        "region": "sacred_arbor"
+      },
+      {
+        "enum": "ch300112",
+        "name": "Lindoll",
+        "tier": "essential_whitelist",
+        "region": "sacred_arbor"
+      },
+      {
+        "enum": "ch300114",
+        "name": "Linneisl",
+        "tier": "essential_whitelist",
+        "region": "sacred_arbor"
+      },
+      {
+        "enum": "ch300111",
+        "name": "Luomir",
+        "tier": "essential_whitelist",
+        "region": "sacred_arbor"
+      },
+      {
+        "enum": "ch300590",
+        "name": "Lutia",
+        "tier": "essential_whitelist",
+        "region": "sacred_arbor"
+      },
+      {
+        "enum": "ch300584",
+        "name": "Magrol",
+        "tier": "essential_whitelist",
+        "region": "sacred_arbor"
+      },
+      {
+        "enum": "ch300578",
+        "name": "Myglin",
+        "tier": "essential_whitelist",
+        "region": "sacred_arbor"
+      },
+      {
+        "enum": "ch300586",
+        "name": "Nellas",
+        "tier": "essential_whitelist",
+        "region": "sacred_arbor"
+      },
+      {
+        "enum": "ch300845",
+        "name": "Odhran",
+        "tier": "essential_whitelist",
+        "region": "sacred_arbor"
+      },
+      {
+        "enum": "ch300844",
+        "name": "Seachlann",
+        "tier": "essential_whitelist",
+        "region": "sacred_arbor"
+      },
+      {
+        "enum": "ch300581",
+        "name": "Sivven",
+        "tier": "essential_whitelist",
+        "region": "sacred_arbor"
+      },
+      {
+        "enum": "ch300582",
+        "name": "Tylion",
+        "tier": "essential_whitelist",
+        "region": "sacred_arbor"
+      },
+      {
+        "enum": "ch300592",
+        "name": "Zekloa",
+        "tier": "essential_whitelist",
+        "region": "sacred_arbor"
+      }
+    ],
+    "nameless_village": [
+      {
+        "enum": "ch300605",
+        "name": "Canabella",
+        "tier": "essential_whitelist",
+        "region": "nameless_village"
+      },
+      {
+        "enum": "ch300599",
+        "name": "Elkalim",
+        "tier": "essential_whitelist",
+        "region": "nameless_village"
+      },
+      {
+        "enum": "ch300602",
+        "name": "Eyre",
+        "tier": "essential_whitelist",
+        "region": "nameless_village"
+      },
+      {
+        "enum": "ch300402",
+        "name": "Feith",
+        "tier": "essential_whitelist",
+        "region": "nameless_village"
+      },
+      {
+        "enum": "ch300683",
+        "name": "Flaude",
+        "tier": "essential_whitelist",
+        "region": "nameless_village"
+      },
+      {
+        "enum": "ch300604",
+        "name": "Gyna",
+        "tier": "essential_whitelist",
+        "region": "nameless_village"
+      },
+      {
+        "enum": "ch300593",
+        "name": "Lepak",
+        "tier": "essential_whitelist",
+        "region": "nameless_village"
+      },
+      {
+        "enum": "ch300596",
+        "name": "Levram",
+        "tier": "essential_whitelist",
+        "region": "nameless_village"
+      },
+      {
+        "enum": "ch300601",
+        "name": "Litra",
+        "tier": "essential_whitelist",
+        "region": "nameless_village"
+      },
+      {
+        "enum": "ch300603",
+        "name": "Manna",
+        "tier": "essential_whitelist",
+        "region": "nameless_village"
+      },
+      {
+        "enum": "ch300595",
+        "name": "Romule",
+        "tier": "essential_whitelist",
+        "region": "nameless_village"
+      },
+      {
+        "enum": "ch300606",
+        "name": "Rosy",
+        "tier": "essential_whitelist",
+        "region": "nameless_village"
+      },
+      {
+        "enum": "ch300597",
+        "name": "Solt",
+        "tier": "essential_whitelist",
+        "region": "nameless_village"
+      },
+      {
+        "enum": "ch300598",
+        "name": "Torg",
+        "tier": "essential_whitelist",
+        "region": "nameless_village"
+      },
+      {
+        "enum": "ch300600",
+        "name": "Verdi",
+        "tier": "essential_whitelist",
+        "region": "nameless_village"
+      },
+      {
+        "enum": "ch300131",
+        "name": "Wendy",
+        "tier": "essential_whitelist",
+        "region": "nameless_village"
+      },
+      {
+        "enum": "ch300594",
+        "name": "Zeltas",
+        "tier": "essential_whitelist",
+        "region": "nameless_village"
+      }
+    ],
+    "geyser_hamlet": [
+      {
+        "enum": "ch300887",
+        "name": "Botanika",
+        "tier": "essential_whitelist",
+        "region": "geyser_hamlet"
+      },
+      {
+        "enum": "ch300892",
+        "name": "Cohen",
+        "tier": "essential_whitelist",
+        "region": "geyser_hamlet"
+      },
+      {
+        "enum": "ch300370",
+        "name": "Cortago",
+        "tier": "essential_whitelist",
+        "region": "geyser_hamlet"
+      },
+      {
+        "enum": "ch300886",
+        "name": "Dora",
+        "tier": "essential_whitelist",
+        "region": "geyser_hamlet"
+      },
+      {
+        "enum": "ch300846",
+        "name": "Fonda",
+        "tier": "essential_whitelist",
+        "region": "geyser_hamlet"
+      },
+      {
+        "enum": "ch300851",
+        "name": "Gareth",
+        "tier": "essential_whitelist",
+        "region": "geyser_hamlet"
+      },
+      {
+        "enum": "ch300889",
+        "name": "Gimleth",
+        "tier": "essential_whitelist",
+        "region": "geyser_hamlet"
+      },
+      {
+        "enum": "ch300890",
+        "name": "Sandred",
+        "tier": "essential_whitelist",
+        "region": "geyser_hamlet"
+      },
+      {
+        "enum": "ch300894",
+        "name": "Scloane",
+        "tier": "essential_whitelist",
+        "region": "geyser_hamlet"
+      },
+      {
+        "enum": "ch300883",
+        "name": "Shannon",
+        "tier": "essential_whitelist",
+        "region": "geyser_hamlet"
+      },
+      {
+        "enum": "ch300848",
+        "name": "Sheona",
+        "tier": "essential_whitelist",
+        "region": "geyser_hamlet"
+      },
+      {
+        "enum": "ch300885",
+        "name": "Telestia",
+        "tier": "essential_whitelist",
+        "region": "geyser_hamlet"
+      },
+      {
+        "enum": "ch300891",
+        "name": "Thias",
+        "tier": "essential_whitelist",
+        "region": "geyser_hamlet"
+      },
+      {
+        "enum": "ch300849",
+        "name": "Turcel",
+        "tier": "essential_whitelist",
+        "region": "geyser_hamlet"
+      },
+      {
+        "enum": "ch300847",
+        "name": "Zaft",
+        "tier": "essential_whitelist",
+        "region": "geyser_hamlet"
+      }
+    ],
+    "harve": [
+      {
+        "enum": "ch300328",
+        "name": "Abel",
+        "tier": "essential_whitelist",
+        "region": "harve"
+      },
+      {
+        "enum": "ch300146",
+        "name": "Aizam",
+        "tier": "essential_whitelist",
+        "region": "harve"
+      },
+      {
+        "enum": "ch300697",
+        "name": "Bernstein",
+        "tier": "essential_whitelist",
+        "region": "harve"
+      },
+      {
+        "enum": "ch300332",
+        "name": "Lenna",
+        "tier": "essential_whitelist",
+        "region": "harve"
+      },
+      {
+        "enum": "ch300331",
+        "name": "Megan",
+        "tier": "essential_whitelist",
+        "region": "harve"
+      },
+      {
+        "enum": "ch300145",
+        "name": "Richard",
+        "tier": "essential_whitelist",
+        "region": "harve"
+      },
+      {
+        "enum": "ch300329",
+        "name": "Troia",
+        "tier": "essential_whitelist",
+        "region": "harve"
+      },
+      {
+        "enum": "ch300330",
+        "name": "Whatt",
+        "tier": "essential_whitelist",
+        "region": "harve"
+      },
+      {
+        "enum": "ch300147",
+        "name": "Zoran",
+        "tier": "essential_whitelist",
+        "region": "harve"
+      }
+    ]
+  },
+  "by_name_lower": {
+    "allard": "ch310000",
+    "waldhar": "ch310001",
+    "wilhelmina": "ch310002",
+    "sven": "ch310003",
+    "disa": "ch310004",
+    "patrick": "ch310005",
+    "brant": "ch310006",
+    "rodge": "ch310007",
+    "darragh": "ch310008",
+    "phaesus": "ch310009",
+    "bermudo": "ch310010",
+    "menella": "ch310011",
+    "the dragonforged": "ch310012",
+    "luz": "ch310013",
+    "rivage elder": "ch310014",
+    "rothais": "ch310015",
+    "beren": "ch310016",
+    "glyndwr": "ch310017",
+    "taliesin": "ch310018",
+    "doireann": "ch310019",
+    "sigurd": "ch310020",
+    "martin": "ch310021",
+    "ian": "ch310022",
+    "norbert": "ch310023",
+    "olven": "ch310024",
+    "sara": "ch310025",
+    "brokkr": "ch310026",
+    "trysha": "ch310027",
+    "eini": "ch310028",
+    "eino": "ch310029",
+    "myrddin": "ch310030",
+    "cliodhna": "ch310031",
+    "gautstafr": "ch310032",
+    "elena": "ch310033",
+    "nadinia": "ch310034",
+    "irmhild": "ch310035",
+    "benjamin": "ch310036",
+    "dietrich": "ch310037",
+    "simon": "ch310038",
+    "augustin": "ch310039",
+    "flora": "ch310040",
+    "ernesto": "ch310041",
+    "margit": "ch310042",
+    "fyoran": "ch310043",
+    "jonas": "ch310044",
+    "albert": "ch310045",
+    "hilda": "ch310046",
+    "benton": "ch310047",
+    "celina": "ch310048",
+    "kendrick": "ch310049",
+    "malcolm": "ch310050",
+    "lubomir": "ch310051",
+    "radcliff": "ch310052",
+    "jehan": "ch310053",
+    "bruno": "ch310054",
+    "daphne": "ch310055",
+    "sebastian": "ch310056",
+    "vidal": "ch310057",
+    "cyrus": "ch310058",
+    "adelina": "ch310059",
+    "godric": "ch310060",
+    "mildred": "ch310061",
+    "klaus": "ch310062",
+    "morris": "ch310063",
+    "lamond": "ch310064",
+    "jarle": "ch310065",
+    "isaac": "ch310066",
+    "ibrahim": "ch310067",
+    "fulvio": "ch310068",
+    "herman": "ch310069",
+    "offulve": "ch310070",
+    "everard": "ch310071",
+    "gregor": "ch310072",
+    "ulrika": "ch310073",
+    "pathfinder": "ch310074",
+    "hugo": "ch310075",
+    "lanzo": "ch310076",
+    "ambrosius": "ch310077",
+    "raghnall": "ch310078",
+    "rook": "ch310079",
+    "fiska": "ch310080",
+    "lennart": "ch310081",
+    "vera": "ch310082",
+    "srail": "ch310086",
+    "?": "ch310087",
+    "bradley": "ch300055",
+    "margot": "ch300056",
+    "jose": "ch300057",
+    "behn": "ch300258",
+    "agathe": "ch300260",
+    "niann": "ch300291",
+    "nikk": "ch300298",
+    "antonio": "ch300367",
+    "jaqueline": "ch300369",
+    "chaque": "ch300383",
+    "kodey": "ch300545",
+    "clara": "ch300558",
+    "igon": "ch300793",
+    "ecletta": "ch300794",
+    "gustavo": "ch300795",
+    "jordan": "ch300796",
+    "asgard": "ch300797",
+    "senia": "ch300798",
+    "gostoc": "ch300799",
+    "anphina": "ch300800",
+    "ionis": "ch300801",
+    "valen": "ch300802",
+    "tram": "ch300803",
+    "kiara": "ch300804",
+    "lindsay": "ch300070",
+    "riddick": "ch300099",
+    "veronika": "ch300100",
+    "raymond": "ch300106",
+    "liam": "ch300107",
+    "miles": "ch300108",
+    "robert": "ch300109",
+    "leander": "ch300135",
+    "rochus": "ch300136",
+    "ehtgren": "ch300179",
+    "lorraine": "ch300197",
+    "willard": "ch300368",
+    "derek": "ch300412",
+    "donne": "ch300413",
+    "ryuka": "ch300416",
+    "bastian": "ch300417",
+    "annette": "ch300423",
+    "emoa": "ch300426",
+    "roxanne": "ch300427",
+    "sella": "ch300430",
+    "marielle": "ch300431",
+    "ranvelt": "ch300449",
+    "pietro": "ch300450",
+    "joachim": "ch300451",
+    "ashleigh": "ch300452",
+    "mona": "ch300453",
+    "ingrid": "ch300455",
+    "roy": "ch300456",
+    "kurtis": "ch300457",
+    "jho": "ch300458",
+    "eternna": "ch300464",
+    "amie": "ch300465",
+    "sandra": "ch300466",
+    "juliana": "ch300467",
+    "josephine": "ch300468",
+    "marjory": "ch300469",
+    "rachel": "ch300470",
+    "margus": "ch300689",
+    "azorka": "ch300690",
+    "zettra": "ch300692",
+    "barkin": "ch300693",
+    "missha": "ch300884",
+    "marlene": "ch300888",
+    "grouillard": "ch300920",
+    "schwantz": "ch300921",
+    "ksenia": "ch300922",
+    "brellia": "ch300923",
+    "monet": "ch300924",
+    "adorr": "ch300471",
+    "lingen": "ch300473",
+    "bordeau": "ch300475",
+    "navvan": "ch300476",
+    "azell": "ch300477",
+    "frey": "ch300478",
+    "asam": "ch300479",
+    "majaff": "ch300481",
+    "leigh": "ch300482",
+    "alexei": "ch300484",
+    "bonita": "ch300489",
+    "sheela": "ch300490",
+    "amelia": "ch300492",
+    "bianka": "ch300493",
+    "sibyl": "ch300495",
+    "kitry": "ch300496",
+    "cynthia": "ch300497",
+    "merrida": "ch300498",
+    "raja": "ch300499",
+    "beralta": "ch300500",
+    "gaiana": "ch300501",
+    "marina": "ch300502",
+    "gonzalo": "ch300525",
+    "madhif": "ch300526",
+    "adib": "ch300527",
+    "nonna": "ch300528",
+    "nicolette": "ch300529",
+    "sahl": "ch300531",
+    "rommes": "ch300532",
+    "hassel": "ch300533",
+    "jansen": "ch300534",
+    "tatiana": "ch300535",
+    "lisse": "ch300536",
+    "enoch": "ch300540",
+    "travvers": "ch300541",
+    "orlando": "ch300542",
+    "clarence": "ch300543",
+    "deegan": "ch300544",
+    "lynne": "ch300548",
+    "kasey": "ch300549",
+    "glennda": "ch300550",
+    "zoie": "ch300551",
+    "irma": "ch300552",
+    "annabel": "ch300553",
+    "karrin": "ch300554",
+    "chelsea": "ch300555",
+    "fredrika": "ch300556",
+    "alexandra": "ch300557",
+    "lisha": "ch300559",
+    "chloe": "ch300560",
+    "deo areas": "ch300561",
+    "morganna": "ch300567",
+    "humphrey": "ch300094",
+    "nem": "ch300072",
+    "nothrais": "ch300562",
+    "nox": "ch300074",
+    "rex": "ch300073",
+    "tarmo": "ch300071",
+    "abraham": "ch300199",
+    "achille": "ch300067",
+    "aguilera": "ch300722",
+    "aimee": "ch300150",
+    "aisha": "ch300110",
+    "akheem": "ch300036",
+    "alex": "ch300308",
+    "alexander": "ch300201",
+    "alois": "ch300156",
+    "amanda": "ch300443",
+    "anastasia": "ch300677",
+    "anya": "ch300808",
+    "ariadne": "ch300356",
+    "arkus": "ch300685",
+    "arno": "ch300420",
+    "arnold": "ch300027",
+    "aurgie": "ch300463",
+    "austin": "ch300439",
+    "azula": "ch300735",
+    "barton": "ch300309",
+    "benedict": "ch300037",
+    "berkut": "ch300297",
+    "bernall": "ch300026",
+    "billam": "ch300028",
+    "birgit": "ch300214",
+    "braun": "ch300675",
+    "brenda": "ch300144",
+    "brian": "ch300213",
+    "brounen": "ch300687",
+    "burnns": "ch300461",
+    "cayan": "ch300805",
+    "cecili": "ch300669",
+    "chantie": "ch300425",
+    "charley": "ch300310",
+    "charlotte": "ch300190",
+    "clyde": "ch300441",
+    "cragg": "ch300029",
+    "dagras": "ch300293",
+    "daimon": "ch300807",
+    "dann": "ch300063",
+    "dean": "ch300670",
+    "dimitri": "ch300180",
+    "dommel": "ch300462",
+    "donovan": "ch300718",
+    "dorothy": "ch300211",
+    "dylan": "ch300311",
+    "ecktarina": "ch300678",
+    "edda": "ch300152",
+    "edwarr": "ch300013",
+    "edwin": "ch300410",
+    "eliza": "ch300206",
+    "emile": "ch300189",
+    "etzo": "ch300031",
+    "eugene": "ch300202",
+    "evelyn": "ch300435",
+    "ewan": "ch300158",
+    "fabia": "ch300424",
+    "fedrico": "ch300720",
+    "fiachra": "ch300175",
+    "finnel": "ch300739",
+    "franc": "ch300032",
+    "francisca": "ch300433",
+    "franklin": "ch300218",
+    "frantz": "ch300312",
+    "friedrich": "ch300200",
+    "frio": "ch300411",
+    "frosst": "ch300674",
+    "ganorie": "ch300737",
+    "garrack": "ch300460",
+    "garrett": "ch300440",
+    "george": "ch300039",
+    "gibran": "ch300104",
+    "giovanni": "ch300012",
+    "gisela": "ch300217",
+    "guerrero": "ch300882",
+    "gunther": "ch300160",
+    "gwen": "ch300024",
+    "hanspeter": "ch300679",
+    "harvey": "ch300148",
+    "haymish": "ch300315",
+    "heinz": "ch300020",
+    "henrietta": "ch300017",
+    "herald": "ch300723",
+    "herwicke": "ch300688",
+    "hildebrecht": "ch300680",
+    "hjalmar": "ch300219",
+    "holand": "ch300210",
+    "hollis": "ch300314",
+    "hount": "ch300731",
+    "howard": "ch300409",
+    "irena": "ch300188",
+    "irving": "ch300437",
+    "ishburn": "ch300768",
+    "ivanna": "ch300444",
+    "jak": "ch300034",
+    "james": "ch300316",
+    "jarvis": "ch300212",
+    "jenniferr": "ch300102",
+    "jeremy": "ch300419",
+    "jessika": "ch300025",
+    "jesslia": "ch300893",
+    "jimmi": "ch300196",
+    "joel": "ch300064",
+    "johannes": "ch300159",
+    "judas": "ch300671",
+    "karl": "ch300198",
+    "karoline": "ch300207",
+    "katerina": "ch300186",
+    "katrina": "ch300447",
+    "keila": "ch300276",
+    "kellen": "ch300359",
+    "kenneth": "ch300296",
+    "kevine": "ch300442",
+    "kittey": "ch300454",
+    "klark": "ch300171",
+    "klein": "ch300209",
+    "kleyna": "ch300691",
+    "konstantin": "ch300014",
+    "landar": "ch300191",
+    "lawrence": "ch300154",
+    "leo": "ch300673",
+    "leslie": "ch300422",
+    "linda": "ch300358",
+    "lottie": "ch300153",
+    "lucia": "ch300208",
+    "luigino": "ch300736",
+    "lysetta": "ch300850",
+    "makenzie": "ch300272",
+    "mansenn": "ch300295",
+    "margaret": "ch300432",
+    "marissa": "ch300101",
+    "marshall": "ch300259",
+    "martha": "ch300861",
+    "midna": "ch300428",
+    "mikis": "ch300694",
+    "mirabeau": "ch300215",
+    "mirthe": "ch300340",
+    "monika": "ch300155",
+    "montague": "ch300274",
+    "mosse": "ch300132",
+    "naela": "ch300732",
+    "nahl": "ch300726",
+    "nannsi": "ch300194",
+    "natasha": "ch300339",
+    "navil": "ch300294",
+    "nebiru": "ch300686",
+    "nikita": "ch300733",
+    "nikolas": "ch300015",
+    "nirvane": "ch300357",
+    "nitra": "ch300769",
+    "norman": "ch300062",
+    "olivia": "ch300446",
+    "orellian": "ch300414",
+    "oswald": "ch300143",
+    "outena": "ch300810",
+    "pate": "ch300098",
+    "pein": "ch300408",
+    "peyton": "ch300193",
+    "phillippe": "ch300038",
+    "preston": "ch300216",
+    "rance": "ch300174",
+    "raul": "ch300415",
+    "rebekka": "ch300429",
+    "richare": "ch300421",
+    "richmond": "ch300273",
+    "rick": "ch300149",
+    "rionne": "ch300103",
+    "ritton": "ch300035",
+    "roddie": "ch300069",
+    "roland": "ch300010",
+    "rolf": "ch300097",
+    "roman": "ch300347",
+    "ronald": "ch300011",
+    "russell": "ch300277",
+    "sachatt": "ch300809",
+    "salvatore": "ch300776",
+    "samantha": "ch300019",
+    "scarlett": "ch300018",
+    "schieble": "ch300738",
+    "segnyth": "ch300721",
+    "serra": "ch300434",
+    "severino": "ch300185",
+    "shaun": "ch300022",
+    "siegvalt": "ch300719",
+    "silas": "ch300000",
+    "sonia": "ch300033",
+    "sovan": "ch300770",
+    "sover": "ch300728",
+    "stephen": "ch300065",
+    "stitalv": "ch300023",
+    "straffe": "ch300436",
+    "suabek": "ch300773",
+    "talib": "ch300040",
+    "tania": "ch300192",
+    "teodor": "ch300016",
+    "thed": "ch300418",
+    "thiemothee": "ch300360",
+    "thom": "ch300448",
+    "thurstan": "ch300030",
+    "thurston": "ch300313",
+    "tiffanie": "ch300275",
+    "todd": "ch300195",
+    "varsella": "ch300734",
+    "viktor": "ch300187",
+    "viola": "ch300668",
+    "vlasiy": "ch300151",
+    "wade": "ch300438",
+    "walt": "ch300068",
+    "wanda": "ch300445",
+    "waz": "ch300676",
+    "william": "ch300021",
+    "zennan": "ch300372",
+    "adrea": "ch300777",
+    "akakios": "ch300140",
+    "akram": "ch300515",
+    "alezio": "ch300511",
+    "alque": "ch300384",
+    "amir": "ch300507",
+    "aveline": "ch300491",
+    "bakr": "ch300546",
+    "bertran": "ch300508",
+    "bizenta": "ch300931",
+    "cadmia": "ch300932",
+    "corette": "ch300373",
+    "corlatta": "ch300778",
+    "cy": "ch300513",
+    "dixon": "ch300512",
+    "dorica": "ch300503",
+    "earland": "ch300161",
+    "ekratt": "ch300346",
+    "elcela": "ch300518",
+    "esmerelda": "ch300169",
+    "eva": "ch300505",
+    "extia": "ch300772",
+    "falgo": "ch300474",
+    "farooq": "ch300563",
+    "farrell": "ch300539",
+    "felicia": "ch300504",
+    "fern": "ch300521",
+    "glintt": "ch300283",
+    "golfaz": "ch300925",
+    "gomez": "ch300480",
+    "guillaume": "ch300076",
+    "hamish": "ch300780",
+    "hans": "ch300514",
+    "hera": "ch300524",
+    "hillaire": "ch300142",
+    "hughie": "ch300510",
+    "isaas": "ch300928",
+    "johanna": "ch300517",
+    "kaeyla": "ch300494",
+    "karlheinz": "ch300775",
+    "karnel": "ch300345",
+    "keane": "ch300509",
+    "keith": "ch300163",
+    "klaudia": "ch300522",
+    "levohk": "ch300516",
+    "lillian": "ch300327",
+    "logge": "ch300519",
+    "luis": "ch300472",
+    "lyailim": "ch300934",
+    "madeline": "ch300506",
+    "magorr": "ch300487",
+    "matthieu": "ch300165",
+    "maurits": "ch300696",
+    "millei": "ch300520",
+    "minerva": "ch300547",
+    "mira": "ch300929",
+    "mulka": "ch300781",
+    "nabrah": "ch300282",
+    "niles": "ch300326",
+    "nomos": "ch300284",
+    "orley": "ch300168",
+    "pearl": "ch300167",
+    "peggy": "ch300779",
+    "raelia": "ch300170",
+    "rakim": "ch300488",
+    "rod": "ch300166",
+    "roger": "ch300130",
+    "scario": "ch300281",
+    "strannd": "ch300927",
+    "taleef": "ch300537",
+    "targa": "ch300771",
+    "theo": "ch300538",
+    "trekk": "ch300485",
+    "vachss": "ch300162",
+    "vandann": "ch300483",
+    "varga": "ch300926",
+    "vergil": "ch300695",
+    "yuna": "ch300930",
+    "abdul": "ch300348",
+    "aelia": "ch300838",
+    "alessa": "ch300639",
+    "alphonse": "ch300628",
+    "altanna": "ch300652",
+    "arletta": "ch300667",
+    "ashe": "ch300133",
+    "audra": "ch300827",
+    "aurelia": "ch300832",
+    "aurelio": "ch300655",
+    "bahram": "ch300352",
+    "bakhtiar": "ch300812",
+    "billiam": "ch300814",
+    "blythe": "ch300621",
+    "boen": "ch300853",
+    "borden": "ch300232",
+    "brefft": "ch300134",
+    "bridget": "ch300633",
+    "brink": "ch300790",
+    "catherine": "ch300635",
+    "catrey": "ch300816",
+    "centina": "ch300648",
+    "daniella": "ch300231",
+    "daury": "ch300642",
+    "davis": "ch300837",
+    "demetrio": "ch300818",
+    "dinniel": "ch300641",
+    "dinno": "ch300613",
+    "donald": "ch300645",
+    "dorias": "ch300823",
+    "duke": "ch300666",
+    "dulles": "ch300615",
+    "eef": "ch300788",
+    "eklon": "ch300817",
+    "emerson": "ch300353",
+    "erik": "ch300626",
+    "eurius": "ch300785",
+    "evereck": "ch300822",
+    "evron": "ch300815",
+    "ezekias": "ch300811",
+    "felix": "ch300622",
+    "flamure": "ch300855",
+    "folka": "ch300349",
+    "forrest": "ch300656",
+    "galahad": "ch300610",
+    "gallad": "ch300176",
+    "galmul": "ch300643",
+    "ganora": "ch300664",
+    "gargant": "ch300829",
+    "garmin": "ch300813",
+    "geoff": "ch300654",
+    "gideon": "ch300830",
+    "gilmir": "ch300640",
+    "gus": "ch300657",
+    "harland": "ch300355",
+    "harnett": "ch300826",
+    "hazell": "ch300229",
+    "hoffman": "ch300620",
+    "ilona": "ch300630",
+    "iniesta": "ch300836",
+    "isla": "ch300820",
+    "janne": "ch300608",
+    "jenessa": "ch300612",
+    "jill": "ch300637",
+    "johan": "ch300350",
+    "johnson": "ch300629",
+    "kiera": "ch300632",
+    "kinno": "ch300617",
+    "kishore": "ch300230",
+    "kleis": "ch300607",
+    "kona": "ch300821",
+    "korban": "ch300233",
+    "lieke": "ch300857",
+    "luida": "ch300614",
+    "machares": "ch300856",
+    "matilda": "ch300634",
+    "mell": "ch300663",
+    "meredia": "ch300638",
+    "miguel": "ch300661",
+    "moderina": "ch300858",
+    "morce": "ch300609",
+    "narcyz": "ch300819",
+    "narrouga": "ch300649",
+    "niam": "ch300824",
+    "oliver": "ch300351",
+    "ortansa": "ch300791",
+    "paelle": "ch300659",
+    "paola": "ch300662",
+    "parsimon": "ch300852",
+    "phiellma": "ch300831",
+    "pierce": "ch300787",
+    "quentin": "ch300324",
+    "quikkel": "ch300825",
+    "ramon": "ch300625",
+    "ramsey": "ch300611",
+    "regina": "ch300336",
+    "reijo": "ch300623",
+    "renton": "ch300616",
+    "riley": "ch300646",
+    "rolph": "ch300334",
+    "rowan": "ch300665",
+    "sanchen": "ch300624",
+    "sasha": "ch300325",
+    "senna": "ch300619",
+    "shnoss": "ch300833",
+    "sidney": "ch300354",
+    "siobhan": "ch300618",
+    "sora": "ch300792",
+    "stollan": "ch300828",
+    "suzan": "ch300636",
+    "svereth": "ch300658",
+    "tacoma": "ch300834",
+    "varmont": "ch300786",
+    "verona": "ch300789",
+    "vinevia": "ch300651",
+    "zuchna": "ch300835",
+    "zyanya": "ch300631",
+    "abigail": "ch300118",
+    "agricio": "ch300712",
+    "algard": "ch300704",
+    "amr": "ch300262",
+    "amritta": "ch300379",
+    "astia": "ch300900",
+    "banford": "ch300713",
+    "bertil": "ch300699",
+    "capella": "ch300124",
+    "clarion": "ch300706",
+    "clarith": "ch300397",
+    "dajiel": "ch300899",
+    "dalton": "ch300129",
+    "dortmund": "ch300710",
+    "flander": "ch300774",
+    "gantt": "ch300116",
+    "gaute": "ch300700",
+    "gerare": "ch300896",
+    "graham": "ch300127",
+    "gretta": "ch300290",
+    "guiles": "ch300898",
+    "gyas": "ch300702",
+    "hartley": "ch300125",
+    "hayworth": "ch300708",
+    "heston": "ch300126",
+    "imelda": "ch300396",
+    "innes": "ch300895",
+    "jazeps": "ch300709",
+    "jonathan": "ch300265",
+    "josia": "ch300703",
+    "kaikhosru": "ch300897",
+    "kalle": "ch300115",
+    "kalyenti": "ch300714",
+    "kamil": "ch300119",
+    "kitanya": "ch300901",
+    "konan": "ch300266",
+    "magellan": "ch300715",
+    "marett": "ch300263",
+    "marilyn": "ch300382",
+    "mauritius": "ch300705",
+    "maxell": "ch300698",
+    "mia": "ch300362",
+    "milton": "ch300122",
+    "morton": "ch300701",
+    "mykolail": "ch300716",
+    "nagil": "ch300707",
+    "nina": "ch300264",
+    "noah": "ch300120",
+    "paul": "ch300128",
+    "persor": "ch300717",
+    "rakeem": "ch300711",
+    "rudolf": "ch300123",
+    "sousanna": "ch300121",
+    "stanley": "ch300061",
+    "suri": "ch300268",
+    "vanessa": "ch300267",
+    "vinse": "ch300117",
+    "henricks": "ch300380",
+    "lionel": "ch300403",
+    "alsa": "ch300002",
+    "auclair": "ch300903",
+    "christina": "ch300913",
+    "dante": "ch300627",
+    "edgar": "ch300374",
+    "floyd": "ch300300",
+    "gassh": "ch300301",
+    "gordon": "ch300075",
+    "hayne": "ch300322",
+    "jacint": "ch300001",
+    "kacina": "ch300908",
+    "lemone": "ch300910",
+    "lutz": "ch300008",
+    "lyssandro": "ch300320",
+    "moses": "ch300178",
+    "ortega": "ch300299",
+    "perrine": "ch300912",
+    "querick": "ch300904",
+    "quince": "ch300905",
+    "rikhard": "ch300007",
+    "robbe": "ch300177",
+    "saverio": "ch300318",
+    "seferinno": "ch300321",
+    "stella": "ch300909",
+    "thierad": "ch300902",
+    "thobson": "ch300907",
+    "thor": "ch300323",
+    "timothy": "ch300004",
+    "tobias": "ch300319",
+    "toumi": "ch300317",
+    "trenka": "ch300911",
+    "wemma": "ch300914",
+    "xavier": "ch300005",
+    "zellin": "ch300906",
+    "zeplin": "ch300859",
+    "phill": "ch300052",
+    "accardo": "ch300137",
+    "warrick": "ch300059",
+    "geoffrey": "ch300138",
+    "joshua": "ch300058",
+    "justinn": "ch300225",
+    "roderick": "ch300009",
+    "tristan": "ch300060",
+    "otto": "ch300066",
+    "auriol": "ch300090",
+    "marie": "ch300105",
+    "glenna": "ch300157",
+    "ezekiel": "ch300164",
+    "philbert": "ch300173",
+    "kassandra": "ch300234",
+    "floris": "ch300242",
+    "runne": "ch300261",
+    "montgomery": "ch300292",
+    "oskar": "ch300335",
+    "diana": "ch300338",
+    "dudley": "ch300361",
+    "zachary": "ch300363",
+    "georg": "ch300364",
+    "ines": "ch300366",
+    "ursula": "ch300371",
+    "clovis": "ch300377",
+    "neomith": "ch300385",
+    "alexia": "ch300386",
+    "chandler": "ch300387",
+    "eldart": "ch300388",
+    "mondaine": "ch300389",
+    "tabitha": "ch300390",
+    "higgs": "ch300391",
+    "grisha": "ch300392",
+    "bjorn": "ch300393",
+    "bodas": "ch300394",
+    "awaran": "ch300395",
+    "celeste": "ch300398",
+    "beatrice": "ch300399",
+    "shakir": "ch300400",
+    "kough": "ch300401",
+    "walter": "ch300407",
+    "delphin": "ch300459",
+    "jinn": "ch300486",
+    "korinna": "ch300523",
+    "mettefere": "ch300378",
+    "denny": "ch300404",
+    "galian": "ch300376",
+    "arkholtz": "ch300741",
+    "keaton": "ch300381",
+    "lisette": "ch300530",
+    "angus": "ch300644",
+    "marcello": "ch300647",
+    "celica": "ch300650",
+    "domingo": "ch300653",
+    "evo": "ch300660",
+    "norah": "ch300672",
+    "folkes": "ch300684",
+    "victoria": "ch300724",
+    "pella": "ch300740",
+    "whitney": "ch300742",
+    "sorent": "ch300743",
+    "anemone": "ch300744",
+    "bartred": "ch300745",
+    "aella": "ch300746",
+    "fyodor": "ch300747",
+    "keltse": "ch300806",
+    "cecilia": "ch300843",
+    "petra": "ch300854",
+    "zonna": "ch300860",
+    "yolanda": "ch300933",
+    "alcott": "ch300226",
+    "anthony": "ch300182",
+    "arclad": "ch300725",
+    "avlan": "ch300782",
+    "brandon": "ch300054",
+    "capreth": "ch300681",
+    "cesaire": "ch300727",
+    "dahlia": "ch300184",
+    "damien": "ch300203",
+    "edie": "ch300051",
+    "eli": "ch300091",
+    "enrique": "ch300053",
+    "etrika": "ch300784",
+    "finn": "ch300205",
+    "gaeric": "ch300783",
+    "gilbert": "ch300096",
+    "heath": "ch300183",
+    "holgar": "ch300092",
+    "jester": "ch300730",
+    "josef": "ch300204",
+    "kris": "ch300227",
+    "kyrk": "ch300181",
+    "liotte": "ch300095",
+    "luksa": "ch300228",
+    "markus": "ch300139",
+    "olphen": "ch300729",
+    "randall": "ch300093",
+    "shellie": "ch300236",
+    "tarkoff": "ch300235",
+    "tremaine": "ch300333",
+    "zofie": "ch300682",
+    "acilia": "ch300765",
+    "ahdnel": "ch300042",
+    "alfred": "ch300245",
+    "andre": "ch300041",
+    "assam": "ch300757",
+    "barnham": "ch300046",
+    "battla": "ch300256",
+    "bayern": "ch300751",
+    "blade": "ch300247",
+    "boris": "ch300238",
+    "bouma": "ch300253",
+    "croft": "ch300048",
+    "cuvall": "ch300748",
+    "danton": "ch300406",
+    "darhm": "ch300753",
+    "devnia": "ch300758",
+    "diego": "ch300286",
+    "edina": "ch300767",
+    "edmilson": "ch300289",
+    "edmund": "ch300237",
+    "esse": "ch300047",
+    "fredey": "ch300249",
+    "gabriel": "ch300365",
+    "ganver": "ch300752",
+    "geloa": "ch300749",
+    "gilliam": "ch300044",
+    "henderson": "ch300255",
+    "henrique": "ch300285",
+    "hershey": "ch300755",
+    "hildegard": "ch300288",
+    "inga": "ch300257",
+    "jamilla": "ch300244",
+    "jeunesse": "ch300049",
+    "kahluya": "ch300045",
+    "kaiser": "ch300841",
+    "kiena": "ch300840",
+    "lax": "ch300050",
+    "lyla": "ch300246",
+    "lynn": "ch300043",
+    "maquia": "ch300762",
+    "mellanya": "ch300241",
+    "melvin": "ch300252",
+    "moana": "ch300766",
+    "moftahr": "ch300287",
+    "nathaniel": "ch300754",
+    "norris": "ch300250",
+    "pauline": "ch300254",
+    "pladika": "ch300764",
+    "quinia": "ch300763",
+    "rahnks": "ch300248",
+    "reuben": "ch300240",
+    "santiago": "ch300243",
+    "sevris": "ch300839",
+    "signora": "ch300760",
+    "tennyson": "ch300251",
+    "themlia": "ch300761",
+    "theodorus": "ch300750",
+    "unica": "ch300759",
+    "willem": "ch300239",
+    "zepet": "ch300756",
+    "abba": "ch300280",
+    "archibald": "ch300565",
+    "astona": "ch300575",
+    "atharv": "ch300566",
+    "battrey": "ch300220",
+    "benthe": "ch300574",
+    "deborah": "ch300172",
+    "drothea": "ch300572",
+    "eggim": "ch300221",
+    "ekkihm": "ch300305",
+    "elizabeth": "ch300307",
+    "ella": "ch300568",
+    "emerich": "ch300080",
+    "giselbert": "ch300270",
+    "grantt": "ch300279",
+    "hubert": "ch300079",
+    "jackson": "ch300224",
+    "jahd": "ch300271",
+    "jarod": "ch300570",
+    "jerome": "ch300077",
+    "lazare": "ch300278",
+    "legga": "ch300306",
+    "lion": "ch300571",
+    "maxima": "ch300304",
+    "pamella": "ch300269",
+    "raggos": "ch300564",
+    "rivera": "ch300576",
+    "robellt": "ch300302",
+    "rufus": "ch300223",
+    "sanni": "ch300573",
+    "sekkah": "ch300222",
+    "sirius": "ch300569",
+    "tantra": "ch300842",
+    "thiem": "ch300303",
+    "yglie": "ch300078",
+    "barbas": "ch300141",
+    "bertha": "ch300088",
+    "blonco": "ch300087",
+    "cardash": "ch300868",
+    "cesar": "ch300089",
+    "clem": "ch300876",
+    "cosworth": "ch300866",
+    "daison": "ch300082",
+    "dracaena": "ch300873",
+    "entia": "ch300865",
+    "eutoria": "ch300919",
+    "garland": "ch300084",
+    "garren": "ch300880",
+    "gascole": "ch300916",
+    "gravas": "ch300864",
+    "hakea": "ch300881",
+    "idan": "ch300862",
+    "ignatz": "ch300870",
+    "illia": "ch300867",
+    "kimball": "ch300081",
+    "kunal": "ch300872",
+    "ladnian": "ch300086",
+    "loretta": "ch300918",
+    "marthe": "ch300343",
+    "melissa": "ch300405",
+    "messara": "ch300917",
+    "messina": "ch300879",
+    "muhsina": "ch300863",
+    "neveah": "ch300085",
+    "paulina": "ch300877",
+    "penelope": "ch300875",
+    "percival": "ch300342",
+    "peter": "ch300083",
+    "rozze": "ch300375",
+    "tauron": "ch300915",
+    "tezinha": "ch300869",
+    "tonya": "ch300871",
+    "torrence": "ch300344",
+    "tyrell": "ch300341",
+    "whitaker": "ch300874",
+    "wolt": "ch300878",
+    "throndir": "ch300577",
+    "agrael": "ch300589",
+    "amras": "ch300583",
+    "caladomia": "ch300591",
+    "exelion": "ch300580",
+    "fearoth": "ch300113",
+    "fiorina": "ch300588",
+    "idorial": "ch300585",
+    "lenbren": "ch300587",
+    "leonel": "ch300579",
+    "lindoll": "ch300112",
+    "linneisl": "ch300114",
+    "luomir": "ch300111",
+    "lutia": "ch300590",
+    "magrol": "ch300584",
+    "myglin": "ch300578",
+    "nellas": "ch300586",
+    "odhran": "ch300845",
+    "seachlann": "ch300844",
+    "sivven": "ch300581",
+    "tylion": "ch300582",
+    "zekloa": "ch300592",
+    "canabella": "ch300605",
+    "elkalim": "ch300599",
+    "eyre": "ch300602",
+    "feith": "ch300402",
+    "flaude": "ch300683",
+    "gyna": "ch300604",
+    "lepak": "ch300593",
+    "levram": "ch300596",
+    "litra": "ch300601",
+    "manna": "ch300603",
+    "romule": "ch300595",
+    "rosy": "ch300606",
+    "solt": "ch300597",
+    "torg": "ch300598",
+    "verdi": "ch300600",
+    "wendy": "ch300131",
+    "zeltas": "ch300594",
+    "botanika": "ch300887",
+    "cohen": "ch300892",
+    "cortago": "ch300370",
+    "dora": "ch300886",
+    "fonda": "ch300846",
+    "gareth": "ch300851",
+    "gimleth": "ch300889",
+    "sandred": "ch300890",
+    "scloane": "ch300894",
+    "shannon": "ch300883",
+    "sheona": "ch300848",
+    "telestia": "ch300885",
+    "thias": "ch300891",
+    "turcel": "ch300849",
+    "zaft": "ch300847",
+    "abel": "ch300328",
+    "aizam": "ch300146",
+    "bernstein": "ch300697",
+    "lenna": "ch300332",
+    "megan": "ch300331",
+    "richard": "ch300145",
+    "troia": "ch300329",
+    "whatt": "ch300330",
+    "zoran": "ch300147"
+  }
+}

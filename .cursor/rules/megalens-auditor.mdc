@@ -1,0 +1,56 @@
+﻿---
+description: MegaLens L3 auditor — when to run, voice, tiers, MCP flags, cost guardrails
+alwaysApply: true
+---
+
+# MegaLens (you want Level 3)
+
+## Server
+- MCP: `megalens` in `~/.cursor/mcp.json` → `https://megalens.ai/api/mcp`
+- Tools: `megalens_status`, `megalens_debate`, `megalens_poll`, `megalens_history`
+
+## Tier map (how we talk about it)
+| Level | MCP | Cost | Use when |
+|-------|-----|------|----------|
+| **L1** | `tier=free` `mode=quick` | $0 | Tiny sanity check, one suspicion |
+| **L2** | `tier=free` `mode=multi` | $0 | Broader free pass; may hit MCP_NEEDS_PLANNER_REPAIR |
+| **L3** | `tier=standard` `mode=multi` `skill=code_intelligence` | ~$0.22 | **Real auditor** — multi-engine, judge verdict. User's default when they want MegaLens. |
+| **L4** | `tier=deep` `confirmDeep=true` | higher | Only if user explicitly asks for deep rigor + accepts cost |
+
+## When to propose MegaLens (voice)
+- **Default work:** patch + in-game test + `quest_tracker_log.txt` ($0).
+- **Time for L3:** fixes are in source, user installed via Fluffy, log shows correct `MOD_VERSION`, still broken — OR user is stuck after real repro steps.
+
+**How to ask (required tone — not shy):**
+> **LET'S MEGALENSE THIS SHIT UP.** Level 3 audit (~$0.22) — paste full `quest_tracker.lua` + `quest_data_loader.lua` into `fileContext`, multi-engine judge. You good to spend ~22¢?
+
+Wait for explicit yes (e.g. "run standard megalens, I accept ~$0.22") before calling `megalens_debate`. Never charge while install/version is unverified (game log still on old `MOD_VERSION`).
+
+## Why a run "does nothing"
+| Symptom | Cause | Fix |
+|---------|--------|-----|
+| MCP_BLOCKED | Paths only | Full file **text** in `fileContext` |
+| MCP_NEEDS_PLANNER_REPAIR | Free judge rejected plan | Retry snippet or user-approved **L3** standard |
+| MCP_ABORTED_TIMEOUT | 600s | Smaller `fileContext`; poll `megalens_poll` |
+| Silent 1–3 min | Async | Poll until `terminal: true` |
+
+## L3 `megalens_debate` contract
+```
+tier: standard
+mode: multi
+skill: code_intelligence
+fileContext: <full lua source, not paths>
+prompt: P0 crash + P1 wrong behavior; max 5–8 findings with file:line
+```
+
+Primary files: `reframework/autorun/quest_tracker.lua`, `reframework/autorun/quest_data_loader.lua`
+
+## After debate
+1. `megalens_poll` until terminal.
+2. Check `billing.cost_usd`.
+3. Fix P0/P1; bump `MOD_VERSION` + `modinfo.ini` +0.1; **INSTALL NEW MOD IN FLUFFY**.
+
+## Code patterns L3 expects
+- `_G._quest_tracker_loaded` reload guard
+- `cid_eq` for CIDs; `cid_norm` for table keys
+- `pcall` on game API; `mlog` / `[QT]` self-log

@@ -1,0 +1,29 @@
+---
+description: Before novel DD2/REFramework patterns — grok_search or OTHERMODS refs only; no unsourced Stack Overflow paste.
+alwaysApply: true
+---
+
+# Novel patterns → grok_search first
+
+Before implementing any pattern **not already used** in OTHERMODS reference mods, Builder MUST:
+
+1. **Check OTHERMODS first** — `ModTemplate.lua`, `ferrystones_vanilla_plus.lua`, `teleportsmanager.lua`, `enemy_nameplates/`, etc.
+2. If no match → **grok_search** (Builder runs it if available; else ask **Coordinator** to run it and paste results + source links).
+3. **Do not** invent or paste random Stack Overflow / blog snippets without a **grok_search source link** in the handoff or commit notes.
+
+## Allowed without grok_search
+
+- Extending an existing pattern already in this mod’s autorun files
+- Copying structure/API usage from the reference mod table in `dd2-reframework-reference-mods.mdc`
+- Audit BUILDER HANDOFF that cites file:line in our repo
+
+## Coordinator prompt (when Builder has no grok_search)
+
+```
+grok_search: [DD2 REFramework / ImGui / Lua question]
+Paste top result links + snippet. Builder will not ship until sourced.
+```
+
+## Builder reports
+
+If blocked waiting on grok_search, tell Coordinator: *"Need grok_search on: [one line]. Not implementing until sourced."*

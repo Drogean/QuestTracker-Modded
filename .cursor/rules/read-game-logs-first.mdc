@@ -1,0 +1,27 @@
+---
+description: Always read DD2 quest tracker logs from disk before code changes or asking the user to paste logs.
+alwaysApply: true
+---
+
+# Read game logs first (no user paste)
+
+Before ANY code change, debug step, or "send me the log" request, read these files directly (tail + grep):
+
+- `C:\Program Files (x86)\Steam\steamapps\common\Dragons Dogma 2\reframework\data\quest_tracker_log.txt`
+- `C:\Program Files (x86)\Steam\steamapps\common\Dragons Dogma 2\re2_framework_log.txt` (if Lua errors / REFramework issues)
+- `C:\Program Files (x86)\Steam\steamapps\common\Dragons Dogma 2\reframework_crash.dmp` (after game crashes — pair with re2 log timestamp)
+- `C:\Program Files (x86)\Steam\steamapps\common\Dragons Dogma 2\reframework\data\quest_tracker_prefs.json` (corrupt prefs break verbose/saves)
+
+Check first lines for `mod loaded vX.Y.Z` — workspace source may be newer than what Fluffy installed in the game folder.
+
+Never ask the user to dump or paste these logs if the paths are readable.
+
+## Mod debug toggles (tell user every session)
+
+| Toggle | Default | When |
+|--------|---------|------|
+| **Verbose** | **ON** (v3.0.64+) | Extra disk log — safe default; not the FPS killer |
+| **Deep Sniff** | OFF | Only when assistant says **"turn on ultimate pussy sniffin"** |
+| **Heavy** | OFF | Only if pussy sniff + assistant adds "heavy too" |
+
+More logs = better fixes. Verbose was OFF historically due to old journal harvest crashes (removed in 3.0.63+).

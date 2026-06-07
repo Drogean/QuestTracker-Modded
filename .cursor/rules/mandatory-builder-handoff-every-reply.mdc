@@ -1,0 +1,75 @@
+---
+description: MANDATORY — every single reply ends with a pasteable BUILDER HANDOFF block. No exceptions.
+alwaysApply: true
+---
+
+# Mandatory BUILDER HANDOFF — every reply
+
+Coordinator rule: **every user message gets a BUILDER HANDOFF block.** Not only on FAIL. Not only when code changed. **Every time.**
+
+## Non-negotiable reply shape
+
+1. **Normie summary** — 4–8 sentences, plain English.
+2. **`## BUILDER HANDOFF`** — always present, always pasteable.
+3. **`BUILDER DEBT`** subsection — OPEN rows from `BUILDER_DEBT.md` + last 3 FIXED.
+4. **`AUDIT DEBT`** subsection — OPEN rows from `AUDIT_DEBT.md` + last 3 CLOSED (or `none`).
+
+Optional closing line only if Grok + SKILL ran: `I PROMISE I RAN GROCK AND SKILL MD`
+
+## Instant fail (coordinator will reject reply)
+
+- No `## BUILDER HANDOFF` header
+- Handoff says "probably" / "might" without log L## or file:line
+- PASS/FAIL with no version cross-check (`mod loaded vX.Y.Z` vs workspace `MOD_VERSION`)
+- Skipped BUILDER DEBT or AUDIT DEBT subsections
+
+## BUILDER HANDOFF template (copy every time)
+
+```
+## BUILDER HANDOFF
+
+TARGET VERSION: vX.Y.Z (workspace) | INSTALLED: v? (from log L3 or "not verified")
+VERDICT: PASS | FAIL | NO-SHIP-YET | STATUS-ONLY
+
+P0 (ship blockers):
+  - [symptom] | log: L## quote | fix: file:line | status: OPEN|FIXED
+
+P1 (playable but wrong):
+  - ...
+
+P2 (cosmetic / telemetry):
+  - ...
+
+DO NOT REGRESS:
+  - layout save/restore, list draw, end_child finally, no list draw CRASH, quest expand
+
+PASS CRITERIA (coordinator test):
+  - log first line = workspace MOD_VERSION
+  - Tools expands on click
+  - all ongoing quests same second as boot (incl. 10151 if progressing)
+  - grep list draw CRASH = 0
+
+BUILDER DEBT (do not repeat):
+  <OPEN rows from BUILDER_DEBT.md>
+  <last 3 FIXED>
+
+AUDIT DEBT (audit must not repeat):
+  <OPEN rows from AUDIT_DEBT.md or "none">
+  <last 3 CLOSED or "none">
+
+FILES TOUCHED THIS BUILD:
+  - path:line — one line why
+
+INSTALL: Fluffy → play → quit → post log here
+```
+
+## When nothing to ship
+
+Still paste the block. Set `VERDICT: STATUS-ONLY` or `NO-SHIP-YET`. List OPEN debt + next Builder actions. Never omit the block.
+
+## Who maintains debt files
+
+- **BUILDER_DEBT.md** — append on Builder FAIL; mark FIXED with log proof.
+- **AUDIT_DEBT.md** — append on Audit FAIL.
+
+Both subsections appear in **every** handoff even if empty (`none`).

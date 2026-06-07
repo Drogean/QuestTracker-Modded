@@ -1,0 +1,122 @@
+{
+  "version": 5,
+  "note": "Quest metadata from Fextralife wiki buckets. Vermund Quests 1 = lockout_after 10140 (before Feast). Vermund Quests 2 = available_after 10140. lockout_after = miss forever if Feast completes while still Available. must_before_feast = reddit/story gates. See https://dragonsdogma2.wiki.fextralife.com/Quests",
+
+  "ponr": {
+    "10140": "Feast of Deception (Coronation) — endgame transition",
+    "10160": "A New Godsway",
+    "10170": "The Guardian Gigantus",
+    "10180": "Legacy (Unmoored World)"
+  },
+
+  "chains": {
+    "sven_side": {
+      "name": "Sven (related quests)",
+      "note": "Sven appears in several side quests. Auto-lock is NOT done from chain order — only the Feast of Deception milestone (10140) actually moves him out of the marketplace.",
+      "quests": [30010, 30040, 30041, 30042, 30180]
+    },
+    "ulrika_romance": {
+      "name": "Ulrika romance (sequential)",
+      "quests": [20080, 30100, 20082, 30110]
+    },
+    "wilhelmina_romance": {
+      "name": "Wilhelmina romance",
+      "quests": [30040, 30050]
+    },
+    "sacred_arbor": {
+      "name": "Sacred Arbor / Doireann",
+      "quests": [30070, 30080, 30090]
+    }
+  },
+
+  "chara_names": {
+    "1065353216": "Lennart",
+    "1210835050": "Sven",
+    "1191862039": "Morris (Checkpoint Rest Town — Prey for the Pack)",
+    "678396953": "Trysha",
+    "1603137626": "Myrdin",
+    "1007143618": "Doireann",
+    "240278635": "Ulrika",
+    "2696396312": "Oswald (rumor NPC, Noble Quarter fountain)",
+    "2005149068": "Normann"
+  },
+  "_chara_names_unverified": {
+    "186889532": "Oswald?? — original mod label, never resolves in world; do not trust",
+    "1071544705": "unknown — appears in 20070 givers, identify via TP HERE",
+    "2629601821": "unknown — appears in 20070 givers, identify via TP HERE",
+    "_note": "These CIDs were in the original mod's chara_names but never confirmed against the wiki. Use the per-row TP HERE buttons in-game to identify them, then promote to chara_names with the right name."
+  },
+
+  "quests": {
+    "10030": { "name": "Gaoled Awakening",              "region": "Vermund" },
+    "10050": { "name": "Tale's Beginning",               "region": "Vermund" },
+    "10060": { "name": "In Dragon's Wake",               "region": "Vermund" },
+    "10080": { "name": "Seat of the Sovran",             "region": "Vermund", "trigger": "Main quest. While in Vernworth Castle, guard Norman asks if you've seen Sven — your answer matters: LIE for Sven if you want The Ornate Box later." },
+    "10090": { "name": "Monster Culling",                "region": "Vermund", "must_before_feast": true, "trigger": "Brant at Stardrop Inn — accept monster culling. Needed for Arisen's Shadow and the road to Feast." },
+    "10100": { "name": "Disa's Plot",                    "region": "Vermund", "must_before_feast": true },
+    "10110": { "name": "An Unsettling Encounter",        "region": "Vermund", "must_before_feast": true, "trigger": "After Disa's Plot: ask Brant at night about rumors on Allard. Leads to Feast of Deception." },
+    "10120": { "name": "The Caged Magistrate",           "region": "Vermund", "must_before_feast": true },
+    "10130": { "name": "The Nameless Village",           "region": "Vermund", "must_before_feast": true },
+    "10140": { "name": "Feast of Deception",             "region": "Vermund", "trigger": "Coronation event. WARNING: completing this PERMANENTLY locks most Vermund side quests (Sven, Margit, etc.). Finish them first." },
+    "10150": { "name": "Nation of the Lambent Flame",    "region": "Battahl" },
+    "10160": { "name": "A New Godsway",                  "region": "Battahl" },
+    "10170": { "name": "The Guardian Gigantus",          "region": "Battahl" },
+    "10180": { "name": "Legacy",                         "region": "Battahl" },
+
+    "20010": { "name": "Medicament Predicament",         "region": "Vermund", "lockout_after": 10140, "urgent": false, "giver_name": "Flora", "trigger": "Speak to Flora outside Auriol's shop in the Vernworth marketplace.", "note": "Helping Flora get the Fruit Roborant gives Auriol a discount on the Ornate Box later." },
+    "20020": { "name": "Ordeals of a New Recruit",       "region": "Vermund", "lockout_after": 10140, "urgent": false, "giver_name": "Hugo", "trigger": "Speak to recruit Hugo at the Vernworth Castle training yard." },
+    "20030": { "name": "The Provisioner's Plight",       "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to provisioner near the Vernworth Castle gate or merchant district." },
+    "20040": { "name": "Nesting Troubles",               "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to the harried farmer at the small hamlet northwest of Borderwatch Outpost." },
+    "20050": { "name": "Brothers Brave and Timid",       "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to twin brothers Glyndwr (brave) and Lyle (timid) near the Vernworth training grounds." },
+    "20060": { "name": "Twixt a Rock and a Hard Place",  "region": "Battahl", "available_after": 10140, "lockout_after": 10170, "urgent": false, "trigger": "Speak to the trapped traveler in the volcanic ravine south of Bakbattahl." },
+    "20070": { "name": "Till Death Do Us Part",          "region": "Vermund", "lockout_after": 10140, "urgent": true, "time_limit_days": 4, "giver_name": "Margit", "wiki_cast": ["Margit", "Oswald", "Gregor", "Dullahan"], "prereq_quests": [20220], "trigger": "Finish The Nameless Village (20220) first. Then hear Oswald's rumor at the Noble Quarter fountain in Vernworth (Townsend's Estate) — only AFTER that can you speak to Margit outside Watchhead's Home in Vernworth (north). Margit, Oswald, and Gregor (rescue target at Illdoers' Resting Place) are all involved.", "note": "Gregor dies if you stall after starting (4-day in-game timer). Wiki: bring camping kit + Wakestones; ride to Misty Marshes. DO NOT try to kill the Dullahan — you survive by dealing ENOUGH DAMAGE to make it FLEE while keeping Gregor alive (heal/buff him, revive with Wakestone if he goes down). Once the Dullahan flees, talk to Gregor, then report back to Margit at Watchhead's Home. Margit's CharaID is not yet identified by the mod — use the per-row TP HERE buttons to find her, then click 'Set as Primary' on her line, or walk to her and click 'Save HERE as TP Start'." },
+    "20080": { "name": "Scaly Invaders",                 "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Travel to Melve and witness/intervene with the saurian attack on the village.", "note": "Triggers Ulrika's romance line — Readvent of Calamity follows when you return to Melve." },
+    "20090": { "name": "A Beggar's Tale",                "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to the beggar near the Vernworth slums entrance / Stardrop Inn area." },
+    "20100": { "name": "Tolled to Rest",                 "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to the priest at the Vernworth Cathedral — needs the bell." },
+    "20110": { "name": "The Phantom Oxcart",             "region": "Battahl", "available_after": 10140, "lockout_after": 10170, "urgent": true, "trigger": "Find the suspicious oxcart on the Battahl highroad after dark." },
+    "20120": { "name": "The Heel of History",            "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to scholar in The Gracious Hand's Vaults after The Caged Magistrate (10120) opens it up." },
+    "20130": { "name": "Saint of the Slums",             "region": "Vermund", "lockout_after": 10140, "urgent": false, "giver_name": "Elena", "wiki_cast": ["Elena", "Lottie", "Lubomir", "Vlasly", "Bruno", "Jehan", "Radcliff", "Alois"], "trigger": "Speak to Elena in the Vernworth slums (NOT Vlasly — he is the corrupt guard, not the giver)." },
+    "20140": { "name": "The Gift of Giving",             "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to the giver near the Vernworth merchant quarter at midday." },
+    "20150": { "name": "House of the Blue Sunbright",    "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to the proprietor of the House of the Blue Sunbright in Vernworth Noble Quarter." },
+    "20190": { "name": "A Noble Exchange",               "region": "Vermund", "lockout_after": 10140, "urgent": false, "giver_name": "Lennart", "trigger": "Speak to Praetor Lennart near the Vernworth market during the banquet phase. He is only there before Feast of Deception (10140).", "timing_note": "Banquet window only.", "note": "Auto-hides if missed." },
+    "20200": { "name": "A Game of Wits",                 "region": "Vermund", "available_after": 10140, "lockout_after": 10170, "urgent": false, "trigger": "Find the Sphinx at the Mountain Shrine north of Vernworth (sapphire-topped peak). Available only AFTER Feast of Deception." },
+    "20220": { "name": "The Nameless Village",           "region": "Vermund", "lockout_after": 10140, "wiki_bucket": "vermund_1", "trigger": "Find the hidden village in the eastern Vermund forests — usually triggered by following the Disa's Plot story beats." },
+    "20230": { "name": "A Place to Call Home",           "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to the displaced Battahl refugee near the Vernworth slums or Stardrop Inn." },
+    "20240": { "name": "Vocation Frustration",           "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to the disgruntled vocation guild member at the Vernworth Vocation Guild." },
+    "20250": { "name": "Prey for the Pack",              "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to the hunter near Borderwatch Outpost or Melve about wolf attacks." },
+    "20270": { "name": "The Sotted Sage",                "region": "Volcanic", "available_after": 10140, "lockout_after": 10170, "urgent": false, "trigger": "Find the drunken sage in a Volcanic Island tavern (Bakbattahl)." },
+    "20280": { "name": "A Poisonous Proposal",           "region": "Battahl", "available_after": 10140, "lockout_after": 10170, "urgent": true, "trigger": "Speak to vendor in Bakbattahl marketplace who suspects rival is poisoning customers." },
+    "20290": { "name": "Short-Sighted Ambition",         "region": "Battahl", "available_after": 10140, "lockout_after": 10170, "urgent": false, "giver_name": "Isaac", "trigger": "Speak to apothecary Isaac in Bakbattahl about a grimoire he wants. Pairs well with Spellbound — collect the same grimoires." },
+    "20310": { "name": "A Case of Sculptor's Block",     "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to the sculptor in Vernworth — he needs inspiration." },
+    "20330": { "name": "Shadowed Prayers",               "region": "Volcanic", "available_after": 10140, "lockout_after": 10170, "urgent": true, "trigger": "Speak to the troubled priest in Bakbattahl temple at night." },
+    "20340": { "name": "Steeled Resolve, Blazing Forge", "region": "Battahl", "available_after": 10140, "lockout_after": 10170, "urgent": true, "trigger": "Speak to the smith in Bakbattahl about a special commission." },
+    "20350": { "name": "Hunt for the Jadeite Orb",       "region": "Vermund", "available_after": 10140, "lockout_after": 10170, "urgent": false, "trigger": "Available only AFTER Feast of Deception. Speak to Sven's mother in Vernworth Castle." },
+    "20480": { "name": "Oxcart Courier",                 "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to oxcart driver at any oxcart stop and ask about courier work." },
+    "20082": { "name": "Trouble on the Cape",            "region": "Vermund", "lockout_after": 10140, "urgent": false, "giver_name": "Ulrika", "prereq_quests": [30100], "trigger": "Find Ulrika in Harve Village (south coast) AFTER Readvent of Calamity (30100) completes. Speaking to her there auto-starts this quest." },
+
+    "30010": { "name": "The Ornate Box",                 "region": "Vermund", "lockout_after": 10140, "urgent": true, "giver_name": "Sven", "primary_giver_cid": 1210835050, "extra_giver_cids": [2005149068], "wiki_cast": ["Sven", "Normann", "Auriol"], "trigger": "PRE-REQ: when guard Norman asks if you've seen Sven during Seat of the Sovran (10080), you MUST LIE for him. Then witness Sven arguing with shopkeeper Auriol in the Vernworth marketplace — quest auto-triggers on cutscene.", "note": "Sven leaves the marketplace permanently after Feast of Deception (10140) — quest is gone. If you completed Medicament Predicament (20010), Auriol drops the Ornate Box price from 1000 to 800 G. Normann (castle guard, Seat of the Sovran) gates the quest — see Also." },
+    "30020": { "name": "Claw Them Into Shape",           "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to the cat owner near the Vernworth slums — needs help training her cats." },
+    "30030": { "name": "Beren's Final Lesson",           "region": "Vermund", "lockout_after": 10140, "urgent": false, "giver_name": "Beren", "trigger": "Speak to Beren the warrior maister in Melve once you have warrior unlocked." },
+    "30040": { "name": "The Stolen Throne",              "region": "Vermund", "lockout_after": 10140, "wiki_bucket": "vermund_1", "must_before_feast": true, "giver_name": "Sven", "trigger": "Pick up Brant's intel at the Stardrop Inn about Sven and the throne — then investigate at Vernworth Castle. Finish before Feast or it can lock out." },
+    "30041": { "name": "Masked Correspondence",          "region": "Vermund", "lockout_after": 10140, "urgent": false, "giver_name": "Sven", "trigger": "Continues from The Stolen Throne (30040) — speak to Sven in Vernworth Castle." },
+    "30042": { "name": "A Magisterial Amenity",          "region": "Vermund", "lockout_after": 10140, "urgent": false, "giver_name": "Sven", "trigger": "Continues from Masked Correspondence (30041) — speak to Sven in Vernworth Castle." },
+    "30050": { "name": "Every Rose Has Its Thorn",       "region": "Vermund", "available_after": 10140, "lockout_after": 10170, "urgent": true, "time_limit_days": 3, "giver_name": "Wilhelmina", "avail_hour_start": 20, "avail_hour_end": 6, "prereq_quests": [30040, 10110], "trigger": "After The Stolen Throne (30040) and An Unsettling Encounter (10110): get the Myrmecoleon Card from Wilhelmina to enter Rose Chateau Bordelrie. Visit her room (TOP floor) ONLY between 8PM and 6AM — otherwise she's not there.", "note": "Wilhelmina romance. Gifts: Adorable/Beautiful, ONE per day, sleep at inn between gifts. After her 'Here I am...' speech: peephole cutscene → 'Offer your assistance' (do NOT 'Dissuade her'). 3-day timer activates: Murder Report from Allard's Estate + Bribery Findings near Clovis's Barberie. Hand the Murder Report to her at night → 'Continue offering your aid'." },
+    "30060": { "name": "Gift of the Bow",                "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to Glyndwr (the brave twin) in Vernworth — needs an archery bow." },
+    "30070": { "name": "A Trial of Archery",             "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to Glyndwr in Vernworth after Gift of the Bow (30060) — he wants to test your archery." },
+    "30080": { "name": "The Ailing Arborheart",          "region": "Vermund", "lockout_after": 10140, "urgent": false, "giver_name": "Doireann", "prereq_quests": [30070], "locked_if_completed": [30090], "trigger": "After A Trial of Archery (30070), travel to Sacred Arbor (Elven enclave deep in the western Vermund woods) and speak to Doireann at The Arborheart.", "note": "Needs Battahl access (Gwyfencha) to finish — start it BEFORE finishing Out of the Forest, Into the Forge (30090), or it locks." },
+    "30090": { "name": "Out of the Forest, Into the Forge", "region": "Battahl", "available_after": 10140, "lockout_after": 10170, "urgent": true, "trigger": "Available only AFTER Feast of Deception. Speak to the elf forger in Bakbattahl forge district." },
+    "30100": { "name": "Readvent of Calamity",           "region": "Vermund", "lockout_after": 10140, "urgent": true, "giver_name": "Ulrika", "prereq_quests": [20080], "trigger": "After Scaly Invaders (20080), RETURN to Melve — a dragon attack triggers automatically on arrival. Time-sensitive: if you delay too long, this fails and Ulrika's romance line is permanently locked." },
+    "30110": { "name": "Home Is Where the Hearth Is",   "region": "Vermund", "lockout_after": 10140, "urgent": false, "giver_name": "Ulrika", "avail_hour_start": 8, "avail_hour_end": 22, "prereq_quests": [20082], "trigger": "After Trouble on the Cape (20082), find Ulrika in Harve Village during the day. Max her affinity (Adorable/Beautiful gifts daily) until she blushes BEFORE completing for the romance ending." },
+    "30120": { "name": "Dulled Steel, Cold Forge",       "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to the Vernworth blacksmith about a fading craft." },
+    "30140": { "name": "Welcome to Battahl",             "region": "Battahl", "wiki_bucket": "battahl_1", "available_after": 10140, "lockout_after": 10160, "urgent": true, "trigger": "Wiki Battahl Quests 1: AFTER Feast of Deception. Auto-starts at Battahl border checkpoint. Finish before A New Godsway (10160)." },
+    "30150": { "name": "Spellbound",                     "region": "Vermund", "lockout_after": 10140, "urgent": false, "giver_name": "Trysha", "trigger": "Travel to Eini's Home north of Melve. Trysha will only talk to you about magick if her grandparents Eini & Eino are NOT in the house — pick the grandparents up (R2) and put them outside, OR pick TRYSHA up (R2) and carry her outside, then talk to her.", "note": "Grimoires: Let There Be Light (Myrddin's desk), Fulminous Shield (Dudley in Melve), Nation's Death Knell (Ancient Battleground), Howling Blizzard (Wendy, Nameless Village — give her a forged Fulminous Shield, NOT the original), Towering Earth (Waldhar after The Caged Magistrate). Use Ibrahim in Checkpoint Rest Town to forge copies so you can complete Sorcerer's Appraisal (30160) too. Recommended: give Trysha 3 originals (gets you Meteoron + 2 maister skills)." },
+    "30160": { "name": "The Sorcerer's Appraisal",       "region": "Vermund", "lockout_after": 10140, "urgent": false, "giver_name": "Myrdin", "trigger": "Speak to Myrdin at Myrdin's Home (riverside cottage). WARNING: Myrdin attacks on sight as a TEST — DO NOT KILL HIM. If you did, revive with a Wakestone (Courtly Outfit helps). After surviving, talk to him to start the quest." },
+    "30170": { "name": "Put a Spring in Thy Step",       "region": "Volcanic", "available_after": 10140, "lockout_after": 10170, "urgent": false, "trigger": "Speak to the dancer/performer in Bakbattahl about reviving an old festival." },
+    "30180": { "name": "A Veil of Gossamer Clouds",      "region": "Vermund", "available_after": 10140, "lockout_after": 10170, "urgent": false, "giver_name": "Sven", "trigger": "Available only AFTER Feast of Deception (10140). Speak to Sven in Vernworth Castle (Sven's Chambers / Guest Chambers)." },
+    "30200": { "name": "A Candle in the Storm",          "region": "Volcanic", "available_after": 10140, "lockout_after": 10170, "urgent": false, "trigger": "Speak to the lighthouse keeper on the Volcanic Island coast at night." },
+    "30210": { "name": "Mercy Among Thieves",            "region": "Battahl", "wiki_bucket": "vermund_2", "available_after": 10140, "lockout_after": 10170, "urgent": false, "giver_name": "Lyssandro", "trigger": "Wiki Vermund Quests 2: AFTER Feast of Deception completes. Checkpoint Rest Town — feed Toumi twice (not rotten), talk to men by oxcart, then Lyssandro (white robes). Must pass border gate first.", "note": "Complete before Guardian Gigantus (10170). Leads to Off the Pilfered Path (Hugo)." },
+    "30220": { "name": "Off the Pilfered Path",          "region": "Battahl", "available_after": 10140, "lockout_after": 10170, "urgent": true, "trigger": "Speak to victim of theft on the Battahl highroad." },
+    "30230": { "name": "Tensions on the Highroad",       "region": "Battahl", "wiki_bucket": "battahl_1", "available_after": 10140, "lockout_after": 10160, "urgent": true, "trigger": "Wiki Battahl Quests 1: AFTER Feast, BEFORE A New Godsway (10160)." },
+    "30240": { "name": "Clash and Conclusion",           "region": "Volcanic", "available_after": 10140, "lockout_after": 10170, "urgent": true, "trigger": "Speak to combatants in the Volcanic Island arena / dueling grounds." }
+  }
+}

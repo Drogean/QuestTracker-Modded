@@ -1,0 +1,521 @@
+{
+  "version": 1,
+  "source": "Curated from Fextralife: https://dragonsdogma2.wiki.fextralife.com/Side+Quests and https://dragonsdogma2.wiki.fextralife.com/Quests (plus individual quest pages where linked). Edit this file to extend hints; max 3 short lines per quest.",
+  "index_urls": [
+    "https://dragonsdogma2.wiki.fextralife.com/Side+Quests",
+    "https://dragonsdogma2.wiki.fextralife.com/Quests"
+  ],
+  "global": [
+    "Fextralife: (!) on the wiki index = time-sensitive — delay can fail or lock the quest.",
+    "Main checkpoints (Feast of Deception, A New Godsway, The Guardian Gigantus) remove or move NPCs; finish local side content before advancing if you care.",
+    "If a pawn has a hand icon on a quest in the log, set it Priority and use Go! — they guide; they won't route you via oxcarts."
+  ],
+  "by_qid": {
+    "10030": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/Gaoled+Awakening", "lines": ["Opening main quest — follow the gaol escape.", "Sets the tone for Vermund; no optional branches here."] },
+    "10050": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/Tale's+Beginning", "lines": ["Early main quest — Melve and first world loop.", "Advancing main story unlocks more side content in Vernworth later."] },
+    "10060": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/In+Dragon's+Wake", "lines": ["Main quest — dragon encounter beats.", "Travel at night is riskier; camp or inn to skip time safely."] },
+    "10080": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/Seat+of+the+Sovran", "lines": ["In the castle, guard Norman asks if you saw Sven — LIE if you want The Ornate Box later (wiki + community).", "This choice is easy to miss; one wrong answer locks marketplace Sven content."] },
+    "10090": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/Monster+Culling", "lines": ["Board / captain-style culling tasks in Vernworth.", "Usually daytime NPCs at the guild or barracks area."] },
+    "10100": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/Disa's+Plot", "lines": ["Main political thread in Vernworth.", "Advancing this line opens Nameless Village and related rumors."] },
+    "10120": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/The+Caged+Magistrate", "lines": ["Main quest — frees Waldhar / vault access.", "Needed for some grimoires and scholar follow-ups (Spellbound / Appraisal chain)."] },
+    "10130": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/The+Nameless+Village", "lines": ["Main-adjacent — unlocks eastern forest hub.", "Required context for Till Death Do Us Part rumor chain."] },
+    "10140": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/Feast+of+Deception", "lines": ["PoNR #1 (Coronation): many Vernworth side quests vanish after this (wiki Quests page).", "Wiki: Sven leaves the market; Ornate Box, Margit line, banquet-only NPCs — finish first.", "Cannot undo; keep a separate save if unsure."] },
+    "10150": {
+      "wiki": "https://dragonsdogma2.wiki.fextralife.com/Nation+of+the+Lambent+Flame",
+      "lines": ["Battahl main gate arc.", "Prepare curatives and heat gear before long desert legs."],
+      "fallback_step_key": "journey to battahl",
+      "step_hints": {
+        "journey to battahl": ["Head toward Battahl — use Brant's entry permit at the border checkpoint."]
+      }
+    },
+    "10151": {
+      "wiki": "https://dragonsdogma2.wiki.fextralife.com/Flickering+Shadows",
+      "lines": [
+        "Main Battahl arc — godsway / blue crystal investigation. Not time-sensitive.",
+        "Dragonforged at Bay Wayside Shrine is optional lore — oracle Luz is required for progress.",
+        "Luz unlocks Trickster Vocation; Rivage Elder cutscene completes the quest."
+      ],
+      "fallback_step_key": "speak with ambrosius",
+      "step_order": [
+        "enter bakbattahl",
+        "speak with ambrosius",
+        "seek information about larger blue crystal shards",
+        "seek he who was dragon forged in harve village"
+      ],
+      "step_npcs": ["Pathfinder", "Ambrosius", "The Dragonforged", "Luz", "Rivage Elder", "Menella", "Captain Brant"],
+      "step_cast": {
+        "enter bakbattahl": ["Pathfinder"],
+        "speak with ambrosius": ["Ambrosius"],
+        "seek information about larger blue crystal shards": ["Luz", "The Dragonforged"],
+        "seek he who was dragon forged in harve village": ["Rivage Elder"]
+      },
+      "step_hints": {
+        "enter bakbattahl": [
+          "Auto-starts after Nation of the Lambent Flame — enter Bakbattahl gates.",
+          "Pathfinder cutscene: Forbidden Magick Research Laboratory holds godsway secrets."
+        ],
+        "speak with ambrosius": [
+          "Olta'Battahl Coast — north from Dye Stores, northeast coastal path.",
+          "Collect Small Blue Crystal Shard on beach rocks; hand to Ambrosius (+100G).",
+          "He sends you to the oracle or The Dragonforged for larger shards."
+        ],
+        "seek information about larger blue crystal shards": [
+          "Optional: Bay Wayside Shrine — coast cave, left fork — ask Dragonforged about godsway.",
+          "Required: Reverent Shrine (Enoa'Battahl Forest north) — speak to oracle Luz.",
+          "Oxcart to Checkpoint Rest Town works; fight/griffin nests along forest route."
+        ],
+        "seek he who was dragon forged in harve village": [
+          "Harve Village — Rivage Elder's Home at southwest edge (Stormwind Cave).",
+          "Late day: elder rests until morning (auto time skip).",
+          "Cutscene: sunken temple rises — leads into Convergence."
+        ]
+      }
+    },
+    "10160": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/A+New+Godsway", "lines": ["PoNR #2 (wiki): locks Tensions on the Highroad and Welcome to Battahl if not done.", "Check open side tabs before turning this in."] },
+    "10170": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/The+Guardian+Gigantus", "lines": ["Late main beat in Battahl (wiki PoNR #3 bucket for many side quests).", "Several Battahl / volcanic sides must be cleared before this if you want 100%."] },
+    "10180": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/Legacy", "lines": ["Endgame branch — true ending routes to Unmoored World (wiki).", "Inn saves / return to base game may be limited; finish loose ends first."] },
+
+    "20010": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/Medicament+Predicament", "lines": ["Flora outside Auriol's shop — Fruit Roborant fetch.", "Wiki Ornate Box: completing this lowers Auriol's box price (800 vs 1000 G)."] },
+    "20020": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/Ordeals+of+a+New+Recruit", "lines": ["Fextralife Side Quests: marked (!) — time-sensitive.", "Borderwatch / Hugo recruit line; don't leave it hanging across long skips."] },
+    "20030": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/The+Provisioner's+Plight", "lines": ["Castle / gate provisioner fetch quest.", "Best done before Feast of Deception (wiki Vermund bucket 1)."] },
+    "20040": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/Nesting+Troubles", "lines": ["Small hamlet NW of Borderwatch — saurian nest cleanup.", "Low level; good early XP before pushing main to Vernworth."] },
+    "20050": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/Brothers+Brave+and+Timid", "lines": ["Glyndwr & Lyle twins — archer line splits into Gift of the Bow / Trial.", "Do both twins' arcs before PoNR if you want full rewards."] },
+    "20060": {
+      "wiki": "https://dragonsdogma2.wiki.fextralife.com/Twixt+a+Rock+and+a+Hard+Place",
+      "lines": ["Battahl volcanic ravine rescue / escort style.", "Heat + fall damage — bring padding or Mage levitate."],
+      "fallback_step_key": "rescue the traveler",
+      "step_order": ["rescue the traveler", "escort the traveler", "return to safety"],
+      "step_hints": {
+        "rescue the traveler": ["Speak to the trapped traveler in the volcanic ravine south of Bakbattahl.", "Heat and fall damage — bring padding or Mage levitate."],
+        "escort the traveler": ["Escort them out of the ravine — watch for heat and falls."],
+        "return to safety": ["Get both of you to safe ground to complete the quest."]
+      }
+    },
+    "20070": {
+      "wiki": "https://dragonsdogma2.wiki.fextralife.com/Till+Death+Do+Us+Part",
+      "step_hints": {
+        "speak to margit": [
+          "Hear Oswald's rumor first (fountain, Noble Quarter) — needs Nameless Village done.",
+          "Margit is outside Watchhead's Home in Vernworth north.",
+          "Pick 'Tell her of Ser Ludolph's plot' then accept the rescue."
+        ],
+        "aid gregor": [
+          "Rush to Illdoers' Resting Place in Misty Marshes (northwest of Vernworth).",
+          "Bring camping kit + Wakestones. DO NOT kill the Dullahan — deal enough damage to make it FLEE.",
+          "Keep Gregor alive (heal/buff/revive). Kill = quest fail or bad outcome."
+        ],
+        "report back": [
+          "Talk to Gregor after the Dullahan flees, then return to Margit to finish.",
+          "4 in-game day timer once started — prioritize this quest."
+        ]
+      }
+    },
+    "20080": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/Scaly+Invaders", "lines": ["Return to Melve for saurian attack (wiki Harve/Melve list).", "Gateway into Ulrika romance — Readvent of Calamity triggers on next Melve visit."] },
+    "20090": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/A+Beggar's+Tale", "lines": ["Slums / Stardrop-adjacent beggar chain.", "Gift or follow prompts across several days; check day vs night spawns."] },
+    "20100": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/Tolled+to+Rest", "lines": ["Cathedral bell quest — ties to Nation's Death Knell copies (wiki Spellbound notes).", "Don't brick this before giving away both original Nation's Death Knells to Trysha/Myrddin."] },
+    "20110": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/The+Phantom+Oxcart", "lines": ["Fextralife Battahl list: (!) time-sensitive.", "Highroad oxcart at night — follow quietly or fight ambush; failing timer may lock rewards."] },
+    "20120": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/The+Heel+of+History", "lines": ["Gracious Hand vaults scholar line post-Caged Magistrate.", "Unlocks Waldhar move for Towering Earth grimoire (Spellbound wiki)."] },
+    "20130": {
+      "wiki": "https://dragonsdogma2.wiki.fextralife.com/Saint+of+the+Slums",
+      "npc_hours": {
+        "Lubomir": { "start": 20, "end": 6, "note": "Basement door usually night (8PM–6AM)" },
+        "Alois": { "start": 20, "end": 6, "note": "Night-only Elena meeting (gather evidence)" },
+        "Radcliff": { "start": 8, "end": 20, "note": "Checkpoint Rest Town — daytime" }
+      },
+      "fallback_step_key": "report back to lubomir",
+      "step_order": ["medicinal", "follow", "investigate the gracious hand", "gather evidence", "report back to lubomir"],
+      "step_npcs": ["Elena", "Lottie", "Lubomir", "Vlasly", "Bruno", "Jehan", "Radcliff", "Alois"],
+      "step_cast": {
+        "investigate the gracious hand": ["Lottie", "Lubomir"],
+        "gather evidence": ["Bruno", "Jehan", "Radcliff", "Elena", "Alois", "Lubomir"],
+        "report back": ["Lubomir", "Radcliff"]
+      },
+      "step_hints": {
+        "medicinal": [
+          "Bring 3 Miasmite to Elena (farm phantoms at night if you don't have any).",
+          "After handing them over, follow Elena on her rounds."
+        ],
+        "follow": [
+          "Stay with Elena until Lubomir sends you to investigate the Gracious Hand."
+        ],
+        "investigate the gracious hand": [
+          "Talk to Lottie cleaning outside the Gracious Hand.",
+          "Return to Lubomir; accept his request to check the basement.",
+          "Basement door is on the right side of the building — usually NIGHT only or it's locked.",
+          "Downstairs: left room, curtain at the back — grab Records of Treatment + Unlabeled Medicine."
+        ],
+        "gather evidence": [
+          "After both basement items, map points you to Walter's Tavern — talk to Bruno and Jehan.",
+          "Optional: catch Elena's night meeting with Alois, then show evidence to Lubomir.",
+          "Take Unlabeled Medicine to Radcliff in Checkpoint Rest Town (oxcart helps); wait a day, get his report, THEN arrest Elena.",
+          "In basement: grab/pin Elena. Best ending needs Radcliff's proof first."
+        ],
+        "report back to lubomir": [
+          "Show Lubomir what you found; he may send you to the doctor at Checkpoint Rest Town."
+        ]
+      }
+    },
+    "20140": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/The+Gift+of+Giving", "lines": ["Merchant quarter fetch / donation loop.", "Daytime NPCs — rest till noon if missing."] },
+    "20150": {
+      "wiki": "https://dragonsdogma2.wiki.fextralife.com/House+of+the+Blue+Sunbright",
+      "step_order": ["visit the manor", "look-alike", "prepare", "return to the manor"],
+      "step_cast": {
+        "visit the manor": ["Diana", "Sebastian"],
+        "look-alike": ["Daphne", "Sebastian", "Diana"],
+        "prepare": ["Sebastian", "Diana"],
+        "return to the manor": ["Sebastian", "Diana", "Daphne"]
+      },
+      "step_hints": {
+        "visit the manor": [
+          "Noble Quarter — Townsend's Estate. Talk to Diana at the door.",
+          "Sebastian wants a body double so he can leave without his mother noticing."
+        ],
+        "look-alike": [
+          "Need The Gift of Giving done first.",
+          "Find Daphne at the slums tent by the Gracious Hand — escort her to the manor."
+        ],
+        "prepare": [
+          "Give Sebastian: Detoxifying Decoction (or All Heal) + Waking Powder for drowsiness.",
+          "Give something that smells like cyclops — Rugged Bone works.",
+          "Wait a few in-game days, return to the manor for the ending."
+        ],
+        "return to the manor": [
+          "Sebastian should be back from Melve with the Blue Sunbright flower.",
+          "If Daphne got kicked out, find Diana later at the slums tent for the twist."
+        ]
+      }
+    },
+    "20190": {
+      "wiki": "https://dragonsdogma2.wiki.fextralife.com/A+Noble+Exchange",
+      "step_hints": {
+        "exchange gifts": [
+          "Banquet at Vernworth Hall at NIGHT — wear Courtly Tunic, Courtly Breeches, Eventide Mask.",
+          "Red-cape masked man gives you a staff — remember his face; he's the thief later.",
+          "Other guests give random gifts; you don't need to give anything back."
+        ],
+        "clear yourself": [
+          "When guards announce a theft: drop the Paragon Staff behind the hall (small side room, behind screen by chest).",
+          "Then tackle the red-cape quest-giver. Best reward if staff is dropped first.",
+          "Or buy staff back later from Ibrahim in Checkpoint Rest Town if you dropped it."
+        ],
+        "suspicion": [
+          "Do NOT leave the ball holding the staff — worst outcome, jail, no gold."
+        ]
+      },
+      "lines": ["Wiki: often listed post-Feast — if quest won't start, finish coronation first.", "Lennart at market is a different pre-Feast quest (A Noble Exchange timing varies by guide)."]
+    },
+    "20200": {
+      "wiki": "https://dragonsdogma2.wiki.fextralife.com/A+Game+of+Wits",
+      "journal_lines": [
+        "You heard the Riddle of Eyes.",
+        "You have been tasked with retrieving the item of greatest value that can be found on the other side of the door indicated by the sphinx.",
+        "Answer the sphinx's riddles.",
+        "Provide a satisfactory answer to each of the riddles posed by the sphinx."
+      ],
+      "lines": [
+        "Sphinx at Mountain Shrine (north of Vernworth, past Trevo Mine). SAVE before every riddle.",
+        "Wrong answers permanently remove rewards — wrong answer twice locks out Maistir Grimoire.",
+        "After defeating or leaving, Sphinx may relocate to Frontier Shrine (Battahl) for riddles 7-10."
+      ],
+      "fallback_step_key": "answer the sphinx",
+      "step_order": ["answer the sphinx", "reach the frontier shrine", "answer remaining riddles"],
+      "step_hints": {
+        "answer the sphinx": [
+          "Go to Mountain Shrine north of Vernworth (past Trevo Mine, up the mountain road).",
+          "SAVE before each riddle — wrong answers permanently lose that reward.",
+          "Riddle answers (Fextralife): Lantern, Time, Limerence, Godsbane Blade, Human, Wing, Wilted Flower, Seeker's Token, Pawn, your own Pawn."
+        ],
+        "reach the frontier shrine": [
+          "Sphinx has moved to Frontier Shrine in Battahl — travel south through the border.",
+          "Bring all previous correct-answer rewards; continue where you left off."
+        ],
+        "answer remaining riddles": [
+          "Complete remaining riddles at Frontier Shrine for final rewards.",
+          "Finishing all 10 riddles earns the Unmoored World key item via the Sphinx's chest."
+        ]
+      }
+    },
+    "20220": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/The+Nameless+Village+(Quest)", "lines": ["Hidden eastern forest village — tied to Disa's Plot progression.", "Required context for Oswald rumor (Till Death) and Howling Blizzard trade."] },
+    "20230": {
+      "wiki": "https://dragonsdogma2.wiki.fextralife.com/A+Place+to+Call+Home",
+      "lines": ["Refugee in Vernworth / Stardrop thread.", "Often night or weather gated — wiki day/night cycle tip."],
+      "fallback_step_key": "help the refugee",
+      "step_order": ["help the refugee", "find a place to call home", "furnish the home"],
+      "step_hints": {
+        "help the refugee": ["Speak to the displaced Battahl refugee near Vernworth slums or Stardrop Inn.", "Try different times of day if NPC is missing."],
+        "find a place to call home": ["Secure a dwelling for the refugee family."],
+        "furnish the home": ["Bring requested items to make the home livable."]
+      }
+    },
+    "20240": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/Vocation+Frustration", "lines": ["Vocation guild frustration quest.", "Switch vocations freely before turn-in if wiki recommends certain skills."] },
+    "20250": {
+      "wiki": "https://dragonsdogma2.wiki.fextralife.com/Prey+for+the+Pack",
+      "lines": ["Fextralife Side Quests: (!) time-sensitive wolf hunt.", "Checkpoint Rest Town area — don't fast-forward multiple days once started."],
+      "fallback_step_key": "hunt the wolves",
+      "step_hints": { "hunt the wolves": ["Speak to the hunter near Borderwatch or Melve about wolf attacks.", "Time-sensitive — avoid long time skips once started."] }
+    },
+    "20270": {
+      "wiki": "https://dragonsdogma2.wiki.fextralife.com/The+Sotted+Sage",
+      "lines": ["Volcanic island drunk sage (wiki Battahl quest list).", "Often tavern at night — camp till evening if NPC missing."],
+      "fallback_step_key": "find the sotted sage",
+      "step_order": ["find the sotted sage", "speak to the sotted sage", "complete the sage's request"],
+      "step_hints": {
+        "find the sotted sage": ["Find the drunken sage in a Volcanic Island tavern (Bakbattahl area).", "Camp until evening if he is not at the bar."],
+        "speak to the sotted sage": ["Talk to him at the tavern when he appears."],
+        "complete the sage's request": ["Fulfill his errand — usually a drink or item run."]
+      }
+    },
+    "20280": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/A+Poisonous+Proposal", "lines": ["Fextralife: (!) Bakbattahl marketplace poisoning investigation.", "Evidence order matters for best outcome — check wiki walkthrough before accusing."] },
+    "20290": {
+      "wiki": "https://dragonsdogma2.wiki.fextralife.com/Short-Sighted+Ambition",
+      "lines": ["Isaac wants a grimoire — overlaps loot with Spellbound / Appraisal.", "Forge duplicates at Ibrahim so you don't brick parallel quests."],
+      "fallback_step_key": "speak to isaac",
+      "step_order": [
+        "speak to isaac",
+        "find a ripened quince",
+        "find the second volume of the grimoire",
+        "give isaac the forged grimoire"
+      ],
+      "step_hints": {
+        "speak to isaac": ["Buy anything at Isaac's Wares in Bakbattahl to start.", "He needs a Ripened Quince before he can keep reading."],
+        "find a ripened quince": ["Loot quince from goblins in western Battahl or buy one.", "Rest 3 days on a bench in Bakbattahl to ripen it."],
+        "find the second volume of the grimoire": ["Buy On the Transference of Souls 2 from Ibrahim at Checkpoint Rest Town (2000 G)."],
+        "give isaac the forged grimoire": ["Forge On the Transit of Souls 2 at Ibrahim (~2400 G) — give the FAKE to Isaac for the good ending."]
+      }
+    },
+    "20310": {
+      "wiki": "https://dragonsdogma2.wiki.fextralife.com/A+Case+of+Sculptor's+Block",
+      "lines": ["Vernworth sculptor inspiration quest.", "Bring reference items from open world; wiki lists optional shortcuts."],
+      "fallback_step_key": "help the sculptor",
+      "step_order": [
+        "help the sculptor",
+        "visit fulvio in battahl",
+        "accompany fulvio",
+        "wait for fulvio progress",
+        "attend the unveiling"
+      ],
+      "step_hints": {
+        "help the sculptor": ["Klark's Estate, Vernworth Noble Quarter — talk to Klark outside."],
+        "visit fulvio in battahl": ["After Feast of Deception — Fulvio's Workshop in Bakbattahl."],
+        "accompany fulvio": ["Griffin nest northwest of Bakbattahl — prolong the fight so Fulvio can sketch."],
+        "wait for fulvio progress": ["Wait a few in-game days, then check Fulvio's workshop again."],
+        "attend the unveiling": ["Meet Fulvio at Klark's Estate in Vernworth for the sculpture reveal."]
+      }
+    },
+    "20330": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/Shadowed+Prayers", "lines": ["Fextralife: (!) Battahl temple night investigation.", "Stealth or combat branches — read wiki before choosing violence in the shrine."] },
+    "20340": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/Steeled+Resolve,+Blazing+Forge", "lines": ["Fextralife: (!) timed smith commission in Battahl.", "Gather materials before accepting final timer if wiki warns."] },
+    "20350": {
+      "wiki": "https://dragonsdogma2.wiki.fextralife.com/Hunt+for+the+Jadeite+Orb",
+      "lines": ["Wiki Quests bucket: AFTER Feast — mother in Vernworth Castle.", "Sven-adjacent loot chase; don't sell unique orb items mid-quest."],
+      "fallback_step_key": "search the castle",
+      "step_order": ["search the castle", "find the jadeite orb", "return the orb"],
+      "step_hints": {
+        "search the castle": ["Mother in Vernworth Castle — talk to her to start the hunt.", "Check side rooms and upper floors."],
+        "find the jadeite orb": ["Orb is hidden in the castle — search containers thoroughly.", "Do not sell unique orb loot mid-quest."],
+        "return the orb": ["Bring the jadeite orb back to the quest giver."]
+      }
+    },
+    "20480": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/Oxcart+Courier", "lines": ["Talk to oxcart drivers at stops — escort / parcel loop.", "Oxcarts skip time — can accidentally push day-sensitive quests."] },
+    "20082": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/Trouble+on+the+Cape", "lines": ["Harve Village Ulrika step — auto-starts when you speak to her there after Readvent.", "Romance: daily gifts after this; wiki says max affinity before final Ulrika quest."] },
+
+    "30010": {
+      "wiki": "https://dragonsdogma2.wiki.fextralife.com/The+Ornate+Box",
+      "step_hints": {
+        "find out": [
+          "Starts when Sven argues with Auriol in the marketplace.",
+          "If you lied to guard Norman during Seat of the Sovran, Sven recognizes you (better rewards).",
+          "Medicament Predicament done = Ornate Box costs 800g not 1000g."
+        ],
+        "recompense": [
+          "Best: buy the box yourself (800g), give it to Sven at Roderick's shop steps.",
+          "Meet him at Dragon Fountain 4 days in a row for Jasper, Ring, Ferrystone, Courtly outfit.",
+          "Lending gold only pays 500g back — buying the box gives more rewards."
+        ],
+        "ornate box": [
+          "Finish before Feast of Deception — Sven leaves the market forever after.",
+          "Normann (castle guard) gates this quest — lie for Sven in Seat of the Sovran."
+        ]
+      }
+    },
+    "30020": {
+      "wiki": "https://dragonsdogma2.wiki.fextralife.com/Claw+Them+Into+Shape",
+      "lines": ["Moonglow Garden / slums cat training (wiki Side Quests regional list).", "Carry / throw cats as NPC asks — low combat."],
+      "fallback_step_key": "train the cats",
+      "step_order": ["train the cats", "complete cat training"],
+      "step_hints": {
+        "train the cats": ["Moonglow Garden / Vernworth slums — help train the cats.", "Carry or throw cats as the owner asks."],
+        "complete cat training": ["Finish all training rounds the owner assigns."]
+      }
+    },
+    "30030": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/Beren's+Final+Lesson", "lines": ["Melve warrior maister — Moonglow / Melve cluster on wiki index.", "Requires warrior access — switch before talking if needed."] },
+    "30040": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/The+Stolen+Throne", "lines": ["Stardrop intel from Brant — castle investigation (Sven political arc).", "Not the same as Ornate Box market trigger — parallel Sven content.", "Advances Wilhelmina rose quest prerequisites."] },
+    "30041": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/Masked+Correspondence", "lines": ["Continues Stolen Throne — castle / letter trail.", "Keep manual saves; some branches affect Magisterial Amenity."] },
+    "30042": {
+      "wiki": "https://dragonsdogma2.wiki.fextralife.com/A+Magisterial+Amenity",
+      "lines": ["Late Sven castle favor chain.", "Check inventory for requested luxuries before accepting timer steps."],
+      "fallback_step_key": "find the spectacles",
+      "step_order": ["find the spectacles", "return the spectacles to waldhar"],
+      "step_hints": {
+        "find the spectacles": ["Search the masquerade hall in Vernworth Castle for exquisite spectacles."],
+        "return the spectacles to waldhar": [
+          "Deliver the spectacles to Waldhar in the archive beneath the Gracious Hand.",
+          "Gracious Hand vault — scholar line from Caged Magistrate."
+        ]
+      }
+    },
+    "30050": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/Every+Rose+Has+Its+Thorn", "lines": ["Fextralife Quests list: (!) — 3-day murder-report phase after romance fork.", "Wilhelmina only at Rose Chateau top floor 8PM–6AM (wiki).", "Peephole choice: 'Offer assistance' — 'Dissuade' bricks romance (wiki)."] },
+    "30060": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/Gift+of+the+Bow", "lines": ["Glyndwr wants a specific bow — check blacksmith stock / craft.", "Leads directly into Trial of Archery — do back-to-back."] },
+    "30070": {
+      "wiki": "https://dragonsdogma2.wiki.fextralife.com/A+Trial+of+Archery",
+      "lines": ["Shoot targets with Glyndwr — Archer or hybrid helps.", "Unlocks Sacred Arbor / Doireann line (Ailing Arborheart)."],
+      "fallback_step_key": "shoot the targets",
+      "step_order": ["shoot the targets", "complete the archery trial"],
+      "step_hints": {
+        "shoot the targets": ["Speak to Glyndwr after Gift of the Bow.", "Shoot the archery targets — Archer vocation helps."],
+        "complete the archery trial": ["Hit all targets in the trial course to finish."]
+      }
+    },
+    "30080": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/The+Ailing+Arborheart", "lines": ["Sacred Arbor — wiki: finish before Out of the Forest, Into the Forge or risk lock.", "Needs Battahl access for late objective — plan route before PoNRs.", "Elvish pawn specialization auto-translates (wiki Pawns page)."] },
+    "30090": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/Out+of+the+Forest,+Into+the+Forge", "lines": ["Fextralife: (!) post-Feast elf forge quest in Battahl.", "Completing can lock Ailing Arborheart if that was still open — order matters.", "Heat prep + wakestones for boss adds."] },
+    "30100": {
+      "wiki": "https://dragonsdogma2.wiki.fextralife.com/Readvent+of+Calamity",
+      "step_hints": {
+        "repel the dragon": [
+          "Return to Melve after Seat of the Sovran + Scaly Invaders progress.",
+          "Break red weakpoints on legs/neck — big stagger when knocked down.",
+          "Do NOT kill the dragon here (can break Mystic Spearhand maister later).",
+          "Let it flee at ~3rd health bar; talk to Ulrika after."
+        ],
+        "visit melve": [
+          "Come back later — Ulrika at her house talks with Martin (treason accusation).",
+          "Stay the night if prompted; next morning she's gone."
+        ],
+        "find ulrika": [
+          "She's at Harve Village southwest of Melve (starts Trouble on the Cape if new).",
+          "Talk to her there, then report back to Lennart in Melve."
+        ],
+        "inform lennart": [
+          "Tell Lennart Ulrika moved to Harve — completes Readvent.",
+          "Finish before Feast of Deception or this line locks."
+        ]
+      }
+    },
+    "30110": {
+      "wiki": "https://dragonsdogma2.wiki.fextralife.com/Home+Is+Where+the+Hearth+Is",
+      "lines": ["Harve daytime Ulrika — needs max affinity (gifts till blush) for romance end.", "Wiki: one gift per day rule still applies.", "Final romance locks Beloved choice in Legacy."],
+      "fallback_step_key": "speak with ulrika",
+      "step_hints": { "speak with ulrika": ["Ulrika in Harve Village during the day (8am–10pm).", "Max affinity with daily gifts before finishing for romance ending."] }
+    },
+    "30120": {
+      "wiki": "https://dragonsdogma2.wiki.fextralife.com/Dulled+Steel,+Cold+Forge",
+      "lines": ["Vernworth smith legacy quest — mid-game gear tutorial tone.", "Bring ores from Battahl mines if wiki lists rare ingots."],
+      "fallback_step_key": "speak to the smith",
+      "step_order": [
+        "speak to the smith",
+        "find someone to repair the sword",
+        "find glimmercoal",
+        "deliver glimmercoal to sara",
+        "return restored sword to roman"
+      ],
+      "step_hints": {
+        "speak to the smith": ["Roman at Vernworth Castle courtyard — Dulled Regalia Sword."],
+        "find someone to repair the sword": ["Brokkr's Smithy in Bakbattahl — Sara takes over when Brokkr refuses."],
+        "find glimmercoal": ["Collect 15 Glimmercoal from Digger's Ruins."],
+        "deliver glimmercoal to sara": ["Bring materials to Sara at Brokkr's Smithy."],
+        "return restored sword to roman": ["Mountain Base Cave forge sequence — return sword to Roman."]
+      }
+    },
+    "30140": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/Welcome+to+Battahl", "lines": ["Fextralife: auto on first border crossing; also in PoNR #2 bucket.", "Locks if A New Godsway completed without doing it.", "Prepare Beastren mask / forgeries if wiki route suggests."] },
+    "30150": {
+      "wiki": "https://dragonsdogma2.wiki.fextralife.com/Spellbound",
+      "lines": ["Wiki How to Unlock: Eini & Eino must leave the house OR carry Trysha outside, then talk.", "Same grimoires as Sorcerer's Appraisal — forge at Ibrahim; give Trysha ~3 originals for best maister outcome.", "After tomes: don't kill Trysha in frenzy — tackle / Solemnity / Wakestone revive (wiki)."],
+      "fallback_step_key": "collect grimoires for trysha",
+      "step_order": [
+        "collect grimoires for trysha",
+        "bring trysha the grimoires",
+        "visit trysha after a few days",
+        "exhaust trysha's magick reserves",
+        "check on trysha after a few days"
+      ],
+      "step_hints": {
+        "collect grimoires for trysha": ["Eini's Home north of Melve — grandparents must NOT be inside when you talk to Trysha.", "Forge copies at Ibrahim; need tomes for Appraisal too."],
+        "bring trysha the grimoires": ["Give Trysha at least 3 original grimoires for maister rewards."],
+        "visit trysha after a few days": ["Return to Eini's Home — Trysha begins casting."],
+        "exhaust trysha's magick reserves": ["Don't kill Trysha — tackle / Solemnity / Wakestone revive."],
+        "check on trysha after a few days": ["Return again for Conjurer's Jottings and Enchanter's Almanac."]
+      }
+    },
+    "30160": {
+      "wiki": "https://dragonsdogma2.wiki.fextralife.com/The+Sorcerer's+Appraisal",
+      "lines": ["Wiki: Myrddin attacks as TEST — do not kill; Wakestone + Courtly outfit tip.", "Steal Let There Be Light from balcony, not inner stairs, or he aggros instantly.", "Parallel to Spellbound — plan forgeries before handing originals away."],
+      "fallback_step_key": "survive myrddin's test",
+      "step_order": [
+        "wear noble clothing",
+        "gather grimoires for myrddin",
+        "deliver grimoires to myrddin",
+        "revisit myrddin after a few days"
+      ],
+      "step_hints": {
+        "wear noble clothing": ["Courtly Tunic + Breeches (Ornate Box or Philbert's) before entering Myrddin's Home."],
+        "gather grimoires for myrddin": ["Same five tomes as Spellbound — forge at Ibrahim if needed.", "Steal Let There Be Light from balcony, not inner stairs."],
+        "deliver grimoires to myrddin": ["Wear Turquoise Ring from Spellbound; give 3 grimoires."],
+        "revisit myrddin after a few days": ["Return for Myrddin's Chronicle (Maelstrom) and rewards."]
+      }
+    },
+    "30170": {
+      "wiki": "https://dragonsdogma2.wiki.fextralife.com/Put+a+Spring+in+Thy+Step",
+      "lines": ["Volcanic island festival / dancer quest (wiki Battahl list).", "Some steps are night-only — camp to dusk."],
+      "fallback_step_key": "speak to the dancer",
+      "step_order": ["speak to the dancer", "gather festival materials", "attend the festival"],
+      "step_hints": {
+        "speak to the dancer": ["Dancer / performer in Bakbattahl — reviving an old festival.", "Some steps are night-only — camp until dusk."],
+        "gather festival materials": ["Collect items the dancer requests for the revival."],
+        "attend the festival": ["Return at the scheduled time for the festival performance."]
+      }
+    },
+    "30180": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/A+Veil+of+Gossamer+Clouds", "lines": ["Post-Feast Sven castle storyline (wiki Quests Vermund bucket 2).", "If Ornate Box still open, Sven may be here instead of market — wiki Ornate Box note.", "Completing locks some earlier Sven missables — check list before finale."] },
+    "30200": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/A+Candle+in+the+Storm", "lines": ["Volcanic coast lighthouse chain (wiki Battahl list).", "Storms worsen at night — ship before weather turns."] },
+    "30210": {
+      "wiki": "https://dragonsdogma2.wiki.fextralife.com/Mercy+Among+Thieves",
+      "lines": ["Wiki Vermund Quests 2: only AFTER Feast of Deception (10140), before Guardian Gigantus (10170).", "Checkpoint Rest Town — Toumi (feed twice), oxcart men, then Lyssandro.", "Not available while Feast is still your active main quest."],
+      "fallback_step_key": "feed toumi",
+      "step_order": [
+        "feed toumi",
+        "speak to the oxcart men",
+        "speak to lyssandro",
+        "find the coral snakes hideout",
+        "storm the coral snakes hideout"
+      ],
+      "step_hints": {
+        "feed toumi": [
+          "Checkpoint Rest Town — boy Toumi by the blue tent past the inn.",
+          "Give him food twice (not rotten). Hugo may appear after the second feed."
+        ],
+        "speak to the oxcart men": [
+          "Talk to the two men opposite the oxcart station after Toumi.",
+          "They point you toward Lyssandro about the Coral Snakes bandits."
+        ],
+        "speak to lyssandro": [
+          "Lyssandro wears white robes near the oxcart waiting post.",
+          "Accept his request to hunt the Coral Snakes on the highroad."
+        ],
+        "find the coral snakes hideout": [
+          "Head south on the main road from Checkpoint Rest Town.",
+          "Ask travelers on the road — one will flag the oxcart raid site."
+        ],
+        "storm the coral snakes hideout": [
+          "Chase bandits into the southwest cavern hideout.",
+          "Fight through to the end — Hugo is left behind; quest completes."
+        ]
+      }
+    },
+    "30220": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/Off+the+Pilfered+Path", "lines": ["Fextralife: (!) Battahl highroad theft investigation.", "Timed follow / stakeout segments — read wiki for safe tail distance."] },
+    "30230": {
+      "wiki": "https://dragonsdogma2.wiki.fextralife.com/Tensions+on+the+Highroad",
+      "lines": ["Fextralife: both Quests page PoNR #2 list AND border escort.", "Must finish before A New Godsway or disappears from log.", "Oxcart from Vernworth can skip time — plan arrival before deadline."],
+      "fallback_step_key": "escort on the highroad",
+      "step_hints": { "escort on the highroad": ["Battahl border escort — finish BEFORE A New Godsway (10160).", "Time-sensitive PoNR quest — plan oxcart travel carefully."] }
+    },
+    "30240": { "wiki": "https://dragonsdogma2.wiki.fextralife.com/Clash+and+Conclusion", "lines": ["Fextralife: (!) volcanic arena duel chain.", "Boss rush style — stock curatives and stamina.", "Co-op pawns with lightning resist help wiki-recommended fight."] }
+  }
+}

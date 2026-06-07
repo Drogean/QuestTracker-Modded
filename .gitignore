@@ -1,0 +1,39 @@
+# Portable git toolchain (local bootstrap only)
+.tools/
+
+# OS / editor
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.swp
+*~
+
+# Cursor / IDE (keep rules — track project guidance)
+# .cursor/ is intentionally tracked
+
+# MegaLens / audit scratch (regenerated)
+.megalens_args.json
+.megalens_ctx.txt
+.megalens_ctx.json
+_megalens_*
+_meg*.log
+_ml_out.txt
+_fc.txt
+_megalens_audit_bundle.txt
+
+# Python / build scratch
+__pycache__/
+*.pyc
+
+# Backup copies
+*.bak
+
+# User prefs in game folder — do not ship secrets; local JSON is optional
+# (workspace copies of layout prefs are small — track baked defaults only if needed)
+reframework/data/quest_tracker_prefs.json
+reframework/data/quest_tracker_last_layout.json
+reframework/data/quest_tracker_permanent_layout.json
+
+# Game install logs (never commit live DD2 logs)
+quest_tracker_log.txt
+re2_framework_log.txt

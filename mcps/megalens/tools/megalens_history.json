@@ -1,0 +1,16 @@
+{
+  "name": "megalens_history",
+  "description": "List your recent MegaLens audit runs — returns run_id, status, skill, tier, started_at, tokens_used, cost_usd, and a short title preview for each.",
+  "inputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+      "limit": {
+        "description": "How many recent runs to return (default 10, max 50).",
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 50
+      }
+    }
+  }
+}

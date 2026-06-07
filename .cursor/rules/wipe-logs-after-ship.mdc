@@ -1,0 +1,36 @@
+---
+description: Builder must truncate all game log files after every version ship — never delete.
+alwaysApply: true
+---
+
+# Wipe logs after every ship (Builder)
+
+After **every** version bump + ship (MOD_VERSION / modinfo.ini / FLUFFY_INSTALL.txt updated):
+
+1. Run `_wipe_game_logs.ps1` with the new version:
+   ```powershell
+   powershell -NoProfile -ExecutionPolicy Bypass -File "_wipe_game_logs.ps1" -Version 3.0.XX
+   ```
+2. **Truncate only** — never `Remove-Item` / `os.remove` these files.
+
+## Paths (always all three)
+
+| Log | Path |
+|-----|------|
+| Quest Tracker | `C:\Program Files (x86)\Steam\steamapps\common\Dragons Dogma 2\reframework\data\quest_tracker_log.txt` |
+| REFramework | `C:\Program Files (x86)\Steam\steamapps\common\Dragons Dogma 2\re2_framework_log.txt` |
+| Fluffy MM | `C:\Program Files (x86)\Steam\steamapps\common\Dragons Dogma 2\MM\Data\Log.txt` |
+
+## Why
+
+Coordinator + Audit read disk after user plays. Old lines from prior builds confuse version checks and cache errors.
+
+## In-game (already handled)
+
+`quest_tracker.lua` truncates `quest_tracker_log.txt` when MOD_VERSION in the file header differs from loaded version. Builder still wipes all three on ship so **re2** and **Fluffy** logs are clean before the user launches.
+
+## Ship checklist tail
+
+1. Bump version + implement fixes
+2. **Run `_wipe_game_logs.ps1`**
+3. Tell user: **INSTALL NEW MOD IN FLUFFY** then play, quit, **Audit if fail**
