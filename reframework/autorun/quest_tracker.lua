@@ -1,8 +1,8 @@
--- quest_tracker.lua — DD2 quest list UI orchestrator (v1.1.7)
+-- quest_tracker.lua — DD2 quest list UI orchestrator (v1.1.8)
 -- Submodules: quest_tracker_prefs/sdk/gather, quest_tracker_steps(+resolve), plugins, window, map, cache
 
 local MOD_NAME = "Quest Tracker Reduxx"
-local MOD_VERSION = "1.1.7"
+local MOD_VERSION = "1.1.8"
 
 local DEFAULT_QUEST_WIN_W = 786
 local DEFAULT_QUEST_WIN_H = 877

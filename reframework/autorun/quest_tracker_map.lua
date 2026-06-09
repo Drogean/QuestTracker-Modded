@@ -1,7 +1,7 @@
 -- quest_tracker_map.lua — map pins / icons (require from quest_tracker.lua)
 -- REFramework also runs every autorun/*.lua; return cached module so install() is not wiped.
 
-local MAP_MOD_VER = "1.1.7"
+local MAP_MOD_VER = "1.1.8"
 local M = package.loaded["quest_tracker_map"]
 if M and M._map_mod_ver == MAP_MOD_VER then return M end
 M = { _map_mod_ver = MAP_MOD_VER }
@@ -99,6 +99,7 @@ end
 local function _pin_complete(msg)
     MAP_API.last_msg = msg
     _mlog_map("[PIN] " .. msg)
+    if mod then mod._qt_paint_fp = nil end
     force_marker_refresh()
     return true
 end
@@ -128,9 +129,11 @@ local function reinject_all()
         end
     end
     for qid, entry in pairs(MAP_API.pinned_pos) do
-        for _, p in ipairs(entry) do
-            local marker = build_marker_at_pos(p.x, p.y, p.z, qid)
-            if marker then _try_add_yellow_marker(list, qid, marker) end
+        if MAP_API.pinned_data[qid] == nil then
+            for _, p in ipairs(entry) do
+                local marker = build_marker_at_pos(p.x, p.y, p.z, qid)
+                if marker then _try_add_yellow_marker(list, qid, marker) end
+            end
         end
     end
 end
@@ -247,30 +250,109 @@ local function add_labeled_markers_for_all_pins(this)
     return added
 end
 
+local function _get_mapicon_count(ui)
+    if ui == nil then return 0 end
+    local n = 0
+    pcall(function() n = ui.MapIconInfoList:get_Count() end)
+    return n or 0
+end
+
+local function _get_collection_count(collection)
+    if collection == nil then return 0 end
+    local n = 0
+    pcall(function() n = collection:get_Count() end)
+    if n == 0 then pcall(function() n = collection:get_size() end) end
+    return n or 0
+end
+
+local function _get_collection_item(collection, index)
+    if collection == nil then return nil end
+    local item = nil
+    pcall(function() item = collection:call("get_Item", index) end)
+    if item == nil then pcall(function() item = collection:get_Item(index) end) end
+    if item == nil then pcall(function() item = collection:get_element(index) end) end
+    return item
+end
+
+local function _icon_type_of(info)
+    if info == nil then return nil end
+    local it = safe_get_field(info, "IconType") or safe_get_field(info, "_IconType")
+    if type(it) ~= "number" then
+        pcall(function() it = info:call("get_IconType") end)
+    end
+    return type(it) == "number" and it or nil
+end
+
+local function _wipe_mod_type25_icons(ui)
+    if ui == nil then return 0, 0, 0 end
+    local infos = ui.MapIconInfoList or safe_get_field(ui, "MapIconInfoList")
+    if infos == nil then return 0, 0, _get_mapicon_count(ui) end
+    local before = _get_collection_count(infos)
+    local wiped = 0
+    for i = before - 1, 0, -1 do
+        local info = _get_collection_item(infos, i)
+        if info and _icon_type_of(info) == ICON_ICON_TYPE then
+            pcall(function() info.IsEnable = false end)
+            pcall(function() infos:call("RemoveAt", i) end)
+            wiped = wiped + 1
+        end
+    end
+    local after = _get_collection_count(infos)
+    if wiped > 0 then
+        _mlog_map(string.format("[QT][map] wipe t25=%d before=%d after=%d", wiped, before, after))
+    end
+    return wiped, before, after
+end
+
 local function _count_map_markers()
     local n = 0
-    for _, entry in pairs(MAP_API.pinned_data) do
+    for qid, entry in pairs(MAP_API.pinned_data) do
         n = n + #entry
     end
-    for _, pins in pairs(MAP_API.pinned_pos) do
-        n = n + #pins
+    for qid, pins in pairs(MAP_API.pinned_pos) do
+        if MAP_API.pinned_data[qid] == nil then
+            n = n + #pins
+        end
     end
     return n
 end
 
+local function _paint_pin_fingerprint()
+    local parts = {}
+    for qid, entry in pairs(MAP_API.pinned_data) do
+        parts[#parts + 1] = string.format("d:%d:%d", qid, #entry)
+    end
+    for qid, pins in pairs(MAP_API.pinned_pos) do
+        parts[#parts + 1] = string.format("l:%d:%d", qid, #pins)
+    end
+    table.sort(parts)
+    return table.concat(parts, "|")
+end
+
+local function _ui_refresh_icon_draw(ui)
+    local update_ok, quest_ok, pos_ok = false, false, false
+    pcall(function() ui:call("updateMapIcon"); update_ok = true end)
+    pcall(function() ui:call("updateQuestPointIcon"); quest_ok = true end)
+    pcall(function() ui:call("updateIconPos"); pos_ok = true end)
+    return update_ok, quest_ok, pos_ok
+end
+
 local function _paint_open_map(ui)
     if ui == nil then
-        _mlog_map("[QT][map] paint labels=0 markers=0 updateIcon=no_ui")
+        _mlog_map("[QT][map] paint labels=0 wiped=0 markers=0 mapicon_after=0 updateIcon=no_ui questPoint=no_ui")
         return 0, 0, "no_ui"
     end
+    local wiped = _wipe_mod_type25_icons(ui)
     local labels = add_labeled_markers_for_all_pins(ui) or 0
     local markers = _count_map_markers()
-    local update_ok = false
-    pcall(function() ui:call("updateMapIcon"); update_ok = true end)
-    local ui_stat = update_ok and "ok" or "fail"
-    _mlog_map(string.format("[QT][map] paint labels=%d markers=%d updateIcon=%s",
-        labels, markers, ui_stat))
-    return labels, markers, ui_stat
+    local update_ok, quest_ok, pos_ok = _ui_refresh_icon_draw(ui)
+    local mapicon_after = _get_mapicon_count(ui)
+    _mlog_map(string.format(
+        "[QT][map] paint labels=%d wiped=%d markers=%d mapicon_after=%d updateIcon=%s questPoint=%s",
+        labels, wiped, markers, mapicon_after,
+        update_ok and "ok" or "fail", quest_ok and "ok" or "fail"))
+    if mod then mod._qt_paint_fp = _paint_pin_fingerprint() end
+    return labels, markers, update_ok and "ok" or "fail"
 end
 
 local function _log_map_zoom_once(ui)
@@ -364,6 +446,10 @@ local function install_icon_hook()
                     end
                     pcall(_log_map_zoom_once, this)
                     pcall(_sniff_map_ui_once, this)
+                    local fp = _paint_pin_fingerprint()
+                    if mod and mod._qt_paint_fp == fp then
+                        return retval
+                    end
                     pcall(_paint_open_map, this)
                 end
                 return retval
@@ -422,15 +508,22 @@ clear_injected_markers = function()
     MAP_API.pinned_data = {}
     MAP_API.pinned_pos = {}
     MAP_API.last_msg = "pins cleared"
+    if mod then mod._qt_paint_fp = "" end
     pcall(function()
         local gm = MAP_API.gm or sdk.get_managed_singleton("app.GuiManager")
         if gm then gm:call("setupQuestTargetMarker") end
     end)
     if UI_MAP then
         pcall(function() UI_MAP:call("clearMapAll") end)
-        _paint_open_map(UI_MAP)
+        local wiped = _wipe_mod_type25_icons(UI_MAP)
+        local labels = add_labeled_markers_for_all_pins(UI_MAP) or 0
+        _ui_refresh_icon_draw(UI_MAP)
+        local mapicon_after = _get_mapicon_count(UI_MAP)
+        _mlog_map(string.format("[QT][map] clear done wiped=%d labels=%d mapicon_after=%d",
+            wiped, labels, mapicon_after))
+        if mod then mod._qt_paint_fp = "" end
     else
-        _mlog_map("[QT][map] paint labels=0 markers=0 updateIcon=no_ui")
+        _mlog_map("[QT][map] clear done wiped=0 labels=0 mapicon_after=0 updateIcon=no_ui")
     end
 end
 
@@ -628,8 +721,7 @@ pin_quest = function(qid, defer_refresh)
         for _, dest in ipairs(dests) do
             local marker = build_marker(dest, qid)
             if marker then
-                local okA = pcall(function() list:call("Add", marker) end)
-                if okA then added = added + 1 end
+                added = added + 1
                 local x, y, z = _marker_world_pos(marker)
                 if x then pos_copy[#pos_copy + 1] = { x = x, y = y, z = z } end
             end

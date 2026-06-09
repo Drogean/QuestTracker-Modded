@@ -6,7 +6,7 @@ Format: `date | failure | impact | next-audit fix | status`
 
 | Feature area | Streak | Last versions | Next action |
 |--------------|--------|---------------|-------------|
-| map pins / labels / instant refresh | **3** | v1.1.4 FAIL, v1.1.5 FAIL, v1.1.6 FAIL | MegaLens before v1.1.7 build OR user declines → static FULL handoff only |
+| map pins / labels / instant refresh | **4** | v1.1.4–v1.1.7 FAIL (ghost banners after clear) | v1.1.8: wipe type-25 on clear + dedup inject + updateQuestPointIcon |
 
 Reset streak when: user PASS on map pins, or new unrelated feature audit.
 
