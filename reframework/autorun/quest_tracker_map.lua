@@ -1,7 +1,7 @@
 -- quest_tracker_map.lua — map pins / icons (require from quest_tracker.lua)
 -- REFramework also runs every autorun/*.lua; return cached module so install() is not wiped.
 
-local MAP_MOD_VER = "1.2.0"
+local MAP_MOD_VER = "1.2.1"
 local M = package.loaded["quest_tracker_map"]
 if M and M._map_mod_ver == MAP_MOD_VER then return M end
 M = { _map_mod_ver = MAP_MOD_VER }
@@ -126,6 +126,12 @@ local function reinject_all()
     for qid, entry in pairs(MAP_API.pinned_data) do
         for _, dest in ipairs(entry) do
             local marker = build_marker(dest, qid)
+            if marker and _try_add_yellow_marker(list, qid, marker) then n = n + 1 end
+        end
+    end
+    for qid, anchor in pairs(MAP_API.pinned_label_pos) do
+        if MAP_API.pinned_data[qid] and anchor then
+            local marker = build_marker_at_pos(anchor.x, anchor.y, anchor.z, qid)
             if marker and _try_add_yellow_marker(list, qid, marker) then n = n + 1 end
         end
     end
@@ -551,7 +557,7 @@ local function get_live_info_destinations(qlm, qid)
     return #out > 0 and out or nil
 end
 
-local function _pin_dest_mode(qid, list, dests, defer_refresh, skipped_manual)
+local function _pin_dest_mode(qid, list, dests, defer_refresh)
     local added = 0
     local label_anchor = nil
     for _, dest in ipairs(dests) do
@@ -569,11 +575,15 @@ local function _pin_dest_mode(qid, list, dests, defer_refresh, skipped_manual)
     end
     if added == 0 then return false, "no marker built" end
     MAP_API.pinned_data[qid] = dests
-    if label_anchor then MAP_API.pinned_label_pos[qid] = label_anchor end
-    local msg = skipped_manual
-        and string.format("pinned qid=%d dest-mode (skipped manual pos) added=%d", qid, added)
-        or string.format("pinned qid=%d dest-mode added=%d", qid, added)
-    return _pin_done(msg, defer_refresh)
+    if label_anchor then
+        local dm = build_marker_at_pos(label_anchor.x, label_anchor.y, label_anchor.z, qid)
+        if dm then
+            local okD = pcall(function() list:call("Add", dm) end)
+            if okD then added = added + 1 end
+        end
+        MAP_API.pinned_label_pos[qid] = label_anchor
+    end
+    return _pin_done(string.format("pinned qid=%d dest-mode blob+diamond added=%d", qid, added), defer_refresh)
 end
 
 pin_quest = function(qid, defer_refresh)
@@ -585,14 +595,6 @@ pin_quest = function(qid, defer_refresh)
 
     local is_available = mod.acceptable_ids[qid] == true
     local added = 0
-
-    if not is_available then
-        local dests = get_quest_destinations(qlm, qid) or get_live_info_destinations(qlm, qid)
-        if dests then
-            local skipped_manual = MANUAL_POS_OVERRIDES[qid] ~= nil
-            return _pin_dest_mode(qid, list, dests, defer_refresh, skipped_manual)
-        end
-    end
 
     if MANUAL_POS_OVERRIDES[qid] then
         local p = MANUAL_POS_OVERRIDES[qid]
@@ -653,7 +655,7 @@ pin_quest = function(qid, defer_refresh)
     else
         local dests = get_quest_destinations(qlm, qid) or get_live_info_destinations(qlm, qid)
         if not dests then return false, "no destinations (catalog or InfoDict)" end
-        return _pin_dest_mode(qid, list, dests, defer_refresh, false)
+        return _pin_dest_mode(qid, list, dests, defer_refresh)
     end
 end
 
