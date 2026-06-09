@@ -1,7 +1,7 @@
 -- quest_tracker_map.lua — map pins / icons (require from quest_tracker.lua)
 -- REFramework also runs every autorun/*.lua; return cached module so install() is not wiped.
 
-local MAP_MOD_VER = "1.2.1"
+local MAP_MOD_VER = "1.2.2"
 local M = package.loaded["quest_tracker_map"]
 if M and M._map_mod_ver == MAP_MOD_VER then return M end
 M = { _map_mod_ver = MAP_MOD_VER }
@@ -13,7 +13,7 @@ local function _mlog_map(...)
     elseif mlog then mlog(...) end
 end
 local cid_eq, cid_norm, get_character_world_pos, mark_prefs_dirty
-local MANUAL_POS_OVERRIDES, MANUAL_GIVER_OVERRIDES, ELIMINATED_OVERRIDES, BUNDLED_GIVER_OVERRIDES
+local MANUAL_POS_OVERRIDES, HYBRID_AREA_QIDS, MANUAL_GIVER_OVERRIDES, ELIMINATED_OVERRIDES, BUNDLED_GIVER_OVERRIDES
 local is_bundled_giver, qd_givers, qd_givers_display_order, TAB_NAMES
 
 local MAP_API = {
@@ -48,6 +48,7 @@ function M.install(ctx)
     get_character_world_pos = ctx.get_character_world_pos
     mark_prefs_dirty = ctx.mark_prefs_dirty
     MANUAL_POS_OVERRIDES = ctx.MANUAL_POS_OVERRIDES
+    HYBRID_AREA_QIDS = ctx.HYBRID_AREA_QIDS
     MANUAL_GIVER_OVERRIDES = ctx.MANUAL_GIVER_OVERRIDES
     ELIMINATED_OVERRIDES = ctx.ELIMINATED_OVERRIDES
     BUNDLED_GIVER_OVERRIDES = ctx.BUNDLED_GIVER_OVERRIDES
@@ -557,7 +558,14 @@ local function get_live_info_destinations(qlm, qid)
     return #out > 0 and out or nil
 end
 
-local function _pin_dest_mode(qid, list, dests, defer_refresh)
+local function _is_hybrid_area_quest(qid, qlm)
+    if HYBRID_AREA_QIDS and HYBRID_AREA_QIDS[qid] then return true end
+    if mod and mod._qt_journal_qid == qid then return true end
+    if mod and mod._qt_priority_qid == qid then return true end
+    return false
+end
+
+local function _pin_dest_mode(qid, list, dests, defer_refresh, anchor_override)
     local added = 0
     local label_anchor = nil
     for _, dest in ipairs(dests) do
@@ -575,6 +583,9 @@ local function _pin_dest_mode(qid, list, dests, defer_refresh)
     end
     if added == 0 then return false, "no marker built" end
     MAP_API.pinned_data[qid] = dests
+    if anchor_override and anchor_override.x then
+        label_anchor = { x = anchor_override.x, y = anchor_override.y, z = anchor_override.z }
+    end
     if label_anchor then
         local dm = build_marker_at_pos(label_anchor.x, label_anchor.y, label_anchor.z, qid)
         if dm then
@@ -583,7 +594,11 @@ local function _pin_dest_mode(qid, list, dests, defer_refresh)
         end
         MAP_API.pinned_label_pos[qid] = label_anchor
     end
-    return _pin_done(string.format("pinned qid=%d dest-mode blob+diamond added=%d", qid, added), defer_refresh)
+    local is_hybrid = anchor_override ~= nil
+    local tag = is_hybrid and "hybrid" or "dest-mode"
+    local anchor_src = is_hybrid and "manual" or "dest"
+    return _pin_done(string.format("pinned qid=%d %s blob+diamond added=%d anchor=%s",
+        qid, tag, added, anchor_src), defer_refresh)
 end
 
 pin_quest = function(qid, defer_refresh)
@@ -595,6 +610,14 @@ pin_quest = function(qid, defer_refresh)
 
     local is_available = mod.acceptable_ids[qid] == true
     local added = 0
+
+    if not is_available and _is_hybrid_area_quest(qid, qlm) then
+        local dests = get_quest_destinations(qlm, qid) or get_live_info_destinations(qlm, qid)
+        if dests then
+            local anchor = MANUAL_POS_OVERRIDES[qid]
+            return _pin_dest_mode(qid, list, dests, defer_refresh, anchor)
+        end
+    end
 
     if MANUAL_POS_OVERRIDES[qid] then
         local p = MANUAL_POS_OVERRIDES[qid]

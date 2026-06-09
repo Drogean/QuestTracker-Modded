@@ -2,7 +2,7 @@
 -- Submodules: quest_tracker_prefs/sdk/gather, quest_tracker_steps(+resolve), plugins, window, map, cache
 
 local MOD_NAME = "Quest Tracker Reduxx"
-local MOD_VERSION = "1.2.1"
+local MOD_VERSION = "1.2.2"
 
 local DEFAULT_QUEST_WIN_W = 786
 local DEFAULT_QUEST_WIN_H = 877
@@ -107,6 +107,9 @@ local MANUAL_POS_OVERRIDES = {
     [30220] = { x = -1020.84508228302,   y = 85.06685638427734,   z = 274.2882251739502 },
     [30240] = { x = 324.0470886230469,   y = 530.5744247436523,   z = 1668.7981867790222 },
 }
+
+-- Area+priority quests: blob+diamond+label even when MANUAL_POS exists (Mercy etc.)
+local HYBRID_AREA_QIDS = { [30210] = true }
 
 local ELIMINATED_OVERRIDES = {}
 
@@ -216,6 +219,7 @@ local ctx = {
     SORT_NAMES = SORT_NAMES,
     MANUAL_GIVER_OVERRIDES = MANUAL_GIVER_OVERRIDES,
     MANUAL_POS_OVERRIDES = MANUAL_POS_OVERRIDES,
+    HYBRID_AREA_QIDS = HYBRID_AREA_QIDS,
     ELIMINATED_OVERRIDES = ELIMINATED_OVERRIDES,
     VOIDED_QUESTS = VOIDED_QUESTS,
     LOCKED_QUESTS = LOCKED_QUESTS,
@@ -427,6 +431,7 @@ if _map_ok and MapMod and MapMod.install then
         get_character_world_pos = ctx.get_character_world_pos,
         mark_prefs_dirty = ctx.mark_prefs_dirty,
         MANUAL_POS_OVERRIDES = MANUAL_POS_OVERRIDES,
+        HYBRID_AREA_QIDS = HYBRID_AREA_QIDS,
         MANUAL_GIVER_OVERRIDES = MANUAL_GIVER_OVERRIDES,
         ELIMINATED_OVERRIDES = ELIMINATED_OVERRIDES,
         BUNDLED_GIVER_OVERRIDES = BUNDLED_GIVER_OVERRIDES,
