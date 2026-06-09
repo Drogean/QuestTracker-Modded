@@ -37,7 +37,7 @@ Runtime (game reframework/data/, NOT in mod zip — auto-created on save):
 Builder: after every ship run _wipe_game_logs.ps1 (truncates quest_tracker_log, re2_framework_log, MM Log.txt — never deletes).
 
 After install, check reframework/data/quest_tracker_log.txt for:
-  mod loaded v1.1.6
+  mod loaded v1.1.7
   [QT][time] module ok
   [QT][cache] refresh OK rows=N built=N draw=N
   [QT] quest_tracker_steps OK

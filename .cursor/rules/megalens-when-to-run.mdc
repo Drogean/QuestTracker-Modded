@@ -6,11 +6,19 @@ alwaysApply: true
 # MegaLens — when to run (do not call wrong)
 
 ## Default = $0 (no MegaLens)
-1. Read game logs yourself (see `read-game-logs-first.mdc`).
-2. Static audit: grep wiring, install order, one `plugins.install`, 200-local budget.
-3. Patch → bump version → user installs in Fluffy → user reproduces → read log again.
 
-**Only then** consider L3. See `megalens-auditor.mdc` for tier voice + cost.
+### Builder SHIP HANDOFF intake (user pastes ship block)
+→ **Full audit WITHOUT MegaLens** — `auditor-builder-ship-intake.mdc` (logs, grep, Original mod, grok, screenshots).
+
+### After 3 consecutive FAILs on same feature
+→ **MegaLens BEFORE next Builder zip** — `megalens-fail-streak.mdc`. Do not hand off v1.1.8-style thin fix until L3 or user declines.
+
+### General default
+1. Read game logs yourself (see `read-game-logs-first.mdc`).
+2. Static audit: grep wiring, install order, Original mod diff, reference mods.
+3. User installs in Fluffy → reproduces → read log again.
+
+**Only then** consider L3 (or at FAIL streak 3). See `megalens-auditor.mdc` for tier voice + cost.
 
 ## Hard gates (all must pass before `megalens_debate`)
 - [ ] User said yes with exact phrase: `run standard megalens, I accept ~$0.22`

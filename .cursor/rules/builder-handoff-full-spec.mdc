@@ -1,0 +1,106 @@
+---
+description: Audit→Builder handoff MUST be a full work order — Builder cannot see coordinator chat summaries
+alwaysApply: true
+---
+
+# Builder handoff — FULL spec (not a summary)
+
+## Two audiences — never mix them
+
+| Audience | What they get |
+|----------|----------------|
+| **Coordinator (user)** | Short verdict, symptoms, next step — plain English |
+| **Builder (paste block)** | **FULL handoff below** — self-contained, no "see above" |
+
+Builder does **not** see screenshots, log analysis, MegaLens, or your long explanations. If it's not in the paste block, Builder guesses.
+
+## When to paste FULL handoff
+
+- Every Audit **FAIL** → full block to Builder
+- Every **P0/P1** fix request → full block
+- Coordinator says "send to Builder" → full block
+
+Thin 6-row tables are **REJECTED** by `builder-audit-handoff-gate.mdc`.
+
+## FULL BUILDER HANDOFF template (copy all sections)
+
+```
+## BUILDER HANDOFF — Quest Tracker Reduxx vX.Y.Z
+
+AUDIT SOURCE: [user test FAIL PASS / builder ship intake / log session date]
+MEGALENS: [not run | run_id + status + cost | N/A — ship intake]
+
+═══════════════════════════════════════
+USER SYMPTOMS
+═══════════════════════════════════════
+1. [what user sees — no jargon]
+2. ...
+
+═══════════════════════════════════════
+LOG PROOF (read disk yourself — paths below)
+═══════════════════════════════════════
+Log: C:\Program Files (x86)\Steam\steamapps\common\Dragons Dogma 2\reframework\data\quest_tracker_log.txt
+
+- L3 installed: mod loaded vX.Y.Z — [match workspace? Y/N]
+- [quoted grep lines with timestamps]
+- FALSE PASS lines (logged but user still broken): ...
+
+═══════════════════════════════════════
+ROOT CAUSES (file:line + one sentence each)
+═══════════════════════════════════════
+RC-1: ...
+RC-2: ...
+
+═══════════════════════════════════════
+REFERENCE (working code — copy behavior)
+═══════════════════════════════════════
+ORIGINAL QUEST TRACKER: c:\Users\jzafi\Desktop\New folder\OTHERMODS\ORIGINAL QUEST TRACKER\autorun\quest_tracker.lua
+| Behavior | Lines |
+|----------|-------|
+| ... | L###-L### |
+
+═══════════════════════════════════════
+P0 IMPLEMENTATION (exact edits)
+═══════════════════════════════════════
+FILE: reframework/autorun/quest_tracker_map.lua (etc.)
+
+--- ADD: function_name ---
+[pseudocode or 5-15 line snippet]
+
+--- CHANGE: function_name ~L###-L### ---
+BEFORE: [what code does now]
+AFTER: [what it must do]
+
+VERSION BUMP: MOD_VERSION + MAP_MOD_VER + modinfo.ini → vX.Y.Z
+
+═══════════════════════════════════════
+DO NOT TOUCH
+═══════════════════════════════════════
+- [files/features]
+
+═══════════════════════════════════════
+BUILDER STATIC CHECK BEFORE ZIP
+═══════════════════════════════════════
+grep / read checks Builder runs before ship
+
+═══════════════════════════════════════
+USER TEST + PASS/FAIL LOG LINES
+═══════════════════════════════════════
+1. Fluffy install ...
+PASS: [exact log substrings]
+FAIL: [exact failure modes]
+
+ZIP: QuestTracker-Reduxx-vX.Y.Z-fluffy.zip
+VERDICT TARGET: READY-FOR-TEST
+
+BUILDER DEBT: [OPEN from BUILDER_DEBT.md]
+AUDIT DEBT: [OPEN from AUDIT_DEBT.md]
+```
+
+## Auditor instant-fail (on self)
+
+- Handoff says "see earlier" / "as discussed"
+- P0 without `file:line` + BEFORE/AFTER
+- No LOG PROOF section with real paths
+- No REFERENCE section when bug is map/pins/UI (use ORIGINAL QUEST TRACKER)
+- No USER TEST pass/fail log lines

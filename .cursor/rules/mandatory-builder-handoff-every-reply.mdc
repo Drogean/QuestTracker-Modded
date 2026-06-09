@@ -23,45 +23,22 @@ Optional closing line only if Grok + SKILL ran: `I PROMISE I RAN GROCK AND SKILL
 - PASS/FAIL with no version cross-check (`mod loaded vX.Y.Z` vs workspace `MOD_VERSION`)
 - Skipped BUILDER DEBT or AUDIT DEBT subsections
 
-## BUILDER HANDOFF template (copy every time)
+## BUILDER HANDOFF = FULL work order (mandatory)
 
-```
-## BUILDER HANDOFF
+**Coordinator gets short summary. Builder gets the FULL block.**
 
-TARGET VERSION: vX.Y.Z (workspace) | INSTALLED: v? (from log L3 or "not verified")
-VERDICT: PASS | FAIL | NO-SHIP-YET | STATUS-ONLY
+Use the complete template in **`builder-handoff-full-spec.mdc`** — every section:
+SYMPTOMS → LOG PROOF → ROOT CAUSES → REFERENCE (ORIGINAL QUEST TRACKER line ranges) → P0 IMPLEMENTATION (BEFORE/AFTER per file) → DO NOT TOUCH → STATIC CHECK → USER TEST pass/fail log lines.
 
-P0 (ship blockers):
-  - [symptom] | log: L## quote | fix: file:line | status: OPEN|FIXED
+Thin P0 bullet tables alone = **AUDIT REJECTED** by Builder gate.
 
-P1 (playable but wrong):
-  - ...
+Minimum on every FAIL handoff:
+- Log path + quoted grep lines (not "user said")
+- `file:line` + BEFORE/AFTER for each P0
+- ORIGINAL mod reference lines when map/pins/labels involved
+- Exact PASS/FAIL log substrings for user test
 
-P2 (cosmetic / telemetry):
-  - ...
-
-DO NOT REGRESS:
-  - layout save/restore, list draw, end_child finally, no list draw CRASH, quest expand
-
-PASS CRITERIA (coordinator test):
-  - log first line = workspace MOD_VERSION
-  - Tools expands on click
-  - all ongoing quests same second as boot (incl. 10151 if progressing)
-  - grep list draw CRASH = 0
-
-BUILDER DEBT (do not repeat):
-  <OPEN rows from BUILDER_DEBT.md>
-  <last 3 FIXED>
-
-AUDIT DEBT (audit must not repeat):
-  <OPEN rows from AUDIT_DEBT.md or "none">
-  <last 3 CLOSED or "none">
-
-FILES TOUCHED THIS BUILD:
-  - path:line — one line why
-
-INSTALL: Fluffy → play → quit → post log here
-```
+Also include: BUILDER DEBT + AUDIT DEBT subsections (from debt markdown files).
 
 ## When nothing to ship
 

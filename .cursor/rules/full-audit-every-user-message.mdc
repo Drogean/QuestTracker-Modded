@@ -15,7 +15,11 @@ Coordinator posts in this chat → you run the **complete** audit **before** any
 - "I ran SKILL.md" without a wiring table + structural findings section in the same reply
 - "I ran Grok" without sources + reference-mod match in the same reply
 
-## Mandatory order (every message — no skips)
+## Ship intake fast path (BUILDER SHIP HANDOFF pasted)
+
+If message contains `BUILDER SHIP HANDOFF` / `SHIPPED VERSION:` → follow **`auditor-builder-ship-intake.mdc`** first. **No MegaLens** unless FAIL streak ≥ 3 + user approved spend.
+
+## Mandatory order (every other message — no skips)
 
 1. **Read disk** (if applicable to the message):
    - `quest_tracker_log.txt` (tail + grep)
