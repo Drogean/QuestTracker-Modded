@@ -7,16 +7,26 @@ async def main():
     from mcp import ClientSession
 
     fc = Path(r"c:\Users\jzafi\Desktop\New folder\OTHERMODS\QuestTracker-Modded\.megalens_bundle.txt").read_text(encoding="utf-8")
-    prompt = (
-        "DD2 REFramework Quest Tracker Reduxx v1.1.6 map pin audit vs working Original mod in fileContext.\n\n"
-        "USER FAIL (log mod loaded v1.1.6):\n"
-        "P0-1: Pin/clear/pin-all no visual change until pan/zoom. Log force refresh map_open=true; sniff IsUpdateIcon=false after clicks.\n"
-        "P0-2: Clear drops one diamond layer; ghost layer until zoom.\n"
-        "P0-3: Pin-all banners/flags until zoom; labels inconsistent.\n"
-        "P0-4: Sculptor qid=20310 dest-mode invisible on world map; yellow blob only on quest-map tab (vanilla).\n"
-        "P0-5: v1.1.6 copied Original label inject but added setupMapIcon/clearMapAll on force refresh — still broken.\n\n"
-        "Compare REDUXX vs ORIGINAL map blocks. Max 6-8 findings file:line. P0/P1. Concrete fixes for paint pipeline."
-    )
+    prompt = """DD2 Quest Tracker Reduxx v1.1.8 map audit vs ORIGINAL QUEST TRACKER (working).
+
+USER FAIL TAKE 5 (log mod loaded v1.1.8):
+- Pin all ongoing: white banners appear first; diamonds+yellow areas only after pan map
+- Sculptor qid=20310: general-area quest — no yellow diamond when zoomed in; zoom out shows quest area then white flag disappears permanently; other quests keep diamonds but LOSE text labels until repin
+- Zoom out: all labels vanish; repin restores text until next zoom
+- User: mod puts banners first then diamonds on top — reinventing wheel vs Original
+
+LOG PROOF v1.1.8 session:
+- clear done wiped=0 labels=0 mapicon_after=302 (wipe finds ZERO type-25 but mapicon count 302!)
+- Pin Ongoing: paint labels=10 wiped=0 markers=10 mapicon_after=312
+- wipe t25 always 0 — ghost banners persist
+
+BUILDER v1.1.8 claims: _wipe_mod_type25_icons, fingerprint skip zoom, reinject skip double dest, dest pin no list:Add
+
+Compare REDUXX vs ORIGINAL in fileContext. Max 8 findings file:line P0/P1.
+ROOT QUESTION: Should Reduxx DELETE custom wipe/reinject/paint stack and port Original map block (~878-1322) verbatim into quest_tracker_map.lua with only split-file wiring?
+
+Concrete fixes for: wipe t25=0 always, label loss on zoom, sculptor general-area, banner-before-diamond UX."""
+
     url = "https://megalens.ai/api/mcp"
     headers = {"Authorization": "Bearer ml_tok_4309695cd373acf363b5977618d4a1cc"}
 
@@ -39,6 +49,10 @@ async def main():
             else:
                 data = {"raw": str(result)}
             out.write_text(json.dumps(data, indent=2), encoding="utf-8")
-            print(json.dumps(data)[:8000])
+            text = ""
+            for c in data.get("content", []):
+                if c.get("type") == "text":
+                    text += c.get("text", "")
+            print(text[:12000])
 
 asyncio.run(main())
