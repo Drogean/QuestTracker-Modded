@@ -1,7 +1,7 @@
 -- quest_tracker_map.lua — map pins / icons (require from quest_tracker.lua)
 -- REFramework also runs every autorun/*.lua; return cached module so install() is not wiped.
 
-local MAP_MOD_VER = "1.1.9"
+local MAP_MOD_VER = "1.2.0"
 local M = package.loaded["quest_tracker_map"]
 if M and M._map_mod_ver == MAP_MOD_VER then return M end
 M = { _map_mod_ver = MAP_MOD_VER }
@@ -21,6 +21,7 @@ local MAP_API = {
     gm                = nil,
     pinned_data       = {},
     pinned_pos        = {},
+    pinned_label_pos  = {},
     eliminated_pos    = {},
     status            = "not initialized",
     last_msg          = "",
@@ -120,21 +121,33 @@ end
 
 local function reinject_all()
     local list = get_marker_list()
-    if list == nil then return end
+    if list == nil then return 0 end
+    local n = 0
     for qid, entry in pairs(MAP_API.pinned_data) do
         for _, dest in ipairs(entry) do
             local marker = build_marker(dest, qid)
-            if marker then _try_add_yellow_marker(list, qid, marker) end
+            if marker and _try_add_yellow_marker(list, qid, marker) then n = n + 1 end
         end
     end
     for qid, entry in pairs(MAP_API.pinned_pos) do
         if MAP_API.pinned_data[qid] == nil then
             for _, p in ipairs(entry) do
                 local marker = build_marker_at_pos(p.x, p.y, p.z, qid)
-                if marker then _try_add_yellow_marker(list, qid, marker) end
+                if marker and _try_add_yellow_marker(list, qid, marker) then n = n + 1 end
             end
         end
     end
+    return n
+end
+
+local function _marker_world_xyz(marker)
+    if marker == nil then return nil end
+    local p = safe_get_field(marker, "Pos") or safe_call(marker, "get_Pos")
+    if p == nil then return nil end
+    local x, y, z
+    pcall(function() x, y, z = p.x, p.y, p.z end)
+    if x == nil or (x == 0 and y == 0 and z == 0) then return nil end
+    return x, y, z
 end
 
 -- =========== LABELED MAP ICONS ===========
@@ -217,7 +230,16 @@ local function _add_one_labeled_icon(this, x, y, z, name_guid, idx_obj)
     return nil
 end
 
--- Text labels on pinned_pos only (dest-mode quests use yellow area, no point label).
+local _label_cap_logged = false
+
+local function _count_wanted_labels()
+    local want = 0
+    for _, pins in pairs(MAP_API.pinned_pos) do want = want + #pins end
+    for _ in pairs(MAP_API.pinned_label_pos) do want = want + 1 end
+    return want
+end
+
+-- POI labels from pinned_pos; area-quest labels from pinned_label_pos (no extra yellow diamond).
 local function add_labeled_markers_for_all_pins(this)
     if mod == nil or mod.label_pins ~= true then return end
     if this == nil then return end
@@ -228,7 +250,15 @@ local function add_labeled_markers_for_all_pins(this)
     local icon_limit = 0
     pcall(function() icon_count = this.MapIconInfoList:get_Count() end)
     pcall(function() icon_limit = this.MapIcon:get_Length() end)
-    if icon_limit == 0 or icon_count >= icon_limit then return end
+    if icon_limit == 0 or icon_count >= icon_limit then
+        if not _label_cap_logged then
+            _label_cap_logged = true
+            local want = _count_wanted_labels()
+            _mlog_map(string.format("[QT][map] label cap hit count=%d limit=%d skipped=%d",
+                icon_count, icon_limit, want))
+        end
+        return
+    end
 
     local idx_obj = INT_T:create_instance():add_ref()
     for qid, pins in pairs(MAP_API.pinned_pos) do
@@ -241,6 +271,16 @@ local function add_labeled_markers_for_all_pins(this)
                 if _add_one_labeled_icon(this, p.x, p.y, p.z, name_guid, idx_obj) ~= nil then
                     icon_count = icon_count + 1
                 end
+            end
+        end
+    end
+    for qid, anchor in pairs(MAP_API.pinned_label_pos) do
+        if icon_count >= icon_limit then break end
+        local name_guid = get_quest_name_guid(qid)
+        if name_guid ~= nil and anchor then
+            idx_obj:write_dword(INT_T_VOFF, icon_count)
+            if _add_one_labeled_icon(this, anchor.x, anchor.y, anchor.z, name_guid, idx_obj) ~= nil then
+                icon_count = icon_count + 1
             end
         end
     end
@@ -339,6 +379,11 @@ local function install_icon_hook()
                     pcall(_sniff_map_ui_once, this)
                     pcall(add_labeled_markers_for_all_pins, this)
                     pcall(function() this:call("updateMapIcon") end)
+                    local reinjected = 0
+                    pcall(function() reinjected = reinject_all() end)
+                    if reinjected > 0 then
+                        _mlog_map(string.format("[QT][map] setupMapIcon reinject markers=%d", reinjected))
+                    end
                 end
                 return retval
             end)
@@ -395,6 +440,7 @@ end
 clear_injected_markers = function()
     MAP_API.pinned_data = {}
     MAP_API.pinned_pos = {}
+    MAP_API.pinned_label_pos = {}
     MAP_API.last_msg = "pins cleared"
     force_marker_refresh()
     _mlog_map("[QT][map] clear done")
@@ -505,6 +551,31 @@ local function get_live_info_destinations(qlm, qid)
     return #out > 0 and out or nil
 end
 
+local function _pin_dest_mode(qid, list, dests, defer_refresh, skipped_manual)
+    local added = 0
+    local label_anchor = nil
+    for _, dest in ipairs(dests) do
+        local marker = build_marker(dest, qid)
+        if marker then
+            local okA = pcall(function() list:call("Add", marker) end)
+            if okA then
+                added = added + 1
+                if label_anchor == nil then
+                    local x, y, z = _marker_world_xyz(marker)
+                    if x then label_anchor = { x = x, y = y, z = z } end
+                end
+            end
+        end
+    end
+    if added == 0 then return false, "no marker built" end
+    MAP_API.pinned_data[qid] = dests
+    if label_anchor then MAP_API.pinned_label_pos[qid] = label_anchor end
+    local msg = skipped_manual
+        and string.format("pinned qid=%d dest-mode (skipped manual pos) added=%d", qid, added)
+        or string.format("pinned qid=%d dest-mode added=%d", qid, added)
+    return _pin_done(msg, defer_refresh)
+end
+
 pin_quest = function(qid, defer_refresh)
     if not init_map_api() then return false, "map api init failed" end
     local qlm = sdk.get_managed_singleton("app.QuestLogManager")
@@ -514,6 +585,14 @@ pin_quest = function(qid, defer_refresh)
 
     local is_available = mod.acceptable_ids[qid] == true
     local added = 0
+
+    if not is_available then
+        local dests = get_quest_destinations(qlm, qid) or get_live_info_destinations(qlm, qid)
+        if dests then
+            local skipped_manual = MANUAL_POS_OVERRIDES[qid] ~= nil
+            return _pin_dest_mode(qid, list, dests, defer_refresh, skipped_manual)
+        end
+    end
 
     if MANUAL_POS_OVERRIDES[qid] then
         local p = MANUAL_POS_OVERRIDES[qid]
@@ -574,22 +653,14 @@ pin_quest = function(qid, defer_refresh)
     else
         local dests = get_quest_destinations(qlm, qid) or get_live_info_destinations(qlm, qid)
         if not dests then return false, "no destinations (catalog or InfoDict)" end
-        for _, dest in ipairs(dests) do
-            local marker = build_marker(dest, qid)
-            if marker then
-                local okA = pcall(function() list:call("Add", marker) end)
-                if okA then added = added + 1 end
-            end
-        end
-        if added == 0 then return false, "no marker built" end
-        MAP_API.pinned_data[qid] = dests
-        return _pin_done(string.format("pinned qid=%d dest-mode added=%d", qid, added), defer_refresh)
+        return _pin_dest_mode(qid, list, dests, defer_refresh, false)
     end
 end
 
 unpin_quest = function(qid, defer_refresh)
     MAP_API.pinned_data[qid] = nil
     MAP_API.pinned_pos[qid] = nil
+    MAP_API.pinned_label_pos[qid] = nil
     MAP_API.last_msg = "unpinned qid=" .. qid
     if defer_refresh then return true end
     force_marker_refresh()

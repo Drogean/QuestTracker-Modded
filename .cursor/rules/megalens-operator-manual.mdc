@@ -1,0 +1,154 @@
+---
+description: MegaLens MCP — all tools, all parameters, when/how to call, poll, billing, fileContext rules
+alwaysApply: true
+---
+
+# MegaLens operator manual (every agent)
+
+**Full doc:** `QuestTracker-Modded/MEGALENS_AUDITOR_AGENT.md`
+
+**MCP server:** `user-megalens` — tools: `megalens_debate`, `megalens_poll`, `megalens_history`, `megalens_status`
+
+**Before any MCP call:** read schema in `mcps/user-megalens/tools/<tool>.json`
+
+---
+
+## All tools — every parameter
+
+### `megalens_debate` — start async audit
+
+| Param | Required | Default | Values / rules |
+|-------|----------|---------|----------------|
+| `prompt` | **YES** | — | Specific P0/P1 questions; max 5–8 findings with `file:line`. Not "audit everything." |
+| `fileContext` | No | omit | **Full file text** — paths/summaries → `MCP_BLOCKED`, `files_mapped: 0` |
+| `skill` | No | auto | `code_intelligence` (Lua mods), `research`, `security_audit`, `seo`, `saas_launch`, `wordpress`, `legal`, `general` |
+| `tier` | No | `free` | `free` (2+1), `standard` (3+2 ~$0.22), `deep` (5+3 — needs `confirmDeep`) |
+| `mode` | No | `quick` | `quick` = 1 engine. `multi` = debate — **requires `tier` ≥ `standard`** |
+| `confirmDeep` | No | `false` | `true` only if user explicitly wants deep + accepts cost |
+| `detail` | No | shaped | Only `"full"` — raw debug payload |
+
+**Tier map:**
+
+| Level | `tier` | `mode` | Cost | Use |
+|-------|--------|--------|------|-----|
+| L1 | `free` | `quick` | $0 | One suspicion |
+| L2 | `free` | `multi` | $0 | Broader free; may `MCP_NEEDS_PLANNER_REPAIR` |
+| **L3** | `standard` | `multi` | ~$0.22 | Real audit — user-approved, install verified |
+| L4 | `deep` | `multi` + `confirmDeep: true` | higher | User explicitly wants max rigor |
+
+**L3 template:**
+```
+tier: standard
+mode: multi
+skill: code_intelligence
+prompt: [numbered P0/P1, max 5-8, file:line]
+fileContext: === file1.lua ===\n[FULL TEXT]\n\n=== file2.lua ===\n[FULL TEXT]
+```
+
+### `megalens_poll` — get results
+
+| Param | Required | Rules |
+|-------|----------|-------|
+| `run_id` | **YES** | UUID from `megalens_debate`. Poll until `terminal: true`. Use `poll_after_ms` between calls. |
+
+**Watch:** `partial_metrics.files_mapped` — **0 means fileContext failed**. `billing.cost_usd` on terminal.
+
+### `megalens_history` — list past runs
+
+| Param | Required | Default | Rules |
+|-------|----------|---------|-------|
+| `limit` | No | `10` | Integer 1–50. Use when `run_id` lost or before retry. |
+
+### `megalens_status` — server config OR poll
+
+| Param | Required | Behavior |
+|-------|----------|----------|
+| `run_id` | No | **No id:** server/plan info. **With id:** poll (prefer `megalens_poll` for runs). |
+
+---
+
+## `fileContext` — non-negotiable
+
+| Payload | Result |
+|---------|--------|
+| Paths only | `MCP_BLOCKED` — $0 |
+| Header line only | `files_mapped: 0` — useless |
+| 5+ files ~200k chars | Often `MCP_NEEDS_PLANNER_REPAIR` |
+| **2–3 files ~60–120k** | Best hit rate |
+
+**QT bundles (one per run):**
+- Map: `quest_tracker_map.lua` + `quest_tracker.lua` + `quest_tracker_plugins.lua`
+- Wiring/UI: `quest_tracker.lua` + `quest_tracker_plugins.lua` + `quest_tracker_window.lua`
+- Steps: `quest_tracker_cache.lua` + `quest_tracker_steps.lua` + `quest_data_loader.lua`
+
+Read files from disk → concatenate with `=== filename ===` headers.
+
+---
+
+## When to call (gates)
+
+**Default = $0 static audit first** (logs, grep, SKILL.md, in-game repro).
+
+**Call L3 only when ALL pass:**
+- [ ] User approved spend: `run standard megalens, I accept ~$0.22` (or explicit `megalens_debate` request)
+- [ ] Game log `mod loaded vX.Y.Z` = workspace `MOD_VERSION`
+- [ ] Log shows `[QT] startup: state=` (not mid-crash / wipe-only)
+- [ ] Concrete P0/P1 list (not "audit everything")
+- [ ] FAIL streak ≥ 3 on same feature OR user stuck after real repro
+
+**Do NOT call:**
+- Builder SHIP HANDOFF intake (static only)
+- Stale Fluffy install (log version mismatch)
+- Wiped log with no play session
+- First look at broken mod before static pass
+
+---
+
+## Workflow
+
+```
+1. Pre-flight ($0): logs + version + static grep + P0/P1 list
+2. Read 2-3 files → build fileContext (full text)
+3. megalens_debate → save run_id
+4. megalens_poll loop until terminal: true
+5. If files_mapped=0 → fix fileContext; do NOT retry same payload
+6. megalens_history before any retry
+7. Present: agreed / disputed / novel findings + billing.cost_usd
+8. BUILDER HANDOFF — P0/P1, file:line, BEFORE/AFTER (auditor does not edit lua)
+```
+
+---
+
+## Status codes
+
+| Status | Charged? | Action |
+|--------|----------|--------|
+| `MCP_BLOCKED` | No | Paste real code in `fileContext` |
+| `MCP_NEEDS_PLANNER_REPAIR` | No | Smaller bundle; sharper prompt |
+| `MCP_APPROVED` | Yes ~$0.12–0.30 | Hand off P0/P1 to Builder |
+| `MCP_ABORTED_TIMEOUT` | varies | Shrink fileContext (~600s cap) |
+| `running` | Not yet | Keep polling 1–3 min typical |
+
+**Retry:** Never same blocked payload. Max **one L3 retry per session** without user re-approval.
+
+---
+
+## Presenting results
+
+- Do **not** collapse to one summary
+- Split: engines agree / disputed / novel vs your prior view
+- If `report.suggested: true` → offer `.md` report using `report.sections` + `report.suggestedFilename`
+- Say explicitly if MegaLens changed your hypothesis
+
+**Propose L3 voice:**
+> **LET'S MEGALENSE THIS SHIT UP.** Level 3 (~$0.22). [feature area]. Say: `run standard megalens, I accept ~$0.22`
+
+---
+
+## Agent checklist (before debate)
+
+- [ ] Schema read
+- [ ] `fileContext` = full text, 60–120k chars
+- [ ] `tier=standard` `mode=multi` `skill=code_intelligence`
+- [ ] `prompt` has numbered P0/P1
+- [ ] Install + spend gates passed

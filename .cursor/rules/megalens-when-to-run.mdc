@@ -1,69 +1,10 @@
 ---
-description: MegaLens guardrails — when to call, how to call, when NOT to burn credits
-alwaysApply: true
+description: "DEPRECATED — see megalens-operator-manual.mdc"
+alwaysApply: false
 ---
 
-# MegaLens — when to run (do not call wrong)
+# Superseded
 
-## Default = $0 (no MegaLens)
+All MegaLens when/how guidance lives in **`megalens-operator-manual.mdc`** (always apply).
 
-### Builder SHIP HANDOFF intake (user pastes ship block)
-→ **Full audit WITHOUT MegaLens** — `auditor-builder-ship-intake.mdc` (logs, grep, Original mod, grok, screenshots).
-
-### After 3 consecutive FAILs on same feature
-→ **MegaLens BEFORE next Builder zip** — `megalens-fail-streak.mdc`. Do not hand off v1.1.8-style thin fix until L3 or user declines.
-
-### General default
-1. Read game logs yourself (see `read-game-logs-first.mdc`).
-2. Static audit: grep wiring, install order, Original mod diff, reference mods.
-3. User installs in Fluffy → reproduces → read log again.
-
-**Only then** consider L3 (or at FAIL streak 3). See `megalens-auditor.mdc` for tier voice + cost.
-
-## Hard gates (all must pass before `megalens_debate`)
-- [ ] User said yes with exact phrase: `run standard megalens, I accept ~$0.22`
-- [ ] Game log first line = workspace `MOD_VERSION` (not old Fluffy build)
-- [ ] Log shows `[QT] startup: state=` (init finished — not mid-crash)
-- [ ] You have a concrete P0/P1 question (not "audit everything")
-
-If any fail → **do not call MegaLens.**
-
-## How to call (required)
-```
-megalens_debate:
-  tier: standard
-  mode: multi
-  skill: code_intelligence
-  fileContext: FULL FILE TEXT (never paths, never summaries)
-  prompt: max 5–8 findings, file:line, P0/P1 only
-```
-Then `megalens_poll` until `terminal: true`. Read `billing.debit_committed` + `billing.cost_usd`.
-
-## fileContext size (learned the hard way)
-| Size | Result |
-|------|--------|
-| Paths / summaries | `MCP_BLOCKED` — **$0**, zero findings |
-| All 5 split files (~200k chars) | Often `MCP_NEEDS_PLANNER_REPAIR` — **$0**, zero findings |
-| **2–3 files (~80–120k)** | Best L3 hit rate |
-
-**Preferred bundles (pick ONE per run):**
-- **Wiring:** `quest_tracker.lua` + `quest_tracker_plugins.lua` + `quest_tracker_window.lua`
-- **Steps:** `quest_tracker_cache.lua` + `quest_tracker_steps.lua` + `quest_data_loader.lua`
-
-## After a run — before retry
-1. `megalens_history` — if last run was `MCP_BLOCKED` or `MCP_NEEDS_PLANNER_REPAIR`, **do not retry same payload**.
-2. Fix fileContext (smaller bundle or missing file text) OR fix code from static audit first.
-3. Never retry L3 more than **once per session** without user re-approving spend.
-
-## Status codes (what user pays)
-| Status | Charged? | Action |
-|--------|----------|--------|
-| `MCP_BLOCKED` | No | Paste real code into `fileContext` |
-| `MCP_NEEDS_PLANNER_REPAIR` | No | Smaller bundle; don't spam retries |
-| `MCP_APPROVED` | Yes (~$0.12–0.30) | Fix P0/P1 only; bump version; Fluffy install |
-
-## Never
-- Call L3 before Fluffy install verified in log
-- Put file paths in `fileContext` ("see quest_tracker.lua")
-- Retry blocked runs hoping it works
-- Use MegaLens as first step on a blank/broken mod (static + logs first)
+Full reference: `QuestTracker-Modded/MEGALENS_AUDITOR_AGENT.md`

@@ -25,7 +25,7 @@ Update streak every user test FAIL on the **same feature area** (map pins, layou
 
    > **LET'S MEGALENSE THIS SHIT UP.** Level 3 (~$0.22). Three FAILs on [area]. Say: `run standard megalens, I accept ~$0.22`
 
-3. Wait for exact phrase — then L3 per `megalens-auditor.mdc` + `megalens-when-to-run.mdc`
+3. Wait for exact phrase — then L3 per `megalens-operator-manual.mdc`
 4. MegaLens findings → **FULL BUILDER HANDOFF** (`builder-handoff-full-spec.mdc`)
 5. Reset streak after PASS or after user declines MegaLens and accepts static-only handoff (note in AUDIT_DEBT)
 
