@@ -1,6 +1,8 @@
 # Portable git toolchain (local bootstrap only)
 .tools/
 
+# Fluffy zips land in parent OTHERMODS/ (not in repo)
+
 # OS / editor
 Thumbs.db
 Desktop.ini
@@ -18,7 +20,11 @@ Desktop.ini
 _megalens_*
 _meg*.log
 _ml_out.txt
+_ml_*.json
+_ml_fc.txt
 _fc.txt
+_run_megalens.mjs
+dist/
 _megalens_audit_bundle.txt
 
 # Python / build scratch

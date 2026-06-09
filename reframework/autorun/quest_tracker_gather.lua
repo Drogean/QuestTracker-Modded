@@ -692,10 +692,110 @@ function M.install(ctx)
       return d * 1440 + h * 60 + mi
   end
 
+  local _scale_ok_logged = {}
+  local _scale_fail_logged = {}
+
+  local function _get_time_scale()
+      local tm = _get_tm()
+      if not tm then return nil end
+      local v = nil
+      pcall(function() v = tm:call("get_TimeScale()") end)
+      if type(v) ~= "number" then
+          pcall(function() v = tm:call("get_TimeScale") end)
+      end
+      if type(v) ~= "number" then
+          v = safe_get_field(tm, "_TimeScale") or safe_get_field(tm, "TimeScale")
+      end
+      if type(v) == "number" then return v end
+      return nil
+  end
+
+  local function _try_set_time_scale(tm, want)
+      if not tm then return false end
+      local any = false
+      local tries = {
+          function() tm:call("setTimeScale(System.Single)", want) end,
+          function() tm:call("setTimeScale", want) end,
+          function() tm:call("set_TimeScale(System.Single)", want) end,
+          function() tm:call("set_TimeScale", want) end,
+      }
+      for _, fn in ipairs(tries) do
+          if pcall(fn) then any = true end
+      end
+      pcall(function()
+          local tdef = tm:get_type_definition()
+          if tdef then
+              for _, fname in ipairs({ "_TimeScale", "TimeScale", "m_TimeScale" }) do
+                  local f = tdef:get_field(fname)
+                  if f then f:set_data(tm, want); any = true end
+              end
+          end
+      end)
+      return any
+  end
+
+  local function _scale_matches(want, live)
+      if live == nil then return false end
+      if want < 0.01 then return live < 0.02 end
+      return math.abs(live - want) <= 0.01
+  end
+
+  local function _log_scale_set(want, live, ok)
+      local boot = mlog_boot or mlog
+      if not boot then return end
+      if ok then
+          if _scale_ok_logged[want] then return end
+          _scale_ok_logged[want] = true
+          _scale_fail_logged[want] = nil
+          boot(string.format("[QT][time] set OK want=%.4f live=%.4f", want, live))
+      else
+          if _scale_fail_logged[want] then return end
+          _scale_fail_logged[want] = true
+          _scale_ok_logged[want] = nil
+          local live_s = live and string.format("%.4f", live) or "nil"
+          boot(string.format("[QT][time] set FAIL want=%.4f live=%s method=all_failed", want, live_s))
+      end
+  end
+
   local function _set_time_scale(scale)
-      local tm = _get_tm(); if not tm then return false end
-      local ok = pcall(function() tm:call("setTimeScale(System.Single)", scale) end)
-      return ok
+      local want = tonumber(scale) or 1.0
+      local tm = _get_tm()
+      if not tm then
+          _log_scale_set(want, nil, false)
+          return false, nil
+      end
+      _try_set_time_scale(tm, want)
+      local live = _get_time_scale()
+      local ok = _scale_matches(want, live)
+      _log_scale_set(want, live, ok)
+      return ok, live
+  end
+
+  local function _set_game_clock_integers(d, h, mi)
+      local tm = _get_tm()
+      if not tm or h == nil or mi == nil then return false end
+      d = d or 0
+      local any = false
+      pcall(function() tm:set_InGameDay(d); any = true end)
+      pcall(function() tm:call("set_InGameDay", d) end)
+      pcall(function() tm:set_InGameHour(h); any = true end)
+      pcall(function() tm:call("set_InGameHour", h) end)
+      pcall(function() tm:set_InGameMinute(mi); any = true end)
+      pcall(function() tm:call("set_InGameMinute", mi) end)
+      pcall(function()
+          local tdef = tm:get_type_definition()
+          if not tdef then return end
+          local fields = {
+              { "InGameDay", d }, { "_InGameDay", d },
+              { "InGameHour", h }, { "_InGameHour", h },
+              { "InGameMinute", mi }, { "_InGameMinute", mi },
+          }
+          for i = 1, #fields, 2 do
+              local f = tdef:get_field(fields[i])
+              if f then f:set_data(tm, fields[i + 1]); any = true end
+          end
+      end)
+      return any
   end
 
   mod._qt_doze = nil
@@ -1239,6 +1339,8 @@ function M.install(ctx)
   ctx._start_fast_forward = _start_fast_forward
   ctx._tick_fast_forward = _tick_fast_forward
   ctx._set_time_scale = _set_time_scale
+  ctx._get_time_scale = _get_time_scale
+  ctx._set_game_clock_integers = _set_game_clock_integers
   ctx.gather = gather
   ctx.rebuild = rebuild
   ctx.classify = classify

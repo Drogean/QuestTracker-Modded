@@ -19,6 +19,9 @@ One line per fuckup. Auditor appends on FAIL. Builder marks FIXED only with log 
 | 3.0.96 | 2026-06-07 | Collapsed title bar text tiny | screenshot | font pushed only inside expanded content | FIXED in 3.0.98 |
 | 3.0.96 | 2026-06-07 | Map yellow diamonds no quest name | screenshot chimera; map_pin_quests=5 L2799 | vanilla QuestTargetMarkerList unlabeled | FIXED in 3.0.102 label+filter |
 | 3.0.96 | 2026-06-07 | Map clutter many diamonds one spot | screenshot red circle; map_pin_quests=5 | vanilla all-ongoing markers + mod pins | FIXED in 3.0.102 filter non-MAIN |
+| 1.0.0 | 2026-06-07 | Map pins no quest name labels | screenshot; label_pins ON; no [QT][map] labeled | ongoing pins lacked xyz cache for MapIcon | FIXED in 1.0.1 |
+| 1.0.3 | 2026-06-07 | Green diamond piles dark banners, no yellow/green | screenshot; L3 v1.0.3; zero [QT][map][d2d] | label IconType25 used as d2d anchor + duplicate pin inject | FIXED in 1.0.5 |
+| 1.0.4 | 2026-06-07 | d2d coords stale on map pan/zoom | no per-frame screen refresh | merged PawnCompanion re.on_frame + MapIconInfoList/MapIcon pairing | FIXED in 1.0.5 |
 
 ## Rules
 

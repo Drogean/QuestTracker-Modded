@@ -1,8 +1,8 @@
--- quest_tracker.lua — DD2 quest list UI orchestrator (v3.0.96)
+-- quest_tracker.lua — DD2 quest list UI orchestrator (v1.1.6)
 -- Submodules: quest_tracker_prefs/sdk/gather, quest_tracker_steps(+resolve), plugins, window, map, cache
 
 local MOD_NAME = "Quest Tracker Reduxx"
-local MOD_VERSION = "3.0.96"
+local MOD_VERSION = "1.1.6"
 
 local DEFAULT_QUEST_WIN_W = 786
 local DEFAULT_QUEST_WIN_H = 877
@@ -181,6 +181,7 @@ local PREF_KEYS  = {
     "deep_sniff", "deep_sniff_heavy", "font_size",
     "layout_margin_r", "win_y", "win_w", "win_h", "win_alpha",
     "auto_pin_ongoing", "auto_pin_available",
+    "time_longer_days", "time_faster_nights", "time_pause",
 }
 
 local function is_bundled_giver(qid, cid) return BUNDLED_GIVER_OVERRIDES[qid] == cid end
@@ -246,6 +247,9 @@ mod = {
     _guid_lookup_ok  = false,
     auto_pin_ongoing  = false,
     auto_pin_available = false,
+    time_longer_days = false,
+    time_faster_nights = false,
+    time_pause = false,
     font_size        = 28,
     win_alpha        = 0.4,
     layout_margin_r  = DEFAULT_QUEST_WIN_MARGIN_R,
@@ -354,6 +358,28 @@ ctx.Map = MapMod
 require("quest_tracker_gather").install(ctx)
 ALL_IDS = ctx.ALL_IDS
 
+local TimeMod
+do
+    local ok_tm, TM = pcall(require, "quest_tracker_time")
+    if ok_tm and TM and TM.install then
+        TM.install({
+            mod = mod,
+            mlog = mlog,
+            mlog_boot = mlog_boot,
+            _QT_FRAME_GEN = _QT_FRAME_GEN,
+            _get_game_clock_integers = ctx._get_game_clock_integers,
+            _set_time_scale = ctx._set_time_scale,
+            _get_time_scale = ctx._get_time_scale,
+            _set_game_clock_integers = ctx._set_game_clock_integers,
+            _tick_fast_forward = ctx._tick_fast_forward,
+        })
+        TimeMod = TM
+    else
+        mlog("[QT] WARN quest_tracker_time require failed: " .. tostring(TM))
+    end
+end
+ctx.TimeMod = TimeMod
+
 local function _qt_enter_shutdown()
     if mod._qt_shutdown_logged then return end
     mod._qt_shutdown = true
@@ -389,6 +415,7 @@ if _map_ok and MapMod and MapMod.install then
     local ok_inst = MapMod.install({
         mod = mod,
         mlog = mlog,
+        mlog_boot = mlog_boot,
         qt_verbose = function(msg) mlog("[QT] " .. tostring(msg)) end,
         td = ctx.td,
         safe_get_field = ctx.safe_get_field,
@@ -409,12 +436,14 @@ if _map_ok and MapMod and MapMod.install then
         TAB_NAMES = TAB_NAMES,
     })
     if not ok_inst then mlog("[QT] WARN quest_tracker_map install returned false") end
+    pcall(function() if MapMod.init_map_api then MapMod.init_map_api() end end)
     MAP_API = MapMod.API
     MapBridge.init_map_api = MapMod.init_map_api
     MapBridge.clear_injected_markers = MapMod.clear_injected_markers
     MapBridge.get_quest_resource = MapMod.get_quest_resource
     MapBridge.get_quest_cast_charaids = MapMod.get_quest_cast_charaids
     MapBridge.force_marker_refresh = MapMod.force_marker_refresh
+    MapBridge.run_autopin_if_enabled = MapMod.run_autopin_if_enabled
     MapBridge.pin_quest = MapMod.pin_quest
     MapBridge.unpin_quest = MapMod.unpin_quest
     MapBridge.unpin_candidate = MapMod.unpin_candidate
@@ -528,7 +557,8 @@ require("quest_tracker_window").install({
     _draw_npc_rows_cached = ctx._draw_npc_rows_cached, _name_for_qid = ctx._name_for_qid,
     milestone_label = ctx.milestone_label, _format_hour_12 = ctx._format_hour_12,
     _start_fast_forward = ctx._start_fast_forward, _set_time_scale = ctx._set_time_scale,
-    _tick_fast_forward = ctx._tick_fast_forward,     _apply_saved_window_once = ctx._apply_saved_window_once,
+    _tick_fast_forward = ctx._tick_fast_forward, TimeMod = TimeMod,
+    _apply_saved_window_once = ctx._apply_saved_window_once,
     _clear_saved_window_position = ctx._clear_saved_window_position,
     _reset_window_layout = ctx._reset_window_layout,
     _refresh_display_cache = ctx._refresh_display_cache,
@@ -555,15 +585,11 @@ re.on_script_reset(function()
     _qt_enter_shutdown()
 end)
 
-re.on_frame(function()
-    if not mod._qt_doze then return end
-    local want = (mod._qt_doze.phase == "slow") and 30.0 or 120.0
-    ctx._set_time_scale(want)
-end)
-
 mlog_boot(string.format(
-    "[QT] startup: state=%ds npc=%ds; Verbose=%s (default ON); Deep Sniff=OFF unless you need it",
-    QT_STATE_PROBE_INTERVAL, QT_NPC_SCAN_INTERVAL, mod.debug_logging and "ON" or "OFF"))
+    "[QT] startup: state=%ds npc=%ds; Verbose=%s; Deep Sniff=%s",
+    QT_STATE_PROBE_INTERVAL, QT_NPC_SCAN_INTERVAL,
+    mod.debug_logging and "ON" or "OFF",
+    mod.deep_sniff == true and "ON" or "OFF"))
 if not mod._steps_module_ok or not mod._cache_module_ok then
     mlog_boot("[QT] *** MOD INCOMPLETE — reinstall via Fluffy ***")
 end

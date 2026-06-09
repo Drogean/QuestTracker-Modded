@@ -525,9 +525,9 @@ function M.install(ctx)
       mod.win_w, mod.win_h = _clamp_layout_size(mod.win_w, mod.win_h)
     end
     _apply_layout_coords_to_mod()
-    mod.deep_sniff = false
-    mod.deep_sniff_heavy = false
-    mlog_boot("[QT][sniff] deep_sniff=OFF heavy=OFF (boot — enable in menu if needed)")
+    mlog_boot(string.format("[QT][sniff] deep_sniff=%s heavy=%s (prefs)",
+        mod.deep_sniff == true and "ON" or "OFF",
+        mod.deep_sniff_heavy == true and "ON" or "OFF"))
   end
 
   function ctx.load_prefs_early()

@@ -61,6 +61,8 @@ function M.install(ctx)
     local QT_STEP_REFRESH_INTERVAL = ctx.QT_STEP_REFRESH_INTERVAL or 8.0
     local auto_pin_fn_ongoing   = ctx.auto_pin_fn_ongoing
     local auto_pin_fn_available = ctx.auto_pin_fn_available
+    local run_autopin_if_enabled = ctx.run_autopin_if_enabled
+    local QT_AUTOPIN_INTERVAL = 25
 
     local function _completion_sweep(qlm, progressing, acceptable, completed)
         local ALL_IDS = ensure_all_ids()
@@ -530,6 +532,13 @@ function M.install(ctx)
             end
         end
 
+        if (mod.auto_pin_ongoing or mod.auto_pin_available) and run_autopin_if_enabled then
+            if (now - (mod._last_autopin_tick or 0)) >= QT_AUTOPIN_INTERVAL then
+                mod._last_autopin_tick = now
+                pcall(run_autopin_if_enabled)
+            end
+        end
+
         if forced or (now - (mod._last_state_probe or 0)) >= QT_STATE_PROBE_INTERVAL then
             mod._last_state_probe = now
             local fp = _qt_fingerprint()
@@ -546,11 +555,6 @@ function M.install(ctx)
                 mod.last_refresh = now
                 pcall(ctx._qt_refresh_row_caches)
                 if ctx.audit_wiki_gaps_for_ongoing then pcall(ctx.audit_wiki_gaps_for_ongoing) end
-                if mod.auto_pin_ongoing and auto_pin_fn_ongoing then
-                    pcall(auto_pin_fn_ongoing)
-                elseif mod.auto_pin_available and auto_pin_fn_available then
-                    pcall(auto_pin_fn_available)
-                end
             else
                 mod._qt_skip_rebuilds = (mod._qt_skip_rebuilds or 0) + 1
                 if sfp ~= mod._qt_sfp then
@@ -614,8 +618,10 @@ function M.install(ctx)
         if now - (mod._qt_bg_log_t or 0) < 55 then return end
         mod._qt_bg_log_t = now
         local n_pin = 0
-        if MAP_API and MAP_API.pinned_pos then
-            for _ in pairs(MAP_API.pinned_pos) do n_pin = n_pin + 1 end
+        if MAP_API then
+            local seen = {}
+            for qid in pairs(MAP_API.pinned_pos or {}) do if not seen[qid] then seen[qid] = true; n_pin = n_pin + 1 end end
+            for qid in pairs(MAP_API.pinned_data or {}) do if not seen[qid] then seen[qid] = true; n_pin = n_pin + 1 end end
         end
         local n_lock, n_hide = 0, 0
         for _, v in pairs(ctx.LOCKED_QUESTS) do if v then n_lock = n_lock + 1 end end

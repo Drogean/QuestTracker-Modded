@@ -1,6 +1,10 @@
 Quest Tracker Reduxx — Fluffy / manual install
 ============================================
 
+FOR FLUFFY: do NOT zip this whole repo folder.
+  Every ship runs _ship_check.ps1 -> auto-builds OTHERMODS/QuestTracker-Reduxx-vVERSION-fluffy.zip
+  Install that zip in Fluffy (ONLY modinfo.ini + reframework/ inside)
+
 REQUIRED autorun scripts (all must be present):
   reframework/autorun/quest_tracker.lua
   reframework/autorun/quest_tracker_steps.lua   <-- required; steps break without this
@@ -12,6 +16,7 @@ REQUIRED autorun scripts (all must be present):
   reframework/autorun/quest_tracker_autolock.lua
   reframework/autorun/quest_data_loader.lua
   reframework/autorun/quest_tracker_map.lua
+  reframework/autorun/quest_tracker_time.lua
   reframework/autorun/quest_tracker_journal.lua
   reframework/autorun/quest_tracker_plugins.lua
   reframework/autorun/quest_tracker_window.lua
@@ -32,7 +37,8 @@ Runtime (game reframework/data/, NOT in mod zip — auto-created on save):
 Builder: after every ship run _wipe_game_logs.ps1 (truncates quest_tracker_log, re2_framework_log, MM Log.txt — never deletes).
 
 After install, check reframework/data/quest_tracker_log.txt for:
-  mod loaded v3.0.96
+  mod loaded v1.1.6
+  [QT][time] module ok
   [QT][cache] refresh OK rows=N built=N draw=N
   [QT] quest_tracker_steps OK
   [QT] quest_tracker_cache OK
@@ -44,3 +50,5 @@ After install, check reframework/data/quest_tracker_log.txt for:
 If you see FATAL quest_tracker_steps require failed, the steps file was not deployed.
 
 Normal play: Verbose ON (default), Deep Sniff OFF. Deep Sniff is dev-only — turn Heavy ON only for full SDK dumps.
+
+Time tools conflict: disable Simple Time Scaler (or rename this mod to z_quest_tracker.lua) — other time mods overwrite scale each frame.

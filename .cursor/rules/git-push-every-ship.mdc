@@ -1,0 +1,47 @@
+---
+description: Builder must commit, push, and tag GitHub on every version ship (rollback points).
+alwaysApply: true
+---
+
+# GitHub push — every ship (Builder)
+
+After **every** version bump + successful `_ship_check.ps1`:
+
+1. Run `_git_ship.ps1` with the new version:
+   ```powershell
+   powershell -NoProfile -ExecutionPolicy Bypass -File "_git_ship.ps1" -Version X.Y.Z
+   ```
+2. **First time only** (no `origin`): run `_push_to_github.ps1` to create/link the repo, then `_git_ship.ps1` again.
+
+## What it does
+
+- `git add -A` (respects `.gitignore` — no zips, no game logs, no `.tools/`)
+- Commit: `ship vX.Y.Z: <modinfo description>`
+- `git push origin main`
+- Annotated tag `vX.Y.Z` + `git push origin vX.Y.Z` (force-update tag if same version re-shipped)
+
+## Rollback
+
+```powershell
+git checkout v1.1.5
+# or: git revert <commit>
+```
+
+## Ship checklist (full tail)
+
+1. Bump version + implement fixes
+2. `_ship_check.ps1` → fluffy zip
+3. `_wipe_game_logs.ps1 -Version X.Y.Z`
+4. **`_git_ship.ps1 -Version X.Y.Z`** ← required every ship
+5. SHIP HANDOFF must include `GITHUB: main @ <hash> tag=vX.Y.Z` or `GITHUB: FAIL — <reason>`
+
+## Hard ban
+
+- Do not call a build "shipped" in SHIP HANDOFF if GitHub push was skipped without stating why
+- Do not commit game-folder paths, fluffy zips, or secrets
+
+## Repo
+
+- Workspace: `QuestTracker-Modded/`
+- Remote name: `origin`, branch: `main`
+- Tags: `v` + `MOD_VERSION` (e.g. `v1.1.6`)

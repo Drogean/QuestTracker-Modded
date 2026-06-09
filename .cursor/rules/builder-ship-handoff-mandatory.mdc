@@ -1,0 +1,76 @@
+---
+description: Builder ONLY — after every build, output BUILDER SHIP HANDOFF so Audit can close the loop. No exceptions.
+alwaysApply: true
+---
+
+# Builder: SHIP HANDOFF — every build (closes the loop)
+
+You are **Builder**. Coordinator/Audit does **not** edit code. You implement from their **BUILDER HANDOFF**, then **you** must hand the loop back with a **BUILDER SHIP HANDOFF** — not silence, not "done", not diff recap only.
+
+## When to output SHIP HANDOFF
+
+- After **every** version bump + zip build
+- Even if build is partial (`NO-SHIP-YET`)
+- **Before** telling user to test — user tests **using your SHIP HANDOFF**, not vibes
+
+## Hard ban on ending without SHIP HANDOFF
+
+- No one-liner "installed, test it"
+- No file list only
+- No skipping because "user will see the diff"
+
+## BUILDER SHIP HANDOFF template (copy every reply that ships code)
+
+```
+## BUILDER SHIP HANDOFF
+
+SHIPPED VERSION: vX.Y.Z (workspace MOD_VERSION + modinfo.ini + zip name)
+ZIP: QuestTracker-Reduxx-vX.Y.Z-fluffy.zip
+GITHUB: main @ <short-hash> tag=vX.Y.Z | FAIL — <reason if push skipped>
+VERDICT: READY-FOR-TEST | NO-SHIP-YET (explain)
+
+WHAT CHANGED (max 3 bullets, plain English):
+  - ...
+
+WHAT USER MUST DO:
+  1. Fluffy install zip (overwrite)
+  2. Boot game → confirm log L3: mod loaded vX.Y.Z
+  3. Repro steps: [numbered, specific]
+  4. Quit game
+
+LOG PROOF TO PASTE BACK TO AUDIT (after step 4):
+  - L3 must equal vX.Y.Z
+  - grep must show: [exact tags, e.g. [QT][map] init ok, [QT][map] Pin Available]
+  - PASS if: ...
+  - FAIL if: ...
+
+CLAIMS THIS BUILD FIXES (from Audit handoff):
+  - P0 item → file:line changed
+
+STILL OPEN AFTER THIS BUILD (honest):
+  - ...
+
+BUILDER DEBT: OPEN rows touched | FIXED rows claimed
+AUDIT DEBT: unchanged unless Builder found audit error
+
+DO NOT REGRESS: layout, list draw, end_child, no list draw CRASH
+```
+
+## Input gate (before you code)
+
+Read `builder-audit-handoff-gate.mdc`. If Audit handoff is thin → `AUDIT REJECTED` — no code.
+
+## After ship scripts
+
+1. `_ship_check.ps1` (builds fluffy zip on pass)
+2. `_wipe_game_logs.ps1 -Version X.Y.Z`
+3. `_git_ship.ps1 -Version X.Y.Z` — required every ship (`git-push-every-ship.mdc`)
+
+Mention zip path + GitHub commit/tag in SHIP HANDOFF.
+
+## User loop (tell them in SHIP HANDOFF footer)
+
+```
+Install → play repro → quit → paste THIS SHIP HANDOFF + fresh quest_tracker_log.txt to Audit chat.
+Do NOT paste SHIP HANDOFF to Audit before testing unless Audit asked for pre-install review.
+```

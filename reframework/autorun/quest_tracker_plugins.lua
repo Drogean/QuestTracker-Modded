@@ -84,6 +84,7 @@ function M.install(ctx)
         QT_COMPLETION_SWEEP = ctx.QT_COMPLETION_SWEEP,
         auto_pin_fn_ongoing = Map and Map.pin_all_ongoing or nil,
         auto_pin_fn_available = Map and Map.pin_all_available or nil,
+        run_autopin_if_enabled = Map and Map.run_autopin_if_enabled or nil,
         _get_live_quest_step = StepsBridge and StepsBridge._get_live_quest_step or nil,
         _text_blobs_for_step_match = StepsBridge and StepsBridge._text_blobs_for_step_match or nil,
         _text_from_dest = StepsBridge and StepsBridge._text_from_dest or nil,
@@ -120,6 +121,12 @@ function M.install(ctx)
             mod._journal_poll_on_frame = plugin_ctx.journal_poll_on_frame
             mod._journal_install_hooks = plugin_ctx.install_journal_hooks
             mlog_boot("[QT] quest_tracker_sniff OK (journal hooks install when you open quest menu)")
+            if mod.deep_sniff == true then
+                if mod._sniff_install then pcall(mod._sniff_install) end
+                if mod._journal_install_hooks then pcall(mod._journal_install_hooks) end
+                if Map and Map.resniff_map_ui then pcall(Map.resniff_map_ui) end
+                mlog_boot("[QT][sniff] boot install deep_sniff=ON from prefs")
+            end
         end
 
         local ok_jr, Journal = pcall(require, "quest_tracker_journal")

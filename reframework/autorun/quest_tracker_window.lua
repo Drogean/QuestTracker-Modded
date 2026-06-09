@@ -45,6 +45,7 @@ function M.install(ctx)
     local _start_fast_forward = ctx._start_fast_forward
     local _set_time_scale = ctx._set_time_scale
     local _tick_fast_forward = ctx._tick_fast_forward
+    local TimeMod = ctx.TimeMod
     local _apply_saved_window_once = ctx._apply_saved_window_once
     local _check_game_ready = ctx._check_game_ready
     local _sync_margin_from_viewport = ctx._sync_margin_from_viewport
@@ -555,7 +556,6 @@ function M.install(ctx)
                     if not ok_pin then MAP_API.last_msg = "Pin crashed: " .. tostring(pin_ok)
                     elseif not pin_ok then MAP_API.last_msg = tostring(pin_msg or "pin failed") end
                 end
-                _qt_force_refresh()
             end
         end
         if c.tp_x and row_active then
@@ -640,6 +640,7 @@ function M.install(ctx)
         mod._row_open_prev = mod._row_open_prev or {}
         local was_open = mod._row_open_prev[q.id] == true
         if open then
+            mod._qt_last_expanded_qid = q.id
             if not was_open and (not c) and mod._refresh_one_row then
                 if q.category == "Ongoing" then
                     mod._step_last_title = mod._step_last_title or {}
@@ -675,8 +676,7 @@ function M.install(ctx)
         if _check_game_ready then _check_game_ready() end
         if mod._qt_shutdown then return end
 
-        -- Fast-forward only runs per-frame while dozing (time scale must stay applied).
-        if mod._qt_doze then pcall(_tick_fast_forward) end
+        if TimeMod and TimeMod.tick then pcall(TimeMod.tick) end
 
         if mod._game_ready and not was_ready then
             mod._qt_display_refreshed = false
@@ -829,21 +829,50 @@ function M.install(ctx)
                     ch, mod.highlight_recent = imgui.checkbox("Newest", mod.highlight_recent)
                     if ch then mod._last_win_save = os.clock(); mark_prefs_dirty() end
                 end
-                if imgui.button("Pin all") then pin_all_in_current_filtered_tab() end
+                if imgui.button("Pin Available") then
+                    if Map and Map.pin_all_available then Map.pin_all_available() end
+                end
                 imgui.same_line()
-                if imgui.button("Pin Ongoing") then if Map and Map.pin_all_ongoing then Map.pin_all_ongoing() end end
+                if imgui.button("Pin Ongoing") then
+                    if Map and Map.pin_all_ongoing then Map.pin_all_ongoing() end
+                end
                 imgui.same_line()
                 if imgui.button("Clear pins") then pcall(clear_injected_markers) end
                 ch, mod.auto_pin_ongoing = imgui.checkbox("Autopin Ongoing", mod.auto_pin_ongoing == true)
                 if ch then
-                    if mod.auto_pin_ongoing then mod.auto_pin_available = false end
+                    mod._last_autopin_tick = 0
                     mod._last_win_save = os.clock(); mark_prefs_dirty()
+                    if Map and Map.run_autopin_if_enabled then pcall(Map.run_autopin_if_enabled) end
                 end
                 imgui.same_line()
                 ch, mod.auto_pin_available = imgui.checkbox("Autopin Available", mod.auto_pin_available == true)
                 if ch then
-                    if mod.auto_pin_available then mod.auto_pin_ongoing = false end
+                    mod._last_autopin_tick = 0
                     mod._last_win_save = os.clock(); mark_prefs_dirty()
+                    if Map and Map.run_autopin_if_enabled then pcall(Map.run_autopin_if_enabled) end
+                end
+                imgui.text_colored("Autopin: adds new quests every ~25s (keeps existing pins)", 0xFF888888)
+                imgui.separator()
+                imgui.text("Time")
+                ch, mod.time_longer_days = imgui.checkbox("Longer days (before dark = half speed)", mod.time_longer_days == true)
+                if ch then
+                    mod._last_win_save = os.clock(); mark_prefs_dirty()
+                    if TimeMod and TimeMod.on_toggle then pcall(TimeMod.on_toggle) end
+                end
+                ch, mod.time_faster_nights = imgui.checkbox("Faster nights (when dark = 4x speed)", mod.time_faster_nights == true)
+                if ch then
+                    mod._last_win_save = os.clock(); mark_prefs_dirty()
+                    if TimeMod and TimeMod.on_toggle then pcall(TimeMod.on_toggle) end
+                end
+                ch, mod.time_pause = imgui.checkbox("Pause time", mod.time_pause == true)
+                if ch then
+                    mod._last_win_save = os.clock(); mark_prefs_dirty()
+                    if TimeMod and TimeMod.on_toggle then pcall(TimeMod.on_toggle) end
+                end
+                imgui.text_colored("Watch In-game clock or HUD; faster nights when game is dark (8pm+)", 0xFF888888)
+                if TimeMod and TimeMod.get_status_line then
+                    local status, col = TimeMod.get_status_line()
+                    if status then imgui.text_colored(status, col or 0xFF66FF66) end
                 end
                 imgui.same_line()
                 if imgui.button("Save") then
@@ -1015,12 +1044,21 @@ function M.install(ctx)
             if ch then mod._last_win_save = os.clock(); mark_prefs_dirty() end
             ch, mod.debug_logging = imgui.checkbox("Verbose debug (extra disk log — ON by default)", mod.debug_logging)
             if ch then mod._last_win_save = os.clock(); mark_prefs_dirty() end
-            ch, mod.deep_sniff = imgui.checkbox("Deep Sniff TEMP (hooks log only — full dump on button / slow poll)", mod.deep_sniff == true)
-            if ch then
-                mlog(string.format("[QT][sniff] ===== DEEP SNIFF %s ===== (v%s)", mod.deep_sniff and "ON" or "OFF", MOD_VERSION))
-                if mod.deep_sniff and mod._sniff_install then pcall(mod._sniff_install) end
-                if not mod.deep_sniff then mod.deep_sniff_heavy = false end
+            local ch_ds, ds_val = imgui.checkbox(
+                "Deep Sniff TEMP (hooks log only — full dump on button / slow poll)", mod.deep_sniff == true)
+            if ch_ds then
+                mod.deep_sniff = (ds_val == true)
+                mlog_boot(string.format("[QT][sniff] toggled deep_sniff=%s heavy=%s (v%s)",
+                    mod.deep_sniff and "ON" or "OFF", mod.deep_sniff_heavy and "ON" or "OFF", MOD_VERSION))
+                if mod.deep_sniff then
+                    if mod._sniff_install then pcall(mod._sniff_install) end
+                    if mod._journal_install_hooks then pcall(mod._journal_install_hooks) end
+                    if Map and Map.resniff_map_ui then pcall(Map.resniff_map_ui) end
+                else
+                    mod.deep_sniff_heavy = false
+                end
                 mod._last_win_save = os.clock(); mark_prefs_dirty()
+                pcall(save_prefs)
             end
             if mod.deep_sniff then
                 ch, mod.deep_sniff_heavy = imgui.checkbox("  Heavy (slow poll — playable FPS)", mod.deep_sniff_heavy == true)

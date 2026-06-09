@@ -62,6 +62,25 @@ if ($fail -gt 0) {
     Write-Host "DO NOT SHIP - $fail failure(s)" -ForegroundColor Red
     exit 1
 }
+$zipScript = Join-Path $root '_build_fluffy_zip.ps1'
+if (-not (Test-Path -LiteralPath $zipScript)) {
+    Fail 'missing _build_fluffy_zip.ps1'
+    Write-Host ""
+    Write-Host "DO NOT SHIP - $fail failure(s)" -ForegroundColor Red
+    exit 1
+}
+try {
+    $zipOut = & $zipScript 2>&1
+    $zipLine = $zipOut | Where-Object { $_ -match '^Built ' } | Select-Object -First 1
+    if ($zipLine) { Ok ($zipLine -replace '^Built ', 'fluffy zip ') }
+    else { Ok 'fluffy zip built in OTHERMODS/' }
+} catch {
+    Fail "fluffy zip: $_"
+    Write-Host ""
+    Write-Host "DO NOT SHIP - $fail failure(s)" -ForegroundColor Red
+    exit 1
+}
+
 Write-Host ""
-Write-Host "Ship check passed." -ForegroundColor Green
+Write-Host "Ship check passed. Install OTHERMODS\*-fluffy.zip in Fluffy." -ForegroundColor Green
 exit 0
