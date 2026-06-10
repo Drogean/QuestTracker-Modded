@@ -1,7 +1,7 @@
 -- quest_tracker_map.lua — map pins / icons (require from quest_tracker.lua)
 -- REFramework also runs every autorun/*.lua; return cached module so install() is not wiped.
 
-local MAP_MOD_VER = "1.2.9"
+local MAP_MOD_VER = "1.3.0"
 local M = package.loaded["quest_tracker_map"]
 if M and M._map_mod_ver == MAP_MOD_VER then return M end
 M = { _map_mod_ver = MAP_MOD_VER }
@@ -23,7 +23,6 @@ local MAP_API = {
     pinned_pos        = {},
     pinned_label_pos  = {},
     eliminated_pos    = {},
-    _label_slots      = {},
     status            = "not initialized",
     last_msg          = "",
 }
@@ -122,15 +121,36 @@ local function _try_add_yellow_marker(list, qid, marker)
     return true
 end
 
+local function _sculpt_skip_mod_blob_reinject(qid, ui)
+    if mod == nil or ui == nil then return false end
+    if mod._qt_journal_qid ~= qid and mod._qt_priority_qid ~= qid then return false end
+    local detail = safe_get_field(ui, "IsDetailMap")
+    if detail == true then
+        if not MAP_API._vanilla_blob_skip_logged then
+            MAP_API._vanilla_blob_skip_logged = true
+            _mlog_map(string.format("[QT][map] sculpt reinject skip blob qid=%d vanilla_blob_active=1", qid))
+        end
+        return true
+    end
+    return false
+end
+
 local function reinject_all()
     local list = get_marker_list()
     if list == nil then return 0 end
+    MAP_API._blob_reinject_this_hook = MAP_API._blob_reinject_this_hook or {}
     local n = 0
     for qid, entry in pairs(MAP_API.pinned_data) do
         if BLOB_AREA_QIDS and BLOB_AREA_QIDS[qid] then
-            if not MAP_API._reinject_skip_blob_logged then
-                MAP_API._reinject_skip_blob_logged = true
-                _mlog_map(string.format("[QT][map] reinject skip blob qid=%d (vanilla owns)", qid))
+            if UI_MAP and _sculpt_skip_mod_blob_reinject(qid, UI_MAP) then
+                -- vanilla draws area blob on detail map
+            elseif not MAP_API._blob_reinject_this_hook[qid] then
+                MAP_API._blob_reinject_this_hook[qid] = true
+                for _, dest in ipairs(entry) do
+                    local marker = build_marker(dest, qid)
+                    if marker and _try_add_yellow_marker(list, qid, marker) then n = n + 1 end
+                end
+                _mlog_map(string.format("[QT][map] sculpt blob reinject qid=%d n=1", qid))
             end
         else
             for _, dest in ipairs(entry) do
@@ -389,11 +409,7 @@ local function _add_one_labeled_icon(this, x, y, z, name_guid, idx_obj, qid, ico
     end)
     local ui_icon, path_name, err = _invoke_add_map_icon(this, info, idx_obj, name_guid)
     if ui_icon then
-        MAP_API._label_logged_ok = MAP_API._label_logged_ok or {}
-        if qid and not MAP_API._label_logged_ok[qid] then
-            MAP_API._label_logged_ok[qid] = true
-            _mlog_map(string.format("[QT][map] label add OK qid=%d idx=%d path=%s", qid, icon_idx or -1, path_name or "?"))
-        end
+        _mlog_map(string.format("[QT][map] label add OK qid=%d idx=%d path=%s", qid or -1, icon_idx or -1, path_name or "?"))
         return ui_icon
     end
     if qid and not _label_add_fail_logged[qid] then
@@ -435,38 +451,28 @@ local function add_labeled_markers_for_all_pins(this)
 
     local added = 0
     local idx_obj = INT_T:create_instance():add_ref()
-    MAP_API._label_skip_logged = MAP_API._label_skip_logged or {}
-    local function _try_label(qid, x, y, z)
-        if icon_count >= icon_limit then return end
-        if MAP_API._label_slots[qid] ~= nil then
-            if not MAP_API._label_skip_logged[qid] then
-                MAP_API._label_skip_logged[qid] = true
-                _mlog_map(string.format("[QT][map] label skip dup qid=%d idx=%d", qid, MAP_API._label_slots[qid]))
-            end
-            added = added + 1
-            return
-        end
-        local name_guid = get_quest_name_guid(qid)
-        if name_guid == nil then return end
-        idx_obj:write_dword(INT_T_VOFF, icon_count)
-        if _add_one_labeled_icon(this, x, y, z, name_guid, idx_obj, qid, icon_count) ~= nil then
-            MAP_API._label_slots[qid] = icon_count
-            icon_count = icon_count + 1
-            added = added + 1
-        end
-    end
     for qid, pins in pairs(MAP_API.pinned_pos) do
         if icon_count >= icon_limit then break end
-        for _, p in ipairs(pins) do
-            _try_label(qid, p.x, p.y, p.z)
-            if icon_count >= icon_limit then break end
+        local name_guid = get_quest_name_guid(qid)
+        if name_guid ~= nil then
+            for _, p in ipairs(pins) do
+                if icon_count >= icon_limit then break end
+                idx_obj:write_dword(INT_T_VOFF, icon_count)
+                if _add_one_labeled_icon(this, p.x, p.y, p.z, name_guid, idx_obj, qid, icon_count) ~= nil then
+                    icon_count = icon_count + 1
+                    added = added + 1
+                end
+            end
         end
     end
     for qid, anchor in pairs(MAP_API.pinned_label_pos) do
         if icon_count >= icon_limit then break end
-        if anchor then
-            _try_label(qid, anchor.x, anchor.y, anchor.z)
-            if MAP_API._label_slots[qid] ~= nil then
+        local name_guid = get_quest_name_guid(qid)
+        if name_guid ~= nil and anchor then
+            idx_obj:write_dword(INT_T_VOFF, icon_count)
+            if _add_one_labeled_icon(this, anchor.x, anchor.y, anchor.z, name_guid, idx_obj, qid, icon_count) ~= nil then
+                icon_count = icon_count + 1
+                added = added + 1
                 if HYBRID_AREA_QIDS and HYBRID_AREA_QIDS[qid] then
                     _mlog_map(string.format("[QT][map] hybrid %d anchor=(%.0f,%.0f,%.0f) label_icon=ok",
                         qid, anchor.x, anchor.y, anchor.z))
@@ -574,13 +580,29 @@ local function install_icon_hook()
                     pcall(_probe_add_map_icon_api)
                     pcall(_log_map_zoom_once, this)
                     pcall(_sniff_map_ui_once, this)
+                    do
+                        local wm = safe_get_field(this, "IsWorldMap")
+                        local dm = safe_get_field(this, "IsDetailMap")
+                        local la = safe_get_field(this, "LocalAreaNow")
+                        local layer = string.format("%s|%s|%s", tostring(wm), tostring(dm), tostring(la))
+                        if MAP_API._last_map_layer ~= layer then
+                            MAP_API._map_icon_gen = (MAP_API._map_icon_gen or 0) + 1
+                            MAP_API._last_map_layer = layer
+                            MAP_API._blob_reinject_this_hook = {}
+                            _label_add_fail_logged = {}
+                            _mlog_map(string.format("[QT][map] map layer change gen=%d world=%s detail=%s local=%s",
+                                MAP_API._map_icon_gen, tostring(wm), tostring(dm), tostring(la)))
+                        end
+                    end
+                    MAP_API._blob_reinject_this_hook = {}
+                    local reinjected = 0
+                    pcall(function() reinjected = reinject_all() end)
+                    pcall(function() this:call("updateMapIcon") end)
                     local labels, want = 0, _count_wanted_labels()
                     pcall(function() labels = add_labeled_markers_for_all_pins(this) or 0 end)
                     pcall(function() this:call("updateMapIcon") end)
-                    local reinjected = 0
-                    pcall(function() reinjected = reinject_all() end)
-                    _mlog_map(string.format("[QT][map] setupMapIcon labels_added=%d want=%d reinject=%d",
-                        labels, want, reinjected))
+                    _mlog_map(string.format("[QT][map] setupMapIcon reinject=%d labels=%d want=%d",
+                        reinjected, labels, want))
                 end
                 return retval
             end)
@@ -591,9 +613,8 @@ local function install_icon_hook()
         pcall(function()
             sdk.hook(mD, function() end, function(retval)
                 UI_MAP = nil
-                MAP_API._label_slots = {}
-                MAP_API._label_skip_logged = {}
-                MAP_API._label_logged_ok = {}
+                MAP_API._last_map_layer = nil
+                MAP_API._blob_reinject_this_hook = {}
                 if mod then
                     mod._qt_map_sniff_done = nil
                     mod._qt_map_zoom_logged = nil
@@ -641,9 +662,6 @@ clear_injected_markers = function()
     MAP_API.pinned_data = {}
     MAP_API.pinned_pos = {}
     MAP_API.pinned_label_pos = {}
-    MAP_API._label_slots = {}
-    MAP_API._label_skip_logged = {}
-    MAP_API._label_logged_ok = {}
     MAP_API.last_msg = "pins cleared"
     force_marker_refresh()
     _mlog_map("[QT][map] clear done")
@@ -785,21 +803,53 @@ local function _extract_dest_xyz(dests, qid)
     return nil
 end
 
-local function _pin_vanilla_blob_quest(qid, list, dests, defer_refresh)
+local function _pin_sculpt_quest(qid, list, dests, defer_refresh)
     _sniff_dest_once(qid, dests)
-    local x, y, z = _extract_dest_xyz(dests, qid)
-    if x == nil then return false, "no sculpt anchor" end
-    local dm = build_marker_at_pos(x, y, z, qid)
-    if dm == nil then return false, "sculpt diamond failed" end
-    pcall(function() list:call("Add", dm) end)
-    MAP_API.pinned_label_pos[qid] = { x = x, y = y, z = z }
-    MAP_API.pinned_data[qid] = nil
-    return _pin_done(string.format("pinned qid=%d sculpt diamond+label vanilla_blob=1", qid), defer_refresh)
+    local added = 0
+    local label_anchor = nil
+    local skip_blob = UI_MAP ~= nil and _sculpt_skip_mod_blob_reinject(qid, UI_MAP)
+    if not skip_blob then
+        for _, dest in ipairs(dests) do
+            local marker = build_marker(dest, qid)
+            if marker then
+                local okA = pcall(function() list:call("Add", marker) end)
+                if okA then
+                    added = added + 1
+                    if label_anchor == nil then
+                        local x, y, z = _marker_world_xyz(marker)
+                        if x then label_anchor = { x = x, y = y, z = z } end
+                    end
+                end
+            end
+        end
+        if added == 0 then return false, "no sculpt blob built" end
+        MAP_API.pinned_data[qid] = dests
+    else
+        label_anchor = nil
+        local x, y, z = _extract_dest_xyz(dests, qid)
+        if x then label_anchor = { x = x, y = y, z = z } end
+        MAP_API.pinned_data[qid] = nil
+    end
+    if label_anchor == nil then
+        local x, y, z = _extract_dest_xyz(dests, qid)
+        if x then label_anchor = { x = x, y = y, z = z } end
+    end
+    if label_anchor == nil then return false, "no sculpt anchor" end
+    local dm = build_marker_at_pos(label_anchor.x, label_anchor.y, label_anchor.z, qid)
+    if dm then
+        pcall(function() list:call("Add", dm) end)
+        added = added + 1
+    end
+    MAP_API.pinned_label_pos[qid] = label_anchor
+    if skip_blob then
+        return _pin_done(string.format("pinned qid=%d sculpt diamond+label vanilla_blob_active=1", qid), defer_refresh)
+    end
+    return _pin_done(string.format("pinned qid=%d sculpt blob+diamond pin_once=1 added=%d", qid, added), defer_refresh)
 end
 
 local function _pin_dest_mode(qid, list, dests, defer_refresh, anchor_override)
     if BLOB_AREA_QIDS and BLOB_AREA_QIDS[qid] and anchor_override == nil then
-        return _pin_vanilla_blob_quest(qid, list, dests, defer_refresh)
+        return _pin_sculpt_quest(qid, list, dests, defer_refresh)
     end
     _sniff_dest_once(qid, dests)
     local added = 0
@@ -973,7 +1023,7 @@ pin_quest = function(qid, defer_refresh)
         local dests = get_quest_destinations(qlm, qid) or get_live_info_destinations(qlm, qid)
         if not dests then return false, "no destinations (catalog or InfoDict)" end
         if BLOB_AREA_QIDS and BLOB_AREA_QIDS[qid] then
-            return _pin_vanilla_blob_quest(qid, list, dests, defer_refresh)
+            return _pin_sculpt_quest(qid, list, dests, defer_refresh)
         end
         return _pin_poi_from_dest(qid, list, dests, defer_refresh)
     end
@@ -983,9 +1033,6 @@ unpin_quest = function(qid, defer_refresh)
     MAP_API.pinned_data[qid] = nil
     MAP_API.pinned_pos[qid] = nil
     MAP_API.pinned_label_pos[qid] = nil
-    if MAP_API._label_slots then MAP_API._label_slots[qid] = nil end
-    if MAP_API._label_skip_logged then MAP_API._label_skip_logged[qid] = nil end
-    if MAP_API._label_logged_ok then MAP_API._label_logged_ok[qid] = nil end
     MAP_API.last_msg = "unpinned qid=" .. qid
     if defer_refresh then return true end
     force_marker_refresh()
