@@ -1,7 +1,7 @@
 -- quest_tracker_map.lua — map pins / icons (require from quest_tracker.lua)
 -- REFramework also runs every autorun/*.lua; return cached module so install() is not wiped.
 
-local MAP_MOD_VER = "1.2.2"
+local MAP_MOD_VER = "1.2.3"
 local M = package.loaded["quest_tracker_map"]
 if M and M._map_mod_ver == MAP_MOD_VER then return M end
 M = { _map_mod_ver = MAP_MOD_VER }
@@ -248,10 +248,10 @@ end
 
 -- POI labels from pinned_pos; area-quest labels from pinned_label_pos (no extra yellow diamond).
 local function add_labeled_markers_for_all_pins(this)
-    if mod == nil or mod.label_pins ~= true then return end
-    if this == nil then return end
+    if mod == nil or mod.label_pins ~= true then return 0 end
+    if this == nil then return 0 end
     _icon_init_helpers()
-    if INT_T == nil or INT_T_VOFF == nil then return end
+    if INT_T == nil or INT_T_VOFF == nil then return 0 end
 
     local icon_count = 0
     local icon_limit = 0
@@ -264,9 +264,10 @@ local function add_labeled_markers_for_all_pins(this)
             _mlog_map(string.format("[QT][map] label cap hit count=%d limit=%d skipped=%d",
                 icon_count, icon_limit, want))
         end
-        return
+        return 0
     end
 
+    local added = 0
     local idx_obj = INT_T:create_instance():add_ref()
     for qid, pins in pairs(MAP_API.pinned_pos) do
         if icon_count >= icon_limit then break end
@@ -277,6 +278,7 @@ local function add_labeled_markers_for_all_pins(this)
                 idx_obj:write_dword(INT_T_VOFF, icon_count)
                 if _add_one_labeled_icon(this, p.x, p.y, p.z, name_guid, idx_obj) ~= nil then
                     icon_count = icon_count + 1
+                    added = added + 1
                 end
             end
         end
@@ -288,9 +290,20 @@ local function add_labeled_markers_for_all_pins(this)
             idx_obj:write_dword(INT_T_VOFF, icon_count)
             if _add_one_labeled_icon(this, anchor.x, anchor.y, anchor.z, name_guid, idx_obj) ~= nil then
                 icon_count = icon_count + 1
+                added = added + 1
             end
         end
     end
+    return added
+end
+
+local function _map_paint_if_open()
+    if UI_MAP == nil then return end
+    local reinjected, labels = 0, 0
+    pcall(function() reinjected = reinject_all() end)
+    pcall(function() labels = add_labeled_markers_for_all_pins(UI_MAP) or 0 end)
+    pcall(function() UI_MAP:call("updateMapIcon") end)
+    _mlog_map(string.format("[QT][map] paint_if_open labels=%d reinject=%d", labels, reinjected))
 end
 
 local function _log_map_zoom_once(ui)
@@ -460,6 +473,7 @@ force_marker_refresh = function()
         local gm = MAP_API.gm or sdk.get_managed_singleton("app.GuiManager")
         if gm then gm:call("setupQuestTargetMarker") end
     end)
+    pcall(_map_paint_if_open)
     MAP_API._refreshing = false
 end
 

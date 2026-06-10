@@ -1,26 +1,8 @@
 ---
-description: When the user sends a screenshot or image, open and analyze it before logs, code, or conclusions.
+description: Open and analyze user screenshots before conclusions.
 alwaysApply: true
 ---
 
 # Analyze screenshots first
 
-When the user attaches a screenshot, image, or says "see screenshot":
-
-1. **Open the image file** from workspace assets or the attachment path — do not rely on conversation summaries or image descriptions alone.
-2. **Describe what you see** that matters to the bug: layout, wrong text, missing UI, wrong colors, truncation, position, version string in title bar.
-3. **Cross-check** screenshot claims against game logs and source — screenshot = what player sees; log = what code did.
-4. **State explicitly** in the reply that the screenshot was opened and what it proves (one short paragraph, not a wall).
-
-## Quest Tracker screenshot checklist
-
-| Look for | Why |
-|----------|-----|
-| Title bar version (`Quest Tracker Reduxx [vX.Y.Z]`) | Installed build vs workspace `MOD_VERSION` |
-| Window corner vs game UI | Default position/size for baked defaults |
-| Text right margin vs tab row (`Hidden(0)` right edge) | Wrap-width bugs at 28pt font |
-| `(step unknown)` vs real objective | Step resolver / wiki data gap |
-| Blank list vs `(loading quest row…)` | Cache / nil helper regressions |
-| Tab counts vs log `rebuild` line | List filter / category mismatch |
-
-Never say "from your screenshot" without having read the image file in this session.
+When the user attaches a screenshot: open the file, describe what matters for the bug, cross-check with logs. Do not say "from your screenshot" without reading it this session.
