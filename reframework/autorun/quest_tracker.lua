@@ -2,7 +2,7 @@
 -- Submodules: quest_tracker_prefs/sdk/gather, quest_tracker_steps(+resolve), plugins, window, map, cache
 
 local MOD_NAME = "Quest Tracker Reduxx"
-local MOD_VERSION = "1.2.8"
+local MOD_VERSION = "1.2.9"
 
 local DEFAULT_QUEST_WIN_W = 786
 local DEFAULT_QUEST_WIN_H = 877
@@ -77,7 +77,7 @@ local MANUAL_POS_OVERRIDES = {
     [10110] = { x = 493.9796600341797,   y = 27.427902221679688, z = -1025.0746459960938 },
     [10130] = { x = 496.31145095825195,  y = 24.031455993652344, z = -1054.4935245513916 },
     [10140] = { x = 493.6757583618164,   y = 27.427902221679688, z = -1024.9119186401367 },
-    [10151] = { x = -1453.9278030395508, y = 101.23748588562012,  z = 300.42830657958984 },
+    -- [10151] removed — live _CurrentDestinations wins for multi-step main quests
     [20040] = { x = 208.3,               y = 141.4,              z = -2168.6 },
     [20060] = { x = -1454.6352767944336, y = 107.46630477905273,  z = 421.0796432495117 },
     [20080] = { x = -425.93798446655273, y = 4.689894199371338,  z = -643.8243865966797 },
