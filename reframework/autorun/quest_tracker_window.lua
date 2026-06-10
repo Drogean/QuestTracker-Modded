@@ -1063,8 +1063,11 @@ function M.install(ctx)
             if mod.deep_sniff then
                 ch, mod.deep_sniff_heavy = imgui.checkbox("  Heavy (slow poll — playable FPS)", mod.deep_sniff_heavy == true)
                 if ch then
-                    mlog(string.format("[QT][sniff] heavy mode %s", mod.deep_sniff_heavy and "ON" or "OFF"))
+                    local st = mod.deep_sniff_heavy and "ON" or "OFF"
+                    mlog(string.format("[QT][sniff] heavy mode %s", st))
+                    if mlog_boot then mlog_boot(string.format("[QT][sniff] heavy mode %s (prefs)", st)) end
                     mod._last_win_save = os.clock(); mark_prefs_dirty()
+                    pcall(save_prefs)
                 end
                 if imgui.button("Dump priority quest NOW") then
                     local qlm = sdk.get_managed_singleton("app.QuestLogManager")

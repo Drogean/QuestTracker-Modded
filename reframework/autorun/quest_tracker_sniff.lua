@@ -9,6 +9,7 @@ local _last_pqid = nil
 local _dump_cooldown = {}
 local _perf_dump_count = 0
 local _perf_last_log = 0
+local _heavy_poll_n = 0
 
 local POLL_INTERVAL = 2.0
 local HEAVY_INTERVAL = 0.4  -- heavy poll ~2-3/sec (playable FPS)
@@ -620,6 +621,10 @@ function M.install(ctx)
         _last_heavy = now
 
         if pqid and pqid > 0 then
+            _heavy_poll_n = _heavy_poll_n + 1
+            if _heavy_poll_n == 1 or (_heavy_poll_n % 5) == 0 then
+                mlog(string.format("[QT][sniff] heavy_poll qid=%d tick=%d", pqid, _heavy_poll_n))
+            end
             pcall(ctx.sniff_dump_qid, pqid, "heavy_poll")
         elseif mod.progressing_ids then
             local n = 0

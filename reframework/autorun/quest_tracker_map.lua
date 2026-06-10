@@ -1,7 +1,7 @@
 -- quest_tracker_map.lua — map pins / icons (require from quest_tracker.lua)
 -- REFramework also runs every autorun/*.lua; return cached module so install() is not wiped.
 
-local MAP_MOD_VER = "1.2.3"
+local MAP_MOD_VER = "1.2.7"
 local M = package.loaded["quest_tracker_map"]
 if M and M._map_mod_ver == MAP_MOD_VER then return M end
 M = { _map_mod_ver = MAP_MOD_VER }
@@ -162,6 +162,10 @@ local ICON_HOOK_INSTALLED = false
 local ICON_ICON_TYPE = 25
 local INT_T, INT_T_VOFF
 local UI_MAP = nil
+local API_PROBE_DONE = false
+local VANILLA_ADD_HOOKED = false
+local _label_cap_logged = false
+local _label_add_fail_logged = {}
 
 local function _icon_init_helpers()
     if INT_T == nil then
@@ -212,7 +216,152 @@ local function get_quest_name_guid(qid)
     return nil
 end
 
-local function _add_one_labeled_icon(this, x, y, z, name_guid, idx_obj)
+local function _method_param_sig(m)
+    if m == nil then return 0, "?" end
+    local n = 0
+    pcall(function() n = m:get_num_params() end)
+    local parts = {}
+    for i = 0, math.max(0, n - 1) do
+        local pt = nil
+        pcall(function() pt = m:get_param_type(i) end)
+        parts[#parts + 1] = (pt and pt:get_full_name()) or "?"
+    end
+    return n, table.concat(parts, ", ")
+end
+
+local function _probe_add_map_icon_api()
+    if API_PROBE_DONE then return end
+    API_PROBE_DONE = true
+    local t2 = _td("app.ui040205")
+    if t2 == nil then
+        _mlog_map("[QT][map][api] addMapIconInfoList type ui040205 missing")
+        return
+    end
+    MAP_API._add_map_icon_overloads = {}
+    local n_over = 0
+    pcall(function()
+        for _, m in ipairs(t2:get_methods()) do
+            if m:get_name() == "addMapIconInfoList" then
+                n_over = n_over + 1
+                local np, sig = _method_param_sig(m)
+                MAP_API._add_map_icon_overloads[#MAP_API._add_map_icon_overloads + 1] = { m = m, n = np, sig = sig }
+                _mlog_map(string.format("[QT][map][api] overload[%d] params=%d types=%s", n_over, np, sig))
+            end
+        end
+    end)
+    _mlog_map(string.format("[QT][map][api] addMapIconInfoList overloads=%d", n_over))
+end
+
+local function _install_vanilla_add_sniff()
+    if VANILLA_ADD_HOOKED then return end
+    local t2 = _td("app.ui040205")
+    if t2 == nil then return end
+    for _, m in ipairs(t2:get_methods()) do
+        if m:get_name() == "addMapIconInfoList" then
+            local ok = pcall(function()
+                sdk.hook(m,
+                    function(args)
+                        if MAP_API._vanilla_add_logged then return end
+                        MAP_API._vanilla_add_logged = true
+                        local parts = {}
+                        for i = 3, 14 do
+                            local a = args[i]
+                            if a == nil then break end
+                            local desc = "?"
+                            local ok_m, mo = pcall(function() return sdk.to_managed_object(a) end)
+                            if ok_m and mo then
+                                local td_m = mo:get_type_definition()
+                                desc = (td_m and td_m:get_full_name()) or "managed"
+                            else
+                                local ok_n, n = pcall(function() return sdk.to_int64(a) end)
+                                if ok_n then desc = "i64=" .. tostring(n) else desc = type(a) end
+                            end
+                            parts[#parts + 1] = string.format("p%d=%s", i - 2, desc)
+                        end
+                        _mlog_map("[QT][map][api] vanilla addMapIconInfoList " .. table.concat(parts, " "))
+                    end,
+                    function(r) return r end)
+            end)
+            if ok then VANILLA_ADD_HOOKED = true; return end
+        end
+    end
+end
+
+local function _dispatch_label_invoke(this, info, idx_obj, name_guid, path_name, fn)
+    local ok, result = pcall(fn)
+    if ok and result ~= nil then
+        if MAP_API._label_invoke_win ~= path_name then
+            MAP_API._label_invoke_win = path_name
+            _mlog_map("[QT][map][api] label invoke WIN path=" .. path_name)
+        end
+        return result, path_name
+    end
+    local err = ok and "nil result" or tostring(result)
+    return nil, path_name, err
+end
+
+local function _invoke_add_map_icon(this, info, idx_obj, name_guid)
+    local idx_addr = idx_obj:get_address() + INT_T_VOFF
+    local win = MAP_API._label_invoke_win
+    if win then
+        local cached_paths = {
+            direct5_addr = function() return this:addMapIconInfoList(info, 0, idx_addr, -1, name_guid) end,
+            call5_addr = function() return this:call("addMapIconInfoList", info, 0, idx_addr, -1, name_guid) end,
+            direct5_ref = function() return this:addMapIconInfoList(info, 0, idx_obj, -1, name_guid) end,
+            call5_ref = function() return this:call("addMapIconInfoList", info, 0, idx_obj, -1, name_guid) end,
+        }
+        local cf = cached_paths[win]
+        if cf then
+            local result, pname, err = _dispatch_label_invoke(this, info, idx_obj, name_guid, win, cf)
+            if result then return result, pname end
+        end
+    end
+
+    local paths = {
+        { "direct5_addr", function() return this:addMapIconInfoList(info, 0, idx_addr, -1, name_guid) end },
+        { "call5_addr", function() return this:call("addMapIconInfoList", info, 0, idx_addr, -1, name_guid) end },
+        { "direct5_ref", function() return this:addMapIconInfoList(info, 0, idx_obj, -1, name_guid) end },
+        { "call5_ref", function() return this:call("addMapIconInfoList", info, 0, idx_obj, -1, name_guid) end },
+        { "direct4", function() return this:addMapIconInfoList(info, 0, idx_addr, name_guid) end },
+        { "call4", function() return this:call("addMapIconInfoList", info, 0, idx_addr, name_guid) end },
+        { "direct3", function() return this:addMapIconInfoList(info, 0, name_guid) end },
+        { "call6_false", function() return this:call("addMapIconInfoList", info, 0, idx_addr, -1, name_guid, false) end },
+        { "call6_0", function() return this:call("addMapIconInfoList", info, 0, idx_addr, -1, name_guid, 0) end },
+    }
+    if MAP_API._add_map_icon_overloads then
+        for _, ov in ipairs(MAP_API._add_map_icon_overloads) do
+            local mdef, n = ov.m, ov.n
+            if n == 6 then
+                paths[#paths + 1] = { "native6_f", function()
+                    return sdk.call_native_func(this, mdef, info, 0, idx_addr, -1, name_guid, false)
+                end }
+                paths[#paths + 1] = { "native6_0", function()
+                    return sdk.call_native_func(this, mdef, info, 0, idx_addr, -1, name_guid, 0)
+                end }
+            elseif n == 5 then
+                paths[#paths + 1] = { "native5_addr", function()
+                    return sdk.call_native_func(this, mdef, info, 0, idx_addr, -1, name_guid)
+                end }
+                paths[#paths + 1] = { "native5_ref", function()
+                    return sdk.call_native_func(this, mdef, info, 0, idx_obj, -1, name_guid)
+                end }
+            elseif n == 4 then
+                paths[#paths + 1] = { "native4", function()
+                    return sdk.call_native_func(this, mdef, info, 0, idx_addr, name_guid)
+                end }
+            end
+        end
+    end
+    local last_err = "all paths failed"
+    for _, p in ipairs(paths) do
+        local result, pname, err = _dispatch_label_invoke(this, info, idx_obj, name_guid, p[1], p[2])
+        if result then return result, pname end
+        last_err = err or last_err
+    end
+    return nil, nil, last_err
+end
+
+local function _add_one_labeled_icon(this, x, y, z, name_guid, idx_obj, qid, icon_idx)
     local t2 = _td("app.GuiManager.MapIconInfo")
     if t2 == nil then return nil end
     local ok, info = pcall(function() return t2:create_instance():add_ref() end)
@@ -229,15 +378,19 @@ local function _add_one_labeled_icon(this, x, y, z, name_guid, idx_obj)
         info.LocalArea = 0
         info.IsDispAllArea = true
     end)
-    local okA, ui_icon = pcall(function()
-        return this:call("addMapIconInfoList",
-            info, 0, idx_obj:get_address() + INT_T_VOFF, -1, name_guid)
-    end)
-    if okA then return ui_icon end
+    local ui_icon, path_name, err = _invoke_add_map_icon(this, info, idx_obj, name_guid)
+    if ui_icon then
+        _mlog_map(string.format("[QT][map] label add OK qid=%d idx=%d path=%s", qid or -1, icon_idx or -1, path_name or "?"))
+        return ui_icon
+    end
+    if qid and not _label_add_fail_logged[qid] then
+        _label_add_fail_logged[qid] = true
+        local pc = MAP_API._add_map_icon_overloads and MAP_API._add_map_icon_overloads[1] and MAP_API._add_map_icon_overloads[1].n or "?"
+        _mlog_map(string.format("[QT][map] label add FAIL qid=%d err=%s invoke=ladder param_count=%s guid_type=%s",
+            qid, tostring(err), tostring(pc), type(name_guid)))
+    end
     return nil
 end
-
-local _label_cap_logged = false
 
 local function _count_wanted_labels()
     local want = 0
@@ -276,7 +429,7 @@ local function add_labeled_markers_for_all_pins(this)
             for _, p in ipairs(pins) do
                 if icon_count >= icon_limit then break end
                 idx_obj:write_dword(INT_T_VOFF, icon_count)
-                if _add_one_labeled_icon(this, p.x, p.y, p.z, name_guid, idx_obj) ~= nil then
+                if _add_one_labeled_icon(this, p.x, p.y, p.z, name_guid, idx_obj, qid, icon_count) ~= nil then
                     icon_count = icon_count + 1
                     added = added + 1
                 end
@@ -288,22 +441,20 @@ local function add_labeled_markers_for_all_pins(this)
         local name_guid = get_quest_name_guid(qid)
         if name_guid ~= nil and anchor then
             idx_obj:write_dword(INT_T_VOFF, icon_count)
-            if _add_one_labeled_icon(this, anchor.x, anchor.y, anchor.z, name_guid, idx_obj) ~= nil then
+            if _add_one_labeled_icon(this, anchor.x, anchor.y, anchor.z, name_guid, idx_obj, qid, icon_count) ~= nil then
                 icon_count = icon_count + 1
                 added = added + 1
+                if HYBRID_AREA_QIDS and HYBRID_AREA_QIDS[qid] then
+                    _mlog_map(string.format("[QT][map] hybrid %d anchor=(%.0f,%.0f,%.0f) label_icon=ok",
+                        qid, anchor.x, anchor.y, anchor.z))
+                end
+            elseif HYBRID_AREA_QIDS and HYBRID_AREA_QIDS[qid] then
+                _mlog_map(string.format("[QT][map] hybrid %d anchor=(%.0f,%.0f,%.0f) label_icon=fail",
+                    qid, anchor.x, anchor.y, anchor.z))
             end
         end
     end
     return added
-end
-
-local function _map_paint_if_open()
-    if UI_MAP == nil then return end
-    local reinjected, labels = 0, 0
-    pcall(function() reinjected = reinject_all() end)
-    pcall(function() labels = add_labeled_markers_for_all_pins(UI_MAP) or 0 end)
-    pcall(function() UI_MAP:call("updateMapIcon") end)
-    _mlog_map(string.format("[QT][map] paint_if_open labels=%d reinject=%d", labels, reinjected))
 end
 
 local function _log_map_zoom_once(ui)
@@ -337,6 +488,7 @@ end
 
 local function _sniff_map_ui_once(ui)
     if not mod or mod.deep_sniff ~= true then return end
+    pcall(_probe_add_map_icon_api)
     if mod._qt_map_sniff_done then return end
     mod._qt_map_sniff_done = true
     local t2 = _td("app.ui040205")
@@ -383,6 +535,7 @@ local function install_icon_hook()
     if t2 == nil then return false end
     local m_setup = t2:get_method("setupMapIcon")
     if m_setup == nil then return false end
+    pcall(_install_vanilla_add_sniff)
     local ok = pcall(function()
         sdk.hook(m_setup,
             function(args)
@@ -395,15 +548,16 @@ local function install_icon_hook()
                         mod._qt_map_open_logged = true
                         _mlog_map("[QT][map] setupMapIcon — map UI open")
                     end
+                    pcall(_probe_add_map_icon_api)
                     pcall(_log_map_zoom_once, this)
                     pcall(_sniff_map_ui_once, this)
-                    pcall(add_labeled_markers_for_all_pins, this)
+                    local labels, want = 0, _count_wanted_labels()
+                    pcall(function() labels = add_labeled_markers_for_all_pins(this) or 0 end)
                     pcall(function() this:call("updateMapIcon") end)
                     local reinjected = 0
                     pcall(function() reinjected = reinject_all() end)
-                    if reinjected > 0 then
-                        _mlog_map(string.format("[QT][map] setupMapIcon reinject markers=%d", reinjected))
-                    end
+                    _mlog_map(string.format("[QT][map] setupMapIcon labels_added=%d want=%d reinject=%d",
+                        labels, want, reinjected))
                 end
                 return retval
             end)
@@ -473,7 +627,6 @@ force_marker_refresh = function()
         local gm = MAP_API.gm or sdk.get_managed_singleton("app.GuiManager")
         if gm then gm:call("setupQuestTargetMarker") end
     end)
-    pcall(_map_paint_if_open)
     MAP_API._refreshing = false
 end
 
@@ -909,8 +1062,13 @@ M.resniff_map_ui = function()
         mod._qt_map_sniff_done = nil
         mod._qt_map_zoom_logged = nil
     end
-    if UI_MAP and mod and mod.deep_sniff == true then
-        pcall(_sniff_map_ui_once, UI_MAP)
+    API_PROBE_DONE = false
+    MAP_API._vanilla_add_logged = nil
+    if UI_MAP then
+        pcall(_probe_add_map_icon_api)
+        if mod and mod.deep_sniff == true then
+            pcall(_sniff_map_ui_once, UI_MAP)
+        end
     end
 end
 M.matches_filter = matches_filter
