@@ -234,22 +234,41 @@ function M.install(ctx)
     end
 
     local function _qt_begin_quest_list_child()
-        if not imgui.begin_child_window then return true end
+        mod._qt_quest_child_open = false
+        if not imgui.begin_child_window then return false end
         local ok, open = pcall(function()
             if _imgui_vec2 then
                 return imgui.begin_child_window("##qtquestscroll", _imgui_vec2(0, -40), true)
             end
             return imgui.begin_child_window("##qtquestscroll", 0, -40, true)
         end)
-        if ok and open then return true end
+        if ok and open then
+            mod._qt_quest_child_open = true
+            return true
+        end
         ok, open = pcall(function()
             return imgui.begin_child_window("##qtquestscroll", 0, 0, true)
         end)
-        return ok and open
+        if ok and open then
+            mod._qt_quest_child_open = true
+            return true
+        end
+        if not mod._qt_child_begin_fail_logged then
+            mod._qt_child_begin_fail_logged = true
+            mlog_boot("[QT] draw child begin fail")
+        end
+        return false
     end
 
     local function _qt_end_quest_list_child()
-        if imgui.end_child_window then pcall(imgui.end_child_window) end
+        if mod._qt_quest_child_open then
+            mod._qt_quest_child_open = false
+            if imgui.end_child_window then pcall(imgui.end_child_window) end
+        end
+    end
+
+    local function _qt_ensure_child_closed()
+        if mod._qt_quest_child_open then _qt_end_quest_list_child() end
     end
 
     local function _qt_draw_tab_row()
@@ -854,7 +873,7 @@ function M.install(ctx)
                     mod._last_win_save = os.clock(); mark_prefs_dirty()
                     if Map and Map.run_autopin_if_enabled then pcall(Map.run_autopin_if_enabled) end
                 end
-                imgui.text_colored("Journal: pins priority quest when map opens. Ongoing/Available: ~25s batch.", 0xFF888888)
+                imgui.text_colored("Journal = ONE map pin (priority quest). Pin Ongoing = same one pin only. Clear pins first if map cluttered.", 0xFF888888)
                 imgui.separator()
                 imgui.text("Time")
                 ch, mod.time_longer_days = imgui.checkbox("Longer days (before dark = half speed)", mod.time_longer_days == true)
@@ -911,10 +930,7 @@ function M.install(ctx)
 
             local child_open = _qt_begin_quest_list_child()
             local ok_list, err_list = pcall(function()
-            if not child_open then
-                mlog_boot("[QT] list child window failed to open")
-                return
-            end
+            if not child_open then return end
             if mod._qt_tab_scroll_reset then
                 mod._qt_tab_scroll_reset = false
                 if imgui.set_scroll_y then pcall(imgui.set_scroll_y, 0) end
@@ -942,7 +958,7 @@ function M.install(ctx)
                     mod._qt_row_width or -1, mod._qt_wrap_right_local or -1, mod.win_w or -1))
             end
             end)
-            if child_open then _qt_end_quest_list_child() end
+            _qt_end_quest_list_child()
             if not ok_list then
                 _draw_ok, _draw_err = false, err_list
                 mlog_boot("[QT] list draw CRASH: " .. tostring(err_list))
@@ -1008,6 +1024,7 @@ function M.install(ctx)
             end
             if _fnt then pcall(function() imgui.pop_font() end) end
         end
+        _qt_ensure_child_closed()
         imgui.end_window()
         end) -- pcall window path
 

@@ -6,7 +6,7 @@
 
 | Field | Value |
 |-------|--------|
-| **Source version** | `1.3.3` |
+| **Source version** | `1.3.4` |
 | **MOD_VERSION** | `reframework/autorun/quest_tracker.lua` L5 |
 | **MAP_MOD_VER** | `reframework/autorun/quest_tracker_map.lua` L4 |
 | **modinfo.ini** | `version = 1.3.3` |
