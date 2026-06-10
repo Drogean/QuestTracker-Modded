@@ -1,7 +1,7 @@
 -- quest_tracker_map.lua — map pins / icons (require from quest_tracker.lua)
 -- REFramework also runs every autorun/*.lua; return cached module so install() is not wiped.
 
-local MAP_MOD_VER = "1.3.0"
+local MAP_MOD_VER = "1.3.1"
 local M = package.loaded["quest_tracker_map"]
 if M and M._map_mod_ver == MAP_MOD_VER then return M end
 M = { _map_mod_ver = MAP_MOD_VER }
@@ -144,13 +144,16 @@ local function reinject_all()
         if BLOB_AREA_QIDS and BLOB_AREA_QIDS[qid] then
             if UI_MAP and _sculpt_skip_mod_blob_reinject(qid, UI_MAP) then
                 -- vanilla draws area blob on detail map
+            elseif MAP_API._pin_added_this_hook and MAP_API._pin_added_this_hook[qid] then
+                -- pin_quest already added markers this hook
             elseif not MAP_API._blob_reinject_this_hook[qid] then
                 MAP_API._blob_reinject_this_hook[qid] = true
                 for _, dest in ipairs(entry) do
                     local marker = build_marker(dest, qid)
                     if marker and _try_add_yellow_marker(list, qid, marker) then n = n + 1 end
                 end
-                _mlog_map(string.format("[QT][map] sculpt blob reinject qid=%d n=1", qid))
+                local wm = UI_MAP and safe_get_field(UI_MAP, "IsWorldMap")
+                _mlog_map(string.format("[QT][map] sculpt reinject blob qid=%d world=%s", qid, wm == true and "1" or "0"))
             end
         else
             for _, dest in ipairs(entry) do
@@ -160,7 +163,7 @@ local function reinject_all()
         end
     end
     for qid, anchor in pairs(MAP_API.pinned_label_pos) do
-        if anchor then
+        if anchor and not (MAP_API._pin_added_this_hook and MAP_API._pin_added_this_hook[qid]) then
             local marker = build_marker_at_pos(anchor.x, anchor.y, anchor.z, qid)
             if marker and _try_add_yellow_marker(list, qid, marker) then n = n + 1 end
         end
@@ -594,6 +597,8 @@ local function install_icon_hook()
                                 MAP_API._map_icon_gen, tostring(wm), tostring(dm), tostring(la)))
                         end
                     end
+                    MAP_API._pin_added_this_hook = {}
+                    pcall(ensure_journal_pinned_on_map_open)
                     MAP_API._blob_reinject_this_hook = {}
                     local reinjected = 0
                     pcall(function() reinjected = reinject_all() end)
@@ -603,6 +608,7 @@ local function install_icon_hook()
                     pcall(function() this:call("updateMapIcon") end)
                     _mlog_map(string.format("[QT][map] setupMapIcon reinject=%d labels=%d want=%d",
                         reinjected, labels, want))
+                    MAP_API._pin_added_this_hook = {}
                 end
                 return retval
             end)
@@ -618,7 +624,10 @@ local function install_icon_hook()
                 if mod then
                     mod._qt_map_sniff_done = nil
                     mod._qt_map_zoom_logged = nil
+                    mod._qt_map_journal_auto_done = nil
+                    mod._qt_map_open_logged = nil
                 end
+                MAP_API._pin_added_this_hook = {}
                 return retval
             end)
         end)
@@ -803,7 +812,34 @@ local function _extract_dest_xyz(dests, qid)
     return nil
 end
 
-local function _pin_sculpt_quest(qid, list, dests, defer_refresh)
+local function _journal_already_pinned(qid)
+    return MAP_API.pinned_pos[qid] ~= nil
+        or MAP_API.pinned_label_pos[qid] ~= nil
+        or MAP_API.pinned_data[qid] ~= nil
+end
+
+local function ensure_journal_pinned_on_map_open()
+    if mod == nil or mod.auto_pin_journal == false then return end
+    if mod._qt_map_journal_auto_done then return end
+    local jqid = mod._qt_journal_qid
+    if jqid == nil or jqid <= 0 then return end
+    if _journal_already_pinned(jqid) then
+        mod._qt_map_journal_auto_done = true
+        return
+    end
+    if not init_map_api() then return end
+    local ok = pin_quest(jqid, true)
+    if ok then
+        mod._qt_map_journal_auto_done = true
+        MAP_API._pin_added_this_hook = MAP_API._pin_added_this_hook or {}
+        MAP_API._pin_added_this_hook[jqid] = true
+        MAP_API._blob_reinject_this_hook = MAP_API._blob_reinject_this_hook or {}
+        MAP_API._blob_reinject_this_hook[jqid] = true
+        _mlog_map(string.format("[QT][map] auto-pin journal qid=%d", jqid))
+    end
+end
+
+local function _pin_sculpt_quest(qid, list, dests, defer_refresh, anchor_src)
     _sniff_dest_once(qid, dests)
     local added = 0
     local label_anchor = nil
@@ -844,7 +880,8 @@ local function _pin_sculpt_quest(qid, list, dests, defer_refresh)
     if skip_blob then
         return _pin_done(string.format("pinned qid=%d sculpt diamond+label vanilla_blob_active=1", qid), defer_refresh)
     end
-    return _pin_done(string.format("pinned qid=%d sculpt blob+diamond pin_once=1 added=%d", qid, added), defer_refresh)
+    anchor_src = anchor_src or "dest"
+    return _pin_done(string.format("pinned qid=%d sculpt blob+diamond pin_once=1 anchor=%s", qid, anchor_src), defer_refresh)
 end
 
 local function _pin_dest_mode(qid, list, dests, defer_refresh, anchor_override)
@@ -913,6 +950,9 @@ local function _pin_live_journal_quest(qid, qlm, list, defer_refresh)
     if not _is_live_priority_quest(qid, qlm) then return nil end
     local live = get_live_info_destinations(qlm, qid)
     if live == nil then return nil end
+    if BLOB_AREA_QIDS and BLOB_AREA_QIDS[qid] then
+        return _pin_sculpt_quest(qid, list, live, defer_refresh, "live")
+    end
     return _pin_poi_from_dest_live(qid, list, live, defer_refresh)
 end
 

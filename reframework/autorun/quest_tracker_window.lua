@@ -838,6 +838,9 @@ function M.install(ctx)
                 end
                 imgui.same_line()
                 if imgui.button("Clear pins") then pcall(clear_injected_markers) end
+                ch, mod.auto_pin_journal = imgui.checkbox("Autopin Journal", mod.auto_pin_journal ~= false)
+                if ch then mod._last_win_save = os.clock(); mark_prefs_dirty() end
+                imgui.same_line()
                 ch, mod.auto_pin_ongoing = imgui.checkbox("Autopin Ongoing", mod.auto_pin_ongoing == true)
                 if ch then
                     mod._last_autopin_tick = 0
@@ -851,7 +854,7 @@ function M.install(ctx)
                     mod._last_win_save = os.clock(); mark_prefs_dirty()
                     if Map and Map.run_autopin_if_enabled then pcall(Map.run_autopin_if_enabled) end
                 end
-                imgui.text_colored("Autopin: adds new quests every ~25s (keeps existing pins)", 0xFF888888)
+                imgui.text_colored("Journal: pins priority quest when map opens. Ongoing/Available: ~25s batch.", 0xFF888888)
                 imgui.separator()
                 imgui.text("Time")
                 ch, mod.time_longer_days = imgui.checkbox("Longer days (before dark = half speed)", mod.time_longer_days == true)

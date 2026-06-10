@@ -2,7 +2,7 @@
 -- Submodules: quest_tracker_prefs/sdk/gather, quest_tracker_steps(+resolve), plugins, window, map, cache
 
 local MOD_NAME = "Quest Tracker Reduxx"
-local MOD_VERSION = "1.3.0"
+local MOD_VERSION = "1.3.1"
 
 local DEFAULT_QUEST_WIN_W = 786
 local DEFAULT_QUEST_WIN_H = 877
@@ -185,7 +185,7 @@ local PREF_KEYS  = {
     "show_window", "sort_mode", "highlight_recent", "tab", "label_pins", "debug_logging",
     "deep_sniff", "deep_sniff_heavy", "font_size",
     "layout_margin_r", "win_y", "win_w", "win_h", "win_alpha",
-    "auto_pin_ongoing", "auto_pin_available",
+    "auto_pin_journal", "auto_pin_ongoing", "auto_pin_available",
     "time_longer_days", "time_faster_nights", "time_pause",
 }
 
@@ -252,6 +252,7 @@ mod = {
     deep_sniff       = false,
     deep_sniff_heavy = false,
     _guid_lookup_ok  = false,
+    auto_pin_journal  = true,
     auto_pin_ongoing  = false,
     auto_pin_available = false,
     time_longer_days = false,
