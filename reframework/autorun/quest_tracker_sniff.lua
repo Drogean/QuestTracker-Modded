@@ -51,6 +51,7 @@ function M.install(ctx)
     local _text_blobs_for_step_match = ctx._text_blobs_for_step_match
     local _resolve_ongoing_step = ctx._resolve_ongoing_step
     local _text_from_dest = ctx._text_from_dest
+    local on_journal_progress_bump = ctx.on_journal_progress_bump
 
     local function _iter_managed_list(lst, fn)
         if lst == nil then return end
@@ -581,10 +582,16 @@ function M.install(ctx)
         end
         if done ~= nil then
             mod._qt_last_done = mod._qt_last_done or {}
-            if mod._qt_last_done[qid] ~= done and mod._refresh_one_row and mod.quests then
+            local old_done = mod._qt_last_done[qid]
+            if old_done ~= done then
                 mod._qt_last_done[qid] = done
-                for _, rq in ipairs(mod.quests or {}) do
-                    if rq.id == qid then pcall(mod._refresh_one_row, rq); break end
+                if qid == mod._qt_journal_qid and on_journal_progress_bump then
+                    pcall(on_journal_progress_bump, qid, old_done, done)
+                end
+                if mod._refresh_one_row and mod.quests then
+                    for _, rq in ipairs(mod.quests or {}) do
+                        if rq.id == qid then pcall(mod._refresh_one_row, rq); break end
+                    end
                 end
             end
         end
