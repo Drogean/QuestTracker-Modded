@@ -1,7 +1,7 @@
 -- quest_tracker_map.lua — map pins / icons (require from quest_tracker.lua)
 -- REFramework also runs every autorun/*.lua; return cached module so install() is not wiped.
 
-local MAP_MOD_VER = "1.2.7"
+local MAP_MOD_VER = "1.2.8"
 local M = package.loaded["quest_tracker_map"]
 if M and M._map_mod_ver == MAP_MOD_VER then return M end
 M = { _map_mod_ver = MAP_MOD_VER }
@@ -13,7 +13,7 @@ local function _mlog_map(...)
     elseif mlog then mlog(...) end
 end
 local cid_eq, cid_norm, get_character_world_pos, mark_prefs_dirty
-local MANUAL_POS_OVERRIDES, HYBRID_AREA_QIDS, MANUAL_GIVER_OVERRIDES, ELIMINATED_OVERRIDES, BUNDLED_GIVER_OVERRIDES
+local MANUAL_POS_OVERRIDES, HYBRID_AREA_QIDS, BLOB_AREA_QIDS, MANUAL_GIVER_OVERRIDES, ELIMINATED_OVERRIDES, BUNDLED_GIVER_OVERRIDES
 local is_bundled_giver, qd_givers, qd_givers_display_order, TAB_NAMES
 
 local MAP_API = {
@@ -49,6 +49,7 @@ function M.install(ctx)
     mark_prefs_dirty = ctx.mark_prefs_dirty
     MANUAL_POS_OVERRIDES = ctx.MANUAL_POS_OVERRIDES
     HYBRID_AREA_QIDS = ctx.HYBRID_AREA_QIDS
+    BLOB_AREA_QIDS = ctx.BLOB_AREA_QIDS
     MANUAL_GIVER_OVERRIDES = ctx.MANUAL_GIVER_OVERRIDES
     ELIMINATED_OVERRIDES = ctx.ELIMINATED_OVERRIDES
     BUNDLED_GIVER_OVERRIDES = ctx.BUNDLED_GIVER_OVERRIDES
@@ -725,14 +726,23 @@ local function get_live_info_destinations(qlm, qid)
     return #out > 0 and out or nil
 end
 
-local function _is_hybrid_area_quest(qid, qlm)
-    if HYBRID_AREA_QIDS and HYBRID_AREA_QIDS[qid] then return true end
-    if mod and mod._qt_journal_qid == qid then return true end
-    if mod and mod._qt_priority_qid == qid then return true end
-    return false
+local function _sniff_dest_once(qid, dests)
+    if mod == nil or mod.deep_sniff ~= true then return end
+    if dests == nil or #dests == 0 then return end
+    MAP_API._dest_sniff_logged = MAP_API._dest_sniff_logged or {}
+    if MAP_API._dest_sniff_logged[qid] then return end
+    MAP_API._dest_sniff_logged[qid] = true
+    local dest = dests[1]
+    local parts = {}
+    for _, fn in ipairs({ "DestType", "IconType", "Radius", "KeyLocation", "LocalArea", "MapArea" }) do
+        local v = safe_get_field(dest, fn) or safe_call(dest, "get_" .. fn)
+        if v ~= nil then parts[#parts + 1] = fn .. "=" .. tostring(v) end
+    end
+    _mlog_map(string.format("[QT][map][sniff] dest qid=%d %s", qid, table.concat(parts, " ")))
 end
 
 local function _pin_dest_mode(qid, list, dests, defer_refresh, anchor_override)
+    _sniff_dest_once(qid, dests)
     local added = 0
     local label_anchor = nil
     for _, dest in ipairs(dests) do
@@ -768,6 +778,30 @@ local function _pin_dest_mode(qid, list, dests, defer_refresh, anchor_override)
         qid, tag, added, anchor_src), defer_refresh)
 end
 
+local function _pin_poi_from_dest(qid, list, dests, defer_refresh)
+    _sniff_dest_once(qid, dests)
+    local x, y, z, anchor_src = nil, nil, nil, "dest"
+    if MANUAL_POS_OVERRIDES and MANUAL_POS_OVERRIDES[qid] then
+        local p = MANUAL_POS_OVERRIDES[qid]
+        x, y, z = p.x, p.y, p.z
+        anchor_src = "manual"
+    else
+        local marker = build_marker(dests[1], qid)
+        if marker then x, y, z = _marker_world_xyz(marker) end
+        if x == nil then
+            local dest = dests[1]
+            local p = safe_get_field(dest, "Pos") or safe_call(dest, "get_Pos")
+            if p then pcall(function() x, y, z = p.x, p.y, p.z end) end
+        end
+    end
+    if x == nil then return false, "no poi xyz" end
+    local marker = build_marker_at_pos(x, y, z, qid)
+    if marker == nil then return false, "poi marker failed" end
+    pcall(function() list:call("Add", marker) end)
+    MAP_API.pinned_pos[qid] = { { x = x, y = y, z = z } }
+    return _pin_done(string.format("pinned qid=%d poi-diamond anchor=%s", qid, anchor_src), defer_refresh)
+end
+
 pin_quest = function(qid, defer_refresh)
     if not init_map_api() then return false, "map api init failed" end
     local qlm = sdk.get_managed_singleton("app.QuestLogManager")
@@ -778,7 +812,7 @@ pin_quest = function(qid, defer_refresh)
     local is_available = mod.acceptable_ids[qid] == true
     local added = 0
 
-    if not is_available and _is_hybrid_area_quest(qid, qlm) then
+    if not is_available and HYBRID_AREA_QIDS and HYBRID_AREA_QIDS[qid] then
         local dests = get_quest_destinations(qlm, qid) or get_live_info_destinations(qlm, qid)
         if dests then
             local anchor = MANUAL_POS_OVERRIDES[qid]
@@ -845,7 +879,10 @@ pin_quest = function(qid, defer_refresh)
     else
         local dests = get_quest_destinations(qlm, qid) or get_live_info_destinations(qlm, qid)
         if not dests then return false, "no destinations (catalog or InfoDict)" end
-        return _pin_dest_mode(qid, list, dests, defer_refresh)
+        if BLOB_AREA_QIDS and BLOB_AREA_QIDS[qid] then
+            return _pin_dest_mode(qid, list, dests, defer_refresh)
+        end
+        return _pin_poi_from_dest(qid, list, dests, defer_refresh)
     end
 end
 
