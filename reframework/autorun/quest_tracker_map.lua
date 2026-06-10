@@ -1,7 +1,7 @@
 -- quest_tracker_map.lua — map pins / icons (require from quest_tracker.lua)
 -- REFramework also runs every autorun/*.lua; return cached module so install() is not wiped.
 
-local MAP_MOD_VER = "1.3.1"
+local MAP_MOD_VER = "1.3.2"
 local M = package.loaded["quest_tracker_map"]
 if M and M._map_mod_ver == MAP_MOD_VER then return M end
 M = { _map_mod_ver = MAP_MOD_VER }
@@ -70,6 +70,7 @@ end
 
 -- =========== MAP MARKER API ===========
 local HOOK_INSTALLED = false
+local JOURNAL_PIN_FRAME_HOOK = false
 
 local function get_marker_list()
     local gm = sdk.get_managed_singleton("app.GuiManager")
@@ -595,10 +596,11 @@ local function install_icon_hook()
                             _label_add_fail_logged = {}
                             _mlog_map(string.format("[QT][map] map layer change gen=%d world=%s detail=%s local=%s",
                                 MAP_API._map_icon_gen, tostring(wm), tostring(dm), tostring(la)))
+                            pcall(function() flush_journal_pin_pending("layer_change") end)
                         end
                     end
                     MAP_API._pin_added_this_hook = {}
-                    pcall(ensure_journal_pinned_on_map_open)
+                    pcall(queue_journal_pin_if_needed)
                     MAP_API._blob_reinject_this_hook = {}
                     local reinjected = 0
                     pcall(function() reinjected = reinject_all() end)
@@ -624,9 +626,11 @@ local function install_icon_hook()
                 if mod then
                     mod._qt_map_sniff_done = nil
                     mod._qt_map_zoom_logged = nil
-                    mod._qt_map_journal_auto_done = nil
                     mod._qt_map_open_logged = nil
                 end
+                MAP_API._journal_pin_pending = nil
+                MAP_API._journal_pin_pending_frames = nil
+                MAP_API._journal_pin_log_once = nil
                 MAP_API._pin_added_this_hook = {}
                 return retval
             end)
@@ -647,7 +651,11 @@ init_map_api = function()
         local m_setup = t2:get_method("setupQuestTargetMarker")
         if m_setup then
             local ok = pcall(function()
-                sdk.hook(m_setup, function() end, function(r) pcall(reinject_all); return r end)
+                sdk.hook(m_setup, function() end, function(r)
+                    pcall(function() flush_journal_pin_pending("setupQuestTargetMarker") end)
+                    pcall(reinject_all)
+                    return r
+                end)
             end)
             if ok then HOOK_INSTALLED = true end
             qt_verbose("setupQuestTargetMarker hook: ok=" .. tostring(ok))
@@ -658,6 +666,22 @@ init_map_api = function()
     install_icon_hook()
     MAP_API.ready = true
     MAP_API.status = "ok hook=" .. tostring(HOOK_INSTALLED) .. " iconhook=" .. tostring(ICON_HOOK_INSTALLED)
+    if not JOURNAL_PIN_FRAME_HOOK then
+        JOURNAL_PIN_FRAME_HOOK = true
+        re.on_frame(function()
+            local pending = MAP_API._journal_pin_pending
+            if pending == nil or pending <= 0 then return end
+            MAP_API._journal_pin_pending_frames = (MAP_API._journal_pin_pending_frames or 0) + 1
+            if MAP_API._journal_pin_pending_frames < 30 then return end
+            local now = os.clock()
+            local last = MAP_API._journal_pin_defer_last_try or 0
+            if (now - last) < 0.5 then return end
+            MAP_API._journal_pin_defer_last_try = now
+            _mlog_map(string.format("[QT][map] auto-pin defer frame=%d qid=%d",
+                MAP_API._journal_pin_pending_frames, pending))
+            pcall(function() flush_journal_pin_pending("on_frame") end)
+        end)
+    end
     if not _init_map_api_logged then
         _init_map_api_logged = true
         qt_verbose("init_map_api: ready — " .. MAP_API.status)
@@ -818,24 +842,85 @@ local function _journal_already_pinned(qid)
         or MAP_API.pinned_data[qid] ~= nil
 end
 
-local function ensure_journal_pinned_on_map_open()
-    if mod == nil or mod.auto_pin_journal == false then return end
-    if mod._qt_map_journal_auto_done then return end
-    local jqid = mod._qt_journal_qid
-    if jqid == nil or jqid <= 0 then return end
-    if _journal_already_pinned(jqid) then
-        mod._qt_map_journal_auto_done = true
+local function _journal_pin_log_once(key, msg)
+    MAP_API._journal_pin_log_once = MAP_API._journal_pin_log_once or {}
+    if MAP_API._journal_pin_log_once[key] then return end
+    MAP_API._journal_pin_log_once[key] = true
+    _mlog_map(msg)
+end
+
+flush_journal_pin_pending = function(from_tag)
+    local pending = MAP_API._journal_pin_pending
+    if pending == nil or pending <= 0 then return false end
+    if not init_map_api() then
+        _mlog_map(string.format("[QT][map] auto-pin FAIL err=map_api_init qid=%d from=%s",
+            pending, tostring(from_tag)))
+        return false
+    end
+    if _journal_already_pinned(pending) then
+        MAP_API._journal_pin_pending = nil
+        MAP_API._journal_pin_pending_frames = nil
+        _journal_pin_log_once("skip_pinned_" .. pending,
+            string.format("[QT][map] auto-pin skip already_pinned qid=%d from=%s", pending, tostring(from_tag)))
+        return true
+    end
+    local list = get_marker_list()
+    if list == nil then
+        _mlog_map(string.format("[QT][map] auto-pin FAIL err=list_nil qid=%d from=%s",
+            pending, tostring(from_tag)))
+        return false
+    end
+    local ok_pin, pin_ok, pin_err = pcall(pin_quest, pending, true)
+    if ok_pin and pin_ok then
+        MAP_API._journal_pin_pending = nil
+        MAP_API._journal_pin_pending_frames = nil
+        MAP_API._journal_pin_defer_last_try = nil
+        _mlog_map(string.format("[QT][map] auto-pin OK qid=%d from=%s", pending, tostring(from_tag)))
+        if not MAP_API._refreshing then force_marker_refresh() end
+        return true
+    end
+    local err = (not ok_pin) and tostring(pin_ok) or tostring(pin_err)
+    _mlog_map(string.format("[QT][map] auto-pin FAIL err=%s qid=%d from=%s", err, pending, tostring(from_tag)))
+    return false
+end
+
+queue_journal_pin_if_needed = function()
+    if mod == nil then
+        _journal_pin_log_once("mod_nil", "[QT][map] auto-pin skip mod_nil")
         return
     end
-    if not init_map_api() then return end
-    local ok = pin_quest(jqid, true)
-    if ok then
-        mod._qt_map_journal_auto_done = true
-        MAP_API._pin_added_this_hook = MAP_API._pin_added_this_hook or {}
-        MAP_API._pin_added_this_hook[jqid] = true
-        MAP_API._blob_reinject_this_hook = MAP_API._blob_reinject_this_hook or {}
-        MAP_API._blob_reinject_this_hook[jqid] = true
-        _mlog_map(string.format("[QT][map] auto-pin journal qid=%d", jqid))
+    if mod.auto_pin_journal == false then
+        _journal_pin_log_once("pref_off", "[QT][map] auto-pin skip pref_off")
+        return
+    end
+    local jqid = mod._qt_journal_qid
+    if jqid == nil or jqid <= 0 then
+        _journal_pin_log_once("jqid0", "[QT][map] auto-pin skip jqid=0")
+        return
+    end
+    if _journal_already_pinned(jqid) then
+        if MAP_API._journal_pin_pending == jqid then MAP_API._journal_pin_pending = nil end
+        _journal_pin_log_once("already_" .. jqid,
+            string.format("[QT][map] auto-pin skip already_pinned qid=%d", jqid))
+        return
+    end
+    if MAP_API._journal_pin_pending == jqid then return end
+    MAP_API._journal_pin_pending = jqid
+    MAP_API._journal_pin_pending_frames = 0
+    MAP_API._journal_pin_defer_last_try = nil
+    _mlog_map(string.format("[QT][map] auto-pin queued qid=%d", jqid))
+end
+
+local function on_journal_qid_changed(new_qid)
+    MAP_API._journal_pin_pending = nil
+    MAP_API._journal_pin_pending_frames = nil
+    MAP_API._journal_pin_log_once = nil
+    if new_qid and new_qid > 0 and mod and mod.auto_pin_journal ~= false then
+        if not _journal_already_pinned(new_qid) then
+            MAP_API._journal_pin_pending = new_qid
+            MAP_API._journal_pin_pending_frames = 0
+            _mlog_map(string.format("[QT][map] auto-pin re-queue journal change qid=%d", new_qid))
+        end
     end
 end
 
@@ -1276,6 +1361,8 @@ M.pin_all = pin_all_in_current_filtered_tab
 M.pin_all_ongoing = pin_all_ongoing
 M.pin_all_available = pin_all_available
 M.run_autopin_if_enabled = run_autopin_if_enabled
+M.on_journal_qid_changed = on_journal_qid_changed
+M.flush_journal_pin_pending = flush_journal_pin_pending
 
 M.resniff_map_ui = function()
     if mod then

@@ -62,6 +62,7 @@ function M.install(ctx)
     local auto_pin_fn_ongoing   = ctx.auto_pin_fn_ongoing
     local auto_pin_fn_available = ctx.auto_pin_fn_available
     local run_autopin_if_enabled = ctx.run_autopin_if_enabled
+    local on_journal_qid_changed = ctx.on_journal_qid_changed
     local QT_AUTOPIN_INTERVAL = 25
 
     local function _completion_sweep(qlm, progressing, acceptable, completed)
@@ -515,6 +516,9 @@ function M.install(ctx)
                 local jqid = gm and to_int(safe_get_field(gm, "_TargetQuestId"))
                 if jqid and jqid > 0 and jqid ~= mod._qt_journal_qid then
                     mod._qt_journal_qid = jqid
+                    if on_journal_qid_changed then
+                        pcall(on_journal_qid_changed, jqid)
+                    end
                     local nm = mod.name_cache and mod.name_cache[jqid] or ("Quest " .. tostring(jqid))
                     mlog(string.format("[QT][journal] UI focus qid=%d %s — refresh step", jqid, nm))
                     mod._step_last_title = mod._step_last_title or {}

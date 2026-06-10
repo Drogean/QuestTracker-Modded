@@ -85,6 +85,7 @@ function M.install(ctx)
         auto_pin_fn_ongoing = Map and Map.pin_all_ongoing or nil,
         auto_pin_fn_available = Map and Map.pin_all_available or nil,
         run_autopin_if_enabled = Map and Map.run_autopin_if_enabled or nil,
+        on_journal_qid_changed = Map and Map.on_journal_qid_changed or nil,
         _get_live_quest_step = StepsBridge and StepsBridge._get_live_quest_step or nil,
         _text_blobs_for_step_match = StepsBridge and StepsBridge._text_blobs_for_step_match or nil,
         _text_from_dest = StepsBridge and StepsBridge._text_from_dest or nil,
