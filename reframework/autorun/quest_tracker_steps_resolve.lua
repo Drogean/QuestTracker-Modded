@@ -264,20 +264,23 @@ function M.install(ctx)
   end
 
   -- Progress-first resolver: wiki walkthrough keyed off completed objectives, then safe live strings.
+  -- Live game strings first, then wiki journal match, then task tree, then progress index last resort.
   local function _resolve_ongoing_step(qlm, qid)
       mod._step_field_src = mod._step_field_src or {}
       mod._step_field_src[qid] = nil
 
-      local step_title, step_detail = _wiki_step_from_progress(qid, qlm)
-      local step_from_game = false
-      local wiki_fallback = step_title ~= nil
-      local wiki_progress = wiki_fallback
+      local step_title, step_detail = _get_live_quest_step(qlm, qid)
+      local step_from_game = step_title ~= nil
+      local wiki_fallback = false
+      local wiki_progress = false
 
       if not step_title then
-          step_title, step_detail = _get_live_quest_step(qlm, qid)
-          step_from_game = step_title ~= nil
-          wiki_fallback = false
-          wiki_progress = false
+          step_title = _wiki_step_from_scraped_text(qid, qlm)
+          if step_title then
+              wiki_fallback = true
+              wiki_progress = false
+              mod._step_field_src[qid] = "wiki_scraped"
+          end
       end
       if not step_title then
           local pt, pd, pg = _wiki_step_from_task_progress(qlm, qid)
@@ -288,11 +291,11 @@ function M.install(ctx)
           end
       end
       if not step_title then
-          step_title = _wiki_step_from_scraped_text(qid, qlm)
-          if step_title then
+          local wt, wd = _wiki_step_from_progress(qid, qlm)
+          if wt then
+              step_title, step_detail = wt, wd
               wiki_fallback = true
-              wiki_progress = false
-              mod._step_field_src[qid] = "wiki_scraped"
+              wiki_progress = true
           end
       end
       if not step_title and QD and QD.get_fallback_step_title then

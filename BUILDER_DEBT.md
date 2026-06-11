@@ -28,3 +28,15 @@ One line per fuckup. Auditor appends on FAIL. Builder marks FIXED only with log 
 - Do not ship without grep `list draw CRASH` = 0 on boot
 - Move locals above first use (same class as 3.0.88 prefs forward-ref)
 - Always `end_child_window` in finally path after `begin_child_window`
+
+## PATH B ROLLBACK — v1.3.3 to v1.3.6 FAIL RECORD
+
+| Version | Date | Failure | Root Cause | Status |
+|---------|------|---------|-----------|--------|
+| 1.3.3 | 2026-06 | label FAIL want=1 labels=0 whole session | inject_tracked_journal_markers PATH B skipped sculpt pinned_label_pos path | ROLLED BACK |
+| 1.3.4 | 2026-06 | same as 1.3.3 | journal_live_qid gate prevented add_labeled_markers from running for pinned_label_pos qids | ROLLED BACK |
+| 1.3.5 | 2026-06 | sculpt reinject blob spam reinject=2 dozens/sec | _blob_reinject_this_hook cleared EVERY setupMapIcon hook (line outside layer-change block) | ROLLED BACK |
+| 1.3.6 | 2026-06 | both label FAIL + blob spam | PATH B journal_live architecture: inject_tracked_journal_markers + _mark_tracked_journal_without_pin_quest added; never converged | ROLLED BACK |
+
+PATH B verdict: journal_live inject-only approach failed. Proven path: reinject from pinned_data on setupMapIcon (1.3.2 base).
+v1.4.0 surgical patches on 1.3.2 base — do NOT rebuild PATH B architecture.

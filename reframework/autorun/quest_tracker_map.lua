@@ -1,7 +1,7 @@
 -- quest_tracker_map.lua — map pins / icons (require from quest_tracker.lua)
 -- REFramework also runs every autorun/*.lua; return cached module so install() is not wiped.
 
-local MAP_MOD_VER = "1.3.2"
+local MAP_MOD_VER = "1.4.0"
 local M = package.loaded["quest_tracker_map"]
 if M and M._map_mod_ver == MAP_MOD_VER then return M end
 M = { _map_mod_ver = MAP_MOD_VER }
@@ -485,6 +485,11 @@ local function add_labeled_markers_for_all_pins(this)
                 _mlog_map(string.format("[QT][map] hybrid %d anchor=(%.0f,%.0f,%.0f) label_icon=fail",
                     qid, anchor.x, anchor.y, anchor.z))
             end
+        elseif not _label_add_fail_logged[qid] then
+            _label_add_fail_logged[qid] = true
+            local reason = (name_guid == nil) and "name_guid_nil" or "xyz_nil"
+            _mlog_map(string.format("[QT][map] label FAIL qid=%d reason=%s count=%d limit=%d",
+                qid, reason, icon_count, icon_limit))
         end
     end
     return added
@@ -601,7 +606,6 @@ local function install_icon_hook()
                     end
                     MAP_API._pin_added_this_hook = {}
                     pcall(queue_journal_pin_if_needed)
-                    MAP_API._blob_reinject_this_hook = {}
                     local reinjected = 0
                     pcall(function() reinjected = reinject_all() end)
                     pcall(function() this:call("updateMapIcon") end)
@@ -1270,33 +1274,33 @@ local function pin_all_in_current_filtered_tab()
     force_marker_refresh()
 end
 
--- Pin every Ongoing quest regardless of active tab or filter.
+-- Pin Ongoing: map marker for journal priority quest ONLY (not all ongoing).
 local function pin_all_ongoing()
     pcall(init_map_api)
-    local new_pins, skipped, failed = 0, 0, 0
-    for _, q in ipairs(mod.quests or {}) do
-        if (not q.voided) and q.category == "Ongoing" then
-            local is_pinned = MAP_API.pinned_data[q.id] ~= nil or MAP_API.pinned_pos[q.id] ~= nil
-            if is_pinned then
-                skipped = skipped + 1
-            else
-                local ok_pin, pin_ok, pin_msg = pcall(pin_quest, q.id, true)
-                if ok_pin and pin_ok then
-                    new_pins = new_pins + 1
-                else
-                    failed = failed + 1
-                    if mod.debug_logging then
-                        mlog("[PIN ONGOING] qid=" .. q.id ..
-                            " pcall_ok=" .. tostring(ok_pin) ..
-                            " ok=" .. tostring(pin_ok) ..
-                            " err=" .. tostring(pin_msg))
-                    end
-                end
-            end
+    local jqid = mod and mod._qt_journal_qid
+    local map_skipped = 0
+    for _, q in ipairs(mod and mod.quests or {}) do
+        if (not q.voided) and q.category == "Ongoing" and q.id ~= jqid then
+            map_skipped = map_skipped + 1
         end
     end
-    MAP_API.last_msg = string.format("Pin Ongoing: %d new, %d skipped, %d failed", new_pins, skipped, failed)
-    _mlog_map("[QT][map] " .. MAP_API.last_msg)
+    if jqid and jqid > 0 then
+        local is_pinned = MAP_API.pinned_data[jqid] ~= nil or MAP_API.pinned_pos[jqid] ~= nil
+        if not is_pinned then
+            local ok_pin, pin_ok, pin_err = pcall(pin_quest, jqid, true)
+            if ok_pin and pin_ok then
+                _mlog_map(string.format("[QT][map] Pin Ongoing journal qid=%d skipped=%d", jqid, map_skipped))
+            else
+                _mlog_map(string.format("[QT][map] Pin Ongoing FAIL qid=%d err=%s skipped=%d",
+                    jqid, tostring(pin_err or pin_ok), map_skipped))
+            end
+        else
+            _mlog_map(string.format("[QT][map] Pin Ongoing journal qid=%d already_pinned skipped=%d", jqid, map_skipped))
+        end
+    else
+        _mlog_map(string.format("[QT][map] Pin Ongoing skip jqid=0 skipped=%d", map_skipped))
+    end
+    MAP_API.last_msg = string.format("Pin Ongoing journal qid=%s skipped=%d", tostring(jqid), map_skipped)
     force_marker_refresh()
 end
 
@@ -1363,6 +1367,17 @@ M.pin_all_available = pin_all_available
 M.run_autopin_if_enabled = run_autopin_if_enabled
 M.on_journal_qid_changed = on_journal_qid_changed
 M.flush_journal_pin_pending = flush_journal_pin_pending
+
+local function on_journal_progress_bump(qid, old_done, new_done)
+    MAP_API._pin_fingerprint = MAP_API._pin_fingerprint or {}
+    MAP_API._pin_fingerprint[qid] = nil
+    MAP_API._dest_sniff_logged = MAP_API._dest_sniff_logged or {}
+    MAP_API._dest_sniff_logged[qid] = nil
+    _mlog_map(string.format("[QT][map] progress bump qid=%d done %s to %s",
+        qid, tostring(old_done), tostring(new_done)))
+    if not MAP_API._refreshing then force_marker_refresh() end
+end
+M.on_journal_progress_bump = on_journal_progress_bump
 
 M.resniff_map_ui = function()
     if mod then
