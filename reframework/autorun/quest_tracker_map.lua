@@ -1,7 +1,7 @@
 -- quest_tracker_map.lua — map pins / icons (require from quest_tracker.lua)
 -- REFramework also runs every autorun/*.lua; return cached module so install() is not wiped.
 
-local MAP_MOD_VER = "1.3.4"
+local MAP_MOD_VER = "1.3.5"
 local M = package.loaded["quest_tracker_map"]
 if M and M._map_mod_ver == MAP_MOD_VER then return M end
 M = { _map_mod_ver = MAP_MOD_VER }
@@ -119,9 +119,6 @@ local function _promote_to_tracked_journal(qid)
     if mod == nil or qid == nil then return end
     if mod._qt_journal_qid ~= qid and mod._qt_priority_qid ~= qid then return end
     MAP_API._journal_live_qid = qid
-    MAP_API.pinned_data[qid] = nil
-    MAP_API.pinned_pos[qid] = nil
-    MAP_API.pinned_label_pos[qid] = nil
 end
 
 local function _pin_done(msg, defer_refresh)
@@ -634,6 +631,7 @@ local function install_icon_hook()
                     if mod and not mod._qt_map_open_logged then
                         mod._qt_map_open_logged = true
                         _mlog_map("[QT][map] setupMapIcon — map UI open")
+                        _mlog_map("[QT][time] note: HUD clock frozen while map menu open (game behavior)")
                     end
                     pcall(_probe_add_map_icon_api)
                     pcall(_log_map_zoom_once, this)
@@ -655,6 +653,13 @@ local function install_icon_hook()
                     end
                     MAP_API._pin_added_this_hook = {}
                     pcall(queue_journal_pin_if_needed)
+                    pcall(function()
+                        local qlm = sdk.get_managed_singleton("app.QuestLogManager")
+                        local list = get_marker_list()
+                        if qlm and list then
+                            inject_tracked_journal_markers(qlm, list)
+                        end
+                    end)
                     MAP_API._blob_reinject_this_hook = {}
                     local reinjected = 0
                     pcall(function() reinjected = reinject_all() end)
@@ -870,12 +875,17 @@ end
 
 local function inject_tracked_journal_markers(qlm, list)
     if mod == nil or list == nil or qlm == nil then return 0 end
-    if mod.auto_pin_journal == false then return 0 end
-    local jqid = mod._qt_journal_qid
+    local jqid = MAP_API._journal_live_qid
     if jqid == nil or jqid <= 0 then return 0 end
-    if MAP_API._journal_live_qid ~= jqid then return 0 end
+    if mod._qt_journal_qid ~= jqid and mod._qt_priority_qid ~= jqid then
+        _mlog_map(string.format("[QT][map] inject skip qid=%d not journal/priority", jqid))
+        return 0
+    end
     local dests = get_live_info_destinations(qlm, jqid)
-    if dests == nil then return 0 end
+    if dests == nil then
+        _mlog_map(string.format("[QT][map] inject skip qid=%d no live dests", jqid))
+        return 0
+    end
     local done = nil
     if mod._quest_progress_done_count then
         local ok_d, d = pcall(mod._quest_progress_done_count, qlm, jqid)
@@ -956,9 +966,6 @@ end
 
 local function _mark_tracked_journal(qid, from_tag)
     MAP_API._journal_live_qid = qid
-    MAP_API.pinned_data[qid] = nil
-    MAP_API.pinned_pos[qid] = nil
-    MAP_API.pinned_label_pos[qid] = nil
     MAP_API._journal_pin_pending = nil
     MAP_API._journal_pin_pending_frames = nil
     MAP_API._journal_pin_defer_last_try = nil

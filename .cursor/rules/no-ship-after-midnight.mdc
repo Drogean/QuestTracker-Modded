@@ -1,0 +1,37 @@
+---
+description: No version ship after 12:30 AM or when user is ranting — wait until next afternoon
+alwaysApply: true
+---
+
+# No ship after midnight (coordinator drunk / rant guard)
+
+User timezone: **local machine clock** (Windows user_info).
+
+## Hard gate — do NOT ship after 12:30 AM
+
+After **12:30 AM** local time, **do not ship** unless the user explicitly says **"ship it now"** or **"ship anyway"** in that same message.
+
+**Ship** means all of:
+- MOD_VERSION / MAP_MOD_VER / modinfo bump
+- `_ship_check.ps1`, `_wipe_game_logs.ps1`, `_git_ship.ps1`, fluffy zip
+- "READY-FOR-TEST" / "install this zip" as a finished build
+- Git commit, tag, push for a release
+
+**Still OK after 12:30 AM** (no ship):
+- Read logs, audit, answer questions, draft handoff for tomorrow
+- Small read-only investigation
+- User says "don't ship" / ranting / incoherent multi-bug rant → **notes only**
+
+## Ranting / nonsense session
+
+If the user is **ranting**, **drunk-sounding**, or requests are **contradictory / incoherent** (especially after midnight):
+
+1. **Do not implement or ship** large fixes on vibes.
+2. Acknowledge, summarize what they might mean, suggest **retest next afternoon**.
+3. If they want work: produce a **BUILDER HANDOFF draft** marked **NO-SHIP-YET — review sober**.
+
+## Resume normal ship loop
+
+Default: **next afternoon** (after ~12:00 PM local) or when user posts a **sober retest** with log/screenshot and clear PASS/FAIL.
+
+Until then: status-only handoffs, no zip, no version bump.

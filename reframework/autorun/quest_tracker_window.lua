@@ -235,6 +235,7 @@ function M.install(ctx)
 
     local function _qt_begin_quest_list_child()
         mod._qt_quest_child_open = false
+        mod._qt_quest_child_draw = false
         if not imgui.begin_child_window then return false end
         local ok, open = pcall(function()
             if _imgui_vec2 then
@@ -242,20 +243,14 @@ function M.install(ctx)
             end
             return imgui.begin_child_window("##qtquestscroll", 0, -40, true)
         end)
-        if ok and open then
+        if ok then
             mod._qt_quest_child_open = true
-            return true
-        end
-        ok, open = pcall(function()
-            return imgui.begin_child_window("##qtquestscroll", 0, 0, true)
-        end)
-        if ok and open then
-            mod._qt_quest_child_open = true
-            return true
+            mod._qt_quest_child_draw = (open == true)
+            return mod._qt_quest_child_draw
         end
         if not mod._qt_child_begin_fail_logged then
             mod._qt_child_begin_fail_logged = true
-            mlog_boot("[QT] draw child begin fail")
+            mlog_boot("[QT] draw child begin fail pcall=false")
         end
         return false
     end
@@ -568,10 +563,15 @@ function M.install(ctx)
         local row_active = (q.category == "Available" or q.category == "Ongoing" or q.category == "Upcoming")
         if q.category == "Available" or q.category == "Ongoing" then
             local is_pinned = MAP_API.pinned_data[q.id] ~= nil or MAP_API.pinned_pos[q.id] ~= nil
+                or MAP_API._journal_live_qid == q.id
             if imgui.button((is_pinned and "Unpin" or "Pin map") .. "##pin" .. q.id) then
                 if is_pinned then pcall(unpin_quest, q.id)
                 else
                     local ok_pin, pin_ok, pin_msg = pcall(pin_quest, q.id)
+                    if ok_pin and pin_ok and q.id == mod._qt_journal_qid then
+                        MAP_API._journal_live_qid = q.id
+                        if Map and Map.force_marker_refresh then pcall(Map.force_marker_refresh) end
+                    end
                     if not ok_pin then MAP_API.last_msg = "Pin crashed: " .. tostring(pin_ok)
                     elseif not pin_ok then MAP_API.last_msg = tostring(pin_msg or "pin failed") end
                 end
