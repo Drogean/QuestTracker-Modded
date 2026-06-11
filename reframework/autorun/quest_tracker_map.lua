@@ -1,7 +1,7 @@
 -- quest_tracker_map.lua — map pins / icons (require from quest_tracker.lua)
 -- REFramework also runs every autorun/*.lua; return cached module so install() is not wiped.
 
-local MAP_MOD_VER = "1.3.5"
+local MAP_MOD_VER = "1.3.6"
 local M = package.loaded["quest_tracker_map"]
 if M and M._map_mod_ver == MAP_MOD_VER then return M end
 M = { _map_mod_ver = MAP_MOD_VER }
@@ -133,9 +133,10 @@ local function _pin_done(msg, defer_refresh)
 end
 
 local function _try_add_yellow_marker(list, qid, marker)
-    if list == nil or marker == nil then return false end
-    pcall(function() list:call("Add", marker) end)
-    return true
+    if list == nil or marker == nil then return false, "list_or_marker_nil" end
+    local ok, err = pcall(function() list:call("Add", marker) end)
+    if ok then return true, nil end
+    return false, tostring(err)
 end
 
 local function _sculpt_skip_mod_blob_reinject(qid, ui)
@@ -158,18 +159,27 @@ local function reinject_all()
     MAP_API._blob_reinject_this_hook = MAP_API._blob_reinject_this_hook or {}
     local n = 0
     for qid, entry in pairs(MAP_API.pinned_data) do
-        if _is_journal_live(qid) then
-            -- journal live inject only — no stale reinject
-        elseif BLOB_AREA_QIDS and BLOB_AREA_QIDS[qid] then
+        if BLOB_AREA_QIDS and BLOB_AREA_QIDS[qid] then
             if UI_MAP and _sculpt_skip_mod_blob_reinject(qid, UI_MAP) then
-                -- vanilla draws area blob on detail map
+                -- detail map: vanilla draws area blob; still reinject diamond from label pos
+                local anchor = MAP_API.pinned_label_pos[qid]
+                if anchor and not (MAP_API._pin_added_this_hook and MAP_API._pin_added_this_hook[qid]) then
+                    local dm = build_marker_at_pos(anchor.x, anchor.y, anchor.z, qid)
+                    if dm then
+                        local okA = _try_add_yellow_marker(list, qid, dm)
+                        if okA then n = n + 1 end
+                    end
+                end
             elseif MAP_API._pin_added_this_hook and MAP_API._pin_added_this_hook[qid] then
                 -- pin_quest already added markers this hook
             elseif not MAP_API._blob_reinject_this_hook[qid] then
                 MAP_API._blob_reinject_this_hook[qid] = true
                 for _, dest in ipairs(entry) do
                     local marker = build_marker(dest, qid)
-                    if marker and _try_add_yellow_marker(list, qid, marker) then n = n + 1 end
+                    if marker then
+                        local okA = _try_add_yellow_marker(list, qid, marker)
+                        if okA then n = n + 1 end
+                    end
                 end
                 local wm = UI_MAP and safe_get_field(UI_MAP, "IsWorldMap")
                 _mlog_map(string.format("[QT][map] sculpt reinject blob qid=%d world=%s", qid, wm == true and "1" or "0"))
@@ -177,23 +187,28 @@ local function reinject_all()
         else
             for _, dest in ipairs(entry) do
                 local marker = build_marker(dest, qid)
-                if marker and _try_add_yellow_marker(list, qid, marker) then n = n + 1 end
+                if marker then
+                    local okA = _try_add_yellow_marker(list, qid, marker)
+                    if okA then n = n + 1 end
+                end
             end
         end
     end
     for qid, anchor in pairs(MAP_API.pinned_label_pos) do
-        if _is_journal_live(qid) then
-            -- live journal labels in setupMapIcon
-        elseif anchor and not (MAP_API._pin_added_this_hook and MAP_API._pin_added_this_hook[qid]) then
+        if anchor and not (MAP_API._pin_added_this_hook and MAP_API._pin_added_this_hook[qid]) then
             local marker = build_marker_at_pos(anchor.x, anchor.y, anchor.z, qid)
-            if marker and _try_add_yellow_marker(list, qid, marker) then n = n + 1 end
+            if marker then
+                local okA = _try_add_yellow_marker(list, qid, marker)
+                if okA then n = n + 1 end
+            end
         end
     end
     for qid, entry in pairs(MAP_API.pinned_pos) do
         if MAP_API.pinned_data[qid] == nil then
             for _, p in ipairs(entry) do
                 local marker = build_marker_at_pos(p.x, p.y, p.z, qid)
-                if marker and _try_add_yellow_marker(list, qid, marker) then n = n + 1 end
+                local okA = _try_add_yellow_marker(list, qid, marker)
+                if okA then n = n + 1 end
             end
         end
     end
@@ -521,6 +536,7 @@ local function add_labeled_markers_for_all_pins(this)
         local qlm = sdk.get_managed_singleton("app.QuestLogManager")
         if qlm then
             local dests = get_live_info_destinations(qlm, jqid)
+            local added_before = added
             if dests then
                 local x, y, z = _extract_dest_xyz(dests, jqid)
                 local name_guid = get_quest_name_guid(jqid)
@@ -533,9 +549,21 @@ local function add_labeled_markers_for_all_pins(this)
                             MAP_API._journal_label_forced_logged = true
                             _mlog_map(string.format("[QT][map] journal label forced qid=%d", jqid))
                         end
+                    else
+                        _mlog_map(string.format("[QT][map] label FAIL reason=add_failed qid=%d journal_live=1", jqid))
                     end
+                else
+                    local reason = (not x) and "xyz_nil" or "name_guid_nil"
+                    _mlog_map(string.format("[QT][map] label FAIL reason=%s qid=%d journal_live=1", reason, jqid))
                 end
+            else
+                _mlog_map(string.format("[QT][map] label FAIL reason=dests_nil qid=%d journal_live=1", jqid))
             end
+            if added == added_before then
+                -- logged above
+            end
+        else
+            _mlog_map(string.format("[QT][map] label FAIL reason=qlm_nil qid=%d journal_live=1", jqid))
         end
     end
     return added
@@ -645,6 +673,7 @@ local function install_icon_hook()
                             MAP_API._map_icon_gen = (MAP_API._map_icon_gen or 0) + 1
                             MAP_API._last_map_layer = layer
                             MAP_API._blob_reinject_this_hook = {}
+                            MAP_API._label_fail_hook_logged = nil
                             _label_add_fail_logged = {}
                             _mlog_map(string.format("[QT][map] map layer change gen=%d world=%s detail=%s local=%s",
                                 MAP_API._map_icon_gen, tostring(wm), tostring(dm), tostring(la)))
@@ -669,6 +698,12 @@ local function install_icon_hook()
                     pcall(function() this:call("updateMapIcon") end)
                     _mlog_map(string.format("[QT][map] setupMapIcon reinject=%d labels=%d want=%d",
                         reinjected, labels, want))
+                    if want > 0 and labels == 0 and not MAP_API._label_fail_hook_logged then
+                        MAP_API._label_fail_hook_logged = true
+                        local jlive = MAP_API._journal_live_qid
+                        _mlog_map(string.format("[QT][map] label FAIL summary want=%d labels=0 journal_live=%s",
+                            want, tostring(jlive)))
+                    end
                     MAP_API._pin_added_this_hook = {}
                 end
                 return retval
@@ -874,7 +909,15 @@ local function get_live_info_destinations(qlm, qid)
 end
 
 local function inject_tracked_journal_markers(qlm, list)
-    if mod == nil or list == nil or qlm == nil then return 0 end
+    if mod == nil then return 0 end
+    if list == nil then
+        _mlog_map("[QT][map] inject FAIL reason=list_nil")
+        return 0
+    end
+    if qlm == nil then
+        _mlog_map("[QT][map] inject FAIL reason=qlm_nil")
+        return 0
+    end
     local jqid = MAP_API._journal_live_qid
     if jqid == nil or jqid <= 0 then return 0 end
     if mod._qt_journal_qid ~= jqid and mod._qt_priority_qid ~= jqid then
@@ -883,7 +926,11 @@ local function inject_tracked_journal_markers(qlm, list)
     end
     local dests = get_live_info_destinations(qlm, jqid)
     if dests == nil then
-        _mlog_map(string.format("[QT][map] inject skip qid=%d no live dests", jqid))
+        local wm = UI_MAP and safe_get_field(UI_MAP, "IsWorldMap")
+        local dm_f = UI_MAP and safe_get_field(UI_MAP, "IsDetailMap")
+        local la_f = UI_MAP and safe_get_field(UI_MAP, "LocalAreaNow")
+        _mlog_map(string.format("[QT][map] inject FAIL reason=dests_nil qid=%d world=%s detail=%s la=%s",
+            jqid, tostring(wm), tostring(dm_f), tostring(la_f)))
         return 0
     end
     local done = nil
@@ -902,29 +949,55 @@ local function inject_tracked_journal_markers(qlm, list)
         _sniff_dest_once(jqid, dests)
         MAP_API._pin_fingerprint[jqid] = fp
     end
+    local wm2 = UI_MAP and safe_get_field(UI_MAP, "IsWorldMap")
+    local dm2 = UI_MAP and safe_get_field(UI_MAP, "IsDetailMap")
     local n = 0
+    local last_fail_reason = nil
     if BLOB_AREA_QIDS and BLOB_AREA_QIDS[jqid] then
         local skip_blob = UI_MAP ~= nil and _sculpt_skip_mod_blob_reinject(jqid, UI_MAP)
         if not skip_blob then
             for _, d in ipairs(dests) do
                 local marker = build_marker(d, jqid)
-                if marker and _try_add_yellow_marker(list, jqid, marker) then n = n + 1 end
+                if marker then
+                    local ok_add, add_err = _try_add_yellow_marker(list, jqid, marker)
+                    if ok_add then n = n + 1 else last_fail_reason = "add_failed:" .. tostring(add_err) end
+                else
+                    last_fail_reason = "marker_nil"
+                end
             end
         end
         local x, y, z = _extract_dest_xyz(dests, jqid)
         if x then
             local dm = build_marker_at_pos(x, y, z, jqid)
-            if dm and _try_add_yellow_marker(list, jqid, dm) then n = n + 1 end
+            if dm then
+                local ok_add, add_err = _try_add_yellow_marker(list, jqid, dm)
+                if ok_add then n = n + 1 else last_fail_reason = "add_failed:" .. tostring(add_err) end
+            else
+                last_fail_reason = last_fail_reason or "marker_nil"
+            end
+        else
+            last_fail_reason = last_fail_reason or "xyz_nil"
         end
     else
         local x, y, z = _extract_dest_xyz(dests, jqid)
         if x then
             local dm = build_marker_at_pos(x, y, z, jqid)
-            if dm and _try_add_yellow_marker(list, jqid, dm) then n = n + 1 end
+            if dm then
+                local ok_add, add_err = _try_add_yellow_marker(list, jqid, dm)
+                if ok_add then n = n + 1 else last_fail_reason = "add_failed:" .. tostring(add_err) end
+            else
+                last_fail_reason = "marker_nil"
+            end
+        else
+            last_fail_reason = "xyz_nil"
         end
     end
     if n > 0 then
-        _mlog_map(string.format("[QT][map] inject tracked qid=%d n=%d %s", jqid, n, fp))
+        _mlog_map(string.format("[QT][map] inject tracked qid=%d n=%d %s world=%s detail=%s",
+            jqid, n, fp, tostring(wm2), tostring(dm2)))
+    else
+        _mlog_map(string.format("[QT][map] inject FAIL reason=%s qid=%d %s world=%s detail=%s la=%s",
+            tostring(last_fail_reason or "unknown"), jqid, fp, tostring(wm2), tostring(dm2), tostring(la)))
     end
     return n
 end
@@ -995,7 +1068,18 @@ flush_journal_pin_pending = function(from_tag)
             string.format("[QT][map] auto-pin skip already_tracked qid=%d from=%s", pending, tostring(from_tag)))
         return true
     end
-    _mark_tracked_journal(pending, from_tag)
+    local ok_pin, pin_ok, pin_err = pcall(pin_quest, pending, true)
+    if ok_pin and pin_ok then
+        MAP_API._journal_live_qid = pending
+        MAP_API._journal_pin_pending = nil
+        MAP_API._journal_pin_pending_frames = nil
+        MAP_API._journal_pin_defer_last_try = nil
+        _mlog_map(string.format("[QT][map] journal_live set qid=%d from=%s", pending, tostring(from_tag)))
+    else
+        _mark_tracked_journal(pending, from_tag)
+        _mlog_map(string.format("[QT][map] pin_quest FAIL qid=%d from=%s err=%s",
+            pending, tostring(from_tag), tostring(pin_err or pin_ok)))
+    end
     return true
 end
 
@@ -1405,7 +1489,15 @@ local function pin_all_ongoing()
     local map_skipped = 0
     if jqid and jqid > 0 then
         if not _journal_is_tracked(jqid) then
-            _mark_tracked_journal(jqid, "pin_ongoing")
+            local ok_pin, pin_ok, pin_err = pcall(pin_quest, jqid, true)
+            if ok_pin and pin_ok then
+                MAP_API._journal_live_qid = jqid
+                _mlog_map(string.format("[QT][map] journal_live set qid=%d from=pin_ongoing", jqid))
+            else
+                _mark_tracked_journal(jqid, "pin_ongoing")
+                _mlog_map(string.format("[QT][map] pin_quest FAIL qid=%d from=pin_ongoing err=%s",
+                    jqid, tostring(pin_err or pin_ok)))
+            end
         end
         for _, q in ipairs(mod.quests or {}) do
             if (not q.voided) and q.category == "Ongoing" and q.id ~= jqid then

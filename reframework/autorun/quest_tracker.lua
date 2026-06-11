@@ -2,7 +2,7 @@
 -- Submodules: quest_tracker_prefs/sdk/gather, quest_tracker_steps(+resolve), plugins, window, map, cache
 
 local MOD_NAME = "Quest Tracker Reduxx"
-local MOD_VERSION = "1.3.5"
+local MOD_VERSION = "1.3.6"
 
 local DEFAULT_QUEST_WIN_W = 786
 local DEFAULT_QUEST_WIN_H = 877

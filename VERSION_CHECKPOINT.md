@@ -2,6 +2,10 @@
 
 **Recorded:** 2026-06-10 (this chat — auditor started skipping Grok + builder handoffs)
 
+## v1.3.6 — 2026-06-11
+
+Root fix: `flush_journal_pin_pending` and `pin_all_ongoing` now call `pin_quest(qid, true)` before setting `_journal_live_qid`. Previously they only called `_mark_tracked_journal` which set the live flag but never populated `pinned_label_pos`, so inject/reinject had nothing to work with. `inject_tracked_journal_markers` now logs verbose FAIL reason (dests_nil, xyz_nil, marker_nil, add_failed) with IsWorldMap/IsDetailMap/kl/la. `add_labeled_markers_for_all_pins` logs label FAIL reason when journal_live and added=0. `reinject_all` skip_blob branch now explicitly emits a diamond from `pinned_label_pos` instead of silently skipping. `setupMapIcon` logs label FAIL summary once per map open when want>0 and labels==0.
+
 ## Pin this build
 
 | Field | Value |
@@ -44,6 +48,9 @@
 | 1.3.1 | FAIL auto-pin | Pin inside `setupMapIcon` too early |
 | **1.3.2** | **CHECKPOINT** | Auto-pin PASS; repin/wiki still broken |
 | 1.3.3 | NOT SHIPPED | Handoff only (repin + wiki_done_map) |
+| 1.3.4 | Partial | flush never called pin_quest; labels=0 all session |
+| 1.3.5 | FAIL labels | inject ran but pin_quest never called; pinned_label_pos empty |
+| **1.3.6** | **SHIP** | flush+pin_ongoing call pin_quest; inject verbose FAIL; label FAIL logs; blob skip emits diamond |
 
 ---
 
