@@ -326,6 +326,32 @@ STEP_OVERRIDES: dict[str, dict[str, list[str]]] = {
         "defeat the cyclops": ["Fight the cyclops blocking Gregor's road party. Attack its legs to topple it, then finish it while it is down."],
         "proceed to vernworth": ["After the cyclops falls, continue with Gregor or use the oxcart to reach Vernworth and receive the missive for Brant."],
     },
+    "off the pilfered path": {
+        "offer hugo guidance": [
+            "Talk to Hugo in his cell until he has nothing new to say. He may refuse at first — keep initiating chat.",
+            "Talk to Dietrich (guard standing at Hugo's cell, not Ekratt at the door) until he says the head gaoler can be bribed.",
+            "Pay Ekratt 1000 gold. He takes the money but Hugo stays locked up overnight. That is normal.",
+            "Leave the gaol. Sleep at an inn or bench until the next morning.",
+            "Return and talk to Ekratt again. Pay 2500 gold. Hugo is still inside — still normal.",
+            "Sleep another night. Return to Ekratt. Pay 5000 gold. Hugo is finally released from the gaol.",
+            "Alternate: talk to Brefft in the cell left of Hugo, tell Hugo what Brefft said, sleep, then check the gaol next day.",
+        ],
+        "confront lanzo at the ancient battleground": [
+            "If you told Hugo the truth: sleep overnight, return to the gaol — Hugo may have escaped and Brefft may be dead.",
+            "Go to the Ancient Battleground north of Checkpoint Rest Town. Kill Lanzo before Hugo arrives.",
+            "This chase is timed once it starts. Do not camp or waste time.",
+            "If you bribed Ekratt instead: Hugo should already be outside the gaol when you reach this step.",
+        ],
+        "help hugo find honest work": [
+            "Only after Hugo is free outside the gaol (or after you beat Lanzo): talk to him about honest work.",
+            "Isaac's Wares in Bakbattahl only works if Short-Sighted Ambition ended badly (Isaac left the shop).",
+            "Rose Chateau only works if you helped Wilhelmina in Every Rose Has Its Thorn.",
+            "Still staring at Hugo in a cell? You are on the wrong step — finish the bribe loop or Brefft path first.",
+        ],
+        "speak with hugo": [
+            "If Hugo will not advance: talk to Brefft in the cell to the left of Hugo first, then try Hugo again.",
+        ],
+    },
 }
 
 BRANCH_TITLES = {

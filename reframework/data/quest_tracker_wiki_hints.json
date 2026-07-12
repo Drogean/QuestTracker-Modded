@@ -30,10 +30,12 @@
           "A mysterious specter then appears advising you to flee while you have the chance, and Fiska the overseer catches you and Rook making a run for it."
         ],
         "pick up a boulder": [
-          "Your next objective will then be updated which requires you to deliver a boulder. Begin by picking up a boulder that's ahead."
+          "Your next objective will then be updated which requires you to deliver a boulder.",
+          "Begin by picking up a boulder that's ahead."
         ],
         "carry the boulder back to rook": [
-          "Complete the named action for “carry the boulder back to rook” inside the active quest area, then wait for the journal objective to update before leaving."
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
         ],
         "investigate the disturbance": [
           "A mysterious specter then appears advising you to flee while you have the chance, and Fiska the overseer catches you and Rook making a run for it."
@@ -90,19 +92,24 @@
           "You awaken by the Ultramarine Waterfall after being shot down from the sky while riding a Griffin and Rook falls into the Brine where he has been swallowed."
         ],
         "defeat the goblins": [
-          "Continue down the path and you'll encounter three Goblin enemies. Draw out your weapon and help Justinn fight against the Goblins."
+          "Continue down the path and you'll encounter three Goblin enemies.",
+          "Draw out your weapon and help Justinn fight against the Goblins."
         ],
         "make contact with the riftstone": [
-          "As you arrive at the stronghold, you'll be greeted by a pawn who expects your arrival. She will then lead you to a Riftstone where you can customize your main Pawn ."
+          "As you arrive at the stronghold, you'll be greeted by a pawn who expects your arrival.",
+          "She will then lead you to a Riftstone where you can customize your main Pawn ."
         ],
         "make for melve": [
-          "Follow the quest marker into the named area for “make for melve”, search the full highlighted zone, and interact with the marked person or object."
+          "Follow the map marker into the area and search the whole highlighted zone.",
+          "Click every person and object that looks important before you leave."
         ],
         "make for the lodgings": [
-          "Continue down the path and you'll encounter three Goblin enemies. Draw out your weapon and help Justinn fight against the Goblins."
+          "Continue down the path and you'll encounter three Goblin enemies.",
+          "Draw out your weapon and help Justinn fight against the Goblins."
         ],
         "you had a well deserved rest at the lodgings": [
-          "Complete the named action for “you had a well deserved rest at the lodgings” inside the active quest area, then wait for the journal objective to update before leaving."
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
         ]
       },
       "fallback_step_key": "follow justinn",
@@ -152,13 +159,15 @@
           "This main quest immediately becomes available after resting at the Borderwatch Lounge of the outpost during the previous quest, Tale's Beginning ."
         ],
         "speak with lennart": [
-          "Go to the named person for “speak with lennart” and exhaust every dialogue option. If they are absent, check the quest's stated time window."
+          "Find the named NPC and talk until they repeat themselves or go quiet.",
+          "Missing? Try sleeping to the next day or the time window the quest mentions."
         ],
         "accompany gregor to the capital": [
           "The path to the capital is to the north of Vermund, you won't lose your way here as you'll need to follow Gregor."
         ],
         "speak with gregor": [
-          "Go to the named person for “speak with gregor” and exhaust every dialogue option. If they are absent, check the quest's stated time window."
+          "Find the named NPC and talk until they repeat themselves or go quiet.",
+          "Missing? Try sleeping to the next day or the time window the quest mentions."
         ]
       },
       "fallback_step_key": "make for melve",
@@ -205,7 +214,8 @@
           "The Seat of the Sovran quest is tied to \" In Dragon's Wake \", players will automatically acquire this quest during the events happening upon the arisen's arrival at Melve ."
         ],
         "speak with captain brant in the tavern anight": [
-          "Go to the named person for “speak with captain brant in the tavern anight” and exhaust every dialogue option. If they are absent, check the quest's stated time window."
+          "Find the named NPC and talk until they repeat themselves or go quiet.",
+          "Missing? Try sleeping to the next day or the time window the quest mentions."
         ],
         "find another path to vernworth": [
           "The Seat of the Sovran quest is tied to \" In Dragon's Wake \", players will automatically acquire this quest during the events happening upon the arisen's arrival at Melve ."
@@ -249,7 +259,8 @@
       ],
       "step_hints": {
         "deal with the monster threats": [
-          "Enter the marked combat area for “deal with the monster threats”, eliminate every required enemy, then remain nearby until the objective updates."
+          "Go to the marked fight area and kill every enemy the quest cares about.",
+          "Stay nearby after the last kill until the journal objective changes."
         ],
         "cull the goblins at trevo mine": [
           "The Monster Culling quest can be acquired by accepting Captain Brant 's request of culling monsters in three locations where his men were dispatched."
@@ -257,11 +268,13 @@
         "aid the soldiers sent to harve village": [
           "After clearing out the mine, you can now proceed to either Harve Village or Vermund's eastern edge."
         ],
-        "report back to captain brant": [
-          "Keep the required item or news in the Arisen's inventory, return to the named recipient for “report back to captain brant”, and choose the delivery/report dialogue."
-        ],
         "find the soldiers on vermund s eastern edge": [
-          "Complete the named action for “find the soldiers on vermund s eastern edge” inside the active quest area, then wait for the journal objective to update before leaving."
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
+        ],
+        "report back to captain brant": [
+          "Carry the item on your character — not in storage and not on a pawn.",
+          "Return to the person who asked for it and pick the hand-in dialogue option."
         ]
       },
       "fallback_step_key": "deal with the monster threats",
@@ -300,11 +313,12 @@
         "report back to captain brant"
       ],
       "step_hints": {
-        "report back to captain brant": [
-          "For the next objective, report back to Brant at The Stardrop Inn at night and choose \"Tell e of the queen regent\" when you speak to him. Give him the Torn Letter to progress and complete the quest."
-        ],
         "search for evidence of disa s misdeeds": [
           "To recap, this quest is unlocked by choosing \"Accept\" to the dialogue option \"Tell me of the queen regent.\" when speaking to Brant at the Stardrop Inn during the quest, Seat of the Sovran."
+        ],
+        "report back to captain brant": [
+          "For the next objective, report back to Brant at The Stardrop Inn at night and choose \"Tell e of the queen regent\" when you speak to him.",
+          "Give him the Torn Letter to progress and complete the quest."
         ]
       },
       "fallback_step_key": "search for evidence of disa s misdeeds",
@@ -344,16 +358,19 @@
       ],
       "step_hints": {
         "meet with magistrate waldhar": [
-          "Proceed to the gaol and you'll find the stationed guard, Otto . Approach him and he'll mention that Captain Brant has given the order to allow you to pass."
+          "Proceed to the gaol and you'll find the stationed guard, Otto .",
+          "Approach him and he'll mention that Captain Brant has given the order to allow you to pass."
         ],
         "find a place with plenty of tomes": [
-          "Complete the named action for “find a place with plenty of tomes” inside the active quest area, then wait for the journal objective to update before leaving."
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
         ],
         "lead waldhar out of the dungeons": [
           "Stay close to the named NPC during “lead waldhar out of the dungeons”, clear enemies ahead, and keep them alive until the destination dialogue completes."
         ],
         "report back to captain brant": [
-          "To efficiently progress in finding a location with many tomes, it’s recommended to complete the side quest The Heel of History . This quest is connected to the areas you’ll explore."
+          "To efficiently progress in finding a location with many tomes, it’s recommended to complete the side quest The Heel of History .",
+          "This quest is connected to the areas you’ll explore."
         ]
       },
       "fallback_step_key": "meet with magistrate waldhar",
@@ -435,16 +452,19 @@
       ],
       "step_hints": {
         "dress formally and speak with captain brant": [
-          "It seems that you're finally gaining a lot of traction in your endeavor to expose the royal scam. Your successful tasks with the good captain have earned you an invitation to the coronation."
+          "It seems that you're finally gaining a lot of traction in your endeavor to expose the royal scam.",
+          "Your successful tasks with the good captain have earned you an invitation to the coronation."
         ],
         "await captain brant s plan of action": [
           "Time will automatically pass until the morning and you'll be treated to a bit of a cutscene."
         ],
         "consult with captain brant": [
-          "It seems that you're finally gaining a lot of traction in your endeavor to expose the royal scam. Your successful tasks with the good captain have earned you an invitation to the coronation."
+          "It seems that you're finally gaining a lot of traction in your endeavor to expose the royal scam.",
+          "Your successful tasks with the good captain have earned you an invitation to the coronation."
         ],
         "make for battahl": [
-          "Follow the quest marker into the named area for “make for battahl”, search the full highlighted zone, and interact with the marked person or object."
+          "Follow the map marker into the area and search the whole highlighted zone.",
+          "Click every person and object that looks important before you leave."
         ]
       },
       "fallback_step_key": "dress formally and speak with captain brant",
@@ -480,10 +500,10 @@
       "fallback_step_key": "journey to battahl",
       "step_hints": {
         "journey to battahl": [
-          "Head toward Battahl — use Brant's entry permit at the border checkpoint."
+          "Use Brant's border permit at Checkpoint Rest Town, or enter Battahl by an alternate route. Continue south to Bakbattahl."
         ],
         "make for the rockmouse s burrow": [
-          "Keep following the road down to the south and you'll encounter the Pathfinder by the cliffs, or a blurry vision of them to be exact."
+          "Enter Bakbattahl and follow the main road to the Rockmouse's Burrow tavern. Speak with Menella after the Pathfinder encounter."
         ]
       },
       "step_order": [
@@ -553,33 +573,21 @@
       },
       "step_hints": {
         "enter bakbattahl": [
-          "1) Auto-starts after Nation of the Lambent Flame — walk to Bakbattahl main gates.",
-          "2) Pathfinder cutscene points you to Ambrosius on Olta'Battahl Coast.",
-          "3) If no cutscene: confirm 10150 (Lambent Flame) is complete, then re-enter the gate.",
-          "4) Not time-sensitive — finish Battahl side quests before Guardian Gigantus if you can."
+          "During the events of the previous quest, Nation of the Lambent Flame , you learned that the nation has been troubled with matters of discrimination against Pawns ."
         ],
         "speak with ambrosius": [
-          "1) Olta'Battahl Coast — northeast from Dye Stores, follow coast path (Rattlers/Harpies).",
-          "2) Pick up blue crystal shards on shore rocks BEFORE talking — Ambrosius wants one.",
-          "3) Hand shard to Ambrosius (+100 G); ask what it is — he explains Godsway power.",
-          "4) He sends you to oracle Luz OR The Dragonforged for larger shards."
+          "A few steps forward and you'll find all the different amenities in Bakbattahl .",
+          "There are a couple of different Side Quests that you can start and complete here, so explore as you'd like."
         ],
         "seek information about larger blue crystal shards": [
-          "1) OPTIONAL first: Bay Wayside Shrine (north of coast) — cave, left fork — Dragonforged.",
-          "2) Ask \"Tell me of the Godsway\" — loot Wyrmslife Crystal + incense while inside.",
-          "3) REQUIRED: Reverent Shrine (Enoa'Battahl Forest north) — oracle Luz on the stairs.",
-          "4) Ask \"Tell me the godsway's secret\" — unlocks Trickster vocation."
+          "Of the two, the closer one to you is The Dragonforged ."
         ],
         "seek he who was dragon forged in harve village": [
-          "1) Harve Village southwest — Rivage Elder's Home by Stormwind Cave entrance.",
-          "2) Luz said seek another Dragonforged here — NOT the Bay Wayside one.",
-          "3) Late day: elder sleeps until morning (game may auto-skip time).",
-          "4) Exhaust elder dialogue — sunken temple rises; quest ends, Convergence (10160) starts."
+          "Time to go back to Harve Village this time.",
+          "You've already been there before, during the events of Monster Culling ."
         ],
         "find blue crystal shards for ambrosius": [
-          "1) Shards litter Olta'Battahl beach rocks — grab any glowing blue pieces.",
-          "2) You only need one for Ambrosius; extras are sellable loot.",
-          "3) If journal won't advance: deliver shard, then ask follow-up dialogue options."
+          "Of the two, the closer one to you is The Dragonforged ."
         ]
       },
       "step_npc_cids": {
@@ -620,10 +628,12 @@
           "After retrieving the Dulled Godsbane Blade that Rothais left with you after completing the Convergence quest, your next step is to take it to Ambrosius in the Forbidden Magick Research Lab in Bakbatt…"
         ],
         "obtain fifteen wyrmslife crystals": [
-          "To collect the 15 Wyrmslife Crystals, head northwest of Bakbattahl to the Reverent Shrine to consult the oracle. For quicker travel, you can use an Oxcart ."
+          "To collect the 15 Wyrmslife Crystals, head northwest of Bakbattahl to the Reverent Shrine to consult the oracle.",
+          "For quicker travel, you can use an Oxcart ."
         ],
         "await the new godsway": [
-          "Rest at an inn, house, or bench until at least the next day, then return for “await the new godsway”. Exhaust dialogue so the journal advances."
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
         ],
         "give the wyrmslife crystals to ambrosius": [
           "Now, when you're ready to embark back to the Forbidden Magick Research Lab to give Ambrosius the 15 Wyrmslife Crystals, head East back to Bakbattahl ."
@@ -672,7 +682,8 @@
           "After obtaining the Empowered Godsbane Blade from Ambrosius , exit the Forbidden Magick Research Lab and head toward Phaesus ."
         ],
         "you encountered the gigantus": [
-          "Complete the named action for “you encountered the gigantus” inside the active quest area, then wait for the journal objective to update before leaving."
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
         ]
       },
       "fallback_step_key": "take the godsbane to phaesus",
@@ -709,10 +720,11 @@
       ],
       "step_hints": {
         "deliver the nbsp fruit roborant": [
-          "Deliver the Fruit Roborant."
+          "As you make your way to the Apothecary, a child named Flora stops you and asks if you're on your way to the store.",
+          "She tells you that she's in training and her family runs a small shop in Vernworth."
         ],
         "deliver the fruit roborant": [
-          "As you make your way to the Apothecary, a child named Flora stops you and asks if you're on your way to the store. She tells you that she's in training and her family runs a small shop in Vernworth."
+          "Buy or craft a Fruit Roborant, keep it on the Arisen, and give it to Flora outside Runne's Apothecary in Melve."
         ]
       },
       "fallback_step_key": "deliver the nbsp fruit roborant",
@@ -752,14 +764,17 @@
         "aid accardo"
       ],
       "step_hints": {
+        "aid accardo go to accardo s aid and see to it that the recruit survives his first brush with harpies": [
+          "Follow the map marker into the area and search the whole highlighted zone.",
+          "Click every person and object that looks important before you leave."
+        ],
         "report back to phill": [
           "When you're done playing the cutscene, return to Phill in Borderwatch Outpost to report Accardo's safe return."
         ],
-        "aid accardo go to accardo s aid and see to it that the recruit survives his first brush with harpies": [
-          "Follow the quest marker into the named area for “aid accardo go to accardo s aid and see to it that the recruit survives his first brush with harpies”, search the full highlighted zone, and interact…"
-        ],
         "aid accardo": [
-          "After getting the quest from Phill, exit through the gate behind him. You will be walking towards Northern Vermund/Base of Mt. Alles as the distant town comes into view."
+          "After getting the quest from Phill, exit through the gate behind him.",
+          "You will be walking towards Northern Vermund/Base of Mt.",
+          "Alles as the distant town comes into view."
         ]
       },
       "fallback_step_key": "aid accardo go to accardo s aid and see to it that the recruit survives his first brush with harpies",
@@ -806,25 +821,31 @@
       ],
       "step_hints": {
         "deliver the provisioner s note to markus": [
-          "Geoffrey can be found at the center of the camp where you will find a group of tents. You will find him near a table, and when approached, he will ask for your help."
+          "Geoffrey can be found at the center of the camp where you will find a group of tents.",
+          "You will find him near a table, and when approached, he will ask for your help."
         ],
         "procure some harspud nbsp and salubrious draught": [
           "Procure some Harspud and Salubrious Draught"
         ],
         "give markus the provisions": [
-          "Geoffrey can be found at the center of the camp where you will find a group of tents. You will find him near a table, and when approached, he will ask for your help."
+          "Geoffrey can be found at the center of the camp where you will find a group of tents.",
+          "You will find him near a table, and when approached, he will ask for your help."
         ],
         "report back to geoffrey": [
-          "Keep the required item or news in the Arisen's inventory, return to the named recipient for “report back to geoffrey”, and choose the delivery/report dialogue."
+          "Carry the item on your character — not in storage and not on a pawn.",
+          "Return to the person who asked for it and pick the hand-in dialogue option."
         ],
         "procure some harspuds and salubrious draughts": [
-          "Collect, buy, or craft the requested materials for “procure some harspuds and salubrious draughts”. Keep them on the Arisen, not in storage or a pawn's inventory."
+          "Buy, craft, or loot what the journal asks for before you travel back.",
+          "Keep everything on the Arisen until you turn it in."
         ],
         "procure three harspuds": [
-          "Collect, buy, or craft the requested materials for “procure three harspuds”. Keep them on the Arisen, not in storage or a pawn's inventory."
+          "Buy, craft, or loot what the journal asks for before you travel back.",
+          "Keep everything on the Arisen until you turn it in."
         ],
         "procure two salubrious draughts": [
-          "Collect, buy, or craft the requested materials for “procure two salubrious draughts”. Keep them on the Arisen, not in storage or a pawn's inventory."
+          "Buy, craft, or loot what the journal asks for before you travel back.",
+          "Keep everything on the Arisen until you turn it in."
         ]
       },
       "fallback_step_key": "deliver the provisioner s note to markus",
@@ -874,14 +895,17 @@
         "throw a jar of poison into the saurian nest"
       ],
       "step_hints": {
+        "throw explosive casks into the saurian nest": [
+          "Lennart asked you to throw Explosive Casks into the nest near the shores.",
+          "You will find these explosives at the edges of Melve , towards the Northwest area."
+        ],
         "report back to lennart": [
-          "Keep the required item or news in the Arisen's inventory, return to the named recipient for “report back to lennart”, and choose the delivery/report dialogue."
+          "Carry the item on your character — not in storage and not on a pawn.",
+          "Return to the person who asked for it and pick the hand-in dialogue option."
         ],
         "throw a jar of poison into the saurian nest": [
-          "NOTE: There's only 1 jar of poison available. If you miss the jar of poison, the quest results in a different outcome. You can quickly save your game for safety before you throw the Jar of Poison."
-        ],
-        "throw explosive casks into the saurian nest": [
-          "Lennart asked you to throw Explosive Casks into the nest near the shores. You will find these explosives at the edges of Melve , towards the Northwest area."
+          "When you've finished your first objective, return to Lennart to report your results.",
+          "Then, your next task is to throw the jar of poison into the nest."
         ]
       },
       "fallback_step_key": "throw explosive casks into the saurian nest",
@@ -921,11 +945,14 @@
         "escort the brothers back to melve"
       ],
       "step_hints": {
-        "escort the brothers back to melve": [
-          "This will mark the quest Brothers Brave and Timid as completed, and you will get your rewards after the short conversation."
-        ],
         "find norbert": [
-          "As you approach Tristan's Inn in Melve , a man turns his back to you and assumes that you are Norbert. This man is named Ian and he is looking for his brother."
+          "As you approach Tristan's Inn in Melve , a man turns his back to you and assumes that you are Norbert.",
+          "This man is named Ian and he is looking for his brother."
+        ],
+        "escort the brothers back to melve": [
+          "Lead the way back to Melve to escort Ian and Norbert safely.",
+          "Trace your steps back the same way that you got here.",
+          "Head down the cliff following the dirt path until you get to the destroyable bridge."
         ]
       },
       "fallback_step_key": "find norbert",
@@ -965,23 +992,13 @@
         "deliver the letter to barbas"
       ],
       "step_hints": {
-        "rescue the traveler": [
-          "Speak to the trapped traveler in the volcanic ravine south of Bakbattahl.",
-          "Heat and fall damage — bring padding or Mage levitate."
-        ],
-        "escort the traveler": [
-          "Escort them out of the ravine — watch for heat and falls."
-        ],
-        "return to safety": [
-          "Get both of you to safe ground to complete the quest."
-        ],
         "deliver the letter to ernesto": [
-          "Deliver the traveler's letter to Ernesto (Bakbattahl / volcanic area).",
-          "Use TP when Ernesto is loaded; otherwise travel to his marked area."
+          "To pick up the quest, speak to Akakios in Bakbattahl near the Mercantile Ward.",
+          "He'll give you the Letter of Request and ask that you deliver it to Ernesto at the Volcanic Island Camp ."
         ],
         "deliver the letter to barbas": [
-          "Deliver the other letter to Barbas.",
-          "Both deliveries finish the letter chain after the ravine rescue."
+          "Head to the Excavation Site which is east of the Volcanic Island Camp , and look for Barbas .",
+          "Speak to him, and give the \" Letter of Request \"."
         ]
       },
       "step_cast": {
@@ -1015,22 +1032,14 @@
       "wiki": "https://dragonsdogma2.wiki.fextralife.com/Till+Death+Do+Us+Part",
       "step_hints": {
         "speak to margit": [
-          "Click on the images above to enlarge them."
-        ],
-        "aid gregor": [
-          "Rush to Illdoers' Resting Place in Misty Marshes (northwest of Vernworth).",
-          "Bring camping kit + Wakestones. DO NOT kill the Dullahan — deal enough damage to make it FLEE.",
-          "Keep Gregor alive (heal/buff/revive). Kill = quest fail or bad outcome."
-        ],
-        "report back": [
-          "Talk to Gregor after the Dullahan flees, then return to Margit to finish.",
-          "4 in-game day timer once started — prioritize this quest."
-        ],
-        "report back to margit": [
           "To start, this quest is influenced by the passage of time, making it essential to complete it quickly to assist Gregor ."
         ],
         "aid gregor at the illdoers resting place": [
-          "Enter the marked combat area for “aid gregor at the illdoers resting place”, eliminate every required enemy, then remain nearby until the objective updates."
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
+        ],
+        "report back to margit": [
+          "To start, this quest is influenced by the passage of time, making it essential to complete it quickly to assist Gregor ."
         ]
       },
       "step_order": [
@@ -1089,22 +1098,28 @@
       ],
       "step_hints": {
         "rid the village of its saurian infestation": [
-          "After spending a few days away from Harve Village, you will return to be greeted by Fyoran and Jonas the Village Chief. They will inform you that more Saurians need to be culled."
+          "After spending a few days away from Harve Village, you will return to be greeted by Fyoran and Jonas the Village Chief.",
+          "They will inform you that more Saurians need to be culled."
         ],
         "report back to fyoran": [
-          "Keep the required item or news in the Arisen's inventory, return to the named recipient for “report back to fyoran”, and choose the delivery/report dialogue."
+          "Carry the item on your character — not in storage and not on a pawn.",
+          "Return to the person who asked for it and pick the hand-in dialogue option."
         ],
         "wait a few days then return to harve village": [
-          "After spending a few days away from Harve Village, you will return to be greeted by Fyoran and Jonas the Village Chief. They will inform you that more Saurians need to be culled."
+          "After spending a few days away from Harve Village, you will return to be greeted by Fyoran and Jonas the Village Chief.",
+          "They will inform you that more Saurians need to be culled."
         ],
         "rid the village of its saurian infestation once again": [
-          "Enter the marked combat area for “rid the village of its saurian infestation once again”, eliminate every required enemy, then remain nearby until the objective updates."
+          "Go to the marked fight area and kill every enemy the quest cares about.",
+          "Stay nearby after the last kill until the journal objective changes."
         ],
         "those scaly fiends fared no better against you than their predecessors hopefully this will be the last the village sees of their ilk": [
-          "Complete the named action for “those scaly fiends fared no better against you than their predecessors hopefully this will be the last the village sees of their ilk” inside the active quest area, then…"
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
         ],
         "defeat the saurians": [
-          "The people of Harve fled the dragon's fury, only to return to find the village occupied by Saurians . However, they may yet reclaim their homes if you cull the scaly fiends."
+          "The people of Harve fled the dragon's fury, only to return to find the village occupied by Saurians .",
+          "However, they may yet reclaim their homes if you cull the scaly fiends."
         ]
       },
       "fallback_step_key": "rid the village of its saurian infestation",
@@ -1153,35 +1168,38 @@
         "visit hilda in a few days time"
       ],
       "step_hints": {
-        "you have acquired the garments worn by a nobleman with a penchant for disguising himself as a beggar": [
-          "Complete the named action for “you have acquired the garments worn by a nobleman with a penchant for disguising himself as a beggar” inside the active quest area, then wait for the journal objective…"
-        ],
-        "you gave the garb to celina hilda albert give the garb to celina nbsp visit celina in a few days' time": [
-          "You gave the garb to Celina/Hilda/Albert. Give the Garb to Celina: Visit Celina in a few days' time."
-        ],
-        "give the garb to hilda nbsp visit hilda in a few days' time": [
-          "Give the Garb to Hilda: Visit Hilda in a few days' time."
-        ],
         "watch the beggar as he goes about his day and see if you can t find out how he makes his coin": [
-          "Complete the named action for “watch the beggar as he goes about his day and see if you can t find out how he makes his coin” inside the active quest area, then wait for the journal objective to upda…"
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
+        ],
+        "you have acquired the garments worn by a nobleman with a penchant for disguising himself as a beggar": [
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
         ],
         "you gave the garb to celina hilda albert give the garb to celina nbsp visit celina in a few days time": [
-          "Keep the required item or news in the Arisen's inventory, return to the named recipient for “you gave the garb to celina hilda albert give the garb to celina nbsp visit celina in a few days time”, an…"
+          "Leave the area and sleep until the next morning (inn, house, or bench).",
+          "Come back and talk to the same person again until the journal updates."
         ],
         "give the garb to hilda nbsp visit hilda in a few days time": [
-          "Hilda can be found at Baldwin's Estate . You'll find her inside, sitting by the dining table. Speak to her and give her the garb."
+          "Hilda can be found at Baldwin's Estate .",
+          "You'll find her inside, sitting by the dining table.",
+          "Speak to her and give her the garb."
         ],
         "deliver the beggar s garb": [
-          "Albert is nowhere to be seen and only left the garb. It's important to note that there are three outcomes for this quest."
+          "Albert is nowhere to be seen and only left the garb.",
+          "It's important to note that there are three outcomes for this quest."
         ],
         "keep an eye on the beggar": [
-          "After receiving the quest from Benton , your task is to observe Albert's daily routine. Benton mentions that Albert appears to be doing well, though he doubts it's due to his storytelling abilities."
+          "After receiving the quest from Benton , your task is to observe Albert's daily routine.",
+          "Benton mentions that Albert appears to be doing well, though he doubts it's due to his storytelling abilities."
         ],
         "visit celina in a few days time": [
-          "Complete the named action for “visit celina in a few days time” inside the active quest area, then wait for the journal objective to update before leaving."
+          "Leave the area and sleep until the next morning (inn, house, or bench).",
+          "Come back and talk to the same person again until the journal updates."
         ],
         "visit hilda in a few days time": [
-          "Complete the named action for “visit hilda in a few days time” inside the active quest area, then wait for the journal objective to update before leaving."
+          "Leave the area and sleep until the next morning (inn, house, or bench).",
+          "Come back and talk to the same person again until the journal updates."
         ]
       },
       "fallback_step_key": "watch the beggar as he goes about his day and see if you can t find out how he makes his coin",
@@ -1272,27 +1290,33 @@
         "report back to the merchant"
       ],
       "step_hints": {
-        "escort oskar": [
-          "For some, they were able to find Oskar back at the point where they found him near the east entrance of the Ancient Battleground.",
-          "If Oskars dialouge promt isn't coming up then try lifting him outside the main room and trying to talk to him again."
-        ],
         "provide aid": [
-          "You'll find Oskar on the road near the east entrance to the Ancient Battleground . As you walk through the main path, you'll hear someone crying for help."
+          "You'll find Oskar on the road near the east entrance to the Ancient Battleground .",
+          "As you walk through the main path, you'll hear someone crying for help."
+        ],
+        "escort oskar": [
+          "After you save him, he'll make the request for you to escort him into the Ancient Battleground , to the cenotaph.",
+          "Accepting will progress this quest to the next objective."
         ],
         "conditional find the nation s death knell": [
-          "Complete the named action for “conditional find the nation s death knell” inside the active quest area, then wait for the journal objective to update before leaving."
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
         ],
         "conditional return the nation s death knell": [
-          "Complete the named action for “conditional return the nation s death knell” inside the active quest area, then wait for the journal objective to update before leaving."
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
         ],
         "traverse the ancient battleground": [
-          "Follow the quest marker into the named area for “traverse the ancient battleground”, search the full highlighted zone, and interact with the marked person or object."
+          "Follow the map marker into the area and search the whole highlighted zone.",
+          "Click every person and object that looks important before you leave."
         ],
         "find the missing grimoire": [
-          "Complete the named action for “find the missing grimoire” inside the active quest area, then wait for the journal objective to update before leaving."
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
         ],
         "report back to the merchant": [
-          "Keep the required item or news in the Arisen's inventory, return to the named recipient for “report back to the merchant”, and choose the delivery/report dialogue."
+          "Carry the item on your character — not in storage and not on a pawn.",
+          "Return to the person who asked for it and pick the hand-in dialogue option."
         ]
       },
       "fallback_step_key": "provide aid",
@@ -1336,27 +1360,6 @@
         "gather evidence and report to captain brant"
       ],
       "step_hints": {
-        "eavesdrop at west vernworth oxcart station": [
-          "Night only — listen at West Vernworth Oxcart Station."
-        ],
-        "investigate the crossroads at night": [
-          "Wait for night; blue oxcart spawns northeast of Vernworth."
-        ],
-        "question the soldier navil": [
-          "Confront Navil at the crossroads after the cutscene."
-        ],
-        "report to captain brant": [
-          "Stardrop Inn at night — hand over the merchant document."
-        ],
-        "follow or board the phantom oxcart": [
-          "Dismiss pawns, lantern off, gear off — walk slowly or board as pawn."
-        ],
-        "obtain labor requisition orders": [
-          "Fight at the border checkpoint; loot the orders from the soldier."
-        ],
-        "return evidence to captain brant": [
-          "Return to Brant at Stardrop Inn with the labor requisition orders."
-        ],
         "investigate the phantom oxcart": [
           "After completing the main quest Nation of the Lambent Flame , you'll notice some NPCs in Bakbattahl , especially near the Bakbattahl Oxcart Station , talking about an Oxcart that travels at night."
         ],
@@ -1364,7 +1367,9 @@
           "After the scene, wait for the phantom oxcart to move away, with Mansenn not being able to see you, and then chase after the soldier."
         ],
         "find out who is behind the phantom oxcart": [
-          "Regardless of which you choose, you'll get the Merchant's Document . You'll now have to bring this document over to captain Brant . Head over to The Stardrop Inn at night to speak with him."
+          "Regardless of which you choose, you'll get the Merchant's Document .",
+          "You'll now have to bring this document over to captain Brant .",
+          "Head over to The Stardrop Inn at night to speak with him."
         ],
         "pursue the oxcart": [
           "With this in mind, head back to the objective marker again, where you first saw the phantom oxcart, at nighttime."
@@ -1418,29 +1423,40 @@
         "follow malcolm"
       ],
       "step_hints": {
+        "determine malcolm s location": [
+          "To progress The Heel of History, you will talk to three kids in the slums around the Gracious Hand .",
+          "Harvey is just north of the church digging around a broken house."
+        ],
         "report back to kendrick": [
-          "Keep the required item or news in the Arisen's inventory, return to the named recipient for “report back to kendrick”, and choose the delivery/report dialogue."
+          "Carry the item on your character — not in storage and not on a pawn.",
+          "Return to the person who asked for it and pick the hand-in dialogue option."
         ],
         "search the vaults for malcolm": [
-          "Follow the stairs that will take you to the Gracious Hand's Vaults. The path is straightforward but will involve crossing a ledge. Then follow the path ahead of you."
+          "Follow the stairs that will take you to the Gracious Hand's Vaults.",
+          "The path is straightforward but will involve crossing a ledge.",
+          "Then follow the path ahead of you."
         ],
         "you spoke to the children of the gracious hand": [
-          "Complete the named action for “you spoke to the children of the gracious hand” inside the active quest area, then wait for the journal objective to update before leaving."
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
         ],
         "you reported back to kendrick": [
-          "Complete the named action for “you reported back to kendrick” inside the active quest area, then wait for the journal objective to update before leaving."
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
         ],
         "you found malcolm": [
-          "Follow the stairs that will take you to the Gracious Hand's Vaults. The path is straightforward but will involve crossing a ledge. Then follow the path ahead of you."
+          "Follow the stairs that will take you to the Gracious Hand's Vaults.",
+          "The path is straightforward but will involve crossing a ledge.",
+          "Then follow the path ahead of you."
         ],
         "you discovered an archive in the vaults": [
-          "Complete the named action for “you discovered an archive in the vaults” inside the active quest area, then wait for the journal objective to update before leaving."
-        ],
-        "determine malcolm s location": [
-          "To progress The Heel of History, you will talk to three kids in the slums around the Gracious Hand . Harvey is just north of the church digging around a broken house."
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
         ],
         "follow malcolm": [
-          "Follow the stairs that will take you to the Gracious Hand's Vaults. The path is straightforward but will involve crossing a ledge. Then follow the path ahead of you."
+          "Follow the stairs that will take you to the Gracious Hand's Vaults.",
+          "The path is straightforward but will involve crossing a ledge.",
+          "Then follow the path ahead of you."
         ]
       },
       "fallback_step_key": "determine malcolm s location",
@@ -1541,39 +1557,29 @@
         "deliver the miasmite to lady elena": []
       },
       "step_hints": {
-        "medicinal": [
-          "Bring 3 Miasmite to Elena (farm phantoms at night if you don't have any).",
-          "After handing them over, follow Elena on her rounds."
-        ],
-        "follow": [
-          "Stay with Elena until Lubomir sends you to investigate the Gracious Hand."
-        ],
-        "gather evidence": [
-          "After both basement items, map points you to Walter's Tavern — talk to Bruno and Jehan.",
-          "Optional: catch Elena's night meeting with Alois, then show evidence to Lubomir.",
-          "Take Unlabeled Medicine to Radcliff in Checkpoint Rest Town (oxcart helps); wait a day, get his report, THEN arrest Elena.",
-          "In basement: grab/pin Elena. Best ending needs Radcliff's proof first."
-        ],
-        "report back to lubomir": [
-          "Show Lubomir what you found; he may send you to the doctor at Checkpoint Rest Town."
+        "give elena the medicinal ingredient": [
+          "After Vlasiy and Elena's conversation, Elena will ask you to provide the Miasmite , a medicinal ingredient she intends to use on her patients."
         ],
         "follow lady elena": [
           "Stay close to the named NPC during “follow lady elena”, clear enemies ahead, and keep them alive until the destination dialogue completes."
         ],
-        "gather evidence and apprehend the abbess": [
-          "Collect, buy, or craft the requested materials for “gather evidence and apprehend the abbess”. Keep them on the Arisen, not in storage or a pawn's inventory."
-        ],
-        "you turned over elena": [
-          "Complete the named action for “you turned over elena” inside the active quest area, then wait for the journal objective to update before leaving."
-        ],
-        "give elena the medicinal ingredient": [
-          "After Vlasiy and Elena's conversation, Elena will ask you to provide the Miasmite , a medicinal ingredient she intends to use on her patients."
-        ],
         "investigate the gracious hand": [
           "Lubomir said that something seemed to be amiss with The Gracious Hand , after all, he started feeling weaker as the day went by."
         ],
+        "report back to lubomir": [
+          "Show Lubomir what you found; he may send you to the doctor at Checkpoint Rest Town."
+        ],
+        "gather evidence and apprehend the abbess": [
+          "Buy, craft, or loot what the journal asks for before you travel back.",
+          "Keep everything on the Arisen until you turn it in."
+        ],
+        "you turned over elena": [
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
+        ],
         "deliver the miasmite to lady elena": [
-          "Keep the required item or news in the Arisen's inventory, return to the named recipient for “deliver the miasmite to lady elena”, and choose the delivery/report dialogue."
+          "Carry the item on your character — not in storage and not on a pawn.",
+          "Return to the person who asked for it and pick the hand-in dialogue option."
         ]
       },
       "lines": [
@@ -1625,31 +1631,40 @@
       ],
       "step_hints": {
         "find a bunch of flowers": [
-          "Collect, buy, or craft the requested materials for “find a bunch of flowers”. Keep them on the Arisen, not in storage or a pawn's inventory."
+          "Buy, craft, or loot what the journal asks for before you travel back.",
+          "Keep everything on the Arisen until you turn it in."
         ],
         "find some silver ore": [
-          "Collect, buy, or craft the requested materials for “find some silver ore”. Keep them on the Arisen, not in storage or a pawn's inventory."
-        ],
-        "obtain two pieces of gold ore": [
-          "Collect, buy, or craft the requested materials for “obtain two pieces of gold ore”. Keep them on the Arisen, not in storage or a pawn's inventory."
-        ],
-        "bring daphne medicine for treating blight": [
-          "Keep the required item or news in the Arisen's inventory, return to the named recipient for “bring daphne medicine for treating blight”, and choose the delivery/report dialogue."
+          "Buy, craft, or loot what the journal asks for before you travel back.",
+          "Keep everything on the Arisen until you turn it in."
         ],
         "return in a few days time": [
-          "Rest at an inn, house, or bench until at least the next day, then return for “return in a few days time”. Exhaust dialogue so the journal advances."
+          "Leave the area and sleep until the next morning (inn, house, or bench).",
+          "Come back and talk to the same person again until the journal updates."
+        ],
+        "obtain two pieces of gold ore": [
+          "Buy, craft, or loot what the journal asks for before you travel back.",
+          "Keep everything on the Arisen until you turn it in."
+        ],
+        "bring daphne medicine for treating blight": [
+          "Carry the item on your character — not in storage and not on a pawn.",
+          "Return to the person who asked for it and pick the hand-in dialogue option."
         ],
         "bring daphne the bunch of flowers": [
-          "Keep the required item or news in the Arisen's inventory, return to the named recipient for “bring daphne the bunch of flowers”, and choose the delivery/report dialogue."
+          "Carry the item on your character — not in storage and not on a pawn.",
+          "Return to the person who asked for it and pick the hand-in dialogue option."
         ],
         "bring daphne the silver ore": [
-          "Keep the required item or news in the Arisen's inventory, return to the named recipient for “bring daphne the silver ore”, and choose the delivery/report dialogue."
+          "Carry the item on your character — not in storage and not on a pawn.",
+          "Return to the person who asked for it and pick the hand-in dialogue option."
         ],
         "bring daphne the gold ore": [
-          "This quest is a series of delivering various items that Daphne thinks will cheer up the sisters of The Gracious Hand. Here are the items that she will ask from you:"
+          "This quest is a series of delivering various items that Daphne thinks will cheer up the sisters of The Gracious Hand.",
+          "Here are the items that she will ask from you:"
         ],
         "give daphne the medicine": [
-          "This quest is a series of delivering various items that Daphne thinks will cheer up the sisters of The Gracious Hand. Here are the items that she will ask from you:"
+          "This quest is a series of delivering various items that Daphne thinks will cheer up the sisters of The Gracious Hand.",
+          "Here are the items that she will ask from you:"
         ]
       },
       "fallback_step_key": "find a bunch of flowers",
@@ -1727,83 +1742,49 @@
         "give sebastian an antidote for blight": []
       },
       "step_hints": {
-        "look alike": [
-          "1) Prereq: The Gift of Giving (20140) complete — Daphne won't count otherwise.",
-          "2) Slums — Daphne in front of Gracious Hand (or roaming nearby).",
-          "3) Talk her into posing as Sebastian at Townsend's Estate (Noble Quarter)."
-        ],
-        "prepare": [
-          "1) Give Sebastian: 1 Detoxifying Decoction (or Allheal) + 1 Waking Powder + 1 Misshapen Eye.",
-          "2) Misshapen Eye = cyclops drop; decoction/powder at Philbert's Sundries if needed.",
-          "3) Wrong items = Sebastian dies on road — rescue at Melve Riftstone bushes (~2 days max).",
-          "4) Sleep 1 full day on manor bench, then return for Blue Sunbright ending."
-        ],
-        "return to the manor": [
-          "1) After correct supplies + 1 day wait — Sebastian returns with Blue Sunbright flower.",
-          "2) Mother discovers Daphne's disguise — quest still completes.",
-          "3) If he's missing: check Melve Riftstone bushes; Wakestone if he died."
-        ],
-        "find sebastian's look alike": [
-          "1) Look-alike is Daphne from Gift of Giving — yellow hair, slums orphan.",
-          "2) Find her at Gracious Hand entrance or wandering the Slums.",
-          "3) If missing: finish Gift of Giving first, then wait a few days for Diana's approach."
-        ],
-        "escort daphne to the manor": [
-          "1) Walk Daphne from Slums to Townsend's Estate (Noble Quarter).",
-          "2) Stay close — bandits on route; don't oxcart (she won't follow).",
-          "3) Cutscene at manor — Daphne swaps places with Sebastian."
-        ],
-        "help sebastian prepare by giving him the necessary items": [
-          "1) Talk Diana + Daphne for hints: cyclops smell, poison cure, anti-sleep.",
-          "2) Turn in to Sebastian: Misshapen Eye + Detoxifying Decoction + Waking Powder (1 each).",
-          "3) Philbert's sells decoction/powder; kill a cyclops for the eye.",
-          "4) Wrong combo = failed trip — race to Melve within ~2 in-game days."
-        ],
         "visit the manor": [
-          "1) Prereq: Gift of Giving done; wait days until Diana stops you at Slums edge.",
-          "2) Townsend's Estate, Noble Quarter — meet Diana and Sebastian inside.",
-          "3) Sebastian needs a body double so he can sneak to Melve for Blue Sunbright flower."
+          "The Manor, or the Townsend's Estate is located at the Noble Quarter.",
+          "Diana will greet you as soon as you enter the door."
         ],
         "find sebastian s look alike": [
-          "1) Daphne is the only look-alike — same child from Gift of Giving.",
-          "2) Slums, Gracious Hand front — talk her into helping.",
-          "3) If no option: confirm 20140 complete; sleep a few days after."
+          "The look-alike the maid was referring to is Daphne , the child from The Slums that you helped a few days ago (if you completed The Gift of Giving )."
+        ],
+        "escort daphne to the manor": [
+          "You will find Sebastian has safely arrived from his trip to Melve and has brought home a Blue Sunbright."
+        ],
+        "help sebastian prepare by giving him the necessary items": [
+          "The Walkthrough for this outcome is a work in progress.",
+          "If the details are available, please feel free to add them here."
         ],
         "help sebastian prepare": [
-          "1) Same three items: Misshapen Eye + Detoxifying Decoction + Waking Powder.",
-          "2) Hand all three to Sebastian in the turn-in window at once.",
-          "3) Hint dialogue from Diana mentions cyclops stench and road poisons."
+          "The Walkthrough for this outcome is a work in progress.",
+          "If the details are available, please feel free to add them here."
         ],
         "wait a day or so then return to the manor": [
-          "1) Sleep 1 day (manor outside bench or inn) after giving supplies.",
-          "2) Return to Townsend's Estate — Sebastian should be back from Melve.",
-          "3) If absent: wrong items earlier — search Melve Riftstone area immediately."
+          "You will find Sebastian has safely arrived from his trip to Melve and has brought home a Blue Sunbright."
         ],
         "find sebastian": [
-          "1) Sebastian failed the Melve trip — go to Melve Riftstone, bushes nearby.",
-          "2) Fight off wolves/saurians around him; Wakestone if he's dead.",
-          "3) Window is ~2 in-game days after bad supplies — don't sleep more first.",
-          "4) Escort back to manor to finish."
+          "Sebastian failed the Melve trip — go to Melve Riftstone, bushes nearby.",
+          "Fight off wolves/saurians around him; Wakestone if he's dead.",
+          "Window is ~2 in-game days after bad supplies — don't sleep more first.",
+          "Escort back to manor to finish."
         ],
         "report back to the manor": [
-          "1) After rescuing Sebastian (or if he returned safe) — report to Townsend's Estate.",
-          "2) Rewards: 3000 G + 2 Fine Harspud Roborant on successful return."
+          "You will find Sebastian has safely arrived from his trip to Melve and has brought home a Blue Sunbright."
         ],
         "procure the necessary supplies for sebastian": [
-          "1) Buy: Detoxifying Decoction + Waking Powder (Philbert's Sundries).",
-          "2) Hunt: Misshapen Eye from any cyclops (Vermund fields work).",
-          "3) Alt cyclops smell: Rugged Bone works per some guides — eye is safest.",
-          "4) Keep all three on Arisen before talking to Sebastian."
+          "Buy: Detoxifying Decoction + Waking Powder (Philbert's Sundries).",
+          "Hunt: Misshapen Eye from any cyclops (Vermund fields work).",
+          "Alt cyclops smell: Rugged Bone works per some guides — eye is safest.",
+          "Keep all three on Arisen before talking to Sebastian."
         ],
         "give sebastian something that reeks of cyclops": [
-          "1) Give Misshapen Eye (cyclops drop) — scares lesser monsters on the road.",
-          "2) Rugged Bone also accepted as cyclops-smell substitute.",
-          "3) Still need antidote + waking powder in same turn-in."
+          "The look-alike the maid was referring to is Daphne , the child from The Slums that you helped a few days ago (if you completed The Gift of Giving )."
         ],
         "give sebastian an antidote for blight": [
-          "1) Detoxifying Decoction or Allheal counts as blight/poison cure.",
-          "2) Pair with Waking Powder (sleep) + cyclops-smell item in one handoff.",
-          "3) Buy at Philbert's if you don't craft your own."
+          "Detoxifying Decoction or Allheal counts as blight/poison cure.",
+          "Pair with Waking Powder (sleep) + cyclops-smell item in one handoff.",
+          "Buy at Philbert's if you don't craft your own."
         ]
       },
       "fallback_step_key": "visit the manor",
@@ -1836,20 +1817,12 @@
       "wiki": "https://dragonsdogma2.wiki.fextralife.com/A+Noble+Exchange",
       "step_hints": {
         "exchange gifts": [
-          "Banquet at Vernworth Hall at NIGHT — wear Courtly Tunic, Courtly Breeches, Eventide Mask.",
-          "Red-cape masked man gives you a staff — remember his face; he's the thief later.",
-          "Other guests give random gifts; you don't need to give anything back."
-        ],
-        "clear yourself": [
-          "When guards announce a theft: drop the Paragon Staff behind the hall (small side room, behind screen by chest).",
-          "Then tackle the red-cape quest-giver. Best reward if staff is dropped first.",
-          "Or buy staff back later from Ibrahim in Checkpoint Rest Town if you dropped it."
-        ],
-        "suspicion": [
-          "Do NOT leave the ball holding the staff — worst outcome, jail, no gold."
+          "A Noble Exchange quest becomes available through story progression.",
+          "Based on our experience, the quest became available after completing the main quest \" Feast of Deception \"."
         ],
         "clear yourself of suspicion": [
-          "For this outcome, discard the staff in the room that we mentioned and exit the hall. The guards will check you and clear you of suspicion, which ends the quest."
+          "For this outcome, discard the staff in the room that we mentioned and exit the hall.",
+          "The guards will check you and clear you of suspicion, which ends the quest."
         ]
       },
       "lines": [
@@ -1911,36 +1884,23 @@
         "answer the sphinx s riddles"
       ],
       "step_hints": {
-        "answer the sphinx": [
-          "Go to Mountain Shrine north of Vernworth (past Trevo Mine, up the mountain road).",
-          "SAVE before each riddle — wrong answers permanently lose that reward.",
-          "Riddle answers (Fextralife): Lantern, Time, Limerence, Godsbane Blade, Human, Wing, Wilted Flower, Seeker's Token, Pawn, your own Pawn."
-        ],
-        "reach the frontier shrine": [
-          "Sphinx has moved to Frontier Shrine in Battahl — travel south through the border.",
-          "Bring all previous correct-answer rewards; continue where you left off."
-        ],
-        "answer remaining riddles": [
-          "Complete remaining riddles at Frontier Shrine for final rewards.",
-          "Finishing all 10 riddles earns the Unmoored World key item via the Sphinx's chest."
-        ],
         "the riddle of eyes": [
-          "“Our eyes are our allies, yet oft do they betray, for eyes tell lies, so I advise, and thence do lead astray. Yet how will your eyes advise you?"
+          "Enter the nearby doorway, take the Sealing Phial from the chest above the entrance, and present it to the Sphinx."
         ],
         "the riddle of madness": [
-          "\"Love is as twin to madness, they say. They are bound fast as night is to day. So bring forth your most beloved one to me, that I might gauge the depth of your insanity.\""
+          "Carry your main pawn or highest-affinity beloved onto the pedestal, then tell the Sphinx this is your beloved."
         ],
         "the riddle of wisdom": [
-          "\"The parent knows the child, yet the reverse is far from true. The child knows not the parent: such is the parent's due. I am a lost child; for kinship do I yearn. So bring to me my \"Parent\"."
+          "Hire an official Capcom pawn named SphinxParent, SphinxFather, or SphinxMother, place them on the pedestal, and answer."
         ],
         "the riddle of conviction": [
-          "\"Life is an enigma – a lender of mortal debt. Yet lighter pack makes fleeter foot and challenge nimbly met. So grant to me what you most prize, and thence elude your pondrous demise.\""
+          "Give the Sphinx any item; she returns a duplicate in the reward chest, so choose an item worth duplicating."
         ],
         "the riddle of rumination": [
-          "\"It's ever the first we keep fond in our breast, and ever the first that eclipses the rest. You know of the Seeker's Tokens, I trust? Those keepsakes of a fondly remembered journey?"
+          "Return to the location of your first Seeker's Token and collect the Finder's Token within seven in-game days."
         ],
         "answer the sphinx s riddles": [
-          "NOTE : You're only given 1 try to answer per riddle. If you give the Sphinx a wrong answer, it will lock you out from earning the trophy from that playthrough and the Sphinx will abandon your game."
+          "You get one attempt per riddle. Solve five at Mountain Shrine, then continue at Frontier Shrine; save before each answer."
         ]
       },
       "step_cast": {
@@ -2035,27 +1995,19 @@
         "purchase mildred s dwelling"
       ],
       "step_hints": {
-        "help the refugee": [
-          "Speak to the displaced Battahl refugee near Vernworth slums or Stardrop Inn.",
-          "Try different times of day if NPC is missing."
-        ],
-        "find a place to call home": [
-          "Secure a dwelling for the refugee family."
-        ],
-        "furnish the home": [
-          "Bring requested items to make the home livable."
-        ],
         "meet mildred at her home": [
           "To activate this quest, players must approach Mildred who can be found standing in front of the main entrance of The Stardrop Inn in Vernworth ."
         ],
         "occupy the dwelling for a week": [
-          "Complete the named action for “occupy the dwelling for a week” inside the active quest area, then wait for the journal objective to update before leaving."
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
         ],
         "speak with mildred": [
           "To activate this quest, players must approach Mildred who can be found standing in front of the main entrance of The Stardrop Inn in Vernworth ."
         ],
         "purchase mildred s dwelling": [
-          "When you arrive, Mildred will be waiting and she'll be glad to see you. She will then leave and your quest will be updated to temporarily occupy her house for a week."
+          "When you arrive, Mildred will be waiting and she'll be glad to see you.",
+          "She will then leave and your quest will be updated to temporarily occupy her house for a week."
         ]
       },
       "step_cast": {
@@ -2101,23 +2053,23 @@
         "obtain an archistaff"
       ],
       "step_hints": {
-        "bring the weapons you have acquired to the guild and present them to the guildhead": [
-          "After doing so, you can now change your Vocation as you see fit and the armory's supplies will become available."
-        ],
         "obtain an archistaff and greatsword": [
-          "The Trevor Mine is filled with narrow pathways which makes the fight more difficult. You and your Pawns can get trapped in certain spots so you need to position yourselves accordingly."
+          "Speak with Roderick, then search Trevo Mine west of Vernworth. Loot the greatsword and archistaff from separate chests."
         ],
         "you were advised to speak with the local armorer": [
-          "After talking to Klaus at the Vernworth Vocation Guild , you’ll be directed to the local armorer for information about the thieves who stole the equipment."
+          "Cross Vernworth's market square from the Vocation Guild and speak with Roderick at Roderick's Smithy."
+        ],
+        "bring the weapons you have acquired to the guild and present them to the guildhead": [
+          "Keep both weapons on the Arisen and give them to Klaus at the Vernworth Vocation Guild to unlock Warrior and Sorcerer."
         ],
         "take the archistaff and greatsword to the guild": [
-          "The Trevor Mine is filled with narrow pathways which makes the fight more difficult. You and your Pawns can get trapped in certain spots so you need to position yourselves accordingly."
+          "Return both Trevo Mine weapons to Klaus at the Vernworth Vocation Guild; speak twice if both vocation unlocks do not appear."
         ],
         "obtain a greatsword": [
-          "The Trevor Mine is filled with narrow pathways which makes the fight more difficult. You and your Pawns can get trapped in certain spots so you need to position yourselves accordingly."
+          "Loot the two-handed sword from its chest inside Trevo Mine; do not sell or store it before reporting to Klaus."
         ],
         "obtain an archistaff": [
-          "The Trevor Mine is filled with narrow pathways which makes the fight more difficult. You and your Pawns can get trapped in certain spots so you need to position yourselves accordingly."
+          "Loot the archistaff from the separate chest inside Trevo Mine; do not sell or store it before reporting to Klaus."
         ]
       },
       "fallback_step_key": "obtain an archistaff and greatsword",
@@ -2168,23 +2120,20 @@
       ],
       "fallback_step_key": "find rodge and go to his aid",
       "step_hints": {
-        "hunt the wolves": [
-          "Speak to the hunter near Borderwatch or Melve about wolf attacks.",
-          "Time-sensitive — avoid long time skips once started."
-        ],
         "find rodge and go to his aid": [
-          "It seems Rodge was by the cenotaph on the eastern side of town when he was set upon by wolves.",
-          "According to Jacint, Rodge tends to a flowerbed on the outskirts of town.",
-          "You learned that glowing flowers bloom at night in the area."
-        ],
-        "report back to morris": [
-          "Keep the required item or news in the Arisen's inventory, return to the named recipient for “report back to morris”, and choose the delivery/report dialogue."
+          "Rodge , the grandson of the apothecary, has been attacked by a pack of wolves."
         ],
         "escort rodge to the checkpoint rest town": [
-          "At this point, you MUST safely escort Rodge back to Checkpoint Rest Town. In the meantime, avoid exploring other locations and focus on getting back to the town safely as the quest can still fail."
+          "At this point, you MUST safely escort Rodge back to Checkpoint Rest Town.",
+          "In the meantime, avoid exploring other locations and focus on getting back to the town safely as the quest can still fail."
+        ],
+        "report back to morris": [
+          "Carry the item on your character — not in storage and not on a pawn.",
+          "Return to the person who asked for it and pick the hand-in dialogue option."
         ],
         "inform morris of rodge s wellbeing": [
-          "Keep the required item or news in the Arisen's inventory, return to the named recipient for “inform morris of rodge s wellbeing”, and choose the delivery/report dialogue."
+          "Carry the item on your character — not in storage and not on a pawn.",
+          "Return to the person who asked for it and pick the hand-in dialogue option."
         ]
       },
       "step_order": [
@@ -2236,30 +2185,13 @@
         "bring lamond more newt liqueur"
       ],
       "step_hints": {
-        "find the sotted sage": [
-          "1) Volcanic Island Camp — up wooden ramps, ladder left of \"Geyser Hamlet\" sign.",
-          "2) Lamond slumps outside the hot-spring building (NOT Bakbattahl tavern).",
-          "3) Talk to start quest — he wants Newt Liqueur, not generic booze."
-        ],
-        "speak to the sotted sage": [
-          "1) Same spot: Volcanic Island Camp, Geyser Hamlet entrance area.",
-          "2) He auto-greets when you approach — accept or decline rotten egg, quest still starts."
-        ],
-        "complete the sage's request": [
-          "1) Need 3× Newt Liqueur total — buy or craft before returning.",
-          "2) Craft: Fruit Wine + Saurian Tail at camp kit.",
-          "3) Fast buy: Higg's Tavern Stand, Bakbattahl Residential Ward (see other step)."
+        "give lamond what he seeks": [
+          "Lamond is known as a frequent guest of the Geyser Hamlet .",
+          "He initiates a conversation as you approach the hot spring and hints that he's in need of more Newt Liqueur ."
         ],
         "bring lamond more newt liqueur": [
-          "1) Deliver remaining bottles — first bottle may have been given at quest start.",
-          "2) After 3rd bottle: Warfarer vocation unlocks + talk again for Grandmaster's Path.",
-          "3) If no vocation scroll: exhaust Lamond dialogue after third drink."
-        ],
-        "give lamond what he seeks": [
-          "1) Obtain 3× Newt Liqueur — easiest: Higg's Tavern Stand, Bakbattahl (5000 G each).",
-          "2) Humans: wear Beastren Mask (Ibrahim, Checkpoint) to enter Higg's back room.",
-          "3) Pick up sack outside tavern → drop in fenced pen → upstairs door unlocks → buy from Ezekiel.",
-          "4) Sacks missing? Sleep at inn to reset the pen puzzle."
+          "NOTE : For non-beastrens or humans, you need to equip the Beastren Mask so you can freely move at the tavern.",
+          "You can buy it from Ibrahim the forger at the Checkpoint Rest Town ."
         ]
       },
       "step_cast": {
@@ -2305,49 +2237,33 @@
         "heed jarle s request"
       ],
       "step_hints": {
+        "allow yourself to be poisoned by an asp": [
+          "This quest starts when you speak with Jarle at Jarle's Home , which is just across The Rockmouse's Burrow , after you complete the quest, Nation of the Lambent Flame ."
+        ],
         "return to jarle afflicted with asp venom": [
-          "1) Return to Jarle's Home NW Bakbattahl WHILE poison icon is still active.",
-          "2) Do NOT use curatives or let pawns heal you on the walk back.",
-          "3) If Jarle says you're clean: get re-poisoned at nearest asp gorge (map markers).",
-          "4) Home is next to The Rockmouse's Burrow."
+          "When you get poisoned, you'll get a quest objective notification so you'll know you're good to go.",
+          "From there, you can either finish them off or just run away and head back to Jarle ."
         ],
         "allow yourself to be poisoned by a venin harpy": [
-          "1) Venin Harpies fly SOUTH of Bakbattahl — track quest map markers.",
-          "2) Daytime only at marked spots — sleep at inn if it's night.",
-          "3) Let harpy poison you; disable pawn healing.",
-          "4) Poison-resistant armor slows this — strip it or unequip ring."
+          "Looking for a Venin Harpy won't be too hard in Battahl either.",
+          "The quest markers will give you some options again so just pick the ones that are the easiest to go to."
         ],
         "return to jarle afflicted with venin harpy venom": [
-          "1) Back to Jarle's Home with harpy poison still ticking.",
-          "2) Same rule: no antidotes until he samples you.",
-          "3) If debuff fades en route: find another Venin Harpy, re-poison."
-        ],
-        "allow yourself to be poisoned by an asp": [
-          "1) Asp gorge west of Bakbattahl — wooden bridge with twin shrines, snakes below.",
-          "2) Let asp spit/spear poison you — stand in melee range.",
-          "3) Keep poison debuff; turn OFF pawn healing skills.",
-          "4) If immune: remove poison-resist gear, then retry."
+          "All of the spots you can choose for this task are farther to Jarle than the Asps were, so be careful not to engage in any other fights on your way back."
         ],
         "join jarle at the meeting place": [
-          "1) Meet Jarle north of Flamebearer Palace — quest marker at Cliffside Cave.",
-          "2) Autosave triggers outside cave — good reload point for chimera step.",
-          "3) Do NOT enter cave alone — wait for Jarle's dialogue to finish."
+          "Riding the waves of motivation and potential, Jarle will then want to experience the joys of being poisoned himself and wants to experience the venom of a much bigger source at that."
         ],
         "aid jarle in being poisoned by the chimera": [
-          "1) Chimera cave north of palace — poison comes from SNAKE TAIL only.",
-          "2) Position Jarle behind chimera (carry him with R2 if needed).",
-          "3) Tank goat/lion heads yourself — DON'T kill chimera before Jarle is poisoned.",
-          "4) If Jarle dies: Wakestone revive, or reload autosave outside cave."
+          "For this one, you won't have to command your Pawns to wait because you'll be needing all the help you can get."
         ],
         "find out how jarle fared": [
-          "1) After chimera poisons Jarle, he leaves automatically — return to his home.",
-          "2) NW Bakbattahl, same house as quest start.",
-          "3) Talk to finish — reward: 19,000 G + Ring of Purification."
+          "When Jarle gets poisoned, he'll automatically run out of the cavern by himself and head home."
         ],
         "heed jarle s request": [
-          "1) Jarle wants you poisoned first (asp, then harpy) before chimera field test.",
-          "2) Follow sub-objectives in order — skipping breaks his dialogue chain.",
-          "3) If stuck on this header: check which poison sample he still needs."
+          "Jarle wants you poisoned first (asp, then harpy) before chimera field test.",
+          "Follow sub-objectives in order — skipping breaks his dialogue chain.",
+          "If stuck on this header: check which poison sample he still needs."
         ]
       },
       "fallback_step_key": "allow yourself to be poisoned by an asp",
@@ -2408,70 +2324,34 @@
         "visit isaac in a few days time"
       ],
       "step_hints": {
-        "speak to isaac": [
-          "1) Isaac's Wares, Bakbattahl — buy ANY item to trigger cutscene.",
-          "2) He mistakes your purchase; reveals failing eyesight from grimoire study.",
-          "3) First ask: bring him a Ripened Quince before the second volume."
-        ],
-        "find a ripened quince": [
-          "1) Loot Quince from goblins in western Battahl OR bush SW of Bakbattahl gate.",
-          "2) Unripe quince: sleep 3 days on Bakbattahl bench to ripen.",
-          "3) Hand Ripened Quince to Isaac at his shop."
-        ],
-        "find the second volume of the grimoire": [
-          "1) Buy On the Transference of Souls 2 from Ibrahim (Checkpoint Rest Town, 2000 G).",
-          "2) Oxcart from Bakbattahl if you lack a portcrystal.",
-          "3) Book in storage? Pull to inventory or journal won't recognize it."
-        ],
-        "give isaac the forged grimoire": [
-          "1) Give On the TRANSIT of Souls 2 (forgery) — NOT Transference.",
-          "2) Good ending: family lives, shop stays open, 16,000 G reward.",
-          "3) Isaac runs home to read — follow cutscene; no combat."
-        ],
         "bring isaac a ripened quince": [
-          "1) Quince from goblin drops or SW Battahl bush.",
-          "2) Rest ~3 days on bench until \"Ripened Quince\" in inventory.",
-          "3) Deliver to Isaac — then wait a few days before he asks for volume 2."
-        ],
-        "find the grimoire's second volume give isaac the original grimoire": [
-          "1) STOP — original book kills his wife and daughter (bad ending).",
-          "2) Instead: forge fake at Ibrahim (2400 G), wait 2 days.",
-          "3) Fake title: On the Transit of Souls 2 (Transit, not Transference)."
-        ],
-        "create a forgery of the grimoire": [
-          "1) Ibrahim's Scrap Store — forge On the Transference of Souls 2 (2400 G).",
-          "2) Sleep 2 days; pick up On the Transit of Souls 2 (forged copy).",
-          "3) Keep original for yourself — combine both volumes later for Celestial Paean."
+          "The Quince is a rare fruit found in the western region of Battahl , though a more dependable way to obtain it is by defeating Goblins and looting their remains."
         ],
         "find the grimoire s second volume give isaac the original grimoire": [
-          "1) Volume 2 = On the Transference of Souls 2 at Ibrahim (2000 G).",
-          "2) Wife Esmerelda stops you leaving — heed her: DO NOT give real book.",
-          "3) Forge first, then hand Isaac the Transit (fake) volume only."
+          "Now, you need to find the second volume of the grimoire, On the Transference of Souls 2 , and this can be obtained by purchasing it from Ibrahim at Ibrahim's Scrap Store for 2000 gold ."
+        ],
+        "create a forgery of the grimoire": [
+          "Now, you need to find the second volume of the grimoire, On the Transference of Souls 2 , and this can be obtained by purchasing it from Ibrahim at Ibrahim's Scrap Store for 2000 gold ."
         ],
         "find the grimoire s second volume": [
-          "1) Ibrahim's Scrap Store, Checkpoint — On the Transference of Souls 2.",
-          "2) Talk to Esmerelda + daughter outside shop BEFORE you deliver anything.",
-          "3) Their warning unlocks the forgery branch."
+          "Now, you need to find the second volume of the grimoire, On the Transference of Souls 2 , and this can be obtained by purchasing it from Ibrahim at Ibrahim's Scrap Store for 2000 gold ."
         ],
         "seek out a ripened quince": [
-          "1) Western Battahl goblin camps drop Quince reliably.",
-          "2) Or gather bush SW of city gate — ripen with 3 days on bench.",
-          "3) Must say \"Ripened\" in item name before Isaac accepts."
+          "The Quince is a rare fruit found in the western region of Battahl , though a more dependable way to obtain it is by defeating Goblins and looting their remains."
         ],
         "deliver on the transference of souls 2": [
-          "1) Hand Isaac the FORGED book: On the Transit of Souls 2.",
-          "2) Real Transference volume turns family to ash — shop closes forever.",
-          "3) After good ending: buy volume 1 from Isaac in a few days for Celestial Paean."
+          "Hand Isaac the FORGED book: On the Transit of Souls 2.",
+          "Real Transference volume turns family to ash — shop closes forever.",
+          "After good ending: buy volume 1 from Isaac in a few days for Celestial Paean."
         ],
         "follow isaac": [
-          "1) After you give the book, follow Isaac around back to his home.",
-          "2) Watch cutscene — outcome depends on real vs forged grimoire.",
-          "3) Don't attack during ritual; wait for dialogue end."
+          "To begin the quest, visit Isaac's Wares in Bakbattahl and buy any item from him.",
+          "This triggers a cutscene where Isaac mistakenly gives you the wrong item and reveals that his vision is failing."
         ],
         "visit isaac in a few days time": [
-          "1) After quince delivery: sleep 2–3 days, return to Isaac's Wares.",
-          "2) He finishes volume 1 and requests the second tome.",
-          "3) Esmerelda intercepts you on exit — talk to her before hunting the book."
+          "After quince delivery: sleep 2–3 days, return to Isaac's Wares.",
+          "He finishes volume 1 and requests the second tome.",
+          "Esmerelda intercepts you on exit — talk to her before hunting the book."
         ]
       },
       "step_cast": {
@@ -2526,34 +2406,27 @@
         "do extended battle with the griffin"
       ],
       "step_hints": {
-        "help the sculptor": [
-          "Klark's Estate, Vernworth Noble Quarter — talk to Klark outside."
-        ],
         "visit fulvio in battahl": [
-          "Obtain the \"Medusa Head\" or a \"Preserved Medusa Head\" and use it at the Griffin to turn it into stone.",
-          "Equip low level/stats weapons to minimize the damage inflicted on the beast and to prevent it from flying away.",
-          "Put the Griffin to Sleep and wait until Fulvio advises you that it's done"
+          "This quest is not affected by the passage of time or \"time-limited\", and progressing this quest requires the player to reach Bakbattahl located in the region of Battahl ."
         ],
         "accompany fulvio": [
           "Griffin nest northwest of Bakbattahl — prolong the fight so Fulvio can sketch."
         ],
-        "wait for fulvio progress": [
-          "Wait a few in-game days, then check Fulvio's workshop again."
-        ],
-        "attend the unveiling": [
-          "Meet Fulvio at Klark's Estate in Vernworth for the sculpture reveal."
-        ],
         "wait a few days then check on fulvio s progress": [
-          "Rest at an inn, house, or bench until at least the next day, then return for “wait a few days then check on fulvio s progress”. Exhaust dialogue so the journal advances."
+          "Leave the area and sleep until the next morning (inn, house, or bench).",
+          "Come back and talk to the same person again until the journal updates."
         ],
         "attend the unveiling at klark s estate": [
-          "Complete the named action for “attend the unveiling at klark s estate” inside the active quest area, then wait for the journal objective to update before leaving."
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
         ],
         "make for the meeting place": [
-          "Follow the quest marker into the named area for “make for the meeting place”, search the full highlighted zone, and interact with the marked person or object."
+          "Follow the map marker into the area and search the whole highlighted zone.",
+          "Click every person and object that looks important before you leave."
         ],
         "do extended battle with the griffin": [
-          "Enter the marked combat area for “do extended battle with the griffin”, eliminate every required enemy, then remain nearby until the objective updates."
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
         ]
       },
       "step_cast": {
@@ -2600,13 +2473,13 @@
       ],
       "step_hints": {
         "apprehend the assassin": [
-          "NOTE : This quest is time-limited and you need to hurry and identify the assassin because it can cause the quest to fail."
+          "Grab Herman immediately during the ritual. Grabbing an innocent worshipper or waiting too long fails the quest."
         ],
         "go to flamebearer palace in the morning": [
-          "Follow the quest marker into the named area for “go to flamebearer palace in the morning”, search the full highlighted zone, and interact with the marked person or object."
+          "Rest until the next morning, then meet Menella inside Flamebearer Palace before the prayer ritual begins."
         ],
         "identify the assassin": [
-          "You will reach the outskirts of Bakbattahl as you complete the main quest Nation of the Lambent Flame ."
+          "Find Herman among the worshippers: loose tied-back hair, a scarred right arm, gray clothing, and a sword at his left hip."
         ]
       },
       "fallback_step_key": "apprehend the assassin",
@@ -2668,28 +2541,35 @@
           "Sara will need time to do it so you can spend a few days away, then return to Brokkr's Smithy ."
         ],
         "find sara": [
-          "Complete the named action for “find sara” inside the active quest area, then wait for the journal objective to update before leaving."
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
         ],
         "escort sara to the cave entrance": [
           "Stay close to the named NPC during “escort sara to the cave entrance”, clear enemies ahead, and keep them alive until the destination dialogue completes."
         ],
-        "report back to roman": [
-          "Keep the required item or news in the Arisen's inventory, return to the named recipient for “report back to roman”, and choose the delivery/report dialogue."
-        ],
         "return to brokkr s smithy": [
-          "Complete the named action for “return to brokkr s smithy” inside the active quest area, then wait for the journal objective to update before leaving."
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
+        ],
+        "report back to roman": [
+          "Carry the item on your character — not in storage and not on a pawn.",
+          "Return to the person who asked for it and pick the hand-in dialogue option."
         ],
         "deliver sara to the cave entrance": [
-          "Keep the required item or news in the Arisen's inventory, return to the named recipient for “deliver sara to the cave entrance”, and choose the delivery/report dialogue."
+          "Carry the item on your character — not in storage and not on a pawn.",
+          "Return to the person who asked for it and pick the hand-in dialogue option."
         ],
         "return to the smithy": [
-          "Complete the named action for “return to the smithy” inside the active quest area, then wait for the journal objective to update before leaving."
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
         ],
         "return for the regalia sword in a few days time": [
-          "Complete the named action for “return for the regalia sword in a few days time” inside the active quest area, then wait for the journal objective to update before leaving."
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
         ],
         "wait a day or so then check on sara": [
-          "Rest at an inn, house, or bench until at least the next day, then return for “wait a day or so then check on sara”. Exhaust dialogue so the journal advances."
+          "Leave the area and sleep until the next morning (inn, house, or bench).",
+          "Come back and talk to the same person again until the journal updates."
         ]
       },
       "fallback_step_key": "check on sara s progress",
@@ -2747,43 +2627,20 @@
         "deliver the jadeite orb"
       ],
       "step_hints": {
-        "search the castle": [
-          "1) Orb is NOT in Vernworth Castle — wrong lead.",
-          "2) Go to Checkpoint Rest Town; Ibrahim's Scrap Store has it (7500 G).",
-          "3) Optional: Vernworth gaol prisoner hints Ibrahim for 500 G bribe."
-        ],
-        "find the jadeite orb": [
-          "1) Ibrahim's Scrap Store — behind bush west of Everard, Checkpoint Rest Town.",
-          "2) Buy Jadeite Orb for 7500 G; request forgery (+2000 G) before delivering.",
-          "3) Forgery takes 2 days — bench-sleep outside Ibrahim's shop.",
-          "4) Do not sell the orb mid-quest."
-        ],
-        "return the orb": [
-          "1) Deliver REAL orb to Everard, FORGED to Offulve for max rewards.",
-          "2) See deliver steps for order — Everard verifies authenticity."
-        ],
         "hunt for the jadeite orb": [
-          "1) Starts when you enter Checkpoint Rest Town — Offulve accosts you.",
-          "2) Also speak Everard outside Celeste's Smithy (second buyer).",
-          "3) Buy orb at Ibrahim's (7500 G) — west of Everard, hidden behind foliage.",
-          "4) Forge duplicate (+2000 G, wait 2 days) if you want both rewards."
+          "NOTE : Two NPCs will ask for the same item."
         ],
         "you received a second request for the jadeite orb": [
-          "1) Two NPCs want an orb — Everard AND Offulve.",
-          "2) One real orb isn't enough for best payout — forge at Ibrahim first.",
-          "3) Plan: genuine → Everard (12k G + Ring of Skullduggery).",
-          "4) Forged copy → Offulve (3k G + Elite Camping Kit)."
+          "NOTE : Two NPCs will ask for the same item."
         ],
         "deliver the jadeite orb bring the jadeite orb to the individual who requested it everard offulve": [
-          "1) Give REAL Jadeite Orb to Everard — he hauls it to Ibrahim to verify.",
-          "2) Wait for his return; collect 12,000 G + Ring of Skullduggery.",
-          "3) Give FORGED orb to Offulve at Sword & Staff inn gate.",
-          "4) Offulve never checks — 3,000 G + Elite Camping Kit."
+          "NOTE : Delivering the item to Everard will not complete the quest, so you still need to speak with Offulve and decide if you will be honest with him, or give him a forgery."
+        ],
+        "find the jadeite orb": [
+          "NOTE : Two NPCs will ask for the same item."
         ],
         "deliver the jadeite orb": [
-          "1) Two buyers — deliver to both for 15,000 G + ring + camping kit total.",
-          "2) Everard must get the genuine orb; Offulve gets the forgery.",
-          "3) If you only have one orb, pick Everard for bigger gold + ring."
+          "NOTE : Two NPCs will ask for the same item."
         ]
       },
       "step_cast": {
@@ -2836,13 +2693,16 @@
       ],
       "step_hints": {
         "make for melve and deliver the letter to ser lennart": [
-          "Oxcarts in Dragon's Dogma 2 can only travel during the early morning. For the Oxcart Courier quest, make sure you pick it up during daylight so you can immediately board the Oxcart and make for Melve."
+          "Oxcarts in Dragon's Dogma 2 can only travel during the early morning.",
+          "For the Oxcart Courier quest, make sure you pick it up during daylight so you can immediately board the Oxcart and make for Melve."
         ],
         "report back to donovan": [
-          "After a short trip, you will arrive at Melve and will find Lennart near the well. if this is your first time talking to him, he will give you a new quest: Nesting Troubles ."
+          "After a short trip, you will arrive at Melve and will find Lennart near the well.",
+          "if this is your first time talking to him, he will give you a new quest: Nesting Troubles ."
         ],
         "make for melve and deliver the letter to lennart": [
-          "Oxcarts in Dragon's Dogma 2 can only travel during the early morning. For the Oxcart Courier quest, make sure you pick it up during daylight so you can immediately board the Oxcart and make for Melve."
+          "Oxcarts in Dragon's Dogma 2 can only travel during the early morning.",
+          "For the Oxcart Courier quest, make sure you pick it up during daylight so you can immediately board the Oxcart and make for Melve."
         ]
       },
       "fallback_step_key": "make for melve and deliver the letter to ser lennart",
@@ -2887,17 +2747,20 @@
         "search the cave with fyoran"
       ],
       "step_hints": {
+        "make for stormwind cave": [
+          "This quest can be started as you search for Ulrika during Readvent of Calamity .",
+          "Upon entering Harve Village , a cutscene will show where Fyoran and Jonas are in a middle of a heated argument."
+        ],
         "search the cave with ulrika": [
-          "Follow the quest marker into the named area for “search the cave with ulrika”, search the full highlighted zone, and interact with the marked person or object."
+          "Follow the map marker into the area and search the whole highlighted zone.",
+          "Click every person and object that looks important before you leave."
         ],
         "escort zoran back to harve village": [
-          "NOTE:  After discovering Ulrika's new location, return to Lennart in Melve to give your update as part of Readvent of Calamity."
-        ],
-        "make for stormwind cave": [
-          "This quest can be started as you search for Ulrika during Readvent of Calamity . Upon entering Harve Village , a cutscene will show where Fyoran and Jonas are in a middle of a heated argument."
+          "After securing the safety of Zoran, take him back to the village and a conversation will take place between Ulrika , Fyoran , and Jonas ."
         ],
         "search the cave with fyoran": [
-          "Follow the quest marker into the named area for “search the cave with fyoran”, search the full highlighted zone, and interact with the marked person or object."
+          "Follow the map marker into the area and search the whole highlighted zone.",
+          "Click every person and object that looks important before you leave."
         ]
       },
       "fallback_step_key": "make for stormwind cave",
@@ -2933,31 +2796,21 @@
     "30010": {
       "wiki": "https://dragonsdogma2.wiki.fextralife.com/The+Ornate+Box",
       "step_hints": {
-        "find out": [
-          "Starts when Sven argues with Auriol in the marketplace.",
-          "If you lied to guard Norman during Seat of the Sovran, Sven recognizes you (better rewards).",
-          "Medicament Predicament done = Ornate Box costs 800g not 1000g."
-        ],
-        "recompense": [
-          "Best: buy the box yourself (800g), give it to Sven at Roderick's shop steps.",
-          "Meet him at Dragon Fountain 4 days in a row for Jasper, Ring, Ferrystone, Courtly outfit.",
-          "Lending gold only pays 500g back — buying the box gives more rewards."
-        ],
-        "ornate box": [
-          "Finish before Feast of Deception — Sven leaves the market forever after.",
-          "Normann (castle guard) gates this quest — lie for Sven in Seat of the Sovran."
+        "find out what s going on": [
+          "It seems an argument has broken out between a merchant and his customer.",
+          "The quest The Ornate Box automatically activates upon hearing the commotion."
         ],
         "receive recompense from sven in a few days": [
-          "Complete the named action for “receive recompense from sven in a few days” inside the active quest area, then wait for the journal objective to update before leaving."
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
         ],
         "sven made sure to thank you for the generosity you showed him": [
-          "Complete the named action for “sven made sure to thank you for the generosity you showed him” inside the active quest area, then wait for the journal objective to update before leaving."
-        ],
-        "find out what s going on": [
-          "It seems an argument has broken out between a merchant and his customer. The quest The Ornate Box automatically activates upon hearing the commotion."
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
         ],
         "receive recompense from sven in a few days time": [
-          "Complete the named action for “receive recompense from sven in a few days time” inside the active quest area, then wait for the journal objective to update before leaving."
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
         ]
       },
       "step_order": [
@@ -3016,39 +2869,30 @@
         "procure three swords for beren"
       ],
       "step_hints": {
-        "speak with beren": [
-          "Beren is at his tent west of Borderwatch camp.",
-          "Talk to him to learn he needs weapons for his trainees."
-        ],
-        "procure swords for beren": [
-          "Acquire three swords (Broadswords work) and deliver them to Beren.",
-          "Return to Beren's tent west of Borderwatch with the weapons."
-        ],
-        "recruit humphrey": [
-          "Find Humphrey near Borderwatch and recruit him for sparring practice.",
-          "Humphrey may be at the inn or wandering near camp."
-        ],
-        "assist the sparring bout": [
-          "Observe or assist as Beren's trainees spar with the weapons provided.",
-          "No heavy combat required — just see the bout through."
+        "procure weapons and find a motivated soldier": [
+          "Speak with Beren at the Beren's Tent south of Moonglow Garden , which are both due north of Melve .",
+          "Then bring him 3 Swords.",
+          "You can buy three at the Borderwatch Outpost to the east for 850 G."
         ],
         "have a bout with beren": [
-          "Complete the named action for “have a bout with beren” inside the active quest area, then wait for the journal objective to update before leaving."
-        ],
-        "return to the encampment": [
-          "Complete the named action for “return to the encampment” inside the active quest area, then wait for the journal objective to update before leaving."
-        ],
-        "procure weapons and find a motivated soldier": [
-          "Speak with Beren at the Beren's Tent south of Moonglow Garden , which are both due north of Melve . Then bring him 3 Swords. You can buy three at the Borderwatch Outpost to the east for 850 G."
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
         ],
         "follow beren": [
           "After hearing the attack from Eli, Beren runs out of the camp to aid the soldiers under attack."
         ],
+        "return to the encampment": [
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
+        ],
         "find beren a motivated soldier to train": [
-          "Speak with Beren at the Beren's Tent south of Moonglow Garden , which are both due north of Melve . Then bring him 3 Swords. You can buy three at the Borderwatch Outpost to the east for 850 G."
+          "Speak with Beren at the Beren's Tent south of Moonglow Garden , which are both due north of Melve .",
+          "Then bring him 3 Swords.",
+          "You can buy three at the Borderwatch Outpost to the east for 850 G."
         ],
         "procure three swords for beren": [
-          "Collect, buy, or craft the requested materials for “procure three swords for beren”. Keep them on the Arisen, not in storage or a pawn's inventory."
+          "Buy, craft, or loot what the journal asks for before you travel back.",
+          "Keep everything on the Arisen until you turn it in."
         ]
       },
       "step_npcs": [
@@ -3104,11 +2948,13 @@
         "pay beren another visit before he leaves"
       ],
       "step_hints": {
-        "pay beren another visit before he leaves": [
-          "Complete the named action for “pay beren another visit before he leaves” inside the active quest area, then wait for the journal objective to update before leaving."
-        ],
         "intercept the cyclops": [
-          "Once you have completed Claw Them Into Shape , visit Beren at Moonglow Garden after a day has passed. You will find this area southwest of the Borderwatch Outpost ."
+          "Once you have completed Claw Them Into Shape , visit Beren at Moonglow Garden after a day has passed.",
+          "You will find this area southwest of the Borderwatch Outpost ."
+        ],
+        "pay beren another visit before he leaves": [
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
         ]
       },
       "fallback_step_key": "intercept the cyclops",
@@ -3146,7 +2992,8 @@
           "It appears that the false Arisen has recently healed from his so-called \"battle wounds,\" leading the nobles to hold frequent masquerades in honor of his alleged bravery."
         ],
         "report back to captain brant": [
-          "Exit the establishment and then head back to The Stardrop Inn . Report your findings back to Captain Brant ."
+          "Exit the establishment and then head back to The Stardrop Inn .",
+          "Report your findings back to Captain Brant ."
         ]
       },
       "fallback_step_key": "approach the false sovran",
@@ -3186,10 +3033,12 @@
       ],
       "step_hints": {
         "deliver the letter to lord patrick": [
-          "Make sure that you're visiting on a masquerade night, if you missed it, sleep at an Inn to pass the time, then come back to Vernworth Hall."
+          "After picking up the quest from Sven's Chambers, he will ask you to deliver a letter to Lord Patrick.",
+          "You will find him during the Masquerade night in Vernworth Hall ."
         ],
         "report back to regentkin sven": [
-          "After successfully delivering Sven's letter, look for him again inside his chambers. This conversation with Sven will mark Masked Correspondence as completed."
+          "After successfully delivering Sven's letter, look for him again inside his chambers.",
+          "This conversation with Sven will mark Masked Correspondence as completed."
         ]
       },
       "fallback_step_key": "deliver the letter to lord patrick",
@@ -3232,15 +3081,13 @@
         "return the spectacles to waldhar"
       ],
       "step_hints": {
-        "find the spectacles": [
-          "Search the masquerade hall in Vernworth Castle for exquisite spectacles."
+        "find waldhar s confiscated spectacles": [
+          "The guard tells you that there's no masquerade to be had, however, this guard will let you through.",
+          "Once inside, go to the left side of the hall."
         ],
         "return the spectacles to waldhar": [
-          "Deliver the spectacles to Waldhar in the archive beneath the Gracious Hand.",
-          "Gracious Hand vault — scholar line from Caged Magistrate."
-        ],
-        "find waldhar s confiscated spectacles": [
-          "The guard tells you that there's no masquerade to be had, however, this guard will let you through. Once inside, go to the left side of the hall."
+          "After acquiring the Exquisite Spectacles, return to Waldhar's location to deliver them.",
+          "A Magisterial Amenity will be marked as completed after the short conversation."
         ]
       },
       "step_cast": {
@@ -3284,22 +3131,27 @@
       ],
       "step_hints": {
         "gather evidence within three days": [
-          "Every Rose Has Its Thorn is a time-limited quest. You must find the evidence that proves the crimes of Allard and give it to Wilhelmina within 3 days."
+          "Every Rose Has Its Thorn is a time-limited quest.",
+          "You must find the evidence that proves the crimes of Allard and give it to Wilhelmina within 3 days."
         ],
         "deliver the evidence to captain brant to secure his aid": [
-          "Keep the required item or news in the Arisen's inventory, return to the named recipient for “deliver the evidence to captain brant to secure his aid”, and choose the delivery/report dialogue."
+          "Carry the item on your character — not in storage and not on a pawn.",
+          "Return to the person who asked for it and pick the hand-in dialogue option."
         ],
         "deliver the evidence to wilhelmina": [
-          "Every Rose Has Its Thorn is a time-limited quest. You must find the evidence that proves the crimes of Allard and give it to Wilhelmina within 3 days."
+          "Every Rose Has Its Thorn is a time-limited quest.",
+          "You must find the evidence that proves the crimes of Allard and give it to Wilhelmina within 3 days."
         ],
         "speak to wilhelmina at night": [
           "Before handing over the evidence to Wilhelmina , you have the option to secure Brant's assistance, though it’s completely up to you."
         ],
         "assist in the assassination": [
-          "Complete the named action for “assist in the assassination” inside the active quest area, then wait for the journal objective to update before leaving."
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
         ],
         "speak with wilhelmina": [
-          "After handing Wilhelmina the bribery and murder report, she asks if you plan to see it through. By choosing \"Continue offering your aid,\" she dons a disguise and instructs you to follow her."
+          "After handing Wilhelmina the bribery and murder report, she asks if you plan to see it through.",
+          "By choosing \"Continue offering your aid,\" she dons a disguise and instructs you to follow her."
         ]
       },
       "fallback_step_key": "gather evidence within three days",
@@ -3358,17 +3210,17 @@
         "help glyndwr train with his new bow"
       ],
       "step_hints": {
-        "make for glyndwr's place of training": [
-          "After completing this quest, return to Vernworth to find Glyndwyr once again near Roderick’s Smithy. Speaking with him will unlock the A Trial of Archery quest, which then leads you to Sacred Arbor."
+        "make for glyndwr s place of training": [
+          "Speak with Glyndwr near Roderick's Smithy in Vernworth .",
+          "He’ll request a Human Bow, and presenting one will unlock the quest."
         ],
         "arrived at the ruins": [
-          "Complete the named action for “arrived at the ruins” inside the active quest area, then wait for the journal objective to update before leaving."
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
         ],
         "help glyndwr train with his new bow": [
-          "Complete the named action for “help glyndwr train with his new bow” inside the active quest area, then wait for the journal objective to update before leaving."
-        ],
-        "make for glyndwr s place of training": [
-          "Speak with Glyndwr near Roderick's Smithy in Vernworth . He’ll request a Human Bow, and presenting one will unlock the quest."
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
         ]
       },
       "fallback_step_key": "make for glyndwr s place of training",
@@ -3453,9 +3305,8 @@
         "Doireann": 1007143618
       },
       "step_hints": {
-        "attend glyndwr's trial of archery": [
-          "After Gift of the Bow — speak to Glyndwr at the trial grounds.",
-          "Shoot the archery targets with Glyndwr."
+        "attend glyndwr s trial of archery": [
+          "After reaching the Arborist's Home where the Trial of Archery was supposed to take place, Glyndwr notices the absence of the custodians, who are always on their posts."
         ],
         "accompany glyndwr": [
           "Follow Glyndwr toward Sacred Arbor."
@@ -3464,16 +3315,13 @@
           "Enter the ancestral chamber beneath Sacred Arbor."
         ],
         "venture in and rescue doireann": [
-          "Fight through the chamber — ogre may block the path."
+          "After reaching the Arborist's Home where the Trial of Archery was supposed to take place, Glyndwr notices the absence of the custodians, who are always on their posts."
         ],
         "carry doireann out of the ancestral chamber": [
           "Escort Doireann back out of the chamber."
         ],
         "speak with taliesin": [
           "Return to Taliesin to complete the trial."
-        ],
-        "attend glyndwr s trial of archery": [
-          "After reaching the Arborist's Home where the Trial of Archery was supposed to take place, Glyndwr notices the absence of the custodians, who are always on their posts."
         ]
       },
       "sources": [
@@ -3521,21 +3369,13 @@
       },
       "step_hints": {
         "find out what gwyfencha is": [
-          "1) Sacred Arbor — talk to Doireann at The Arborheart, then again at tree railing.",
-          "2) Prereq: A Trial of Archery (30070) complete.",
-          "3) Translate gwyfencha → scalecinder: Woodland Wordsmith pawn OR Glyndwr in Vernworth.",
-          "4) Alt: ask Gautstafr after Put a Spring in Thy Step (30170)."
+          "This quest is part of a mini-questline involving the hidden elves in the Sacred Arbor."
         ],
         "speak with a battahli blacksmith": [
-          "1) Need Battahl access — Brokkr's Smithy, southwest Bakbattahl (narrow path).",
-          "2) Talk to Sara (apprentice), not Brokkr — he refuses elves outright.",
-          "3) Sara blocked? Finish Dulled Steel, Cold Forge (30120) through glimmercoal handoff.",
-          "4) This conversation ENDS Ailing Arborheart and STARTS Out of the Forest (30090)."
+          "Regardless of however you learn it, you'll find out that gwyfencha translates to Scalecinder in the common tongue."
         ],
         "check in with sara again later": [
-          "1) Journal may lag — you should now be on Out of the Forest, Into the Forge.",
-          "2) Sara needs nutriabh (1 rotten apple + 1 rotten fish) to bribe Brokkr.",
-          "3) If Sara won't talk: wait until Brokkr leaves smithy, speak her inside back room."
+          "Regardless of however you learn it, you'll find out that gwyfencha translates to Scalecinder in the common tongue."
         ]
       },
       "fallback_step_key": "find out what gwyfencha is",
@@ -3574,35 +3414,41 @@
         "procure some rotten fish"
       ],
       "step_hints": {
-        "deliver the ingredients to doireann": [
-          "When you're ready with them, head back to Doireann and give them to her."
-        ],
-        "follow doireann": [
-          "It's your choice whether to use the Ferrystone or not. Doireann will follow you wherever you go so you can also just save it and get to Bakbattahl on foot or by Oxcart ."
-        ],
-        "follow sara": [
-          "A lot of following for this quest. This time you'll have to follow the running Sara to the outskirts of Bakbattahl ."
-        ],
         "report back to doireann": [
           "Based on what you've learned from Sara , it appears that their forge can produce the Scalecinder required by Doireann to repair The Arborheart ."
         ],
         "obtain the ingredients for nutriabh": [
           "While it's not the elves' preferred dish, the fact that the dwarves enjoy it is a positive sign for us."
         ],
+        "deliver the ingredients to doireann": [
+          "When you're ready with them, head back to Doireann and give them to her."
+        ],
+        "follow doireann": [
+          "It's your choice whether to use the Ferrystone or not.",
+          "Doireann will follow you wherever you go so you can also just save it and get to Bakbattahl on foot or by Oxcart ."
+        ],
+        "follow sara": [
+          "A lot of following for this quest.",
+          "This time you'll have to follow the running Sara to the outskirts of Bakbattahl ."
+        ],
         "gather plenty of scalecinder": [
-          "Sara will interrupt his outburst and Doireann will get the chance to give him the dish she prepared. He'll appear to still not be for the idea and claim to take the dish to throw it away."
+          "Sara will interrupt his outburst and Doireann will get the chance to give him the dish she prepared.",
+          "He'll appear to still not be for the idea and claim to take the dish to throw it away."
         ],
         "deliver the nutriabh to sara": [
           "When you're ready with them, head back to Doireann and give them to her."
         ],
         "check in with sara again later": [
-          "Complete the named action for “check in with sara again later” inside the active quest area, then wait for the journal objective to update before leaving."
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
         ],
         "procure some rotten apples": [
-          "Collect, buy, or craft the requested materials for “procure some rotten apples”. Keep them on the Arisen, not in storage or a pawn's inventory."
+          "Buy, craft, or loot what the journal asks for before you travel back.",
+          "Keep everything on the Arisen until you turn it in."
         ],
         "procure some rotten fish": [
-          "Collect, buy, or craft the requested materials for “procure some rotten fish”. Keep them on the Arisen, not in storage or a pawn's inventory."
+          "Buy, craft, or loot what the journal asks for before you travel back.",
+          "Keep everything on the Arisen until you turn it in."
         ]
       },
       "fallback_step_key": "report back to doireann",
@@ -3648,26 +3494,19 @@
     "30100": {
       "wiki": "https://dragonsdogma2.wiki.fextralife.com/Readvent+of+Calamity",
       "step_hints": {
-        "visit melve": [
-          "Come back later — Ulrika at her house talks with Martin (treason accusation).",
-          "Stay the night if prompted; next morning she's gone."
-        ],
-        "find ulrika": [
-          "She's at Harve Village southwest of Melve (starts Trouble on the Cape if new).",
-          "Talk to her there, then report back to Lennart in Melve."
-        ],
-        "inform lennart": [
-          "Tell Lennart Ulrika moved to Harve — completes Readvent.",
-          "Finish before Feast of Deception or this line locks."
-        ],
-        "visit melve from time to time": [
-          "After completing this, your next objective is to visit Melve now and then to check how things are faring after the dragon attack. You can travel to other towns and do other quests in the meantime."
-        ],
         "repel the dragon": [
           "This quest starts after returning to Melve a few days after you have completed Seat of the Sovran and the Scaly Invaders ."
         ],
+        "visit melve from time to time": [
+          "After completing this, your next objective is to visit Melve now and then to check how things are faring after the dragon attack.",
+          "You can travel to other towns and do other quests in the meantime."
+        ],
+        "find ulrika": [
+          "Lennart believes that Ulrika may have left town to hunt the dragon."
+        ],
         "inform lennart of ulrika s wellbeing": [
-          "Keep the required item or news in the Arisen's inventory, return to the named recipient for “inform lennart of ulrika s wellbeing”, and choose the delivery/report dialogue."
+          "Carry the item on your character — not in storage and not on a pawn.",
+          "Return to the person who asked for it and pick the hand-in dialogue option."
         ]
       },
       "step_order": [
@@ -3718,27 +3557,29 @@
       ],
       "fallback_step_key": "speak with lennart",
       "step_hints": {
-        "speak with ulrika": [
-          "Ulrika in Harve Village during the day (8am–10pm).",
-          "Max affinity with daily gifts before finishing for romance ending."
+        "speak with lennart": [
+          "After completing An Unsettling Encounter , Brant will prompt you to visit Melve .",
+          "You will find guards are stationed and have taken over the village here."
         ],
         "procure four swords and give them to lennart": [
-          "After completing An Unsettling Encounter , Brant will prompt you to visit Melve . You will find guards are stationed and have taken over the village here."
+          "After completing An Unsettling Encounter , Brant will prompt you to visit Melve .",
+          "You will find guards are stationed and have taken over the village here."
         ],
         "repel the soldiers stationed in melve": [
-          "Once you make it to Ulrika's House and leave the area, the soldiers will spot you and trigger a fight. For this instance, your pawns can't help you but the townspeople will be there to back you up."
+          "Once you make it to Ulrika's House and leave the area, the soldiers will spot you and trigger a fight.",
+          "For this instance, your pawns can't help you but the townspeople will be there to back you up."
         ],
         "bring word of melve to ulrika in a few days time": [
-          "Keep the required item or news in the Arisen's inventory, return to the named recipient for “bring word of melve to ulrika in a few days time”, and choose the delivery/report dialogue."
+          "Carry the item on your character — not in storage and not on a pawn.",
+          "Return to the person who asked for it and pick the hand-in dialogue option."
         ],
         "meet ulrika at nighttime": [
-          "Go to the named person for “meet ulrika at nighttime” and exhaust every dialogue option. If they are absent, check the quest's stated time window."
-        ],
-        "speak with lennart": [
-          "After completing An Unsettling Encounter , Brant will prompt you to visit Melve . You will find guards are stationed and have taken over the village here."
+          "Find the named NPC and talk until they repeat themselves or go quiet.",
+          "Missing? Try sleeping to the next day or the time window the quest mentions."
         ],
         "report back to lennart": [
-          "After completing An Unsettling Encounter , Brant will prompt you to visit Melve . You will find guards are stationed and have taken over the village here."
+          "After completing An Unsettling Encounter , Brant will prompt you to visit Melve .",
+          "You will find guards are stationed and have taken over the village here."
         ]
       },
       "step_order": [
@@ -3839,55 +3680,21 @@
         "Sara"
       ],
       "step_hints": {
-        "receive the dulled regalia sword": [
-          "1) Roman at Vernworth Castle courtyard (daytime) after Seat of the Sovran.",
-          "2) Accompany him aside — he gives Dulled Regalia Sword (Valuables tab).",
-          "3) If no prompt: finish 10080 first; Roman patrols Royal Quarter."
-        ],
-        "speak with the vernworth armorer": [
-          "1) Roderick's Smithy, Vernworth merchant square — show the dulled sword.",
-          "2) He appraises it and sends you to a Battahl dwarven smith.",
-          "3) Must do this BEFORE Brokkr if journal still on Vernworth step."
-        ],
-        "speak with brokkr at bakbattahl": [
-          "1) Brokkr's Smithy SW Bakbattahl — show Dulled Regalia Sword in back room.",
-          "2) Brokkr refuses (retired) — leave room to trigger Sara cutscene.",
-          "3) Wait for Brokkr to exit building, then talk Sara alone."
-        ],
-        "speak with sara": [
-          "1) Only after Brokkr leaves the smithy — Sara explains glimmercoal fuel crisis.",
-          "2) She marks Digger's Ruins SW of Bakbattahl on your map.",
-          "3) If Brokkr still inside: loiter outside until he walks to tavern."
-        ],
         "find someone to repair the dulled regalia sword": [
-          "1) Roman → Roderick (Vernworth) → Brokkr (refuses) → Sara chain.",
-          "2) Sword lives in Valuables, not Weapons — don't sell it.",
-          "3) If stuck on Vernworth: talk Roderick before traveling to Battahl."
+          "When you first encounter Roman on the castle grounds, he will ask you to accompany him to a more private spot for a conversation."
         ],
         "find fifteen or more pieces of glimmercoal": [
-          "1) Digger's Ruins SW Bakbattahl — green ore pulses in darkness.",
-          "2) Turn lantern OFF — light scares glimmercoal glow off.",
-          "3) Need 15 minimum; up to 25 earns extra gold from Sara.",
-          "4) Avoid Grim Ogre pit + bottom-floor slime swarm if possible."
+          "Digger's Ruins SW Bakbattahl — green ore pulses in darkness.",
+          "Turn lantern OFF — light scares glimmercoal glow off.",
+          "Need 15 minimum; up to 25 earns extra gold from Sara.",
+          "Avoid Grim Ogre pit + bottom-floor slime swarm if possible."
         ],
         "deliver the glimmercoal to sara": [
-          "1) Return to Brokkr's Smithy — hand 15–25 glimmercoal to Sara.",
-          "2) Brokkr still won't forge — Sara offers to repair the sword herself.",
-          "3) Accept and give her the Dulled Regalia Sword to complete quest.",
-          "4) Unlocks Steeled Resolve, Blazing Forge (20340) next."
-        ],
-        "deliver the glimmercoal nbsp to sara": [
-          "1) Same as deliver glimmercoal — 15+ pieces to Sara at Brokkr's Smithy.",
-          "2) Then entrust Dulled Regalia Sword to her."
-        ],
-        "entrust the regalia sword to sara": [
-          "1) After glimmercoal delivery — agree when Sara asks to try the repair.",
-          "2) Refusing loops \"find someone else\" with no other smith — say yes.",
-          "3) Quest completes; sword returns later in Steeled Resolve chain."
+          "Once you have collected x15 Glimmercoal , bring them to Sara and give the materials to her.",
+          "She will then ask you if you need help to forge it, then agree to let her do the job."
         ],
         "find someone else who can repair the regalia sword": [
-          "1) Dead end unless you refused Sara — go back and entrust sword to her.",
-          "2) No other NPC repairs it in this questline."
+          "When you first encounter Roman on the castle grounds, he will ask you to accompany him to a more private spot for a conversation."
         ]
       },
       "sources": [
@@ -3919,17 +3726,17 @@
         "participate in the duel"
       ],
       "step_hints": {
-        "conditional participate in the duel": [
-          "This will be a difficult fight for most Vocations that lead you to not be too defensively proficient, or if you're mainly a ranged-attacker."
-        ],
         "defeat the ruffians": [
-          "This quest will automatically activate as you pass through The Wanderer's Haven when you reach Bakbattahl for the first time."
+          "Fight Roger's three ruffians until Raghnall intervenes. Survive in the narrow lane; the fight then becomes one-on-one."
+        ],
+        "conditional participate in the duel": [
+          "Duel Taleef alone after Raghnall intervenes. Dodge his slow greatsword swings and punish from behind."
         ],
         "enter the wanderer s haven": [
-          "Follow the quest marker into the named area for “enter the wanderer s haven”, search the full highlighted zone, and interact with the marked person or object."
+          "Walk past The Wanderer's Haven in Bakbattahl's Mercantile Ward; Roger approaches and starts the confrontation automatically."
         ],
         "participate in the duel": [
-          "This will be a difficult fight for most Vocations that lead you to not be too defensively proficient, or if you're mainly a ranged-attacker."
+          "Defeat Taleef for the best reward. Losing still completes the quest, but costs 3,000 gold and forfeits the Fruit Wine."
         ]
       },
       "fallback_step_key": "defeat the ruffians",
@@ -3998,60 +3805,63 @@
         "pay eini a visit in a few days time"
       ],
       "step_hints": {
-        "collect grimoires for trysha": [
-          "Eini's Home north of Melve — grandparents must NOT be inside when you talk to Trysha.",
-          "Forge copies at Ibrahim; need tomes for Appraisal too."
+        "gather the grimoires": [
+          "The first part of this quest involves procuring 3-5 Grimoires that Trysha is looking for.",
+          "This guide will indicate their locations and how to retrieve each tome."
         ],
-        "bring trysha the grimoires": [
-          "Give Trysha at least 3 original grimoires for maister rewards."
+        "bring trysha the nbsp grimoires": [
+          "The first part of this quest involves procuring 3-5 Grimoires that Trysha is looking for.",
+          "This guide will indicate their locations and how to retrieve each tome."
         ],
         "visit trysha after a few days": [
           "Return to Eini's Home — Trysha begins casting."
         ],
-        "exhaust trysha's magick reserves": [
-          "Don't kill Trysha — tackle / Solemnity / Wakestone revive."
+        "exhaust trysha s magick reserves": [
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
         ],
         "check on trysha after a few days": [
           "Return again for Conjurer's Jottings and Enchanter's Almanac."
         ],
-        "gather the grimoires": [
-          "This quest is best completed before The Sorcerer's Appraisal, since this will positively affect the latter."
-        ],
-        "bring trysha the nbsp grimoires": [
-          "Bring Trysha the Grimoires"
-        ],
-        "exhaust trysha s magick reserves": [
-          "Complete the named action for “exhaust trysha s magick reserves” inside the active quest area, then wait for the journal objective to update before leaving."
-        ],
         "bring trysha some grimoires": [
-          "The first part of this quest involves procuring 3-5 Grimoires that Trysha is looking for. This guide will indicate their locations and how to retrieve each tome."
+          "The first part of this quest involves procuring 3-5 Grimoires that Trysha is looking for.",
+          "This guide will indicate their locations and how to retrieve each tome."
         ],
         "visit trysha in a few days time": [
-          "Complete the named action for “visit trysha in a few days time” inside the active quest area, then wait for the journal objective to update before leaving."
+          "Leave the area and sleep until the next morning (inn, house, or bench).",
+          "Come back and talk to the same person again until the journal updates."
         ],
         "wait for trysha to wake": [
-          "Rest at an inn, house, or bench until at least the next day, then return for “wait for trysha to wake”. Exhaust dialogue so the journal advances."
+          "Leave the area and sleep until the next morning (inn, house, or bench).",
+          "Come back and talk to the same person again until the journal updates."
         ],
         "check on trysha in a few days time": [
-          "Rest at an inn, house, or bench until at least the next day, then return for “check on trysha in a few days time”. Exhaust dialogue so the journal advances."
+          "Leave the area and sleep until the next morning (inn, house, or bench).",
+          "Come back and talk to the same person again until the journal updates."
         ],
         "bring trysha let there be light": [
-          "Keep the required item or news in the Arisen's inventory, return to the named recipient for “bring trysha let there be light”, and choose the delivery/report dialogue."
+          "Carry the item on your character — not in storage and not on a pawn.",
+          "Return to the person who asked for it and pick the hand-in dialogue option."
         ],
         "bring trysha fulminous shield": [
-          "Keep the required item or news in the Arisen's inventory, return to the named recipient for “bring trysha fulminous shield”, and choose the delivery/report dialogue."
+          "Carry the item on your character — not in storage and not on a pawn.",
+          "Return to the person who asked for it and pick the hand-in dialogue option."
         ],
         "bring trysha nation s death knell": [
-          "Keep the required item or news in the Arisen's inventory, return to the named recipient for “bring trysha nation s death knell”, and choose the delivery/report dialogue."
+          "Carry the item on your character — not in storage and not on a pawn.",
+          "Return to the person who asked for it and pick the hand-in dialogue option."
         ],
         "bring trysha howling blizzard": [
-          "Keep the required item or news in the Arisen's inventory, return to the named recipient for “bring trysha howling blizzard”, and choose the delivery/report dialogue."
+          "Carry the item on your character — not in storage and not on a pawn.",
+          "Return to the person who asked for it and pick the hand-in dialogue option."
         ],
         "bring trysha towering earth": [
-          "Keep the required item or news in the Arisen's inventory, return to the named recipient for “bring trysha towering earth”, and choose the delivery/report dialogue."
+          "Carry the item on your character — not in storage and not on a pawn.",
+          "Return to the person who asked for it and pick the hand-in dialogue option."
         ],
         "pay eini a visit in a few days time": [
-          "Complete the named action for “pay eini a visit in a few days time” inside the active quest area, then wait for the journal objective to update before leaving."
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
         ]
       },
       "step_cast": {
@@ -4117,66 +3927,44 @@
         "bring myrddin towering earth"
       ],
       "step_hints": {
-        "wear noble clothing": [
-          "1) Equip Courtly Tunic + Courtly Breeches before Myrddin's door.",
-          "2) Sources: Philbert's Sundries, Ornate Box quest, Noble Quarter loot.",
-          "3) Without courtly gear Myrddin won't let you in for the quest talk."
-        ],
         "gather grimoires for myrddin": [
-          "1) Myrddin wants 5 tomes — same list as Spellbound (Trysha).",
-          "2) Forge ALL five at Ibrahim if Trysha still needs originals.",
-          "3) Only give Myrddin 3 books to finish — save 3 originals for Trysha.",
-          "4) Let There Be Light: upstairs table in Myrddin's house (balcony sneak)."
-        ],
-        "deliver grimoires to myrddin": [
-          "1) Hand 3 forged grimoires — NOT all five if Spellbound is active.",
-          "2) Wear Turquoise Ring (from Trysha) if he questions Meteoron.",
-          "3) Reward: 11,000 G + Ares Morpho Robe on turn-in."
-        ],
-        "revisit myrddin after a few days": [
-          "1) Sleep several days after book delivery.",
-          "2) Return in courtly clothes for Myrddin's Chronicle (Maelstrom maister).",
-          "3) Gift him if affinity too low and he withholds the scroll."
+          "The first part of this quest involves procuring 3-5 Grimoires that Myrddin is looking for.",
+          "This guide will indicate their locations and how to retrieve each tome."
         ],
         "prove your friendship with trysha": [
-          "1) Triggers if you learned Meteoron from Trysha before this quest.",
-          "2) Keep Turquoise Ring in inventory (gift from Spellbound) — proves trust.",
-          "3) Ring need not be equipped; just owned when you talk to Myrddin."
-        ],
-        "revisit myrddin in a few days' time": [
-          "1) After first grimoire handoff: rest 2–3 days at inn or bench.",
-          "2) Myrddin teaches Maelstrom via Myrddin's Chronicle if affinity is high.",
-          "3) Still wear courtly outfit to enter his house."
+          "Triggers if you learned Meteoron from Trysha before this quest.",
+          "Keep Turquoise Ring in inventory (gift from Spellbound) — proves trust.",
+          "Ring need not be equipped; just owned when you talk to Myrddin."
         ],
         "revisit myrddin in a few days time": [
-          "1) Post-delivery wait — return to Myrddin's Home, Checkpoint Rest Town.",
-          "2) Collect Myrddin's Chronicle (Maelstrom) if not given on first visit.",
-          "3) If missing: wear Turquoise Ring, gift Myrddin, sleep again."
+          "Post-delivery wait — return to Myrddin's Home, Checkpoint Rest Town.",
+          "Collect Myrddin's Chronicle (Maelstrom) if not given on first visit.",
+          "If missing: wear Turquoise Ring, gift Myrddin, sleep again."
         ],
         "bring myrddin let there be light": [
-          "1) Loot from Myrddin upstairs study OR buy forgery at Ibrahim (~10k).",
-          "2) Sneak via mountain balcony — inner stairs aggro him instantly.",
-          "3) Give FORGED copy if Trysha needs the original."
+          "Loot from Myrddin upstairs study OR buy forgery at Ibrahim (~10k).",
+          "Sneak via mountain balcony — inner stairs aggro him instantly.",
+          "Give FORGED copy if Trysha needs the original."
         ],
         "bring myrddin fulminous shield": [
-          "1) Buy from Dudley at Melve north gate (5000 G) — he relocates after.",
-          "2) Forge at Ibrahim before handing over if Spellbound active.",
-          "3) Dudley also sells other grimoires — stock up before he leaves."
+          "Buy from Dudley at Melve north gate (5000 G) — he relocates after.",
+          "Forge at Ibrahim before handing over if Spellbound active.",
+          "Dudley also sells other grimoires — stock up before he leaves."
         ],
         "bring myrddin nation s death knell": [
-          "1) Waterfall Cave ornate chest (NE Vermund) OR Ancient Battleground cenotaph.",
-          "2) TWO copies exist per playthrough — one for Trysha, one forged for Myrddin.",
-          "3) Chest trap revives skeletons — be ready to fight."
+          "Waterfall Cave ornate chest (NE Vermund) OR Ancient Battleground cenotaph.",
+          "TWO copies exist per playthrough — one for Trysha, one forged for Myrddin.",
+          "Chest trap revives skeletons — be ready to fight."
         ],
         "bring myrddin howling blizzard": [
-          "1) Same Waterfall Cave ornate chest as Nation's Death Knell.",
-          "2) Grab both books in one run; forge duplicates at Ibrahim.",
-          "3) Open chest spawns undead — clear room before looting."
+          "Same Waterfall Cave ornate chest as Nation's Death Knell.",
+          "Grab both books in one run; forge duplicates at Ibrahim.",
+          "Open chest spawns undead — clear room before looting."
         ],
         "bring myrddin towering earth": [
-          "1) Waldhar under Gracious Hand after Caged Magistrate (10120) + Heel of History.",
-          "2) If jailed Waldhar: complete 10120 first, then revisit his cell.",
-          "3) Forge copy for Myrddin; Trysha needs original for her questline."
+          "Waldhar under Gracious Hand after Caged Magistrate (10120) + Heel of History.",
+          "If jailed Waldhar: complete 10120 first, then revisit his cell.",
+          "Forge copy for Myrddin; Trysha needs original for her questline."
         ]
       },
       "step_cast": {
@@ -4232,56 +4020,31 @@
         "report back to cliodhna"
       ],
       "step_hints": {
-        "speak to the dancer": [
-          "1) Starts on Agamen Volcanic Island road east of Drabnir's Grotto — dwarf Gautstafr.",
-          "2) He won't initiate — you must speak first and offer help.",
-          "3) NOT Cliodhna yet; she's at Windwalker's Home after wildflowers."
-        ],
-        "gather festival materials": [
-          "1) Any three herbs/wildflowers: Pitywort, Morningtide, Syrupwort, etc.",
-          "2) Pick along the road if your inventory is empty.",
-          "3) Deliver all three to Gautstafr on the road."
-        ],
-        "attend the festival": [
-          "1) Escort Gautstafr to Geyser Hamlet hot spring — that's the \"festival\" payoff.",
-          "2) Cliodhna unlocks Magick Archer vocation at the spring counter.",
-          "3) Carry Gautstafr (R2) past hobgoblins if he falls behind."
-        ],
         "find three wildflowers": [
-          "1) Gautstafr on volcanic island main road — back pain, needs 3 herbs.",
-          "2) Any wildflower counts: Pitywort/Morningtide along the path.",
-          "3) If stuck: gather nearby, return to his exact road spot."
+          "Gautstafr on volcanic island main road — back pain, needs 3 herbs.",
+          "Any wildflower counts: Pitywort/Morningtide along the path.",
+          "If stuck: gather nearby, return to his exact road spot."
         ],
         "deliver the wildflowers": [
-          "1) Hand 3 herbs to Gautstafr on the road (turn-in window).",
-          "2) He invites you to Windwalker's Home north — follow left fork over shallow water.",
-          "3) Cliodhna is suspicious of strangers — Gautstafr vouches for you."
-        ],
-        "visit gautstafr's home for a reward": [
-          "1) Windwalker's Home — small island north via shallow crossing.",
-          "2) Inside: Gautstafr reaches for reward, hurts back again.",
-          "3) Talk him again → choose \"Offer to escort him\" to hot spring."
-        ],
-        "report back to nbsp cliodhna": [
-          "1) After hot-spring dip cutscene — Cliodhna was tailing you.",
-          "2) She grants Magick Archer vocation + Laurel Circlet + 23,000 G.",
-          "3) Return to Windwalker's Home later for maister skill shop."
-        ],
-        "escort gautstafr to geyser hamlet": [
-          "1) Follow road east to Volcanic Island Camp — hobgoblins en route.",
-          "2) Stay near Gautstafr; carry him if he lags or you're sprinting ahead.",
-          "3) Goreminotaur in late cave — clear path before escort if needed.",
-          "4) Geyser Hamlet = wooden platforms up, cave entrance, spring vendor."
+          "Hand 3 herbs to Gautstafr on the road (turn-in window).",
+          "He invites you to Windwalker's Home north — follow left fork over shallow water.",
+          "Cliodhna is suspicious of strangers — Gautstafr vouches for you."
         ],
         "visit gautstafr s home for a reward": [
-          "1) North of meeting spot — left path through shallow water to Windwalker's Home.",
-          "2) Enter house; escort offer comes after he reinjures his back inside.",
-          "3) If Cliodhna hostile: exhaust Gautstafr's dialogue defending you."
+          "After reaching Agamen Volcanic Island , you will encounter Gautstafr on the road who is in great pain because of his back."
+        ],
+        "escort gautstafr to geyser hamlet": [
+          "After agreeing to escort Gautstafr to Geyser Hamlet, he will join your party so he can arrive there safely."
+        ],
+        "report back to nbsp cliodhna": [
+          "After hot-spring dip cutscene — Cliodhna was tailing you.",
+          "She grants Magick Archer vocation + Laurel Circlet + 23,000 G.",
+          "Return to Windwalker's Home later for maister skill shop."
         ],
         "report back to cliodhna": [
-          "1) Cliodhna is at Geyser Hamlet spring counter after escort completes.",
-          "2) Talk post-cutscene for Magick Archer unlock + rewards.",
-          "3) Also helps translate elvish later (gwyfencha hint for Sacred Arbor chain)."
+          "Cliodhna is at Geyser Hamlet spring counter after escort completes.",
+          "Talk post-cutscene for Magick Archer unlock + rewards.",
+          "Also helps translate elvish later (gwyfencha hint for Sacred Arbor chain)."
         ]
       },
       "step_cast": {
@@ -4340,19 +4103,26 @@
       ],
       "step_hints": {
         "investigate the letter and report back to sven you spoke with magistrate waldhar": [
-          "For the most part, this quest is a simple retrieve and deliver. However, you need to find the correct letter to deliver to Sven . There are two ways this quest can be started:"
+          "For the most part, this quest is a simple retrieve and deliver.",
+          "However, you need to find the correct letter to deliver to Sven .",
+          "There are two ways this quest can be started:"
         ],
         "you spoke with lady elena": [
-          "Complete the named action for “you spoke with lady elena” inside the active quest area, then wait for the journal objective to update before leaving."
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
         ],
         "you found the delivered letter": [
           "After starting the quest, you can investigate the letter by showing it to Elena , who can be found at Vernworth Castle Gaol Tower if you've completed the Saint of the Slums quest."
         ],
         "you reported back to sven": [
-          "For the most part, this quest is a simple retrieve and deliver. However, you need to find the correct letter to deliver to Sven . There are two ways this quest can be started:"
+          "For the most part, this quest is a simple retrieve and deliver.",
+          "However, you need to find the correct letter to deliver to Sven .",
+          "There are two ways this quest can be started:"
         ],
         "investigate the letter and report back to sven": [
-          "For the most part, this quest is a simple retrieve and deliver. However, you need to find the correct letter to deliver to Sven . There are two ways this quest can be started:"
+          "For the most part, this quest is a simple retrieve and deliver.",
+          "However, you need to find the correct letter to deliver to Sven .",
+          "There are two ways this quest can be started:"
         ]
       },
       "fallback_step_key": "investigate the letter and report back to sven you spoke with magistrate waldhar",
@@ -4408,13 +4178,15 @@
           "This quest is unlocked by finishing Shadowed Prayers and then speaking to Menella at the Volcanic Island Camp."
         ],
         "report back to ser menella": [
-          "After your conversation with the prisoner, you’ll have to report to Menella again. Fortunately, she’s back in Bakbattahl now so you won’t have to go all the way back to the Volcanic Island Camp."
+          "After your conversation with the prisoner, you’ll have to report to Menella again.",
+          "Fortunately, she’s back in Bakbattahl now so you won’t have to go all the way back to the Volcanic Island Camp."
         ],
         "leak information to the coral snakes": [
           "Herman mentions a Coral Snake member in the gaol, so return to the Bakbattahl Gaol and follow the quest marker to speak with Ashe in his cell."
         ],
         "unmask the mastermind": [
-          "The outcomes of the two choices differ, so make sure to consider all the factors. After selecting your choices, speak to Menella when you’re ready to progress."
+          "The outcomes of the two choices differ, so make sure to consider all the factors.",
+          "After selecting your choices, speak to Menella when you’re ready to progress."
         ],
         "uncover the truth behind the empress s death": [
           "If you choose to oppose Nadinia’s plan, the lady beastren will immediately be able to recognize that it isn’t Nadinia lying in the bed and call in some reinforcements."
@@ -4465,37 +4237,20 @@
         "visit the site of the oxcart raid"
       ],
       "step_hints": {
-        "feed toumi": [
-          "Checkpoint Rest Town — boy Toumi by the blue tent past the inn.",
-          "Give him food twice (not rotten). Hugo may appear after the second feed."
-        ],
-        "speak to the oxcart men": [
-          "Talk to the two men opposite the oxcart station after Toumi.",
-          "They point you toward Lyssandro about the Coral Snakes bandits."
-        ],
-        "speak to lyssandro": [
-          "Lyssandro wears white robes near the oxcart waiting post.",
-          "Accept his request to hunt the Coral Snakes on the highroad."
-        ],
-        "find the coral snakes hideout": [
-          "Head south on the main road from Checkpoint Rest Town.",
-          "Ask travelers on the road — one will flag the oxcart raid site."
-        ],
-        "storm the coral snakes hideout": [
-          "Chase bandits into the southwest cavern hideout.",
-          "Fight through to the end — Hugo is left behind; quest completes."
-        ],
         "inquire about the bandit gang": [
-          "Go to the named person for “inquire about the bandit gang” and exhaust every dialogue option. If they are absent, check the quest's stated time window."
+          "On the Battahl side of Checkpoint Rest Town, speak with the oxcart men and then Lyssandro in white robes by the ox pens."
         ],
         "locate the coral snakes hideout": [
-          "Once you arrive at the hideout, you'll encounter enemies here that will run away, and follow them nearby to the southwest until you reach a cavern."
+          "At the raided oxcart, follow Hugo and the fleeing Coral Snakes southwest into the canyon tunnel."
         ],
         "pursue the bandit": [
-          "Follow the quest marker into the named area for “pursue the bandit”, search the full highlighted zone, and interact with the marked person or object."
+          "Keep Hugo in sight through the tunnels. When the first rope bridge breaks, use the farther bridge or climb through the middle route."
+        ],
+        "storm the coral snakes hideout": [
+          "Fight through the hideout with Benjamin's guards and reach the final chamber; Lanzo escapes and Hugo is arrested."
         ],
         "visit the site of the oxcart raid": [
-          "Complete the named action for “visit the site of the oxcart raid” inside the active quest area, then wait for the journal objective to update before leaving."
+          "Follow the main road south from Checkpoint Rest Town and question travelers until the raided oxcart is marked."
         ]
       },
       "step_cast": {
@@ -4553,23 +4308,22 @@
       ],
       "step_hints": {
         "offer hugo guidance": [
-          "1) Hugo FIRST: keep talking until he has zero new lines (he may refuse — keep initiating).",
-          "2) Dietrich AT Hugo's cell (not Ekratt): talk him repeatedly until he mentions head gaoler / bribe.",
-          "3) Hugo again if needed, then Dietrich again — only THEN Ekratt offers 1000G → sleep → 2500G → sleep → 5000G.",
-          "4) Brefft path: cell LEFT of Hugo — exhaust Brefft → tell Hugo the truth → sleep → next day check gaol."
+          "Talk to Hugo in his cell until he has nothing new to say. He may refuse at first — keep initiating chat.",
+          "Talk to Dietrich (guard standing at Hugo's cell, not Ekratt at the door) until he says the head gaoler can be bribed.",
+          "Pay Ekratt 1000 gold. He takes the money but Hugo stays locked up overnight. That is normal.",
+          "Leave the gaol. Sleep at an inn or bench until the next morning."
         ],
         "confront lanzo at the ancient battleground": [
-          "If you told Hugo the truth: rest overnight, return to gaol — he may have escaped. Then race to the Ancient Battleground (north of Checkpoint Rest Town).",
-          "Kill Lanzo before Hugo does — this part is timed. Do not camp once the chase starts.",
-          "Alt path: do not tell Hugo; bribe Ekratt over a few days to free him instead."
+          "If you told Hugo the truth: sleep overnight, return to the gaol — Hugo may have escaped and Brefft may be dead.",
+          "Go to the Ancient Battleground north of Checkpoint Rest Town. Kill Lanzo before Hugo arrives.",
+          "This chase is timed once it starts. Do not camp or waste time.",
+          "If you bribed Ekratt instead: Hugo should already be outside the gaol when you reach this step."
         ],
         "help hugo find honest work": [
-          "Only after Hugo is free (or after you beat Lanzo): guide him to honest work.",
-          "Jobs need prior quests: Isaac Wares (Short-Sighted Ambition bad ending) OR Rose Chateau (Every Rose Has Its Thorn).",
-          "If you are still in the gaol staring at Hugo, you are NOT on this step yet — go back to Brefft / spawn gates."
-        ],
-        "speak with hugo": [
-          "Journal may say Offer Hugo guidance — talk to Brefft (cell left of Hugo) before Hugo will move on."
+          "Only after Hugo is free outside the gaol (or after you beat Lanzo): talk to him about honest work.",
+          "Isaac's Wares in Bakbattahl only works if Short-Sighted Ambition ended badly (Isaac left the shop).",
+          "Rose Chateau only works if you helped Wilhelmina in Every Rose Has Its Thorn.",
+          "Still staring at Hugo in a cell? You are on the wrong step — finish the bribe loop or Brefft path first."
         ]
       },
       "fallback_step_key": "offer hugo guidance",
@@ -4634,21 +4388,22 @@
       ],
       "fallback_step_key": "escort the oxcart",
       "step_hints": {
-        "escort on the highroad": [
-          "Battahl border escort — finish BEFORE A New Godsway (10160).",
-          "Time-sensitive PoNR quest — plan oxcart travel carefully."
-        ],
         "escort the oxcart": [
-          "NOTE: If you can't find Simon near the Oxcart Station, try walking down the stairs from the fountain near the Pawn Guild. Simon is on patrol so he will likely be doing his rounds."
+          "To start Tensions on the Highroad, return to Vernworth after you complete your first trip to Bakbattahl ."
         ],
         "take a side": [
-          "We recommend taking Raghnall’s side which you can do by attacking the soldiers. After the attack, Simon will run off and so will Raghnall . He will ask you to keep up to learn about the truth."
+          "We recommend taking Raghnall’s side which you can do by attacking the soldiers.",
+          "After the attack, Simon will run off and so will Raghnall .",
+          "He will ask you to keep up to learn about the truth."
         ],
         "pursue raghnall": [
-          "We recommend taking Raghnall’s side which you can do by attacking the soldiers. After the attack, Simon will run off and so will Raghnall . He will ask you to keep up to learn about the truth."
+          "We recommend taking Raghnall’s side which you can do by attacking the soldiers.",
+          "After the attack, Simon will run off and so will Raghnall .",
+          "He will ask you to keep up to learn about the truth."
         ],
         "seek an exit": [
-          "Follow the quest marker into the named area for “seek an exit”, search the full highlighted zone, and interact with the marked person or object."
+          "Follow the map marker into the area and search the whole highlighted zone.",
+          "Click every person and object that looks important before you leave."
         ]
       },
       "step_order": [
@@ -4729,11 +4484,12 @@
         "report back to captain brant"
       ],
       "step_hints": {
-        "report back to captain brant": [
-          "As you attempt to leave the secret room, you'll overhear Sven and Allard outside, forcing you to find another exit. Look towards the west to spot an open window and climb through it."
-        ],
         "search allard s chambers": [
           "Your new ally, Sven , has witnessed a suspicious delivery to Minister Allard , who went to great lengths to keep it hidden."
+        ],
+        "report back to captain brant": [
+          "As you attempt to leave the secret room, you'll overhear Sven and Allard outside, forcing you to find another exit.",
+          "Look towards the west to spot an open window and climb through it."
         ]
       },
       "fallback_step_key": "search allard s chambers",
@@ -4776,13 +4532,16 @@
       ],
       "step_hints": {
         "defeat the imposter": [
-          "Enter the marked combat area for “defeat the imposter”, eliminate every required enemy, then remain nearby until the objective updates."
+          "Go to the marked fight area and kill every enemy the quest cares about.",
+          "Stay nearby after the last kill until the journal objective changes."
         ],
         "face the dragon": [
-          "Approach the dragon and proceed to attack it to trigger the final battle. The Dragon will first lift you and carry you towards the final battle area."
+          "Approach the dragon and proceed to attack it to trigger the final battle.",
+          "The Dragon will first lift you and carry you towards the final battle area."
         ],
         "phaesus summoned a lesser dragon": [
-          "Complete the named action for “phaesus summoned a lesser dragon” inside the active quest area, then wait for the journal objective to update before leaving."
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
         ]
       },
       "fallback_step_key": "defeat the imposter",
@@ -4873,7 +4632,8 @@
       "fallback_step_key": "contend with your pursuer",
       "step_hints": {
         "contend with your pursuer": [
-          "After exiting the Tavern following the Monster Culling quest, your Pawns will notice someone watching you in town. The hooded figure can be identified by the tools and pouch on his belt."
+          "After exiting the Tavern following the Monster Culling quest, your Pawns will notice someone watching you in town.",
+          "The hooded figure can be identified by the tools and pouch on his belt."
         ],
         "wait a few days then speak with captain brant": [
           "As the captain tries to interrogate your stalker, you can finish a few Side Quests if you want or go out and explore."
@@ -5234,13 +4994,16 @@
           "Speak with Taliesin and Doireann. Bring arborheart cutting evidence from the Seafloor Shrine if Taliesin refuses to leave."
         ],
         "speak with taliesin": [
-          "After seeing the Arborheart Cutting take root, return to Sacred Arbor to update Taliesin. He'll be in the same location, and upon hearing of your success, he’ll agree to the evacuation."
+          "After seeing the Arborheart Cutting take root, return to Sacred Arbor to update Taliesin.",
+          "He'll be in the same location, and upon hearing of your success, he’ll agree to the evacuation."
         ],
         "take the arborheart cutting to the seafloor shrine": [
-          "Complete the named action for “take the arborheart cutting to the seafloor shrine” inside the active quest area, then wait for the journal objective to update before leaving."
+          "Do what the journal title describes in the marked area.",
+          "If nothing happens, sleep once and return before you assume it is broken."
         ],
         "report back to taliesin": [
-          "After seeing the Arborheart Cutting take root, return to Sacred Arbor to update Taliesin. He'll be in the same location, and upon hearing of your success, he’ll agree to the evacuation."
+          "After seeing the Arborheart Cutting take root, return to Sacred Arbor to update Taliesin.",
+          "He'll be in the same location, and upon hearing of your success, he’ll agree to the evacuation."
         ]
       },
       "step_cast": {
@@ -5326,7 +5089,8 @@
       "fallback_step_key": "aid in the pawns escape",
       "step_hints": {
         "aid in the pawns escape": [
-          "Upon entering the site, you will see that that it's currently under attack by a stone construct. Help Henrique get rid of it and talk to him afterward."
+          "Upon entering the site, you will see that that it's currently under attack by a stone construct.",
+          "Help Henrique get rid of it and talk to him afterward."
         ]
       },
       "step_cast": {
