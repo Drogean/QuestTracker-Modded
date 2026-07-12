@@ -1,0 +1,12 @@
+---
+description: Never edit user settings or game configs without explicit permission — suggest only
+alwaysApply: true
+---
+
+# Never touch settings without permission
+
+See `OTHERMODS/.cursor/rules/never-touch-settings-without-permission.mdc` — same rule.
+
+Do **not** edit `.ini`, `.cfg`, `.dat`, saves, FusionFix, ZMenu, handling, visuals, or commandline without the user explicitly approving that turn.
+
+**Read → suggest exact change → wait for "go" → then edit.**

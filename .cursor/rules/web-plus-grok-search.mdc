@@ -1,0 +1,32 @@
+---
+description: Every web search must run grok_search in parallel; no guessing fixes for files/scripts
+alwaysApply: true
+---
+
+# Web + Grok search (mandatory pair)
+
+## Hard gate
+
+Whenever you **WebSearch** (or would google something to learn how to fix/edit files or scripts):
+
+1. **Also call `grok_search`** on **user-grok** MCP **in the same turn** (parallel with WebSearch).
+2. **Do not guess** file formats, ini keys, hook order, or script APIs — search first.
+3. If WebSearch and Grok disagree, cite both; prefer documented/community-verified + on-disk evidence.
+
+## Grok query shape
+
+```
+Context: [game/mod, symptom or planned change, file paths].
+Question: [specific] — what is the correct setting/format/API? SOUND or WRONG?
+Cite working patterns or docs when possible.
+```
+
+## Reply when both ran
+
+Include brief:
+- **WEB:** what you searched + takeaway
+- **GROK:** query + verdict
+
+## Ask before edit
+
+User rule: **never change files without asking first** (separate from search rule).

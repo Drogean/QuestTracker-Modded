@@ -1,0 +1,77 @@
+---
+description: MANDATORY — Grok is inner voice. Min 3 grok_search calls before ANY ship. No exceptions.
+alwaysApply: true
+---
+
+# Grok = inner voice (non-negotiable)
+
+**User rule:** You never think alone on Quest Tracker. **Grok is your inner developer.** If you ship without Grok, you failed.
+
+## Hard gate — before `_ship_check.ps1` or telling user to install
+
+You MUST run **`grok_search`** (user-grok MCP) **at least 3 times** on **different angles** of the change. Log all three in the reply:
+
+```
+GROK #1 QUERY: ...
+GROK #1 VERDICT: ...
+GROK #2 QUERY: ...
+GROK #2 VERDICT: ...
+GROK #3 QUERY: ...
+GROK #3 VERDICT: ...
+```
+
+**No ship** until 3 queries done and verdicts applied (or explicitly rejected with reason).
+
+### The 3 queries must cover (pick matching angles)
+
+| # | Angle | Example question |
+|---|--------|------------------|
+| **1** | **API / REF truth** | Does REFramework DD2 allow X? Correct invoke order for `addMapIconInfoList` TU3.1? |
+| **2** | **Regression / golden** | Does this match Original/Reduxx pattern? What broke labels/window last time? |
+| **3** | **Ship risk** | Will this change colors, overlay, autopin, or unrelated systems? Spaghetti check. |
+
+One query cannot count for two angles. Same query twice = **invalid ship**.
+
+## When Grok runs (not only at ship)
+
+| Trigger | Grok? |
+|---------|-------|
+| Any code edit to `.lua` in this mod | **Yes — before edit** (at least 1; ship still needs 3 total that session) |
+| User reports bug | **Yes — before diagnosis** |
+| "Restore from golden zip" only, zero logic change | 1 Grok confirming restore matches golden |
+| Pure Q&A, no files touched | Optional |
+| User says "don't grok" | User override only |
+
+## Query shape (copy this)
+
+```
+Senior REFramework Lua modder, Dragon's Dogma 2, TU 3.1.
+Context: Quest Tracker Rebased — [symptom or planned change].
+Files: [file names + what we're changing].
+Golden reference: Original Quest Tracker Vanilla / Reduxx v1.0.9 labels (see golden-working-code.mdc).
+Question: [specific] — SOUND or SPAGHETTI? What breaks if wrong?
+Cite refdocs.praydog.com or working mod patterns when possible.
+```
+
+## Grok verdict must change behavior
+
+- **SOUND** → proceed; cite what Grok confirmed
+- **SPAGHETTI / WRONG LAYER** → stop; restore golden code or redesign before coding
+- **UNKNOWN** → third query or read Original/Reduxx on disk — **do not guess and ship**
+
+## Forbidden without Grok
+
+- New invoke ladders, hooks, ImGui lifecycle moves
+- Replacing working modules (`map_labels.lua`) with "cleaner" cores
+- Touching colors/tiers when fixing map/overlay
+- Shipping v2.0.x zip
+
+## Pair with
+
+- `golden-working-code.mdc` — copy working zips, don't reinvent
+- `read-game-logs-first.mdc` — logs before code
+- MegaLens only after logs + 3 Grok + golden restore still fail
+
+## User should NOT have to say "read your rules"
+
+If your reply ships code or a zip and lacks **GROK #1 #2 #3**, the turn is **incomplete**.

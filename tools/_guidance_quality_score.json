@@ -1,0 +1,761 @@
+﻿{
+    "summary":  {
+                    "PASS":  null,
+                    "WEAK":  25,
+                    "FAIL":  56
+                },
+    "all":  [
+                {
+                    "qid":  "10030",
+                    "name":  "Gaoled Awakening",
+                    "grade":  "FAIL",
+                    "score":  2,
+                    "nums":  0,
+                    "lines":  6,
+                    "chars":  872
+                },
+                {
+                    "qid":  "10050",
+                    "name":  "Tale\u0027s Beginning",
+                    "grade":  "FAIL",
+                    "score":  2,
+                    "nums":  0,
+                    "lines":  6,
+                    "chars":  908
+                },
+                {
+                    "qid":  "10060",
+                    "name":  "In Dragon\u0027s Wake",
+                    "grade":  "WEAK",
+                    "score":  3,
+                    "nums":  0,
+                    "lines":  5,
+                    "chars":  696
+                },
+                {
+                    "qid":  "10080",
+                    "name":  "Seat of the Sovran",
+                    "grade":  "FAIL",
+                    "score":  2,
+                    "nums":  0,
+                    "lines":  3,
+                    "chars":  517
+                },
+                {
+                    "qid":  "10090",
+                    "name":  "Monster Culling",
+                    "grade":  "FAIL",
+                    "score":  2,
+                    "nums":  0,
+                    "lines":  5,
+                    "chars":  740
+                },
+                {
+                    "qid":  "10100",
+                    "name":  "Disa\u0027s Plot",
+                    "grade":  "FAIL",
+                    "score":  1,
+                    "nums":  0,
+                    "lines":  2,
+                    "chars":  386
+                },
+                {
+                    "qid":  "10120",
+                    "name":  "The Caged Magistrate",
+                    "grade":  "FAIL",
+                    "score":  2,
+                    "nums":  0,
+                    "lines":  4,
+                    "chars":  661
+                },
+                {
+                    "qid":  "10130",
+                    "name":  "The Nameless Village",
+                    "grade":  "FAIL",
+                    "score":  0,
+                    "nums":  0,
+                    "lines":  1,
+                    "chars":  202
+                },
+                {
+                    "qid":  "10140",
+                    "name":  "Feast of Deception",
+                    "grade":  "FAIL",
+                    "score":  1,
+                    "nums":  0,
+                    "lines":  4,
+                    "chars":  627
+                },
+                {
+                    "qid":  "10150",
+                    "name":  "Nation of the Lambent Flame",
+                    "grade":  "FAIL",
+                    "score":  0,
+                    "nums":  0,
+                    "lines":  2,
+                    "chars":  207
+                },
+                {
+                    "qid":  "10151",
+                    "name":  "Flickering Shadows",
+                    "grade":  "FAIL",
+                    "score":  2,
+                    "nums":  0,
+                    "lines":  12,
+                    "chars":  856
+                },
+                {
+                    "qid":  "10170",
+                    "name":  "A New Godsway",
+                    "grade":  "FAIL",
+                    "score":  2,
+                    "nums":  0,
+                    "lines":  5,
+                    "chars":  861
+                },
+                {
+                    "qid":  "10180",
+                    "name":  "The Guardian Gigantus",
+                    "grade":  "FAIL",
+                    "score":  2,
+                    "nums":  0,
+                    "lines":  2,
+                    "chars":  283
+                },
+                {
+                    "qid":  "20010",
+                    "name":  "Medicament Predicament",
+                    "grade":  "FAIL",
+                    "score":  1,
+                    "nums":  0,
+                    "lines":  2,
+                    "chars":  226
+                },
+                {
+                    "qid":  "20020",
+                    "name":  "Ordeals of a New Recruit",
+                    "grade":  "FAIL",
+                    "score":  2,
+                    "nums":  0,
+                    "lines":  3,
+                    "chars":  486
+                },
+                {
+                    "qid":  "20030",
+                    "name":  "The Provisioner\u0027s Plight",
+                    "grade":  "FAIL",
+                    "score":  0,
+                    "nums":  0,
+                    "lines":  7,
+                    "chars":  1003
+                },
+                {
+                    "qid":  "20040",
+                    "name":  "Nesting Troubles",
+                    "grade":  "FAIL",
+                    "score":  2,
+                    "nums":  0,
+                    "lines":  3,
+                    "chars":  516
+                },
+                {
+                    "qid":  "20050",
+                    "name":  "Brothers Brave and Timid",
+                    "grade":  "FAIL",
+                    "score":  1,
+                    "nums":  0,
+                    "lines":  2,
+                    "chars":  283
+                },
+                {
+                    "qid":  "20060",
+                    "name":  "\u0027Twixt a Rock and a Hard Place",
+                    "grade":  "FAIL",
+                    "score":  1,
+                    "nums":  0,
+                    "lines":  8,
+                    "chars":  484
+                },
+                {
+                    "qid":  "20070",
+                    "name":  "Till Death Do Us Part",
+                    "grade":  "WEAK",
+                    "score":  3,
+                    "nums":  0,
+                    "lines":  8,
+                    "chars":  702
+                },
+                {
+                    "qid":  "20080",
+                    "name":  "Scaly Invaders",
+                    "grade":  "WEAK",
+                    "score":  3,
+                    "nums":  0,
+                    "lines":  6,
+                    "chars":  1074
+                },
+                {
+                    "qid":  "20090",
+                    "name":  "A Beggar\u0027s Tale",
+                    "grade":  "WEAK",
+                    "score":  3,
+                    "nums":  0,
+                    "lines":  10,
+                    "chars":  1547
+                },
+                {
+                    "qid":  "20100",
+                    "name":  "Tolled to Rest",
+                    "grade":  "WEAK",
+                    "score":  3,
+                    "nums":  0,
+                    "lines":  8,
+                    "chars":  1235
+                },
+                {
+                    "qid":  "20110",
+                    "name":  "The Phantom Oxcart",
+                    "grade":  "FAIL",
+                    "score":  2,
+                    "nums":  0,
+                    "lines":  12,
+                    "chars":  1179
+                },
+                {
+                    "qid":  "20120",
+                    "name":  "The Heel of History",
+                    "grade":  "FAIL",
+                    "score":  2,
+                    "nums":  0,
+                    "lines":  8,
+                    "chars":  1329
+                },
+                {
+                    "qid":  "20130",
+                    "name":  "Saint of the Slums",
+                    "grade":  "WEAK",
+                    "score":  3,
+                    "nums":  0,
+                    "lines":  14,
+                    "chars":  1551
+                },
+                {
+                    "qid":  "20140",
+                    "name":  "The Gift of Giving",
+                    "grade":  "FAIL",
+                    "score":  1,
+                    "nums":  0,
+                    "lines":  9,
+                    "chars":  1443
+                },
+                {
+                    "qid":  "20150",
+                    "name":  "House of the Blue Sunbright",
+                    "grade":  "WEAK",
+                    "score":  3,
+                    "nums":  0,
+                    "lines":  23,
+                    "chars":  2075
+                },
+                {
+                    "qid":  "20190",
+                    "name":  "A Noble Exchange",
+                    "grade":  "WEAK",
+                    "score":  3,
+                    "nums":  0,
+                    "lines":  8,
+                    "chars":  748
+                },
+                {
+                    "qid":  "20200",
+                    "name":  "A Game of Wits",
+                    "grade":  "WEAK",
+                    "score":  3,
+                    "nums":  0,
+                    "lines":  13,
+                    "chars":  1669
+                },
+                {
+                    "qid":  "20220",
+                    "name":  "The Nameless Village",
+                    "grade":  "FAIL",
+                    "score":  0,
+                    "nums":  0,
+                    "lines":  1,
+                    "chars":  202
+                },
+                {
+                    "qid":  "20230",
+                    "name":  "A Place to Call Home",
+                    "grade":  "WEAK",
+                    "score":  3,
+                    "nums":  0,
+                    "lines":  8,
+                    "chars":  828
+                },
+                {
+                    "qid":  "20240",
+                    "name":  "Vocation Frustration",
+                    "grade":  "FAIL",
+                    "score":  1,
+                    "nums":  0,
+                    "lines":  6,
+                    "chars":  1010
+                },
+                {
+                    "qid":  "20250",
+                    "name":  "Prey for the Pack",
+                    "grade":  "FAIL",
+                    "score":  1,
+                    "nums":  0,
+                    "lines":  8,
+                    "chars":  884
+                },
+                {
+                    "qid":  "20270",
+                    "name":  "The Sotted Sage",
+                    "grade":  "WEAK",
+                    "score":  3,
+                    "nums":  0,
+                    "lines":  8,
+                    "chars":  545
+                },
+                {
+                    "qid":  "20280",
+                    "name":  "A Poisonous Proposal",
+                    "grade":  "FAIL",
+                    "score":  2,
+                    "nums":  0,
+                    "lines":  11,
+                    "chars":  772
+                },
+                {
+                    "qid":  "20290",
+                    "name":  "Short-Sighted Ambition",
+                    "grade":  "WEAK",
+                    "score":  3,
+                    "nums":  0,
+                    "lines":  18,
+                    "chars":  1842
+                },
+                {
+                    "qid":  "20310",
+                    "name":  "A Case of Sculptor\u0027s Block",
+                    "grade":  "FAIL",
+                    "score":  2,
+                    "nums":  0,
+                    "lines":  11,
+                    "chars":  1226
+                },
+                {
+                    "qid":  "20330",
+                    "name":  "Shadowed Prayers",
+                    "grade":  "FAIL",
+                    "score":  2,
+                    "nums":  0,
+                    "lines":  3,
+                    "chars":  401
+                },
+                {
+                    "qid":  "20340",
+                    "name":  "Steeled Resolve, Blazing Forge",
+                    "grade":  "FAIL",
+                    "score":  2,
+                    "nums":  0,
+                    "lines":  9,
+                    "chars":  1367
+                },
+                {
+                    "qid":  "20350",
+                    "name":  "Hunt for the Jadeite Orb",
+                    "grade":  "FAIL",
+                    "score":  2,
+                    "nums":  0,
+                    "lines":  13,
+                    "chars":  723
+                },
+                {
+                    "qid":  "20480",
+                    "name":  "Oxcart Courier",
+                    "grade":  "WEAK",
+                    "score":  3,
+                    "nums":  0,
+                    "lines":  3,
+                    "chars":  575
+                },
+                {
+                    "qid":  "20082",
+                    "name":  "Trouble on the Cape",
+                    "grade":  "FAIL",
+                    "score":  1,
+                    "nums":  0,
+                    "lines":  4,
+                    "chars":  648
+                },
+                {
+                    "qid":  "30010",
+                    "name":  "The Ornate Box",
+                    "grade":  "WEAK",
+                    "score":  3,
+                    "nums":  0,
+                    "lines":  12,
+                    "chars":  1292
+                },
+                {
+                    "qid":  "30020",
+                    "name":  "Claw Them Into Shape",
+                    "grade":  "FAIL",
+                    "score":  2,
+                    "nums":  0,
+                    "lines":  14,
+                    "chars":  1415
+                },
+                {
+                    "qid":  "30030",
+                    "name":  "Beren\u0027s Final Lesson",
+                    "grade":  "FAIL",
+                    "score":  2,
+                    "nums":  0,
+                    "lines":  2,
+                    "chars":  333
+                },
+                {
+                    "qid":  "30040",
+                    "name":  "The Stolen Throne",
+                    "grade":  "FAIL",
+                    "score":  1,
+                    "nums":  0,
+                    "lines":  2,
+                    "chars":  278
+                },
+                {
+                    "qid":  "30041",
+                    "name":  "Masked Correspondence",
+                    "grade":  "WEAK",
+                    "score":  3,
+                    "nums":  0,
+                    "lines":  2,
+                    "chars":  298
+                },
+                {
+                    "qid":  "30042",
+                    "name":  "A Magisterial Amenity",
+                    "grade":  "FAIL",
+                    "score":  0,
+                    "nums":  0,
+                    "lines":  4,
+                    "chars":  354
+                },
+                {
+                    "qid":  "30050",
+                    "name":  "Every Rose Has Its Thorn",
+                    "grade":  "WEAK",
+                    "score":  3,
+                    "nums":  0,
+                    "lines":  6,
+                    "chars":  979
+                },
+                {
+                    "qid":  "30060",
+                    "name":  "Gift of the Bow",
+                    "grade":  "FAIL",
+                    "score":  2,
+                    "nums":  0,
+                    "lines":  4,
+                    "chars":  641
+                },
+                {
+                    "qid":  "30070",
+                    "name":  "A Trial of Archery",
+                    "grade":  "FAIL",
+                    "score":  1,
+                    "nums":  0,
+                    "lines":  8,
+                    "chars":  496
+                },
+                {
+                    "qid":  "30080",
+                    "name":  "The Ailing Arborheart",
+                    "grade":  "FAIL",
+                    "score":  2,
+                    "nums":  0,
+                    "lines":  9,
+                    "chars":  602
+                },
+                {
+                    "qid":  "30090",
+                    "name":  "Out of the Forest, Into the Forge",
+                    "grade":  "FAIL",
+                    "score":  2,
+                    "nums":  0,
+                    "lines":  10,
+                    "chars":  1322
+                },
+                {
+                    "qid":  "30100",
+                    "name":  "Readvent of Calamity",
+                    "grade":  "WEAK",
+                    "score":  3,
+                    "nums":  0,
+                    "lines":  9,
+                    "chars":  877
+                },
+                {
+                    "qid":  "30110",
+                    "name":  "Home Is Where the Hearth Is",
+                    "grade":  "WEAK",
+                    "score":  3,
+                    "nums":  0,
+                    "lines":  8,
+                    "chars":  1122
+                },
+                {
+                    "qid":  "30120",
+                    "name":  "Dulled Steel, Cold Forge",
+                    "grade":  "FAIL",
+                    "score":  2,
+                    "nums":  0,
+                    "lines":  12,
+                    "chars":  853
+                },
+                {
+                    "qid":  "30140",
+                    "name":  "Welcome to Battahl",
+                    "grade":  "FAIL",
+                    "score":  2,
+                    "nums":  0,
+                    "lines":  4,
+                    "chars":  570
+                },
+                {
+                    "qid":  "30150",
+                    "name":  "Spellbound",
+                    "grade":  "FAIL",
+                    "score":  2,
+                    "nums":  0,
+                    "lines":  19,
+                    "chars":  2324
+                },
+                {
+                    "qid":  "30160",
+                    "name":  "The Sorcerer\u0027s Appraisal",
+                    "grade":  "WEAK",
+                    "score":  3,
+                    "nums":  0,
+                    "lines":  16,
+                    "chars":  1634
+                },
+                {
+                    "qid":  "30170",
+                    "name":  "Put a Spring in Thy Step",
+                    "grade":  "WEAK",
+                    "score":  3,
+                    "nums":  0,
+                    "lines":  12,
+                    "chars":  902
+                },
+                {
+                    "qid":  "30180",
+                    "name":  "A Veil of Gossamer Clouds",
+                    "grade":  "WEAK",
+                    "score":  3,
+                    "nums":  0,
+                    "lines":  5,
+                    "chars":  861
+                },
+                {
+                    "qid":  "30200",
+                    "name":  "A Candle in the Storm",
+                    "grade":  "WEAK",
+                    "score":  3,
+                    "nums":  0,
+                    "lines":  5,
+                    "chars":  788
+                },
+                {
+                    "qid":  "30210",
+                    "name":  "Mercy among Thieves",
+                    "grade":  "WEAK",
+                    "score":  3,
+                    "nums":  0,
+                    "lines":  14,
+                    "chars":  1239
+                },
+                {
+                    "qid":  "30220",
+                    "name":  "Off the Pilfered Path",
+                    "grade":  "PASS",
+                    "score":  8,
+                    "nums":  5,
+                    "lines":  12,
+                    "chars":  1259
+                },
+                {
+                    "qid":  "30230",
+                    "name":  "Tensions on the Highroad",
+                    "grade":  "FAIL",
+                    "score":  2,
+                    "nums":  0,
+                    "lines":  6,
+                    "chars":  841
+                },
+                {
+                    "qid":  "30240",
+                    "name":  "Clash and Conclusion",
+                    "grade":  "FAIL",
+                    "score":  0,
+                    "nums":  0,
+                    "lines":  1,
+                    "chars":  201
+                },
+                {
+                    "qid":  "10110",
+                    "name":  "An Unsettling Encounter",
+                    "grade":  "FAIL",
+                    "score":  0,
+                    "nums":  0,
+                    "lines":  2,
+                    "chars":  306
+                },
+                {
+                    "qid":  "10190",
+                    "name":  "Legacy",
+                    "grade":  "FAIL",
+                    "score":  2,
+                    "nums":  0,
+                    "lines":  3,
+                    "chars":  450
+                },
+                {
+                    "qid":  "10070",
+                    "name":  "One-Eyed Interloper",
+                    "grade":  "FAIL",
+                    "score":  2,
+                    "nums":  0,
+                    "lines":  2,
+                    "chars":  228
+                },
+                {
+                    "qid":  "10085",
+                    "name":  "The Arisen\u0027s Shadow",
+                    "grade":  "FAIL",
+                    "score":  2,
+                    "nums":  0,
+                    "lines":  3,
+                    "chars":  422
+                },
+                {
+                    "qid":  "10160",
+                    "name":  "Convergence",
+                    "grade":  "FAIL",
+                    "score":  0,
+                    "nums":  0,
+                    "lines":  1,
+                    "chars":  128
+                },
+                {
+                    "qid":  "20320",
+                    "name":  "Crossing in Shadow",
+                    "grade":  "FAIL",
+                    "score":  1,
+                    "nums":  0,
+                    "lines":  2,
+                    "chars":  227
+                },
+                {
+                    "qid":  "20360",
+                    "name":  "Dreams Apart",
+                    "grade":  "FAIL",
+                    "score":  1,
+                    "nums":  0,
+                    "lines":  1,
+                    "chars":  139
+                },
+                {
+                    "qid":  "10200",
+                    "name":  "Halls of the First Dawn",
+                    "grade":  "FAIL",
+                    "score":  1,
+                    "nums":  0,
+                    "lines":  2,
+                    "chars":  252
+                },
+                {
+                    "qid":  "20380",
+                    "name":  "When Wills Collide",
+                    "grade":  "FAIL",
+                    "score":  0,
+                    "nums":  0,
+                    "lines":  1,
+                    "chars":  127
+                },
+                {
+                    "qid":  "20390",
+                    "name":  "The Regentkin\u0027s Resolve",
+                    "grade":  "FAIL",
+                    "score":  1,
+                    "nums":  0,
+                    "lines":  1,
+                    "chars":  108
+                },
+                {
+                    "qid":  "20420",
+                    "name":  "Civil Unrest",
+                    "grade":  "WEAK",
+                    "score":  3,
+                    "nums":  0,
+                    "lines":  1,
+                    "chars":  149
+                },
+                {
+                    "qid":  "20370",
+                    "name":  "A Scholarly Pursuit",
+                    "grade":  "FAIL",
+                    "score":  0,
+                    "nums":  0,
+                    "lines":  1,
+                    "chars":  140
+                },
+                {
+                    "qid":  "20450",
+                    "name":  "Wandering Roots",
+                    "grade":  "WEAK",
+                    "score":  3,
+                    "nums":  0,
+                    "lines":  4,
+                    "chars":  677
+                },
+                {
+                    "qid":  "20460",
+                    "name":  "The Importance of Aiding Ernesto",
+                    "grade":  "FAIL",
+                    "score":  2,
+                    "nums":  0,
+                    "lines":  1,
+                    "chars":  160
+                },
+                {
+                    "qid":  "20470",
+                    "name":  "Shepherd of the Pawns",
+                    "grade":  "FAIL",
+                    "score":  0,
+                    "nums":  0,
+                    "lines":  1,
+                    "chars":  151
+                }
+            ],
+    "ongoing":  [
+                    "30220",
+                    "20350",
+                    "30080",
+                    "30160",
+                    "20280",
+                    "20290",
+                    "20150",
+                    "30170",
+                    "10151",
+                    "30120",
+                    "20270"
+                ],
+    "scored_at":  "2026-07-12T12:31:12.3541589-04:00"
+}

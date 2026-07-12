@@ -305,7 +305,7 @@ function M.install(ctx)
                 if rq.id == qid then pcall(mod._refresh_one_row, rq); return end
             end
         end
-        if mod._qt_refresh_row_caches then pcall(mod._qt_refresh_row_caches) end
+        if mod._qt_refresh_row_caches then pcall(mod._qt_schedule_cache_refresh, "journal") end
     end
 
     local _evt_debounce = 0

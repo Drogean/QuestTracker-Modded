@@ -1,0 +1,41 @@
+You are a senior Lua developer reviewing a DD2 REFramework mod crash fix.
+
+CRASH: User clicked Ongoing tab → c0000005 in igWindowRectRelToAbs. Log shows cache refresh enter tab=Ongoing then immediate AV. Stack also shows via.gui.message.get during step/guid resolve. Prior frame: map was open, child window begin FAIL open=false.
+
+BEFORE (broken pattern):
+- Tab click calls _qt_schedule_cache_refresh (sets pending flag)
+- Next frame: _qt_run_logic_tick runs FIRST, sees pending, calls _qt_refresh_row_caches synchronously (builds 11 Ongoing rows with guid/step resolve)
+- THEN _qt_draw_quest_overlay runs ImGui — corrupted stack / re-entrancy → crash
+
+BEFORE code (cache.lua logic tick head):
+```lua
+function ctx._qt_run_logic_tick(now)
+    if mod._qt_pending_cache_refresh then
+        mod._qt_pending_cache_refresh = false
+        pcall(ctx._qt_refresh_row_caches)  -- HEAVY during wrong phase
+    end
+    ...
+    pcall(ctx._qt_refresh_row_caches)  -- also called from step fingerprint / gather paths
+end
+```
+
+AFTER (proposed fix):
+1. Logic tick never runs full cache refresh — only _defer_cache_refresh() → schedule flag
+2. After ImGui draw completes each frame, flush pending refresh:
+```lua
+pcall(_qt_draw_quest_overlay)
+if mod._qt_flush_pending_cache_refresh then
+    pcall(mod._qt_flush_pending_cache_refresh)
+end
+```
+3. Tab click closes child before scheduling: _qt_ensure_child_closed()
+4. Map close suppresses draw 0.35s
+5. mod._qt_imgui_overlay_active guard on logic tick during overlay draw
+
+Questions:
+1. Is this sound or spaghetti?
+2. Any simpler pattern you'd use for "defer heavy work until ImGui stack is clean"?
+3. Risk of flushing cache same frame as tab click while user still sees stale list for 1 frame — acceptable?
+4. Should we also split _qt_refresh_row_caches into incremental (2 rows/frame) for Ongoing tab?
+
+Answer concise: SOUND/SPAGHETTI, top 3 risks, one improvement if any.

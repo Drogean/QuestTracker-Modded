@@ -97,6 +97,8 @@ function M.install(ctx)
         Cache.install(plugin_ctx)
         mod._refresh_one_row = plugin_ctx._refresh_one_row
         mod._qt_schedule_cache_refresh = plugin_ctx._qt_schedule_cache_refresh
+        mod._qt_flush_pending_cache_refresh = plugin_ctx._qt_flush_pending_cache_refresh
+        mod._qt_refilter_draw_list = plugin_ctx._qt_refilter_draw_list
         out._qt_force_refresh = plugin_ctx._qt_force_refresh
         out._qt_run_logic_tick = plugin_ctx._qt_run_logic_tick
         out._qt_refresh_row_caches = plugin_ctx._qt_refresh_row_caches
@@ -122,10 +124,12 @@ function M.install(ctx)
             mod._sniff_install = plugin_ctx.sniff_install_hooks
             mod._journal_poll_on_frame = plugin_ctx.journal_poll_on_frame
             mod._journal_install_hooks = plugin_ctx.install_journal_hooks
+            mod._live_dest_install = plugin_ctx.install_live_dest_hooks
+            mod._map_try_upgrade_fallback = Map and Map.try_upgrade_fallback_pins or nil
             mlog_boot("[QT] quest_tracker_sniff OK (journal hooks install when you open quest menu)")
+            if mod._live_dest_install then pcall(mod._live_dest_install) end
             if mod.deep_sniff == true then
                 if mod._sniff_install then pcall(mod._sniff_install) end
-                if mod._journal_install_hooks then pcall(mod._journal_install_hooks) end
                 if Map and Map.resniff_map_ui then pcall(Map.resniff_map_ui) end
                 mlog_boot("[QT][sniff] boot install deep_sniff=ON from prefs")
             end

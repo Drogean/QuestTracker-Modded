@@ -1,0 +1,72 @@
+---
+description: Code + ship in this chat. Grok before risky patterns; MegaLens L3 when spaghetti/regressions. No handover-only.
+alwaysApply: true
+---
+
+# Grok + MegaLens — fix loop (code allowed)
+
+**This chat codes and ships.** No auditor/builder split. No handover-only.
+
+## Grok (free — use often)
+
+Run `grok_search` on user-grok MCP **before** edits that touch:
+
+- ImGui lifecycle (`on_frame` vs `on_draw_ui`, `begin_window`, child stack)
+- Map pins / `addMapIconInfoList` / `setupMapIcon`
+- Overlay visibility / `IsLoadGui` / pause menu
+- New hooks or SDK invoke ladders
+
+**Query shape:** Senior Lua REFramework DD2 — symptom, file:line, before/after, ask SOUND/SPAGHETTI.
+
+Reply must include: `GROK QUERY:` / `GROK VERDICT:` / `GROK SOURCES:` (when searched).
+
+**See `grok-inner-voice-mandatory.mdc` — minimum 3 `grok_search` calls before ANY ship. No "obvious fix" bypass.**
+
+## MegaLens L3 (~$0.22 — use when stuck)
+
+**Run when any of:**
+
+- Same bug class returns after a “fix” (labels, overlay, colors, cache flush)
+- Touching **2+** of: window draw, map, overlay, cache, SDK in one ship
+- User says “megalens” / “audit everything” / “spaghetti”
+- Static + logs + Grok still disagree on root cause
+
+**Gates before charge:**
+
+- Game log first line = workspace `MOD_VERSION`
+- Concrete P0/P1 questions (max 5–8), not “audit all”
+- User ok with ~$0.22 OR explicitly asked for MegaLens
+
+**`fileContext` = full file text, never paths.** One bundle per run:
+
+| Run | Files |
+|-----|--------|
+| **Wiring** | `quest_tracker.lua` + `quest_tracker_plugins.lua` + `quest_tracker/quest_tracker_overlay.lua` |
+| **UI draw** | `quest_tracker_window.lua` + `quest_tracker_window_child.lua` |
+| **Map** | `quest_tracker_map.lua` (or label section if too big — split file first) |
+| **Data/steps** | `quest_tracker_cache.lua` + `quest_tracker_steps_resolve.lua` + `quest_data_loader.lua` |
+
+Poll `megalens_poll` until `terminal: true`. If `MCP_NEEDS_PLANNER_REPAIR` → smaller bundle or split map module first; **do not retry same payload.**
+
+Fix **P0/P1 from judge only**; bump version; `_ship_check.ps1`; Fluffy zip.
+
+## Anti-spaghetti (pair with `no-spaghetti-decomposition.mdc`)
+
+| File | ~lines | Next split |
+|------|--------|------------|
+| `quest_tracker_map.lua` | 2000+ | `quest_tracker_map_labels.lua`, `quest_tracker_map_pins.lua` |
+| `quest_tracker_window.lua` | 1200+ | `quest_tracker_window_draw.lua`, frame loop stays thin |
+| `quest_tracker_gather.lua` | 1400+ | NPC scan vs rebuild |
+| `quest_data_loader.lua` | 980+ | tiers/wiki vs core data |
+
+**Forbidden:** symptom hacks in draw path; duplicate ImGui begin/end; fake-success API checks (`result ~= nil` without list count); moving `begin_window` to `on_draw_ui`.
+
+**Required ship gates** (already in `_ship_check.ps1`): no `begin_window` in `on_draw_ui`; no `call6_false`; map list count guard.
+
+## Default order every bug fix
+
+1. Read game logs (see `read-game-logs-first.mdc`)
+2. Grok if risky area
+3. Minimal fix + regression gate in `_ship_check.ps1` if new failure mode
+4. `_ship_check.ps1` → zip → user Fluffy install → read log again
+5. MegaLens L3 only if step 4 FAIL or repeat regression

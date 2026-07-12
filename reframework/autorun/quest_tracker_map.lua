@@ -1,20 +1,24 @@
 -- quest_tracker_map.lua — map pins / icons (require from quest_tracker.lua)
 -- REFramework also runs every autorun/*.lua; return cached module so install() is not wiped.
 
-local MAP_MOD_VER = "1.4.0"
+local MAP_MOD_VER = "1.4.48"
 local M = package.loaded["quest_tracker_map"]
 if M and M._map_mod_ver == MAP_MOD_VER then return M end
 M = { _map_mod_ver = MAP_MOD_VER }
 
-local mod, mlog, mlog_boot, qt_verbose, td, safe_get_field, safe_call, iter_list, to_int
+local mod, mlog, mlog_boot, qt_verbose, td, safe_get_field, safe_call, safe_dict_get, iter_list, to_int
+local _guid_to_en_text
 
 local function _mlog_map(...)
     if mlog_boot then mlog_boot(...)
     elseif mlog then mlog(...) end
 end
 local cid_eq, cid_norm, get_character_world_pos, mark_prefs_dirty
-local MANUAL_POS_OVERRIDES, HYBRID_AREA_QIDS, BLOB_AREA_QIDS, MANUAL_GIVER_OVERRIDES, ELIMINATED_OVERRIDES, BUNDLED_GIVER_OVERRIDES
-local is_bundled_giver, qd_givers, qd_givers_display_order, TAB_NAMES
+local try_upgrade_fallback_pins  -- forward decl: defined after unpin_quest
+local _pin_available_at          -- forward decl: used by _pin_first_step_giver
+local QD
+local MANUAL_POS_OVERRIDES, BUNDLED_POS_OVERRIDES, HYBRID_AREA_QIDS, BLOB_AREA_QIDS, MANUAL_GIVER_OVERRIDES, ELIMINATED_OVERRIDES, BUNDLED_GIVER_OVERRIDES
+local is_bundled_giver, qd_givers, qd_givers_display_order, TAB_NAMES, get_all_giver_cids
 
 local MAP_API = {
     ready             = false,
@@ -23,9 +27,12 @@ local MAP_API = {
     pinned_pos        = {},
     pinned_label_pos  = {},
     eliminated_pos    = {},
+    _fallback_pending_upgrade = {},  -- qids pinned via npc-ongoing/step-npc fallback, awaiting live upgrade
     status            = "not initialized",
     last_msg          = "",
 }
+
+local Labels = require("quest_tracker_map_labels")
 
 local function _td(name)
     if type(td) == "function" then return td(name) end
@@ -41,6 +48,7 @@ function M.install(ctx)
     td = ctx.td
     safe_get_field = ctx.safe_get_field
     safe_call = ctx.safe_call
+    safe_dict_get = ctx.safe_dict_get
     iter_list = ctx.iter_list
     to_int = ctx.to_int
     cid_eq = ctx.cid_eq
@@ -48,6 +56,7 @@ function M.install(ctx)
     get_character_world_pos = ctx.get_character_world_pos
     mark_prefs_dirty = ctx.mark_prefs_dirty
     MANUAL_POS_OVERRIDES = ctx.MANUAL_POS_OVERRIDES
+    BUNDLED_POS_OVERRIDES = ctx.BUNDLED_POS_OVERRIDES
     HYBRID_AREA_QIDS = ctx.HYBRID_AREA_QIDS
     BLOB_AREA_QIDS = ctx.BLOB_AREA_QIDS
     MANUAL_GIVER_OVERRIDES = ctx.MANUAL_GIVER_OVERRIDES
@@ -57,6 +66,11 @@ function M.install(ctx)
     qd_givers = ctx.qd_givers
     qd_givers_display_order = ctx.qd_givers_display_order
     TAB_NAMES = ctx.TAB_NAMES
+    get_all_giver_cids = ctx.get_all_giver_cids
+    QD = ctx.QD
+    _guid_to_en_text = ctx._guid_to_en_text
+    Labels.install(ctx, MAP_API)
+    Labels.set_hybrid_qids(HYBRID_AREA_QIDS)
     if type(ELIMINATED_OVERRIDES) == "table" then
         for qid, arr in pairs(ELIMINATED_OVERRIDES) do
             MAP_API.eliminated_pos[qid] = {}
@@ -118,8 +132,18 @@ end
 
 local function _try_add_yellow_marker(list, qid, marker)
     if list == nil or marker == nil then return false end
+    MAP_API._diamond_on_list = MAP_API._diamond_on_list or {}
+    if MAP_API._diamond_on_list[qid] then
+        return false
+    end
     pcall(function() list:call("Add", marker) end)
+    MAP_API._diamond_on_list[qid] = true
     return true
+end
+
+local function _mark_diamond_on_list(qid)
+    MAP_API._diamond_on_list = MAP_API._diamond_on_list or {}
+    MAP_API._diamond_on_list[qid] = true
 end
 
 local function _sculpt_skip_mod_blob_reinject(qid, ui)
@@ -142,7 +166,9 @@ local function reinject_all()
     MAP_API._blob_reinject_this_hook = MAP_API._blob_reinject_this_hook or {}
     local n = 0
     for qid, entry in pairs(MAP_API.pinned_data) do
-        if BLOB_AREA_QIDS and BLOB_AREA_QIDS[qid] then
+        if MAP_API._journal_label_only and MAP_API._journal_label_only[qid] then
+            -- MAIN: game owns the diamond; QT only adds name banner
+        elseif BLOB_AREA_QIDS and BLOB_AREA_QIDS[qid] then
             if UI_MAP and _sculpt_skip_mod_blob_reinject(qid, UI_MAP) then
                 -- vanilla draws area blob on detail map
             elseif MAP_API._pin_added_this_hook and MAP_API._pin_added_this_hook[qid] then
@@ -163,14 +189,11 @@ local function reinject_all()
             end
         end
     end
-    for qid, anchor in pairs(MAP_API.pinned_label_pos) do
-        if anchor and not (MAP_API._pin_added_this_hook and MAP_API._pin_added_this_hook[qid]) then
-            local marker = build_marker_at_pos(anchor.x, anchor.y, anchor.z, qid)
-            if marker and _try_add_yellow_marker(list, qid, marker) then n = n + 1 end
-        end
-    end
+    -- pinned_label_pos = text label anchor ONLY (no QuestTargetMarker diamond reinject)
     for qid, entry in pairs(MAP_API.pinned_pos) do
-        if MAP_API.pinned_data[qid] == nil then
+        if MAP_API._journal_label_only and MAP_API._journal_label_only[qid] then
+            -- skip diamond for MAIN label-only
+        elseif MAP_API.pinned_data[qid] == nil then
             for _, p in ipairs(entry) do
                 local marker = build_marker_at_pos(p.x, p.y, p.z, qid)
                 if marker and _try_add_yellow_marker(list, qid, marker) then n = n + 1 end
@@ -190,309 +213,20 @@ local function _marker_world_xyz(marker)
     return x, y, z
 end
 
--- =========== LABELED MAP ICONS ===========
+-- =========== LABELED MAP ICONS (quest_tracker_map_labels.lua) ===========
 local ICON_HOOK_INSTALLED = false
-local ICON_ICON_TYPE = 25
-local INT_T, INT_T_VOFF
 local UI_MAP = nil
-local API_PROBE_DONE = false
-local VANILLA_ADD_HOOKED = false
-local _label_cap_logged = false
-local _label_add_fail_logged = {}
 
-local function _icon_init_helpers()
-    if INT_T == nil then
-        INT_T = sdk.find_type_definition("System.Int32")
-        if INT_T then
-            local f = INT_T:get_field("m_value")
-            if f then INT_T_VOFF = f:get_offset_from_base() end
-        end
-    end
+local function get_quest_name_guid(qid)
+    return Labels.get_quest_name_guid(qid)
 end
 
 get_quest_resource = function(qlm, qid)
-    local cat = safe_get_field(qlm, "_Catalog")
-    if cat == nil then return nil end
-    local vals = safe_call(cat, "getValues")
-    if vals == nil then return nil end
-    local sz = 0; pcall(function() sz = vals:get_size() end)
-    for i = 0, sz - 1 do
-        local ok, v = pcall(function() return vals:get_element(i) end)
-        if ok and v then
-            if to_int(safe_get_field(v, "_QuestId") or safe_call(v, "get_QuestId")) == qid then return v end
-        end
-    end
-    return nil
-end
-
-local _guid_miss_logged = {}
-
-local function get_quest_name_guid(qid)
-    local qlm = sdk.get_managed_singleton("app.QuestLogManager")
-    if qlm == nil then return nil end
-    local vi = safe_call(qlm, "getQuestLog", qid)
-    if vi then
-        local g = safe_get_field(vi, "QuestNameId")
-        if g then return g end
-    end
-    local res = get_quest_resource(qlm, qid)
-    if res then
-        for _, key in ipairs({ "QuestNameId", "_QuestNameId", "NameId" }) do
-            local g = safe_get_field(res, key)
-            if g then return g end
-        end
-    end
-    if not _guid_miss_logged[qid] then
-        _guid_miss_logged[qid] = true
-        _mlog_map(string.format("[QT][map] name_guid miss qid=%d", qid))
-    end
-    return nil
-end
-
-local function _method_param_sig(m)
-    if m == nil then return 0, "?" end
-    local n = 0
-    pcall(function() n = m:get_num_params() end)
-    local parts = {}
-    for i = 0, math.max(0, n - 1) do
-        local pt = nil
-        pcall(function() pt = m:get_param_type(i) end)
-        parts[#parts + 1] = (pt and pt:get_full_name()) or "?"
-    end
-    return n, table.concat(parts, ", ")
-end
-
-local function _probe_add_map_icon_api()
-    if API_PROBE_DONE then return end
-    API_PROBE_DONE = true
-    local t2 = _td("app.ui040205")
-    if t2 == nil then
-        _mlog_map("[QT][map][api] addMapIconInfoList type ui040205 missing")
-        return
-    end
-    MAP_API._add_map_icon_overloads = {}
-    local n_over = 0
-    pcall(function()
-        for _, m in ipairs(t2:get_methods()) do
-            if m:get_name() == "addMapIconInfoList" then
-                n_over = n_over + 1
-                local np, sig = _method_param_sig(m)
-                MAP_API._add_map_icon_overloads[#MAP_API._add_map_icon_overloads + 1] = { m = m, n = np, sig = sig }
-                _mlog_map(string.format("[QT][map][api] overload[%d] params=%d types=%s", n_over, np, sig))
-            end
-        end
-    end)
-    _mlog_map(string.format("[QT][map][api] addMapIconInfoList overloads=%d", n_over))
-end
-
-local function _install_vanilla_add_sniff()
-    if VANILLA_ADD_HOOKED then return end
-    local t2 = _td("app.ui040205")
-    if t2 == nil then return end
-    for _, m in ipairs(t2:get_methods()) do
-        if m:get_name() == "addMapIconInfoList" then
-            local ok = pcall(function()
-                sdk.hook(m,
-                    function(args)
-                        if MAP_API._vanilla_add_logged then return end
-                        MAP_API._vanilla_add_logged = true
-                        local parts = {}
-                        for i = 3, 14 do
-                            local a = args[i]
-                            if a == nil then break end
-                            local desc = "?"
-                            local ok_m, mo = pcall(function() return sdk.to_managed_object(a) end)
-                            if ok_m and mo then
-                                local td_m = mo:get_type_definition()
-                                desc = (td_m and td_m:get_full_name()) or "managed"
-                            else
-                                local ok_n, n = pcall(function() return sdk.to_int64(a) end)
-                                if ok_n then desc = "i64=" .. tostring(n) else desc = type(a) end
-                            end
-                            parts[#parts + 1] = string.format("p%d=%s", i - 2, desc)
-                        end
-                        _mlog_map("[QT][map][api] vanilla addMapIconInfoList " .. table.concat(parts, " "))
-                    end,
-                    function(r) return r end)
-            end)
-            if ok then VANILLA_ADD_HOOKED = true; return end
-        end
-    end
-end
-
-local function _dispatch_label_invoke(this, info, idx_obj, name_guid, path_name, fn)
-    local ok, result = pcall(fn)
-    if ok and result ~= nil then
-        if MAP_API._label_invoke_win ~= path_name then
-            MAP_API._label_invoke_win = path_name
-            _mlog_map("[QT][map][api] label invoke WIN path=" .. path_name)
-        end
-        return result, path_name
-    end
-    local err = ok and "nil result" or tostring(result)
-    return nil, path_name, err
-end
-
-local function _invoke_add_map_icon(this, info, idx_obj, name_guid)
-    local idx_addr = idx_obj:get_address() + INT_T_VOFF
-    local win = MAP_API._label_invoke_win
-    if win then
-        local cached_paths = {
-            direct5_addr = function() return this:addMapIconInfoList(info, 0, idx_addr, -1, name_guid) end,
-            call5_addr = function() return this:call("addMapIconInfoList", info, 0, idx_addr, -1, name_guid) end,
-            direct5_ref = function() return this:addMapIconInfoList(info, 0, idx_obj, -1, name_guid) end,
-            call5_ref = function() return this:call("addMapIconInfoList", info, 0, idx_obj, -1, name_guid) end,
-        }
-        local cf = cached_paths[win]
-        if cf then
-            local result, pname, err = _dispatch_label_invoke(this, info, idx_obj, name_guid, win, cf)
-            if result then return result, pname end
-        end
-    end
-
-    local paths = {
-        { "direct5_addr", function() return this:addMapIconInfoList(info, 0, idx_addr, -1, name_guid) end },
-        { "call5_addr", function() return this:call("addMapIconInfoList", info, 0, idx_addr, -1, name_guid) end },
-        { "direct5_ref", function() return this:addMapIconInfoList(info, 0, idx_obj, -1, name_guid) end },
-        { "call5_ref", function() return this:call("addMapIconInfoList", info, 0, idx_obj, -1, name_guid) end },
-        { "direct4", function() return this:addMapIconInfoList(info, 0, idx_addr, name_guid) end },
-        { "call4", function() return this:call("addMapIconInfoList", info, 0, idx_addr, name_guid) end },
-        { "direct3", function() return this:addMapIconInfoList(info, 0, name_guid) end },
-        { "call6_false", function() return this:call("addMapIconInfoList", info, 0, idx_addr, -1, name_guid, false) end },
-        { "call6_0", function() return this:call("addMapIconInfoList", info, 0, idx_addr, -1, name_guid, 0) end },
-    }
-    if MAP_API._add_map_icon_overloads then
-        for _, ov in ipairs(MAP_API._add_map_icon_overloads) do
-            local mdef, n = ov.m, ov.n
-            if n == 6 then
-                paths[#paths + 1] = { "native6_f", function()
-                    return sdk.call_native_func(this, mdef, info, 0, idx_addr, -1, name_guid, false)
-                end }
-                paths[#paths + 1] = { "native6_0", function()
-                    return sdk.call_native_func(this, mdef, info, 0, idx_addr, -1, name_guid, 0)
-                end }
-            elseif n == 5 then
-                paths[#paths + 1] = { "native5_addr", function()
-                    return sdk.call_native_func(this, mdef, info, 0, idx_addr, -1, name_guid)
-                end }
-                paths[#paths + 1] = { "native5_ref", function()
-                    return sdk.call_native_func(this, mdef, info, 0, idx_obj, -1, name_guid)
-                end }
-            elseif n == 4 then
-                paths[#paths + 1] = { "native4", function()
-                    return sdk.call_native_func(this, mdef, info, 0, idx_addr, name_guid)
-                end }
-            end
-        end
-    end
-    local last_err = "all paths failed"
-    for _, p in ipairs(paths) do
-        local result, pname, err = _dispatch_label_invoke(this, info, idx_obj, name_guid, p[1], p[2])
-        if result then return result, pname end
-        last_err = err or last_err
-    end
-    return nil, nil, last_err
-end
-
-local function _add_one_labeled_icon(this, x, y, z, name_guid, idx_obj, qid, icon_idx)
-    local t2 = _td("app.GuiManager.MapIconInfo")
-    if t2 == nil then return nil end
-    local ok, info = pcall(function() return t2:create_instance():add_ref() end)
-    if not ok or info == nil then return nil end
-    pcall(function()
-        info.IsEnable = true
-        info.IsNavi = false
-        info.IconId = 0
-        info.SortNo = 0
-        info.IconType = ICON_ICON_TYPE
-        info.Timing = 0
-        info.Pos = Vector3f.new(x, y, z)
-        info.Area = -1
-        info.LocalArea = 0
-        info.IsDispAllArea = true
-    end)
-    local ui_icon, path_name, err = _invoke_add_map_icon(this, info, idx_obj, name_guid)
-    if ui_icon then
-        _mlog_map(string.format("[QT][map] label add OK qid=%d idx=%d path=%s", qid or -1, icon_idx or -1, path_name or "?"))
-        return ui_icon
-    end
-    if qid and not _label_add_fail_logged[qid] then
-        _label_add_fail_logged[qid] = true
-        local pc = MAP_API._add_map_icon_overloads and MAP_API._add_map_icon_overloads[1] and MAP_API._add_map_icon_overloads[1].n or "?"
-        _mlog_map(string.format("[QT][map] label add FAIL qid=%d err=%s invoke=ladder param_count=%s guid_type=%s",
-            qid, tostring(err), tostring(pc), type(name_guid)))
-    end
-    return nil
+    return Labels.get_quest_resource(qlm, qid)
 end
 
 local function _count_wanted_labels()
-    local want = 0
-    for _, pins in pairs(MAP_API.pinned_pos) do want = want + #pins end
-    for _ in pairs(MAP_API.pinned_label_pos) do want = want + 1 end
-    return want
-end
-
--- POI labels from pinned_pos; area-quest labels from pinned_label_pos (no extra yellow diamond).
-local function add_labeled_markers_for_all_pins(this)
-    if mod == nil or mod.label_pins ~= true then return 0 end
-    if this == nil then return 0 end
-    _icon_init_helpers()
-    if INT_T == nil or INT_T_VOFF == nil then return 0 end
-
-    local icon_count = 0
-    local icon_limit = 0
-    pcall(function() icon_count = this.MapIconInfoList:get_Count() end)
-    pcall(function() icon_limit = this.MapIcon:get_Length() end)
-    if icon_limit == 0 or icon_count >= icon_limit then
-        if not _label_cap_logged then
-            _label_cap_logged = true
-            local want = _count_wanted_labels()
-            _mlog_map(string.format("[QT][map] label cap hit count=%d limit=%d skipped=%d",
-                icon_count, icon_limit, want))
-        end
-        return 0
-    end
-
-    local added = 0
-    local idx_obj = INT_T:create_instance():add_ref()
-    for qid, pins in pairs(MAP_API.pinned_pos) do
-        if icon_count >= icon_limit then break end
-        local name_guid = get_quest_name_guid(qid)
-        if name_guid ~= nil then
-            for _, p in ipairs(pins) do
-                if icon_count >= icon_limit then break end
-                idx_obj:write_dword(INT_T_VOFF, icon_count)
-                if _add_one_labeled_icon(this, p.x, p.y, p.z, name_guid, idx_obj, qid, icon_count) ~= nil then
-                    icon_count = icon_count + 1
-                    added = added + 1
-                end
-            end
-        end
-    end
-    for qid, anchor in pairs(MAP_API.pinned_label_pos) do
-        if icon_count >= icon_limit then break end
-        local name_guid = get_quest_name_guid(qid)
-        if name_guid ~= nil and anchor then
-            idx_obj:write_dword(INT_T_VOFF, icon_count)
-            if _add_one_labeled_icon(this, anchor.x, anchor.y, anchor.z, name_guid, idx_obj, qid, icon_count) ~= nil then
-                icon_count = icon_count + 1
-                added = added + 1
-                if HYBRID_AREA_QIDS and HYBRID_AREA_QIDS[qid] then
-                    _mlog_map(string.format("[QT][map] hybrid %d anchor=(%.0f,%.0f,%.0f) label_icon=ok",
-                        qid, anchor.x, anchor.y, anchor.z))
-                end
-            elseif HYBRID_AREA_QIDS and HYBRID_AREA_QIDS[qid] then
-                _mlog_map(string.format("[QT][map] hybrid %d anchor=(%.0f,%.0f,%.0f) label_icon=fail",
-                    qid, anchor.x, anchor.y, anchor.z))
-            end
-        elseif not _label_add_fail_logged[qid] then
-            _label_add_fail_logged[qid] = true
-            local reason = (name_guid == nil) and "name_guid_nil" or "xyz_nil"
-            _mlog_map(string.format("[QT][map] label FAIL qid=%d reason=%s count=%d limit=%d",
-                qid, reason, icon_count, icon_limit))
-        end
-    end
-    return added
+    return Labels.count_wanted_labels()
 end
 
 local function _log_map_zoom_once(ui)
@@ -526,7 +260,7 @@ end
 
 local function _sniff_map_ui_once(ui)
     if not mod or mod.deep_sniff ~= true then return end
-    pcall(_probe_add_map_icon_api)
+    pcall(Labels.probe_api)
     if mod._qt_map_sniff_done then return end
     mod._qt_map_sniff_done = true
     local t2 = _td("app.ui040205")
@@ -573,7 +307,7 @@ local function install_icon_hook()
     if t2 == nil then return false end
     local m_setup = t2:get_method("setupMapIcon")
     if m_setup == nil then return false end
-    pcall(_install_vanilla_add_sniff)
+    pcall(Labels.install_vanilla_sniff)
     local ok = pcall(function()
         sdk.hook(m_setup,
             function(args)
@@ -582,11 +316,12 @@ local function install_icon_hook()
             function(retval)
                 local this = UI_MAP
                 if this ~= nil then
+                    if mod then mod._qt_map_ui_active = true end
                     if mod and not mod._qt_map_open_logged then
                         mod._qt_map_open_logged = true
                         _mlog_map("[QT][map] setupMapIcon — map UI open")
                     end
-                    pcall(_probe_add_map_icon_api)
+                    pcall(Labels.probe_api)
                     pcall(_log_map_zoom_once, this)
                     pcall(_sniff_map_ui_once, this)
                     do
@@ -598,23 +333,88 @@ local function install_icon_hook()
                             MAP_API._map_icon_gen = (MAP_API._map_icon_gen or 0) + 1
                             MAP_API._last_map_layer = layer
                             MAP_API._blob_reinject_this_hook = {}
-                            _label_add_fail_logged = {}
+                            MAP_API._inject_done_for_gen = {}
+                            Labels.on_layer_change()
                             _mlog_map(string.format("[QT][map] map layer change gen=%d world=%s detail=%s local=%s",
                                 MAP_API._map_icon_gen, tostring(wm), tostring(dm), tostring(la)))
                             pcall(function() flush_journal_pin_pending("layer_change") end)
                         end
                     end
-                    MAP_API._pin_added_this_hook = {}
-                    pcall(queue_journal_pin_if_needed)
+                    -- Diamonds once per layer gen (QuestTargetMarkerList does NOT reset).
+                    -- Labels every setupMapIcon (MapIconInfoList does reset).
+                    local gen = MAP_API._map_icon_gen or 0
+                    MAP_API._inject_done_for_gen = MAP_API._inject_done_for_gen or {}
                     local reinjected = 0
-                    pcall(function() reinjected = reinject_all() end)
-                    pcall(function() this:call("updateMapIcon") end)
+                    if not MAP_API._inject_done_for_gen[gen] then
+                        MAP_API._inject_done_for_gen[gen] = true
+                        MAP_API._pin_added_this_hook = {}
+                        pcall(queue_journal_pin_if_needed)
+                        pcall(function() reinjected = reinject_all() end)
+                        pcall(function() this:call("updateMapIcon") end)
+                        MAP_API._pin_added_this_hook = {}
+                    end
+                    -- Test1: game MAIN diamond already on list but Lua label state empty
+                    -- (flush blocked / deferred). Attach label here — marker XYZ is live.
+                    do
+                        local jqid = mod and mod._qt_journal_qid
+                        if jqid and jqid > 0 then
+                            local already = (MAP_API.pinned_label_pos and MAP_API.pinned_label_pos[jqid])
+                                or (MAP_API.pinned_pos and MAP_API.pinned_pos[jqid])
+                                or (MAP_API.pinned_data and MAP_API.pinned_data[jqid])
+                            if not already then
+                                local ok_p, pin_ok, pin_msg = pcall(pin_quest, jqid, true)
+                                -- #region agent log
+                                _mlog_map(string.format(
+                                    "[QT][dbg62] hyp=H10 map_force_MAIN_label qid=%d ok=%s pin_ok=%s msg=%s",
+                                    jqid, tostring(ok_p), tostring(pin_ok), tostring(pin_msg)))
+                                -- #endregion
+                                if ok_p and pin_ok and pin_msg ~= "journal-label-deferred" then
+                                    MAP_API._journal_pin_pending = nil
+                                    MAP_API._journal_pin_pending_frames = nil
+                                end
+                            end
+                        end
+                    end
                     local labels, want = 0, _count_wanted_labels()
-                    pcall(function() labels = add_labeled_markers_for_all_pins(this) or 0 end)
+                    pcall(function() labels = Labels.add_labeled_markers_for_all_pins(this) or 0 end)
                     pcall(function() this:call("updateMapIcon") end)
-                    _mlog_map(string.format("[QT][map] setupMapIcon reinject=%d labels=%d want=%d",
-                        reinjected, labels, want))
-                    MAP_API._pin_added_this_hook = {}
+                    -- #region agent log
+                    do
+                        local marker_cnt = -1
+                        local list = nil
+                        pcall(function()
+                            list = get_marker_list()
+                            if list then marker_cnt = list:get_Count() end
+                        end)
+                        local jqid = (mod and mod._qt_journal_qid) or -1
+                        _mlog_map(string.format(
+                            "[QT][map] setupMapIcon gen=%d reinject=%d labels=%d want=%d markers=%d MAIN=%s",
+                            gen, reinjected, labels, want, marker_cnt, tostring(jqid)))
+                        -- H4/H7: dump marker XYZ once per gen when count != want (ghosts / extras)
+                        MAP_API._marker_dump_gen = MAP_API._marker_dump_gen or {}
+                        if list and marker_cnt >= 0 and want >= 0
+                            and marker_cnt ~= want and not MAP_API._marker_dump_gen[gen] then
+                            MAP_API._marker_dump_gen[gen] = true
+                            local dump = {}
+                            for i = 0, math.min(marker_cnt, 24) - 1 do
+                                local mx, my, mz = nil, nil, nil
+                                pcall(function()
+                                    local mk = list:call("get_Item", i)
+                                    if mk == nil then mk = list[i] end
+                                    mx, my, mz = _marker_world_xyz(mk)
+                                end)
+                                if mx then
+                                    dump[#dump + 1] = string.format("%d:%.0f,%.0f,%.0f", i, mx, my, mz)
+                                else
+                                    dump[#dump + 1] = string.format("%d:?", i)
+                                end
+                            end
+                            _mlog_map(string.format(
+                                "[QT][dbg62] hyp=H4 marker_dump gen=%d count=%d want=%d [%s]",
+                                gen, marker_cnt, want, table.concat(dump, ";")))
+                        end
+                    end
+                    -- #endregion
                 end
                 return retval
             end)
@@ -628,9 +428,15 @@ local function install_icon_hook()
                 MAP_API._last_map_layer = nil
                 MAP_API._blob_reinject_this_hook = {}
                 if mod then
+                    mod._qt_map_ui_active = false
                     mod._qt_map_sniff_done = nil
                     mod._qt_map_zoom_logged = nil
                     mod._qt_map_open_logged = nil
+                    local sdk_close = 1.0
+                    mod._qt_map_close_until = os.clock() + sdk_close
+                    mod._qt_sdk_suppress_until = os.clock() + sdk_close
+                    mod._qt_post_save_block_until = math.max(mod._qt_post_save_block_until or 0, os.clock() + sdk_close)
+                    mlog_boot("[QT] map_close sdk=" .. tostring(sdk_close) .. "s (overlay never blocked)")
                 end
                 MAP_API._journal_pin_pending = nil
                 MAP_API._journal_pin_pending_frames = nil
@@ -656,6 +462,8 @@ init_map_api = function()
         if m_setup then
             local ok = pcall(function()
                 sdk.hook(m_setup, function() end, function(r)
+                    -- Game rebuilt QuestTargetMarkerList — our prior Adds are gone.
+                    MAP_API._diamond_on_list = {}
                     pcall(function() flush_journal_pin_pending("setupQuestTargetMarker") end)
                     pcall(reinject_all)
                     return r
@@ -674,16 +482,26 @@ init_map_api = function()
         JOURNAL_PIN_FRAME_HOOK = true
         re.on_frame(function()
             local pending = MAP_API._journal_pin_pending
-            if pending == nil or pending <= 0 then return end
-            MAP_API._journal_pin_pending_frames = (MAP_API._journal_pin_pending_frames or 0) + 1
-            if MAP_API._journal_pin_pending_frames < 30 then return end
-            local now = os.clock()
-            local last = MAP_API._journal_pin_defer_last_try or 0
-            if (now - last) < 0.5 then return end
-            MAP_API._journal_pin_defer_last_try = now
-            _mlog_map(string.format("[QT][map] auto-pin defer frame=%d qid=%d",
-                MAP_API._journal_pin_pending_frames, pending))
-            pcall(function() flush_journal_pin_pending("on_frame") end)
+            if pending and pending > 0 then
+                MAP_API._journal_pin_pending_frames = (MAP_API._journal_pin_pending_frames or 0) + 1
+                if MAP_API._journal_pin_pending_frames < 30 then return end
+                local now = os.clock()
+                local last = MAP_API._journal_pin_defer_last_try or 0
+                if (now - last) < 0.5 then return end
+                MAP_API._journal_pin_defer_last_try = now
+                _mlog_map(string.format("[QT][map] auto-pin defer frame=%d qid=%d",
+                    MAP_API._journal_pin_pending_frames, pending))
+                pcall(function() flush_journal_pin_pending("on_frame") end)
+                return
+            end
+            -- No journal pending: periodically try upgrading fallback-pinned ongoing quests
+            if next(MAP_API._fallback_pending_upgrade) then
+                MAP_API._upgrade_frame_tick = (MAP_API._upgrade_frame_tick or 0) + 1
+                if MAP_API._upgrade_frame_tick >= 300 then
+                    MAP_API._upgrade_frame_tick = 0
+                    pcall(try_upgrade_fallback_pins)
+                end
+            end
         end)
     end
     if not _init_map_api_logged then
@@ -695,13 +513,64 @@ init_map_api = function()
     return true
 end
 
+-- v1.4.0: never RemoveAt QuestTargetMarkerList — clear Lua pin state, let game rebuild.
 clear_injected_markers = function()
+    local diamonds = 0
+    for _ in pairs(MAP_API.pinned_data or {}) do diamonds = diamonds + 1 end
+    for _ in pairs(MAP_API.pinned_pos or {}) do diamonds = diamonds + 1 end
+    local markers_before = -1
+    pcall(function()
+        local list = get_marker_list()
+        if list then markers_before = list:get_Count() end
+    end)
+    local jqid = (mod and mod._qt_journal_qid) or -1
     MAP_API.pinned_data = {}
     MAP_API.pinned_pos = {}
     MAP_API.pinned_label_pos = {}
+    MAP_API._journal_label_only = {}
+    MAP_API._fallback_pending_upgrade = {}
+    MAP_API._diamond_on_list = {}
+    MAP_API._journal_pin_log_once = nil
+    MAP_API._journal_pin_pending = nil
+    MAP_API._journal_pin_pending_frames = nil
+    MAP_API._qt_injected_labels = {}
+    MAP_API._qt_injected_label_idxs = {}
     MAP_API.last_msg = "pins cleared"
     force_marker_refresh()
-    _mlog_map("[QT][map] clear done")
+    local markers_after = -1
+    pcall(function()
+        local list = get_marker_list()
+        if list then markers_after = list:get_Count() end
+    end)
+    _mlog_map(string.format(
+        "[QT][map] clear done pins=%d markers %d→%d MAIN=%s (no list wipe)",
+        diamonds, markers_before, markers_after, tostring(jqid)))
+    -- Always restore MAIN name banner (game diamond stays). Not gated on auto_pin_journal —
+    -- Clear wipes Lua label state; without this, want=0 and MAIN stays unlabeled (Test2 FAIL).
+    if jqid and jqid > 0 then
+        local ok_m, pin_ok = pcall(pin_quest, jqid, true)
+        -- #region agent log
+        _mlog_map(string.format(
+            "[QT][dbg62] hyp=H9 clear_restore_MAIN qid=%d ok=%s pin_ok=%s",
+            jqid, tostring(ok_m), tostring(pin_ok)))
+        -- #endregion
+        if not (ok_m and pin_ok) then
+            MAP_API._journal_pin_pending = jqid
+            MAP_API._journal_pin_pending_frames = 0
+            _mlog_map(string.format("[QT][map] clear MAIN restore deferred qid=%d", jqid))
+        end
+    end
+    if mod and (mod.auto_pin_ongoing or mod.auto_pin_available) then
+        local av_n, on_n = 0, 0
+        for _, q in ipairs(mod.quests or {}) do
+            if not q.voided then
+                if q.category == "Available" and mod.auto_pin_available then av_n = av_n + 1 end
+                if q.category == "Ongoing" and mod.auto_pin_ongoing then on_n = on_n + 1 end
+            end
+        end
+        pcall(run_autopin_if_enabled)
+        _mlog_map(string.format("[QT][map] clear repin available=%d ongoing=%d", av_n, on_n))
+    end
 end
 
 force_marker_refresh = function()
@@ -784,17 +653,10 @@ local function _info_dict_entry(qlm, qid)
     local dict = safe_get_field(qlm, "_QuestLogInfoDict")
     if dict == nil then return nil end
     local want = tonumber(qid) or qid
-    local entry = nil
-    local function try_key(k)
-        if entry or k == nil then return end
-        pcall(function() entry = dict[k] end)
-        if not entry and dict.get_Item then
-            pcall(function() entry = dict:call("get_Item", k) end)
-        end
+    if safe_dict_get then
+        return safe_dict_get(dict, qid) or safe_dict_get(dict, want)
     end
-    try_key(qid)
-    try_key(want)
-    return entry
+    return nil
 end
 
 local function get_live_info_destinations(qlm, qid)
@@ -846,6 +708,51 @@ local function _journal_already_pinned(qid)
         or MAP_API.pinned_data[qid] ~= nil
 end
 
+-- Read world XYZ from an existing game QuestTargetMarker (MAIN journal diamond).
+local function _read_game_marker_xyz(list)
+    if list == nil then return nil end
+    local cnt = 0
+    pcall(function() cnt = list:get_Count() end)
+    if cnt <= 0 then return nil end
+    for i = 0, cnt - 1 do
+        local marker = nil
+        pcall(function() marker = list:get_Item(i) end)
+        if marker == nil then pcall(function() marker = list:call("get_Item", i) end) end
+        local x, y, z = _marker_world_xyz(marker)
+        if x then return x, y, z end
+    end
+    return nil
+end
+
+-- MAIN journal: label the game's own diamond — never Add a second custom diamond.
+local function _pin_journal_label_only(qid, list, defer_refresh)
+    local x, y, z = _read_game_marker_xyz(list)
+    local src = "game_marker"
+    if x == nil then
+        local qlm = sdk.get_managed_singleton("app.QuestLogManager")
+        local live = qlm and get_live_info_destinations(qlm, qid)
+        if live then
+            x, y, z = _extract_dest_xyz(live, qid)
+            src = "live_dest"
+        end
+    end
+    if x == nil then
+        return nil
+    end
+    MAP_API._journal_label_only = MAP_API._journal_label_only or {}
+    MAP_API._journal_label_only[qid] = true
+    MAP_API.pinned_data[qid] = nil
+    MAP_API.pinned_pos[qid] = nil
+    MAP_API.pinned_label_pos[qid] = { x = x, y = y, z = z }
+    MAP_API._fallback_pending_upgrade[qid] = nil
+    -- #region agent log
+    _mlog_map(string.format("[QT][dbg62] hyp=H6 journal_label_only qid=%d src=%s xyz=%.0f,%.0f,%.0f",
+        qid, src, x, y, z))
+    -- #endregion
+    _mlog_map(string.format("[QT][map] pin MAIN label-only qid=%d src=%s (no diamond add)", qid, src))
+    return _pin_done(string.format("pinned qid=%d journal-label-only src=%s", qid, src), defer_refresh)
+end
+
 local function _journal_pin_log_once(key, msg)
     MAP_API._journal_pin_log_once = MAP_API._journal_pin_log_once or {}
     if MAP_API._journal_pin_log_once[key] then return end
@@ -854,6 +761,43 @@ local function _journal_pin_log_once(key, msg)
 end
 
 flush_journal_pin_pending = function(from_tag)
+    if mod then
+        if not mod._game_ready then
+            -- #region agent log
+            _journal_pin_log_once("flush_not_ready",
+                string.format("[QT][dbg62] hyp=H10 flush_block reason=not_ready from=%s", tostring(from_tag)))
+            -- #endregion
+            return false
+        end
+        if mod._qt_game_ready_at and os.clock() < mod._qt_game_ready_at + 5.0 then
+            -- #region agent log
+            _journal_pin_log_once("flush_grace",
+                string.format("[QT][dbg62] hyp=H10 flush_block reason=boot_grace from=%s", tostring(from_tag)))
+            -- #endregion
+            return false
+        end
+        if mod._qt_is_draw_suppressed and mod._qt_is_draw_suppressed() then
+            -- #region agent log
+            _journal_pin_log_once("flush_suppress",
+                string.format("[QT][dbg62] hyp=H10 flush_block reason=draw_suppress from=%s", tostring(from_tag)))
+            -- #endregion
+            return false
+        end
+        local gm = sdk.get_managed_singleton("app.GuiManager")
+        if gm then
+            local blocked = false
+            pcall(function()
+                if gm:get_IsLoadGui() == true then blocked = true end
+            end)
+            if blocked then
+                -- #region agent log
+                _journal_pin_log_once("flush_loadgui",
+                    string.format("[QT][dbg62] hyp=H10 flush_block reason=load_gui from=%s", tostring(from_tag)))
+                -- #endregion
+                return false
+            end
+        end
+    end
     local pending = MAP_API._journal_pin_pending
     if pending == nil or pending <= 0 then return false end
     if not init_map_api() then
@@ -875,12 +819,18 @@ flush_journal_pin_pending = function(from_tag)
         return false
     end
     local ok_pin, pin_ok, pin_err = pcall(pin_quest, pending, true)
+    -- Deferred = still waiting for game marker — keep pending (do not treat as OK).
+    if ok_pin and pin_ok and pin_err == "journal-label-deferred" then
+        _mlog_map(string.format("[QT][map] auto-pin still deferred qid=%d from=%s", pending, tostring(from_tag)))
+        return false
+    end
     if ok_pin and pin_ok then
         MAP_API._journal_pin_pending = nil
         MAP_API._journal_pin_pending_frames = nil
         MAP_API._journal_pin_defer_last_try = nil
         _mlog_map(string.format("[QT][map] auto-pin OK qid=%d from=%s", pending, tostring(from_tag)))
         if not MAP_API._refreshing then force_marker_refresh() end
+        pcall(try_upgrade_fallback_pins)
         return true
     end
     local err = (not ok_pin) and tostring(pin_ok) or tostring(pin_err)
@@ -1032,23 +982,173 @@ local function _pin_poi_from_dest_live(qid, list, dests, defer_refresh)
     if marker == nil then return false, "live poi marker failed" end
     pcall(function() list:call("Add", marker) end)
     MAP_API.pinned_pos[qid] = { { x = x, y = y, z = z, live = true } }
+    MAP_API.pinned_label_pos[qid] = { x = x, y = y, z = z }
     return _pin_done(string.format("pinned qid=%d live-dest anchor=live", qid), defer_refresh)
 end
 
-local function _pin_live_journal_quest(qid, qlm, list, defer_refresh)
-    if not _is_live_priority_quest(qid, qlm) then return nil end
+local function _pin_live_ongoing_quest(qid, qlm, list, defer_refresh)
     local live = get_live_info_destinations(qlm, qid)
-    if live == nil then return nil end
+    if live == nil then
+        MAP_API._live_miss_logged = MAP_API._live_miss_logged or {}
+        if not MAP_API._live_miss_logged[qid] then
+            MAP_API._live_miss_logged[qid] = true
+            _mlog_map(string.format("[QT][map] live miss qid=%d reason=no_CurrentDestinations", qid))
+        end
+        return nil
+    end
     if BLOB_AREA_QIDS and BLOB_AREA_QIDS[qid] then
         return _pin_sculpt_quest(qid, list, live, defer_refresh, "live")
     end
     return _pin_poi_from_dest_live(qid, list, live, defer_refresh)
 end
 
-local function _pin_poi_from_dest(qid, list, dests, defer_refresh)
+local function _pin_live_journal_quest(qid, qlm, list, defer_refresh)
+    if not _is_live_priority_quest(qid, qlm) then return nil end
+    return _pin_live_ongoing_quest(qid, qlm, list, defer_refresh)
+end
+
+-- Available pins: giver NPC in world only — never MANUAL_POS / bundled coords.
+_pin_available_at = function(qid, list, x, y, z, path_tag, defer_refresh)
+    local marker = build_marker_at_pos(x, y, z, qid)
+    if marker == nil then return false, "available marker failed" end
+    pcall(function() list:call("Add", marker) end)
+    _mark_diamond_on_list(qid)
+    MAP_API.pinned_pos[qid] = { { x = x, y = y, z = z, available = path_tag } }
+    MAP_API.pinned_label_pos[qid] = { x = x, y = y, z = z }
+    -- #region agent log
+    do
+        local parts = {
+            string.format('"qid":"%s"', tostring(qid)),
+            string.format('"path":"%s"', tostring(path_tag)),
+            string.format('"xyz":"%.0f,%.0f,%.0f"', x or 0, y or 0, z or 0),
+        }
+        local payload = string.format(
+            '{"sessionId":"62ebea","runId":"halfpass","hypothesisId":"H5","location":"map:_pin_available_at","message":"pin_xyz","data":{%s},"timestamp":%d}\n',
+            table.concat(parts, ","), math.floor((os.clock() or 0) * 1000))
+        pcall(function()
+            local f = io.open("c:/Users/jzafi/Desktop/New folder/OTHERMODS/QuestTracker-Modded/debug-62ebea.log", "a")
+            if f then f:write(payload); f:close() end
+        end)
+        _mlog_map(string.format("[QT][dbg62] hyp=H5 pin_xyz qid=%s path=%s xyz=%.0f,%.0f,%.0f",
+            tostring(qid), tostring(path_tag), x or 0, y or 0, z or 0))
+    end
+    -- #endregion
+    local is_ongoing_path = path_tag == "npc-ongoing" or path_tag == "step-npc" or path_tag == "bundled-ongoing"
+    local log_tag = is_ongoing_path and "pin ongoing" or "pin available"
+    _mlog_map(string.format("[QT][map] %s qid=%d path=%s", log_tag, qid, path_tag))
+    if path_tag == "npc-ongoing" or path_tag == "step-npc" or path_tag == "bundled-ongoing" then
+        MAP_API._fallback_pending_upgrade[qid] = true
+        _mlog_map(string.format("[QT][map] pin defer live qid=%d fallback=%s pending_upgrade=1", qid, path_tag))
+    else
+        MAP_API._fallback_pending_upgrade[qid] = nil
+    end
+    return _pin_done(string.format("pinned qid=%d available path=%s", qid, path_tag), defer_refresh)
+end
+
+local function _player_map_region()
+    local la = UI_MAP and safe_get_field(UI_MAP, "LocalAreaNow")
+    if la == nil and UI_MAP then pcall(function() la = UI_MAP:call("get_LocalAreaNow") end) end
+    if type(la) ~= "number" then return nil end
+    -- Vernworth/Melve/Borderwatch cluster vs Battahl vs Volcanic (approximate LocalArea bands)
+    if la >= 60 and la <= 70 then return "Vermund" end
+    if la >= 80 and la <= 90 then return "Battahl" end
+    if la >= 100 then return "Volcanic" end
+    return nil
+end
+
+local function _quest_meta_region(qid)
+    if QD and QD.get_quest_meta_region then
+        local ok, r = pcall(QD.get_quest_meta_region, qid)
+        if ok and type(r) == "string" and r ~= "" then return r end
+    end
+    return nil
+end
+
+local function _region_blocks_available_pin(qid, has_npc)
+    if has_npc then return false end
+    local qr = _quest_meta_region(qid)
+    local pr = _player_map_region()
+    if qr and pr and qr ~= pr then return true end
+    return false
+end
+
+local function _pin_available_skip(qid, reason)
+    _mlog_map(string.format("[QT][map] pin available skip qid=%d reason=%s", qid, reason))
+    return false, reason
+end
+
+local function _try_npc_giver_pin(qid, list, cid, path_tag, defer_refresh)
+    local wx, wy, wz = get_character_world_pos(cid)
+    if wx then
+        return _pin_available_at(qid, list, wx, wy, wz, path_tag, defer_refresh)
+    end
+    return nil
+end
+
+local function _pin_available_quest(qid, list, defer_refresh)
+    if MANUAL_GIVER_OVERRIDES[qid] then
+        local r = _try_npc_giver_pin(qid, list, MANUAL_GIVER_OVERRIDES[qid], "npc", defer_refresh)
+        if r ~= nil then return r end
+    end
+    if QD and QD.get_primary_giver_cid then
+        local ok, pcid = pcall(QD.get_primary_giver_cid, qid)
+        if ok and pcid then
+            local r = _try_npc_giver_pin(qid, list, pcid, "npc", defer_refresh)
+            if r ~= nil then return r end
+        end
+    end
+    local cast = qd_givers_display_order(qid) or qd_givers(qid) or get_quest_cast_charaids(qid)
+    if cast and #cast > 0 then
+        local GENERIC = { [2891076981] = true, [260732951] = true }
+        local elim_cids = {}
+        local el = MAP_API.eliminated_pos[qid]
+        if el then
+            for _, p in ipairs(el) do
+                local ek = cid_norm(p.cid)
+                if ek then elim_cids[ek] = true end
+            end
+        end
+        for _, c in ipairs(cast) do
+            if not GENERIC[c] and not elim_cids[cid_norm(c)] then
+                local r = _try_npc_giver_pin(qid, list, c, "npc", defer_refresh)
+                if r ~= nil then return r end
+            end
+        end
+    end
+    if get_all_giver_cids then
+        local ok, cids = pcall(get_all_giver_cids, qid, nil)
+        if ok and type(cids) == "table" then
+            for _, c in ipairs(cids) do
+                local r = _try_npc_giver_pin(qid, list, c, "npc", defer_refresh)
+                if r ~= nil then return r end
+            end
+        end
+    end
+    if _region_blocks_available_pin(qid, false) then
+        return _pin_available_skip(qid, "region")
+    end
+    return _pin_available_skip(qid, "no_giver")
+end
+
+local function _pin_first_step_giver(qid, list, step_title, path_tag, defer_refresh)
+    if not get_all_giver_cids or type(step_title) ~= "string" or step_title == "" then return nil end
+    local ok, cids = pcall(get_all_giver_cids, qid, step_title)
+    if not ok or type(cids) ~= "table" or #cids == 0 then return nil end
+    for _, c in ipairs(cids) do
+        local wx, wy, wz = get_character_world_pos(c)
+        if wx then
+            return _pin_available_at(qid, list, wx, wy, wz, path_tag, defer_refresh)
+        end
+    end
+    return nil
+end
+
+local function _pin_poi_from_dest(qid, list, dests, defer_refresh, opts)
+    opts = opts or {}
     _sniff_dest_once(qid, dests)
     local x, y, z, anchor_src = nil, nil, nil, "dest"
-    if MANUAL_POS_OVERRIDES and MANUAL_POS_OVERRIDES[qid] then
+    local skip_manual = opts.skip_manual == true
+    if not skip_manual and MANUAL_POS_OVERRIDES and MANUAL_POS_OVERRIDES[qid] then
         local p = MANUAL_POS_OVERRIDES[qid]
         x, y, z = p.x, p.y, p.z
         anchor_src = "manual"
@@ -1066,6 +1166,7 @@ local function _pin_poi_from_dest(qid, list, dests, defer_refresh)
     if marker == nil then return false, "poi marker failed" end
     pcall(function() list:call("Add", marker) end)
     MAP_API.pinned_pos[qid] = { { x = x, y = y, z = z } }
+    MAP_API.pinned_label_pos[qid] = { x = x, y = y, z = z }
     return _pin_done(string.format("pinned qid=%d poi-diamond anchor=%s", qid, anchor_src), defer_refresh)
 end
 
@@ -1076,7 +1177,27 @@ pin_quest = function(qid, defer_refresh)
     local list = get_marker_list()
     if list == nil then return false, "marker list nil" end
 
-    local is_available = mod.acceptable_ids[qid] == true
+    -- MAIN journal: never add a second diamond; label the game's own marker.
+    -- If game marker / live dest not ready yet: DEFER — never fall back to npc-ongoing
+    -- (that created Test1 dual diamond: wrong Hugo NPC + correct game MAIN).
+    if mod and mod._qt_journal_qid == qid then
+        local jr = _pin_journal_label_only(qid, list, defer_refresh)
+        if jr ~= nil then return jr end
+        MAP_API._journal_pin_pending = qid
+        MAP_API._journal_pin_pending_frames = 0
+        -- #region agent log
+        _mlog_map(string.format(
+            "[QT][dbg62] hyp=H1 MAIN label-only DEFER (no npc fallback) qid=%d", qid))
+        -- #endregion
+        _mlog_map(string.format(
+            "[QT][map] MAIN label-only deferred qid=%d (waiting game marker)", qid))
+        return true, "journal-label-deferred"
+    end
+
+    -- Acceptable OR side-quest Upcoming (meta ready, game not Acceptable yet).
+    -- Main-story upcoming (qid < 20000) stays false so we never npc-pin endgame.
+    local is_available = (mod.acceptable_ids and mod.acceptable_ids[qid] == true)
+        or (mod.upcoming_ids and mod.upcoming_ids[qid] == true and qid >= 20000)
     local added = 0
 
     if not is_available and HYBRID_AREA_QIDS and HYBRID_AREA_QIDS[qid] then
@@ -1087,74 +1208,60 @@ pin_quest = function(qid, defer_refresh)
         end
     end
 
-    if not is_available then
-        local live_r, live_msg = _pin_live_journal_quest(qid, qlm, list, defer_refresh)
+    local is_ongoing = (not is_available) and mod and mod.progressing_ids and mod.progressing_ids[qid] == true
+    if is_ongoing then
+        local live_r, live_msg = _pin_live_ongoing_quest(qid, qlm, list, defer_refresh)
         if live_r ~= nil then return live_r, live_msg end
+        local step_title = mod._qt_step_title and mod._qt_step_title[qid]
+        local step_r = _pin_first_step_giver(qid, list, step_title, "step-npc", defer_refresh)
+        if step_r ~= nil then return step_r end
     end
 
-    if MANUAL_POS_OVERRIDES[qid] then
+    local block_manual_main = is_ongoing
+
+    if MANUAL_POS_OVERRIDES[qid] and not block_manual_main and not is_available then
         local p = MANUAL_POS_OVERRIDES[qid]
         local marker = build_marker_at_pos(p.x, p.y, p.z, qid)
         if marker then
             pcall(function() list:call("Add", marker) end)
+            _mark_diamond_on_list(qid)
             MAP_API.pinned_pos[qid] = { { x = p.x, y = p.y, z = p.z, manual = true } }
+            MAP_API.pinned_label_pos[qid] = { x = p.x, y = p.y, z = p.z }
+            if is_available then
+                _mlog_map(string.format("[QT][map] pin available qid=%d path=manual", qid))
+            end
             return _pin_done(string.format("pinned qid=%d (manual pos)", qid), defer_refresh)
         end
         return false, "manual pos marker failed"
     end
 
     if is_available then
+        return _pin_available_quest(qid, list, defer_refresh)
+    else
+        local step_title = mod._qt_step_title and mod._qt_step_title[qid]
+        local step_r2 = _pin_first_step_giver(qid, list, step_title, "step-npc", defer_refresh)
+        if step_r2 ~= nil then return step_r2 end
         if MANUAL_GIVER_OVERRIDES[qid] then
             local cid = MANUAL_GIVER_OVERRIDES[qid]
             local wx, wy, wz = get_character_world_pos(cid)
             if wx then
-                local marker = build_marker_at_pos(wx, wy, wz, qid)
-                if marker then
-                    pcall(function() list:call("Add", marker) end)
-                    MAP_API.pinned_pos[qid] = { { x = wx, y = wy, z = wz, cid = cid } }
-                    return _pin_done(string.format("pinned qid=%d cid=%d", qid, cid), defer_refresh)
-                end
+                return _pin_available_at(qid, list, wx, wy, wz, "npc-ongoing", defer_refresh)
             end
         end
-
         local cast = qd_givers_display_order(qid) or qd_givers(qid) or get_quest_cast_charaids(qid)
         if cast and #cast > 0 then
-            local GENERIC = { [2891076981] = true, [260732951] = true }
-            local elim_cids = {}
-            local el = MAP_API.eliminated_pos[qid]
-            if el then
-                for _, p in ipairs(el) do
-                    local ek = cid_norm(p.cid)
-                    if ek then elim_cids[ek] = true end
-                end
-            end
-            local multi = {}
             for _, c in ipairs(cast) do
-                if not GENERIC[c] and not elim_cids[cid_norm(c)] then
-                    local wx, wy, wz = get_character_world_pos(c)
-                    if wx then
-                        local marker = build_marker_at_pos(wx, wy, wz, qid)
-                        if marker then
-                            local okA = pcall(function() list:call("Add", marker) end)
-                            if okA then added = added + 1 end
-                        end
-                        multi[#multi + 1] = { x = wx, y = wy, z = wz, cid = c }
-                    end
+                local wx, wy, wz = get_character_world_pos(c)
+                if wx then
+                    return _pin_available_at(qid, list, wx, wy, wz, "npc-ongoing", defer_refresh)
                 end
             end
-            if #multi > 0 then
-                MAP_API.pinned_pos[qid] = multi
-                return _pin_done(string.format("pinned qid=%d %d candidate(s)", qid, #multi), defer_refresh)
-            end
         end
-        return false, "no NPC found in world for this quest"
-    else
-        local dests = get_quest_destinations(qlm, qid) or get_live_info_destinations(qlm, qid)
-        if not dests then return false, "no destinations (catalog or InfoDict)" end
-        if BLOB_AREA_QIDS and BLOB_AREA_QIDS[qid] then
-            return _pin_sculpt_quest(qid, list, dests, defer_refresh)
+        local bp = BUNDLED_POS_OVERRIDES and BUNDLED_POS_OVERRIDES[qid]
+        if bp and bp.x then
+            return _pin_available_at(qid, list, bp.x, bp.y, bp.z, "bundled-ongoing", defer_refresh)
         end
-        return _pin_poi_from_dest(qid, list, dests, defer_refresh)
+        return false, "no live/bundled/npc for ongoing quest"
     end
 end
 
@@ -1162,10 +1269,69 @@ unpin_quest = function(qid, defer_refresh)
     MAP_API.pinned_data[qid] = nil
     MAP_API.pinned_pos[qid] = nil
     MAP_API.pinned_label_pos[qid] = nil
+    if MAP_API._journal_label_only then MAP_API._journal_label_only[qid] = nil end
+    MAP_API._fallback_pending_upgrade[qid] = nil
     MAP_API.last_msg = "unpinned qid=" .. qid
+    _mlog_map("[QT][map] unpinned qid=" .. tostring(qid))
     if defer_refresh then return true end
     force_marker_refresh()
     return true
+end
+
+local function sweep_ghost_pins(progressing, acceptable, completed)
+    if not progressing or not acceptable or not completed then return 0 end
+    local swept = 0
+    local function sweep_one(qid)
+        local reason = nil
+        if completed[qid] then
+            reason = "quest_completed"
+        elseif not progressing[qid] and not acceptable[qid] then
+            reason = "not_active"
+        end
+        if reason and (MAP_API.pinned_pos[qid] or MAP_API.pinned_data[qid]) then
+            unpin_quest(qid, true)
+            _mlog_map(string.format("[QT][map] unpin complete qid=%d reason=%s", qid, reason))
+            swept = swept + 1
+        end
+    end
+    for qid in pairs(MAP_API.pinned_pos or {}) do sweep_one(qid) end
+    for qid in pairs(MAP_API.pinned_data or {}) do sweep_one(qid) end
+    if swept > 0 then
+        force_marker_refresh()
+    end
+    return swept
+end
+
+-- Upgrade any fallback-pinned (npc-ongoing/step-npc) quests to live dest when QLM populates.
+-- Called after journal pin succeeds (QLM proven up) and on each autopin tick.
+local _upgrade_last_run = 0
+try_upgrade_fallback_pins = function()
+    if not next(MAP_API._fallback_pending_upgrade) then return end
+    local now = os.clock()
+    if (now - _upgrade_last_run) < 1.0 then return end
+    _upgrade_last_run = now
+    local qlm = sdk.get_managed_singleton("app.QuestLogManager")
+    if qlm == nil then return end
+    local list = get_marker_list()
+    if list == nil then return end
+    local upgraded = 0
+    for qid, _ in pairs(MAP_API._fallback_pending_upgrade) do
+        local live = get_live_info_destinations(qlm, qid)
+        if live then
+            MAP_API._fallback_pending_upgrade[qid] = nil
+            if MAP_API._live_miss_logged then MAP_API._live_miss_logged[qid] = nil end
+            unpin_quest(qid, true)
+            local ok_r, r_ok = pcall(pin_quest, qid, true)
+            if ok_r and r_ok then
+                upgraded = upgraded + 1
+                _mlog_map(string.format("[QT][map] pin upgrade qid=%d fallback->live", qid))
+            end
+        end
+    end
+    if upgraded > 0 then
+        _mlog_map(string.format("[QT][map] pin upgrade batch upgraded=%d", upgraded))
+        if not MAP_API._refreshing then force_marker_refresh() end
+    end
 end
 
 local function sync_eliminated_to_prefs()
@@ -1274,7 +1440,72 @@ local function pin_all_in_current_filtered_tab()
     force_marker_refresh()
 end
 
--- Pin Ongoing: map marker for journal priority quest ONLY (not all ongoing).
+-- Pin every Ongoing quest (Pin Ongoing button / Autopin Ongoing).
+-- force_repin=true: unpin Ongoing first (button). false: skip already-pinned (quiet autopin).
+local function pin_all_ongoing_all(force_repin)
+    pcall(init_map_api)
+    if force_repin then
+        for _, q in ipairs(mod.quests or {}) do
+            if (not q.voided) and q.category == "Ongoing" then
+                local has = MAP_API.pinned_pos[q.id]
+                    or MAP_API.pinned_data[q.id]
+                    or (MAP_API.pinned_label_pos and MAP_API.pinned_label_pos[q.id])
+                    or (MAP_API._journal_label_only and MAP_API._journal_label_only[q.id])
+                if has then
+                    unpin_quest(q.id, true)
+                end
+            end
+        end
+        _mlog_map("[QT][map] Pin Ongoing force unpin all Ongoing")
+    end
+    local new_pins, skipped, failed = 0, 0, 0
+    local jqid = mod and mod._qt_journal_qid
+    local main_handled = false
+    for _, q in ipairs(mod.quests or {}) do
+        if (not q.voided) and q.category == "Ongoing" then
+            local is_pinned = MAP_API.pinned_data[q.id] ~= nil
+                or MAP_API.pinned_pos[q.id] ~= nil
+                or (MAP_API.pinned_label_pos and MAP_API.pinned_label_pos[q.id] ~= nil)
+                or (MAP_API._journal_label_only and MAP_API._journal_label_only[q.id])
+            if is_pinned then
+                skipped = skipped + 1
+            else
+                local ok_pin, pin_ok, pin_msg = pcall(pin_quest, q.id, true)
+                if ok_pin and pin_ok then
+                    new_pins = new_pins + 1
+                    if jqid and q.id == jqid then main_handled = true end
+                else
+                    failed = failed + 1
+                    if mod.debug_logging then
+                        mlog("[PIN ONGOING] qid=" .. q.id .. " err=" .. tostring(pin_msg or pin_ok))
+                    end
+                end
+            end
+        end
+    end
+    local labels_ok, want_labels = 0, 0
+    for _, q in ipairs(mod.quests or {}) do
+        if (not q.voided) and q.category == "Ongoing" then
+            if MAP_API.pinned_data[q.id]
+                or MAP_API.pinned_pos[q.id]
+                or (MAP_API.pinned_label_pos and MAP_API.pinned_label_pos[q.id])
+                or (MAP_API._journal_label_only and MAP_API._journal_label_only[q.id]) then
+                want_labels = want_labels + 1
+                local g = get_quest_name_guid(q.id)
+                if g then labels_ok = labels_ok + 1 end
+            end
+        end
+    end
+    MAP_API.last_msg = string.format("Pin Ongoing: %d new, %d skipped, %d failed", new_pins, skipped, failed)
+    _mlog_map("[QT][map] " .. MAP_API.last_msg)
+    _mlog_map(string.format(
+        "[QT][map] Pin Ongoing done new=%d skipped=%d failed=%d labels_ok=%d want=%d main_qid=%s main_ok=%s",
+        new_pins, skipped, failed, labels_ok, want_labels,
+        tostring(jqid or 0), tostring(main_handled)))
+    force_marker_refresh()
+end
+
+-- Pin MAIN: journal priority quest ONLY (Pin MAIN button).
 local function pin_all_ongoing()
     pcall(init_map_api)
     local jqid = mod and mod._qt_journal_qid
@@ -1305,15 +1536,53 @@ local function pin_all_ongoing()
 end
 
 -- Pin every Available quest regardless of active tab or filter.
-local function pin_all_available()
+-- force_repin=true: unpin all Available first (Clear pins / Pin Available button).
+local function pin_all_available(force_repin)
     pcall(init_map_api)
+    if force_repin then
+        for _, q in ipairs(mod.quests or {}) do
+            if (not q.voided) and q.category == "Available" then
+                if MAP_API.pinned_pos[q.id] or MAP_API.pinned_data[q.id] then
+                    unpin_quest(q.id, true)
+                end
+            end
+        end
+        _mlog_map("[QT][map] Pin Available force unpin all Available")
+    end
     local new_pins, skipped, failed = 0, 0, 0
     for _, q in ipairs(mod.quests or {}) do
         if (not q.voided) and q.category == "Available" then
+            local acc = mod.acceptable_ids and mod.acceptable_ids[q.id] == true
+            local up = mod.upcoming_ids and mod.upcoming_ids[q.id] == true
+            -- Pin game-Acceptable + side Upcoming. Skip main-story Upcoming (10xxx).
+            if up and not acc and q.id < 20000 then
+                skipped = skipped + 1
+                -- #region agent log
+                _mlog_map(string.format(
+                    "[QT][dbg62] hyp=H8 pin_avail_skip qid=%d reason=main_upcoming name=%s",
+                    q.id, tostring(q.name or "?"):sub(1, 40)))
+                -- #endregion
+            elseif not acc and not up then
+                skipped = skipped + 1
+                -- #region agent log
+                _mlog_map(string.format(
+                    "[QT][dbg62] hyp=H8 pin_avail_skip qid=%d reason=not_acceptable name=%s",
+                    q.id, tostring(q.name or "?"):sub(1, 40)))
+                -- #endregion
+            else
             local is_pinned = MAP_API.pinned_data[q.id] ~= nil or MAP_API.pinned_pos[q.id] ~= nil
             if is_pinned then
                 skipped = skipped + 1
             else
+                -- #region agent log
+                do
+                    local prog = mod.progressing_ids and mod.progressing_ids[q.id] == true
+                    local meta_n = tostring(q.name or "?")
+                    _mlog_map(string.format(
+                        "[QT][dbg62] hyp=H8 pin_avail_row qid=%d cat=%s acc=%s up=%s prog=%s name=%s",
+                        q.id, tostring(q.category), tostring(acc), tostring(up), tostring(prog), meta_n:sub(1, 40)))
+                end
+                -- #endregion
                 local ok_pin, pin_ok, pin_msg = pcall(pin_quest, q.id, true)
                 if ok_pin and pin_ok then
                     new_pins = new_pins + 1
@@ -1327,18 +1596,59 @@ local function pin_all_available()
                     end
                 end
             end
+            end
+        end
+    end
+    local labels_ok, want_labels = 0, 0
+    for _, q in ipairs(mod.quests or {}) do
+        if (not q.voided) and q.category == "Available" then
+            if MAP_API.pinned_data[q.id] or MAP_API.pinned_pos[q.id] then
+                want_labels = want_labels + 1
+                local g = get_quest_name_guid(q.id)
+                if g then
+                    labels_ok = labels_ok + 1
+                    -- #region agent log
+                    -- H2b: resolve Guid → English once (map usually closed on Pin Available click)
+                    do
+                        local gt = nil
+                        if type(_guid_to_en_text) == "function" then
+                            pcall(function() gt = _guid_to_en_text(g) end)
+                        end
+                        local pos = MAP_API.pinned_label_pos and MAP_API.pinned_label_pos[q.id]
+                        local xyz = pos and string.format("%.0f,%.0f,%.0f", pos.x, pos.y, pos.z) or "?"
+                        _mlog_map(string.format(
+                            "[QT][dbg62] hyp=H2b guid_text qid=%d text=%s xyz=%s",
+                            q.id, tostring(gt or "nil"):sub(1, 48), xyz))
+                    end
+                    -- #endregion
+                end
+            end
         end
     end
     MAP_API.last_msg = string.format("Pin Available: %d new, %d skipped, %d failed", new_pins, skipped, failed)
     _mlog_map("[QT][map] " .. MAP_API.last_msg)
+    _mlog_map(string.format("[QT][map] Pin Available done new=%d labels_ok=%d want=%d",
+        new_pins, labels_ok, want_labels))
     force_marker_refresh()
 end
 
 local function run_autopin_if_enabled()
     if not mod then return end
+    if not mod._game_ready then return end
+    if mod._qt_game_ready_at and os.clock() < mod._qt_game_ready_at + 5.0 then return end
+    if mod._qt_is_draw_suppressed and mod._qt_is_draw_suppressed() then return end
+    local gm = sdk.get_managed_singleton("app.GuiManager")
+    if gm then
+        local blocked = false
+        pcall(function()
+            if gm:get_IsLoadGui() == true then blocked = true end
+        end)
+        if blocked then return end
+    end
     local ran = false
     if mod.auto_pin_ongoing then
-        pcall(pin_all_ongoing)
+        pcall(pin_all_ongoing_all, false)
+        pcall(try_upgrade_fallback_pins)
         ran = true
     end
     if mod.auto_pin_available then
@@ -1353,7 +1663,7 @@ package.loaded["quest_tracker_map"] = M
 M.API = MAP_API
 M.init_map_api = init_map_api
 M.clear_injected_markers = clear_injected_markers
-M.get_quest_resource = get_quest_resource
+M.get_quest_resource = function(qlm, qid) return Labels.get_quest_resource(qlm, qid) end
 M.get_quest_cast_charaids = get_quest_cast_charaids
 M.force_marker_refresh = force_marker_refresh
 M.pin_quest = pin_quest
@@ -1363,8 +1673,12 @@ M.restore_candidate = restore_candidate
 M.restore_all_candidates = restore_all_candidates
 M.pin_all = pin_all_in_current_filtered_tab
 M.pin_all_ongoing = pin_all_ongoing
+M.pin_all_ongoing_all = pin_all_ongoing_all
+M.pin_all_current = pin_all_ongoing_all
 M.pin_all_available = pin_all_available
 M.run_autopin_if_enabled = run_autopin_if_enabled
+M.sweep_ghost_pins = sweep_ghost_pins
+M.try_upgrade_fallback_pins = try_upgrade_fallback_pins
 M.on_journal_qid_changed = on_journal_qid_changed
 M.flush_journal_pin_pending = flush_journal_pin_pending
 
@@ -1373,9 +1687,57 @@ local function on_journal_progress_bump(qid, old_done, new_done)
     MAP_API._pin_fingerprint[qid] = nil
     MAP_API._dest_sniff_logged = MAP_API._dest_sniff_logged or {}
     MAP_API._dest_sniff_logged[qid] = nil
+    MAP_API._live_miss_logged = MAP_API._live_miss_logged or {}
+    MAP_API._live_miss_logged[qid] = nil
     _mlog_map(string.format("[QT][map] progress bump qid=%d done %s to %s",
         qid, tostring(old_done), tostring(new_done)))
+    unpin_quest(qid, true)
+    if mod and (mod.progressing_ids and mod.progressing_ids[qid]
+        or (mod._qt_journal_qid == qid and mod.auto_pin_journal ~= false)
+        or mod.auto_pin_ongoing) then
+        pcall(pin_quest, qid, true)
+        _mlog_map(string.format("[QT][map] progress repin qid=%d", qid))
+    end
     if not MAP_API._refreshing then force_marker_refresh() end
+end
+
+function M.quest_objective_dist_sq(qid, px, pz, step_title)
+    if px == nil or pz == nil then return nil end
+    local qlm = sdk.get_managed_singleton("app.QuestLogManager")
+    if qlm and mod and mod.progressing_ids and mod.progressing_ids[qid] then
+        local live = get_live_info_destinations(qlm, qid)
+        if live then
+            local x, _, z = _extract_dest_xyz(live, qid)
+            if x then
+                local dx, dz = x - px, z - pz
+                return dx * dx + dz * dz
+            end
+        end
+    end
+    if get_all_giver_cids and type(step_title) == "string" and step_title ~= "" then
+        local ok, cids = pcall(get_all_giver_cids, qid, step_title)
+        if ok and type(cids) == "table" then
+            for _, c in ipairs(cids) do
+                local wx, _, wz = get_character_world_pos(c)
+                if wx then
+                    local dx, dz = wx - px, wz - pz
+                    return dx * dx + dz * dz
+                end
+            end
+        end
+    end
+    local pins = MAP_API.pinned_pos[qid]
+    if pins and pins[1] and pins[1].x then
+        local p = pins[1]
+        local dx, dz = p.x - px, p.z - pz
+        return dx * dx + dz * dz
+    end
+    local m = MANUAL_POS_OVERRIDES and MANUAL_POS_OVERRIDES[qid]
+    if m and m.x then
+        local dx, dz = m.x - px, m.z - pz
+        return dx * dx + dz * dz
+    end
+    return nil
 end
 M.on_journal_progress_bump = on_journal_progress_bump
 
@@ -1384,10 +1746,9 @@ M.resniff_map_ui = function()
         mod._qt_map_sniff_done = nil
         mod._qt_map_zoom_logged = nil
     end
-    API_PROBE_DONE = false
-    MAP_API._vanilla_add_logged = nil
+    Labels.reset_probe()
     if UI_MAP then
-        pcall(_probe_add_map_icon_api)
+        pcall(Labels.probe_api)
         if mod and mod.deep_sniff == true then
             pcall(_sniff_map_ui_once, UI_MAP)
         end

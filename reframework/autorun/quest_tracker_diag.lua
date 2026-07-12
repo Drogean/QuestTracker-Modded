@@ -54,14 +54,61 @@ function M.install(ctx)
         local low = (q.name or ""):lower()
         local tag = (qid == 20200 or low:find("sphinx") or low:find("wits") or low:find("riddle")) and " SPHINX" or ""
         local done = "?"
-        if mod._quest_progress_done_count then
-            local qlm = sdk.get_managed_singleton("app.QuestLogManager")
+        local task_idx = "?"
+        local qlm = sdk.get_managed_singleton("app.QuestLogManager")
+        if mod._quest_progress_done_count and qlm then
             local ok_d, d = pcall(mod._quest_progress_done_count, qlm, qid)
             if ok_d then done = tostring(d) end
         end
-        mlog_boot(string.format("[QT][expand] qid=%d%s %s step=%s done=%s field=%s progress=%s",
-            qid, tag, q.name or "?", step:sub(1, 72), done, field,
+        if mod._quest_current_task_index and qlm then
+            local ok_ti, ti = pcall(mod._quest_current_task_index, qlm, qid)
+            if ok_ti and ti ~= nil then task_idx = tostring(ti) end
+        end
+        local src = (c and c.step_from_game) and "game" or ((c and c.wiki_progress) and "wiki" or "other")
+        mlog_boot(string.format("[QT][expand] qid=%d%s %s step=%s done=%s task_idx=%s field=%s src=%s progress=%s",
+            qid, tag, q.name or "?", step:sub(1, 72), done, task_idx, field, src,
             tostring(c and c.wiki_progress)))
+        if c and q.category == "Ongoing" then
+            local want_s = "-"
+            if c._want and #c._want > 0 then
+                local parts = {}
+                for _, w in ipairs(c._want) do parts[#parts + 1] = w:sub(1, 1):upper() .. w:sub(2) end
+                want_s = table.concat(parts, ",")
+            end
+            local cid_s = "-"
+            if c._givers and #c._givers > 0 then
+                local cp = {}
+                for _, gc in ipairs(c._givers) do cp[#cp + 1] = tostring(gc) end
+                cid_s = table.concat(cp, ",")
+            end
+            local hrs_s, pos_s = "-", "-"
+            if c.npc_rows and #c.npc_rows > 0 then
+                local hp, pp = {}, {}
+                for _, nr in ipairs(c.npc_rows) do
+                    if type(nr.label) == "string" and nr.label:find("%(", 1, true) then
+                        hp[#hp + 1] = nr.label
+                    end
+                    local nm = nr.nm or "?"
+                    if nr.tp_ready then
+                        pp[#pp + 1] = nm .. "=ok"
+                    else
+                        pp[#pp + 1] = nm .. "=miss"
+                    end
+                end
+                if #hp > 0 then hrs_s = table.concat(hp, ",") end
+                if #pp > 0 then pos_s = table.concat(pp, ",") end
+            end
+            mlog_boot(string.format("[QT][npc] qid=%d want=%s step=%s cids=%s missing=%s hours=%s pos=%s",
+                qid, want_s, step:sub(1, 48), cid_s, c.missing_npc or "none", hrs_s, pos_s))
+            -- #region agent log
+            if qid == 30220 and c.npc_rows then
+                for _, nr in ipairs(c.npc_rows) do
+                    mlog_boot(string.format("[QT][dbg62] hyp=H3 expand qid=30220 nm=%s live=%s tp_ready=%s src=%s",
+                        tostring(nr.nm), nr.live_npc and "1" or "0", nr.tp_ready and "1" or "0", tostring(nr.pos_src or "-")))
+                end
+            end
+            -- #endregion
+        end
         if not mod.debug_logging and not mod.deep_sniff then return end
         mlog(string.format("[QT][expand] qid=%d %s [%s] (one-shot)", qid, q.name or "?", q.category or "?"))
         if mod._steps_probe_qid then pcall(mod._steps_probe_qid, qid) end

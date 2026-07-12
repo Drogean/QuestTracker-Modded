@@ -13,6 +13,7 @@ function M.install(ctx)
     local QUEST_START_DAYS = ctx.QUEST_START_DAYS
     local QUEST_START_HOURS = ctx.QUEST_START_HOURS
     local MAP_API = ctx.MAP_API
+    local MapBridge = ctx.MapBridge
     local gather = ctx.gather
     local rebuild = ctx.rebuild
     local matches_filter = ctx.matches_filter
@@ -69,17 +70,19 @@ function M.install(ctx)
         local ALL_IDS = ensure_all_ids()
         local t2 = td("app.QuestLogManager")
         local m_end = t2 and t2:get_method("isQuestLogEnd(app.QuestDefine.ID)")
-        if not m_end or not ALL_IDS then return 0 end
+        if not m_end or not ALL_IDS then return 0, {} end
         local added = 0
+        local newly = {}
         for qid in pairs(ALL_IDS) do
             if qid and qid >= 0 and not completed[qid] and not progressing[qid] and not acceptable[qid] then
                 if call_method(m_end, qlm, qid) == true then
                     completed[qid] = true
                     added = added + 1
+                    newly[#newly + 1] = qid
                 end
             end
         end
-        return added
+        return added, newly
     end
 
     local function _qt_fingerprint()
@@ -224,7 +227,15 @@ function M.install(ctx)
         if not c._givers then return end
         c.npc_rows = _build_npc_rows_for_cache(qid, c.ongoing_step_title, c._givers, c._want, mod._cached_sched_hour)
         c.missing_npc = nil
-        if c._want and #c._want > 0 then
+        if c.npc_rows and #c.npc_rows > 0 then
+            local missing = {}
+            for _, nr in ipairs(c.npc_rows) do
+                if nr.cid and nr.live_npc ~= true then
+                    missing[#missing + 1] = nr.nm or "?"
+                end
+            end
+            if #missing > 0 then c.missing_npc = table.concat(missing, ", ") end
+        elseif c._want and #c._want > 0 then
             local missing = {}
             for _, wn in ipairs(c._want) do
                 local hit = false
@@ -324,6 +335,24 @@ function M.install(ctx)
             c.feast_urgent = ok_u and u == true
         end
         c.ongoing_step_title = nil
+        if q.category == "Available" or q.category == "Upcoming" then
+            c.tips = nil
+            if QD and QD.get_fallback_step_title then
+                local ok_f, fb = pcall(QD.get_fallback_step_title, qid)
+                if ok_f and type(fb) == "string" and fb ~= "" then
+                    c.step_title = fb
+                    c.ongoing_step_title = fb
+                end
+            end
+            if QD and QD.get_step_hints_for_title and c.step_title then
+                local ok_t, t = pcall(QD.get_step_hints_for_title, qid, c.step_title)
+                if ok_t and type(t) == "table" and #t > 0 then c.tips = t end
+            end
+            if not c.tips and QD and QD.get_fallback_step_hints then
+                local ok_fh, t = pcall(QD.get_fallback_step_hints, qid)
+                if ok_fh and type(t) == "table" and #t > 0 then c.tips = t end
+            end
+        end
         if q.category == "Ongoing" then
             local qlm = sdk.get_managed_singleton("app.QuestLogManager")
             if qlm then resolve_meta(qlm, qid) end
@@ -335,6 +364,42 @@ function M.install(ctx)
                 c.wiki_fallback = wfb
                 c.wiki_progress = mod._wiki_progress_flag and mod._wiki_progress_flag[qid] == true
                 c.ongoing_step_title = st
+                mod._qt_step_title = mod._qt_step_title or {}
+                mod._qt_step_title[qid] = st
+                if QD and QD.resolve_active_step_key then
+                    local blobs = mod._qt_step_blobs and mod._qt_step_blobs[qid]
+                    local blob_n = (type(blobs) == "table") and #blobs or 0
+                    local ok_sk, sk, reason = pcall(QD.resolve_active_step_key, qid, st, blobs)
+                    if ok_sk and type(sk) == "string" and sk ~= "" then
+                        c.wiki_substep_key = sk
+                        mod._wiki_substep_key = mod._wiki_substep_key or {}
+                        mod._wiki_substep_key[qid] = sk
+                        local done_n = 0
+                        if mod._quest_progress_done_count and qlm then
+                            local ok_dn, dn = pcall(mod._quest_progress_done_count, qlm, qid)
+                            if ok_dn then done_n = dn or 0 end
+                        end
+                        if c.wiki_progress and QD and QD.get_wiki_step_for_progress and done_n >= 1 then
+                            local ti = mod._quest_current_task_index and qlm and mod._quest_current_task_index(qlm, qid)
+                            local ok_wp, wt = pcall(QD.get_wiki_step_for_progress, qid, done_n, ti)
+                            if ok_wp and type(wt) == "string" and wt ~= "" then
+                                c.step_title = wt
+                                c.ongoing_step_title = wt
+                            end
+                        elseif QD and QD.titleize_step_key and not QD.is_top_level_step_key(qid, sk) then
+                            local disp = QD.titleize_step_key(sk)
+                            if disp and disp ~= "" then
+                                c.step_title = disp
+                                c.ongoing_step_title = disp
+                            end
+                        end
+                        if tonumber(qid) == 30120 then
+                            mlog_boot(string.format(
+                                "[QT][substep] qid=30120 blobs=%d umbrella=%s picked=%s reason=%s",
+                                blob_n, tostring(c.ongoing_step_title or "?"), sk, tostring(reason or "?")))
+                        end
+                    end
+                end
             elseif not _cache_build_fail_logged[qid] then
                 _cache_build_fail_logged[qid] = true
                 mlog_boot("[QT][cache] resolve failed qid=" .. tostring(qid) .. " err=" .. tostring(st))
@@ -356,7 +421,7 @@ function M.install(ctx)
             end
             c.tips = nil
             if QD and QD.get_step_hints_for_title and c.ongoing_step_title then
-                local ok_t, t = pcall(QD.get_step_hints_for_title, qid, c.ongoing_step_title)
+                local ok_t, t = pcall(QD.get_step_hints_for_title, qid, c.ongoing_step_title, c.wiki_substep_key)
                 if ok_t and type(t) == "table" and #t > 0 then c.tips = t end
             end
             if not c.journal_lines and not c.tips and QD and QD.get_fallback_step_hints then
@@ -383,7 +448,10 @@ function M.install(ctx)
             _qt_patch_time_sensitive(c, qid)
         end)
         if not ok_tail then
-            error("tail qid=" .. tostring(qid) .. " " .. tostring(err_tail))
+            if not _cache_build_fail_logged[qid] then
+                _cache_build_fail_logged[qid] = true
+                mlog_boot("[QT][cache] tail failed qid=" .. tostring(qid) .. " err=" .. tostring(err_tail))
+            end
         end
         target_cache[qid] = c
         return c
@@ -399,8 +467,82 @@ function M.install(ctx)
         end
     end
 
-    function ctx._qt_schedule_cache_refresh()
+    local function _qt_refresh_blocked()
+        if mod._qt_imgui_overlay_active then return true, "imgui_active" end
+        if mod._qt_map_close_until and os.clock() < mod._qt_map_close_until then return true, "map_close" end
+        if mod._qt_is_draw_suppressed and mod._qt_is_draw_suppressed() then return true, "suppressed" end
+        if mod._qt_game_ready_at and os.clock() < mod._qt_game_ready_at + 2.0 then return true, "boot_grace" end
+        if ctx._qt_is_load_gui_pause and ctx._qt_is_load_gui_pause() then return true, "load_gui" end
+        return false
+    end
+
+    function ctx._qt_refilter_draw_list()
+        local tab_name = TAB_NAMES[mod.tab] or "?"
+        local new_draw_list = {}
+        for _, q in ipairs(mod.quests or {}) do
+            if _qt_show_quest_in_tab(q) then
+                local ok_match, want = pcall(matches_filter, q)
+                if ok_match and want then
+                    new_draw_list[#new_draw_list + 1] = q
+                end
+            end
+        end
+        mod._draw_quest_list = new_draw_list
+        mlog_boot(string.format("[QT][cache] refilter tab=%s draw=%d (no SDK rebuild)",
+            tab_name, #new_draw_list))
+    end
+
+    local QT_CACHE_DEBOUNCE = 0.25
+    local QT_LOAD_GUI_RESUME_MIN = 10.0
+
+    function ctx._qt_schedule_cache_refresh(reason)
+        reason = reason or "unknown"
+        if reason == "load_gui_resume" then
+            local now = os.clock()
+            local last = mod._qt_load_gui_full_at or 0
+            if mod._row_cache and next(mod._row_cache) then
+                pcall(ctx._qt_refilter_draw_list)
+                mlog_boot("[QT][cache] load_gui_resume refilter only (skip SDK rebuild)")
+                return
+            end
+            if (now - last) < QT_LOAD_GUI_RESUME_MIN then
+                mlog_boot("[QT][cache] load_gui_resume skipped (cooldown)")
+                return
+            end
+            mod._qt_load_gui_full_at = now
+        end
         mod._qt_pending_cache_refresh = true
+        mod._qt_pending_refresh_reason = reason
+        mod._qt_pending_refresh_at = os.clock()
+    end
+
+    -- Heavy row rebuild — logic tick only, never during/after ImGui draw frame.
+    function ctx._qt_flush_pending_cache_refresh()
+        if not mod._qt_pending_cache_refresh then return false end
+        local blocked, block_why = _qt_refresh_blocked()
+        if blocked then
+            if mod._qt_flush_block_reason ~= block_why then
+                mod._qt_flush_block_reason = block_why
+                mlog_boot("[QT][cache] flush blocked reason=" .. tostring(block_why))
+            end
+            return false
+        end
+        mod._qt_flush_block_reason = nil
+        local now = os.clock()
+        if (now - (mod._qt_pending_refresh_at or 0)) < QT_CACHE_DEBOUNCE then
+            return false
+        end
+        mod._qt_pending_cache_refresh = false
+        local why = mod._qt_pending_refresh_reason or "?"
+        mlog_boot(string.format("[QT][cache] flush enter tab=%s reason=%s",
+            tostring(TAB_NAMES[mod.tab] or "?"), why))
+        local ok, err = pcall(ctx._qt_refresh_row_caches)
+        if not ok then
+            mlog_boot("[QT][cache] flush failed err=" .. tostring(err))
+        else
+            mlog_boot("[QT][cache] flush ok")
+        end
+        return ok
     end
 
     function ctx._qt_refresh_row_caches()
@@ -412,6 +554,7 @@ function M.install(ctx)
         local new_cache = {}
         local new_draw_list = {}
         local built, failed = 0, 0
+        local fail_qids = {}
         for _, q in ipairs(mod.quests or {}) do
             if _qt_show_quest_in_tab(q) then
                 local ok_match, want = pcall(matches_filter, q)
@@ -423,6 +566,7 @@ function M.install(ctx)
                     else
                         failed = failed + 1
                         local qid = q.id
+                        fail_qids[#fail_qids + 1] = tostring(qid)
                         if not _cache_build_fail_logged[qid] then
                             _cache_build_fail_logged[qid] = true
                             mlog_boot("[QT][cache] build failed qid=" .. tostring(qid) .. " err=" .. tostring(err))
@@ -447,6 +591,9 @@ function M.install(ctx)
             end
             mlog_boot(string.format("[QT][cache] refresh OK rows=%d built=%d draw=%d fail=%d",
                 #(mod.quests or {}), built, #new_draw_list, failed))
+            if failed > 0 and #fail_qids > 0 then
+                mlog_boot("[QT][cache] fail_qids=" .. table.concat(fail_qids, ","))
+            end
         elseif next(prev_cache) then
             mlog_boot(string.format("[QT][cache] WARN refresh built=0 fail=%d — kept previous cache draw=%d",
                 failed, #prev_draw))
@@ -466,11 +613,19 @@ function M.install(ctx)
         mod._npc_scan_cache = {}
     end
 
+    local function _defer_cache_refresh(reason)
+        if ctx._qt_schedule_cache_refresh then
+            pcall(ctx._qt_schedule_cache_refresh, reason or "logic_tick")
+        end
+    end
+
     function ctx._qt_run_logic_tick(now)
         if mod._qt_shutdown or not mod._game_ready then return end
-        if mod._qt_pending_cache_refresh then
-            mod._qt_pending_cache_refresh = false
-            pcall(ctx._qt_refresh_row_caches)
+        if mod._qt_imgui_overlay_active then return end
+
+        if mod._qt_save_deferred_refresh_at and now >= mod._qt_save_deferred_refresh_at then
+            mod._qt_save_deferred_refresh_at = nil
+            _defer_cache_refresh("post_save")
         end
         local forced = mod._logic_force == true
         if forced then mod._logic_force = false end
@@ -510,7 +665,7 @@ function M.install(ctx)
                     mod._step_last_title[pqid] = nil
                     local pq = _qt_find_quest(pqid)
                     if pq then pcall(ctx._refresh_one_row, pq)
-                    else pcall(ctx._qt_refresh_row_caches) end
+                    else _defer_cache_refresh() end
                 end
                 local gm = sdk.get_managed_singleton("app.GuiManager")
                 local jqid = gm and to_int(safe_get_field(gm, "_TargetQuestId"))
@@ -525,13 +680,13 @@ function M.install(ctx)
                     mod._step_last_title[jqid] = nil
                     local jq = _qt_find_quest(jqid)
                     if jq then pcall(ctx._refresh_one_row, jq)
-                    else pcall(ctx._qt_refresh_row_caches) end
+                    else _defer_cache_refresh() end
                 end
                 local sfp = _qt_step_fingerprint(qlm, mod.progressing_ids)
                 if sfp ~= mod._qt_sfp then
                     mod._qt_sfp = sfp
                     mlog("[QT] step fingerprint changed — refreshing ongoing steps")
-                    pcall(ctx._qt_refresh_row_caches)
+                    _defer_cache_refresh()
                 end
             end
         end
@@ -557,16 +712,16 @@ function M.install(ctx)
                 ok, err = pcall(rebuild)
                 if not ok then mlog_boot("[QT][ERROR] rebuild crashed: " .. tostring(err)) end
                 mod.last_refresh = now
-                pcall(ctx._qt_refresh_row_caches)
+                _defer_cache_refresh()
                 if ctx.audit_wiki_gaps_for_ongoing then pcall(ctx.audit_wiki_gaps_for_ongoing) end
             else
                 mod._qt_skip_rebuilds = (mod._qt_skip_rebuilds or 0) + 1
                 if sfp ~= mod._qt_sfp then
                     mod._qt_sfp = sfp
                     mlog("[QT] step text changed — refreshing ongoing steps")
-                    pcall(ctx._qt_refresh_row_caches)
+                    _defer_cache_refresh()
                 elseif not mod._row_cache or not next(mod._row_cache) then
-                    pcall(ctx._qt_refresh_row_caches)
+                    _defer_cache_refresh()
                 end
             end
         end
@@ -598,9 +753,18 @@ function M.install(ctx)
             mod._last_completion_sweep = now
             local qlm = sdk.get_managed_singleton("app.QuestLogManager")
             if qlm then
-                local added = _completion_sweep(qlm, mod.progressing_ids or {}, mod.acceptable_ids or {}, mod.completed_ids or {})
+                local added, newly = _completion_sweep(qlm, mod.progressing_ids or {}, mod.acceptable_ids or {}, mod.completed_ids or {})
                 if added > 0 then
                     mlog("[QT] completion sweep: +" .. added .. " newly completed")
+                    for _, qid in ipairs(newly) do
+                        if MAP_API and (
+                            (MAP_API.pinned_data and MAP_API.pinned_data[qid]) or
+                            (MAP_API.pinned_pos and MAP_API.pinned_pos[qid])
+                        ) then
+                            pcall(MapBridge.unpin_quest, qid)
+                            mlog("[QT][map] unpin complete qid=" .. qid .. " reason=quest_completed")
+                        end
+                    end
                     mod._logic_force = true
                     mod._last_state_probe = 0
                 end
@@ -615,6 +779,10 @@ function M.install(ctx)
         if (now - (mod.last_autolock or 0)) >= 300 then
             mod.last_autolock = now
             pcall(run_autolock)
+        end
+
+        if ctx._qt_flush_pending_cache_refresh then
+            pcall(ctx._qt_flush_pending_cache_refresh)
         end
     end
 

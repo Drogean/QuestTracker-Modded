@@ -33,6 +33,7 @@ function M.install(ctx)
   local MapBridge = ctx.MapBridge
   local COL_NPC_GOOD = ctx.COL_NPC_GOOD
   local COL_NPC_ORANGE = ctx.COL_NPC_ORANGE
+  local COL_NPC_NEON_GREEN = ctx.COL_NPC_NEON_GREEN or COL_NPC_GOOD
   local NPC_SCAN_CACHE_TTL = ctx.NPC_SCAN_CACHE_TTL
   local ALL_IDS = ctx.ALL_IDS
   local dump_quest_id_enum = ctx.dump_quest_id_enum
@@ -41,6 +42,14 @@ function M.install(ctx)
       if mod.name_cache[qid] and mod.summary_cache[qid] ~= nil and mod.name_en_cache[qid] ~= nil then return end
       local vi = safe_call(qlm, "getQuestLog", qid)
       if vi == nil then return end
+      mod._qt_name_guid_cache = mod._qt_name_guid_cache or {}
+      for _, key in ipairs({ "QuestNameId", "_QuestNameId", "NameId", "_NameId", "TitleId", "_TitleId" }) do
+          local g = safe_get_field(vi, key) or safe_call(vi, "get_" .. key)
+          if g and type(g) ~= "string" and type(g) ~= "number" then
+              mod._qt_name_guid_cache[qid] = g
+              break
+          end
+      end
       local name = safe_get_field(vi, "QuestName")
       if type(name) == "string" and name ~= "" then mod.name_cache[qid] = name end
       local summary = safe_get_field(vi, "QuestSummary")
@@ -97,9 +106,9 @@ function M.install(ctx)
 
   local PONR_NAMES = {
       [10140] = "Feast of Deception",
-      [10160] = "A New Godsway",
-      [10170] = "The Guardian Gigantus",
-      [10180] = "Legacy",
+      [10170] = "A New Godsway",
+      [10180] = "The Guardian Gigantus",
+      [10190] = "Legacy",
   }
 
   local function story_gate_open(qid, completed)
@@ -243,6 +252,35 @@ function M.install(ctx)
       _pos_cache = {}
   end
 
+  local function _flush_pos_cache_cid(cid_int)
+      if type(cid_int) == "number" then _pos_cache[cid_int] = nil end
+  end
+
+  local function _log_tp(qid, cid, ok, src, reason)
+      mlog_boot(string.format("[QT][tp] qid=%s cid=%s ok=%s src=%s%s",
+          tostring(qid or "?"), tostring(cid or "?"), ok and "true" or "false",
+          tostring(src or "?"), reason and (" reason=" .. reason) or ""))
+  end
+
+  local function _pos_from_pinned(qid)
+      if not qid then return nil end
+      local pins = MAP_API and MAP_API.pinned_pos and MAP_API.pinned_pos[qid]
+      if type(pins) == "table" and pins[1] then
+          local p = pins[1]
+          if type(p.x) == "number" and type(p.y) == "number" and type(p.z) == "number" then
+              return p.x, p.y, p.z, "pinned_pos"
+          end
+      end
+      local dests = MAP_API and MAP_API.pinned_data and MAP_API.pinned_data[qid]
+      if type(dests) == "table" and dests[1] then
+          local d = dests[1]
+          if type(d.x) == "number" and type(d.y) == "number" and type(d.z) == "number" then
+              return d.x, d.y, d.z, "pinned_dest"
+          end
+      end
+      return nil
+  end
+
   local function _extract_pos_from(obj)
       if obj == nil then return nil end
       for _, mn in ipairs({"get_UniversalPosition", "get_Position", "get_WorldPosition"}) do
@@ -300,6 +338,38 @@ function M.install(ctx)
       local x, y, z = _get_character_world_pos_raw(cid_int)
       if x then _pos_cache[cid_int] = {x,y,z}; return x,y,z
       else _pos_cache[cid_int] = false; return nil end
+  end
+
+  -- Fresh teleport coords: never trust stale _pos_cache false negatives.
+  -- MUST be after get_character_world_pos (forward-ref guard — v1.4.19 hotfix).
+  -- live_only=true: named NPC rows must not inherit quest pin/manual coords (fake green TP).
+  local function resolve_teleport_pos(qid, cid_int, live_only)
+      if type(cid_int) == "number" and cid_int > 0 then
+          _flush_pos_cache_cid(cid_int)
+          local x, y, z = get_character_world_pos(cid_int)
+          if x then return x, y, z, "npc" end
+      end
+      if live_only then
+          return nil, nil, nil, "not_loaded"
+      end
+      local mp = MANUAL_POS_OVERRIDES and MANUAL_POS_OVERRIDES[qid]
+      if mp and type(mp.x) == "number" then
+          return mp.x, mp.y, mp.z, "manual_pos"
+      end
+      local px, py, pz, psrc = _pos_from_pinned(qid)
+      if px then return px, py, pz, psrc end
+      if type(cid_int) == "number" and cid_int > 0 then
+          local ov = MANUAL_GIVER_OVERRIDES and MANUAL_GIVER_OVERRIDES[qid]
+          if ov and cid_eq(ov, cid_int) then
+              _flush_pos_cache_cid(cid_int)
+              local x, y, z = _get_character_world_pos_raw(cid_int)
+              if x then
+                  _pos_cache[cid_int] = { x, y, z }
+                  return x, y, z, "npc_retry"
+              end
+          end
+      end
+      return nil, nil, nil, "none"
   end
 
   -- =========== PLAYER POSITION ===========
@@ -435,14 +505,16 @@ function M.install(ctx)
           seen[low] = true
           want[#want + 1] = low
       end
+      local subkey = mod._wiki_substep_key and mod._wiki_substep_key[qid]
       local step_focus = false
       if QD and QD.has_step_cast_focus then
-          local ok_sf, sf = pcall(QD.has_step_cast_focus, qid, step_title)
+          local ok_sf, sf = pcall(QD.has_step_cast_focus, qid, step_title, subkey)
           step_focus = ok_sf and sf == true
       end
       if QD and QD.get_quest_npc_names then
-          local ok, list = pcall(QD.get_quest_npc_names, qid, step_title)
+          local ok, list = pcall(QD.get_quest_npc_names, qid, step_title, subkey)
           if ok and type(list) == "table" then
+              if #list == 0 and step_focus then return {}, true end
               for _, n in ipairs(list) do add(n:lower()) end
           end
       end
@@ -544,6 +616,19 @@ function M.install(ctx)
                   end
               end
           end
+          local ov = MANUAL_GIVER_OVERRIDES[qid]
+          if ov then
+              local gnm = qd_giver_name(qid)
+              if gnm then
+                  local glow = gnm:lower()
+                  for _, wn in ipairs(want_names) do
+                      if glow == wn or glow:find(wn, 1, true) or wn:find(glow, 1, true) then
+                          push(ov, true)
+                          break
+                      end
+                  end
+              end
+          end
           for _, c in ipairs(_scan_loaded_cids_for_names(want_names)) do push(c, false) end
           if QD and QD.iter_chara_name_cids then
               local ok_cache, cache = pcall(QD.iter_chara_name_cids)
@@ -553,10 +638,12 @@ function M.install(ctx)
                   end
               end
           end
-          local cast = MapBridge.get_quest_cast_charaids(qid)
-          if type(cast) == "table" then
-              for _, c in ipairs(cast) do
-                  if _name_matches_wiki(_resolve_cid_name(c), want_names) then push(c, false) end
+          if not step_focus then
+              local cast = MapBridge.get_quest_cast_charaids(qid)
+              if type(cast) == "table" then
+                  for _, c in ipairs(cast) do
+                      if _name_matches_wiki(_resolve_cid_name(c), want_names) then push(c, false) end
+                  end
               end
           end
       end
@@ -886,21 +973,36 @@ function M.install(ctx)
           imgui.text_colored(nr.label, nr.col)
           if can_tp then
               imgui.same_line(0, 4)
-              if nr.cid and nr.gx then
+              if nr.cid then
                   if imgui.button("TP##gtp" .. qid .. "_" .. tostring(nr.cid)) then
-                      if ctx._teleport_player_to and ctx._teleport_player_to(nr.gx, nr.gy, nr.gz) then
+                      -- Named NPC TP: live body only (pin/manual = wrong person / empty cell).
+                      local tx, ty, tz, src = resolve_teleport_pos(qid, nr.cid, true)
+                      local ok = false
+                      if tx and ctx._teleport_player_to then
+                          ok = ctx._teleport_player_to(tx, ty, tz, { qid = qid, cid = nr.cid, src = src }) == true
+                      elseif ctx._log_tp then
+                          ctx._log_tp(qid, nr.cid, false, src or "not_loaded", "no_live_npc")
+                      end
+                      if ok then
                           MAP_API.last_msg = "TP to " .. nr.nm
                       else
-                          MAP_API.last_msg = "TP failed"
+                          MAP_API.last_msg = nr.nm .. " not in world"
+                      end
+                      if mod._refresh_one_row and mod.quests then
+                          for _, rq in ipairs(mod.quests) do
+                              if rq.id == qid then pcall(mod._refresh_one_row, rq); break end
+                          end
                       end
                   end
               else
                   imgui.text_colored("TP", 0xFF555555)
               end
               imgui.same_line(0, 4)
-              if imgui.button("FF>>##ff" .. qid .. "_" .. nr.nm) then
-                  _start_fast_forward(nr.ff_h + (1 / 60))
-                  mlog(string.format("[FF] %s qid=%d +%.1fh", nr.nm, qid, nr.ff_h))
+              if nr.show_ff then
+                  if imgui.button("FF>>##ff" .. qid .. "_" .. nr.nm) then
+                      _start_fast_forward(nr.ff_h + (1 / 60))
+                      mlog(string.format("[FF] %s qid=%d +%.1fh -> window", nr.nm, qid, nr.ff_h))
+                  end
               end
           end
       end
@@ -918,20 +1020,37 @@ function M.install(ctx)
           end
           local s, f = hrs and hrs.start, hrs and hrs.finish
           local has_hours = s and f
-          local in_win = has_hours and cur_h and _in_hour_window(cur_h, s, f)
-          local good = has_hours and in_win
           local label = nm
-          if good then label = string.format("%s (%s)", nm, _format_hour_window_paren(s, f)) end
-          local gx, gy, gz = nil, nil, nil
-          if cid then gx, gy, gz = get_character_world_pos(cid) end
+          if has_hours then
+              label = string.format("%s (%s)", nm, _format_hour_window_paren(s, f))
+          end
+          local gx, gy, gz, pos_src = nil, nil, nil, nil
+          if cid then
+              -- Live NPC only for row color/TP readiness (pin fallback lied for Brefft).
+              gx, gy, gz, pos_src = resolve_teleport_pos(qid, cid, true)
+          end
+          local live = (pos_src == "npc" or pos_src == "npc_retry")
+          local in_schedule = (not has_hours) or (cur_h and _in_hour_window(cur_h, s, f))
+          local available_now = in_schedule and ((not cid) or live)
           local ff_h = 3
-          if has_hours and cur_h then
+          if has_hours and cur_h and not available_now then
               local h = _hours_until_window_start(cur_h, s, f)
               if h and h > 0.01 then ff_h = math.min(h, 18) end
           end
+          -- #region agent log
+          if qid == 30220 then
+              mlog_boot(string.format("[QT][dbg62] hyp=H3 npc_row qid=30220 nm=%s live=%s src=%s tp_ready=%s",
+                  tostring(nm), live and "1" or "0", tostring(pos_src or "nil"), live and "1" or "0"))
+          end
+          -- #endregion
           out[#out + 1] = {
-              nm = nm, label = label, col = good and COL_NPC_GOOD or COL_NPC_ORANGE,
+              nm = nm, label = label,
+              col = available_now and COL_NPC_NEON_GREEN or COL_NPC_ORANGE,
               cid = cid, gx = gx, gy = gy, gz = gz, ff_h = ff_h,
+              show_ff = has_hours and not available_now,
+              tp_ready = live,
+              live_npc = live,
+              pos_src = pos_src,
           }
       end
       return out
@@ -968,7 +1087,7 @@ function M.install(ctx)
           mlog_boot("[QT] QuestLogManager online — reading quest progress from save")
           mod._logic_force = true
           mod._last_state_probe = 0
-          if mod._qt_schedule_cache_refresh then pcall(mod._qt_schedule_cache_refresh) end
+          if mod._qt_schedule_cache_refresh then pcall(mod._qt_schedule_cache_refresh, "boot") end
       end
       if ALL_IDS == nil then ALL_IDS = dump_quest_id_enum() end
 
@@ -1038,7 +1157,7 @@ function M.install(ctx)
           end
       end
 
-      -- Auto-unpin when quest transitions Available â†’ Ongoing
+      -- Auto-unpin when quest transitions Available → Ongoing
       for qid in pairs(mod.acceptable_ids or {}) do
           if progressing[qid] and MAP_API then
               if (MAP_API.pinned_pos and MAP_API.pinned_pos[qid]) or
@@ -1046,6 +1165,21 @@ function M.install(ctx)
                   pcall(MapBridge.unpin_quest, qid)
               end
           end
+      end
+
+      -- Auto-unpin when quest transitions Ongoing → Completed
+      for qid in pairs(mod.progressing_ids or {}) do
+          if completed[qid] and MAP_API then
+              if (MAP_API.pinned_data and MAP_API.pinned_data[qid]) or
+                 (MAP_API.pinned_pos and MAP_API.pinned_pos[qid]) then
+                  pcall(MapBridge.unpin_quest, qid)
+                  mlog("[QT][map] unpin complete qid=" .. qid .. " reason=quest_completed")
+              end
+          end
+      end
+
+      if MapBridge.sweep_ghost_pins then
+          pcall(MapBridge.sweep_ghost_pins, progressing, acceptable, completed)
       end
 
       -- "Upcoming": meta quests whose prereqs are completed and lockout milestone not fired,
@@ -1105,7 +1239,9 @@ function M.install(ctx)
       if mod.completed_ids[qid]   then return "Completed" end
       if mod.progressing_ids[qid] then return "Ongoing" end
       if mod.acceptable_ids[qid]  then return "Available" end
-      if mod.upcoming_ids and mod.upcoming_ids[qid] then return "Available" end
+      -- Upcoming sides only. Main-story 10xxx chain is NOT "Available" until the game
+      -- flags Acceptable/Progressing (stops Legacy/Gigantus/Godsway cluttering the tab).
+      if mod.upcoming_ids and mod.upcoming_ids[qid] and qid >= 20000 then return "Available" end
       return nil
   end
 
@@ -1117,7 +1253,14 @@ function M.install(ctx)
       for _, pq in ipairs(mod.quests or {}) do
           if pq.id == qid then return pq.name end
       end
-      return mod.name_en_cache and mod.name_en_cache[qid] or mod.name_cache and mod.name_cache[qid] or tostring(qid)
+      if mod.name_en_cache and mod.name_en_cache[qid] then return mod.name_en_cache[qid] end
+      if mod.name_cache and mod.name_cache[qid] then return mod.name_cache[qid] end
+      if PONR_NAMES and PONR_NAMES[qid] then return PONR_NAMES[qid] end
+      if QD and QD.get_quest_meta_name then
+          local ok_m, mn = pcall(QD.get_quest_meta_name, qid)
+          if ok_m and type(mn) == "string" and mn ~= "" then return mn end
+      end
+      return "Quest " .. tostring(qid)
   end
 
   local function _read_text_field(obj, string_keys, guid_keys)
@@ -1142,7 +1285,7 @@ function M.install(ctx)
     mod._steps_module_ok = false
     if ok_st and Steps and Steps.install then
       local st_ctx = {
-        mod = mod, mlog = mlog, QD = QD,
+        mod = mod, mlog = mlog, mlog_boot = mlog_boot, QD = QD,
         safe_get_field = safe_get_field, safe_call = safe_call,
         iter_list = iter_list, get_quest_resource = MapBridge.get_quest_resource,
         to_int = to_int,
@@ -1231,6 +1374,12 @@ function M.install(ctx)
       -- Sort
       local px, _, pz = get_player_universal_pos()
       local function quest_dist(qid)
+          local Map = ctx.Map
+          if Map and Map.quest_objective_dist_sq and px and pz then
+              local step = mod._qt_step_title and mod._qt_step_title[qid]
+              local ok_d, d = pcall(Map.quest_objective_dist_sq, qid, px, pz, step)
+              if ok_d and type(d) == "number" then return d end
+          end
           local p = MANUAL_POS_OVERRIDES[qid]
           if p then
               local dx = p.x - (px or 0); local dz = p.z - (pz or 0)
@@ -1336,6 +1485,9 @@ function M.install(ctx)
   ctx._format_game_time_line = _format_game_time_line
   ctx._format_hour_12 = _format_hour_12
   ctx._flush_pos_cache = _flush_pos_cache
+  ctx._flush_pos_cache_cid = _flush_pos_cache_cid
+  ctx.resolve_teleport_pos = resolve_teleport_pos
+  ctx._log_tp = _log_tp
   ctx._start_fast_forward = _start_fast_forward
   ctx._tick_fast_forward = _tick_fast_forward
   ctx._set_time_scale = _set_time_scale

@@ -1,0 +1,23 @@
+---
+description: Mandatory ship gates for all DD2 mod agents (GPO, PC, QT, APC, etc.)
+alwaysApply: true
+---
+
+# RULES FOR EVERY AGENT (paste at top of every mod chat)
+
+**NEVER ship lua without syntax check** — `luac -p filepath.lua` must pass silent on every changed `.lua`.
+
+**NEVER claim fixed without user boot test** — zero ScriptRunner popups on game launch.
+
+**Read `re2_framework_log.txt` from the session AFTER your edit** — game install:
+`c:\Program Files (x86)\Steam\steamapps\common\Dragons Dogma 2\re2_framework_log.txt`
+
+**One change at a time** — syntax fix before architecture refactor.
+
+**Grok before TU 3.1 hook changes** — ask "is this replacement sane" not "write me code".
+
+**Bump version when you ship** — user can't tell what's installed otherwise (`MOD_VERSION` + `modinfo.ini`).
+
+**Your fork = you own the fix.** Don't wait for Nexus authors for GPO / PC / QT.
+
+**If you touch `sort_compatible_gear` or any if/then** — count your `end`s.

@@ -1,0 +1,22 @@
+You are a senior game-data engineer for Dragon's Dogma 2 Quest Tracker mod.
+
+We need quest name colors in every list:
+- story = green/neon green (main plot 10030-10180)
+- special = yellow (Game8 best side quests — maister skills, vocations, romance, smithing)
+- fan_favorite = distinct accent (Steam thread favorites)
+- normal = white (everything else)
+
+Sources scraped:
+1. https://game8.co/games/Dragons-Dogma-2/archives/448509 — lists Vocation Frustration, Claw/Beren, Sorcerer/Spellbound, Ulrika line, Rose, Sacred Arbor chain, Game of Wits, Dwarven forge, Put a Spring, Sotted Sage
+2. https://steamcommunity.com/app/2054970/discussions/0/4352240180488225008/ — Sphinx/Game of Wits, Ulrika/Melve line, Daphne (Gift of Giving + House of Blue Sunbright)
+
+Current JSON has 32 qids tagged. Meta file has ~70 quests in quest_tracker_meta.json.
+
+Tasks:
+1. List any Game8 "best quest" names we missed mapping to qids
+2. List any Steam fan mentions we should add
+3. Should fan_favorite override special when both apply? (yes/no + why)
+4. Any qids you'd tag story besides 10030-10180? (e.g. must_before_feast side quests?)
+5. Suggest 5 more side quests worth yellow "special" not on Game8 list
+
+Output as short bullet list, qid + quest name when possible.

@@ -1,0 +1,3048 @@
+{
+  "version": 1,
+  "count": 507,
+  "fixtures": [
+    {
+      "qid": "10030",
+      "input": "Heed The Overseer",
+      "expect_key": "heed the overseer",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10030",
+      "input": "Pick Up A Boulder",
+      "expect_key": "pick up a boulder",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10030",
+      "input": "Carry The Boulder Back To Rook",
+      "expect_key": "carry the boulder back to rook",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10030",
+      "input": "Investigate The Disturbance",
+      "expect_key": "investigate the disturbance",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10030",
+      "input": "Fend Off The Beast",
+      "expect_key": "fend off the beast",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10030",
+      "input": "Flee For Your Life",
+      "expect_key": "flee for your life",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10030",
+      "input": "",
+      "expect_key": "heed the overseer",
+      "kind": "fallback"
+    },
+    {
+      "qid": "10050",
+      "input": "Follow Justinn",
+      "expect_key": "follow justinn",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10050",
+      "input": "Defeat The Goblins",
+      "expect_key": "defeat the goblins",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10050",
+      "input": "Make Contact With The Riftstone",
+      "expect_key": "make contact with the riftstone",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10050",
+      "input": "Make For Melve",
+      "expect_key": "make for melve",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10050",
+      "input": "Make For The Lodgings",
+      "expect_key": "make for the lodgings",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10050",
+      "input": "You Had A Well Deserved Rest At The Lodgings",
+      "expect_key": "you had a well deserved rest at the lodgings",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10050",
+      "input": "",
+      "expect_key": "follow justinn",
+      "kind": "fallback"
+    },
+    {
+      "qid": "10060",
+      "input": "Make For Melve",
+      "expect_key": "make for melve",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10060",
+      "input": "Look Around Melve",
+      "expect_key": "look around melve",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10060",
+      "input": "Speak With Lennart",
+      "expect_key": "speak with lennart",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10060",
+      "input": "Accompany Gregor To The Capital",
+      "expect_key": "accompany gregor to the capital",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10060",
+      "input": "Speak With Gregor",
+      "expect_key": "speak with gregor",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10060",
+      "input": "",
+      "expect_key": "make for melve",
+      "kind": "fallback"
+    },
+    {
+      "qid": "10070",
+      "input": "Defeat The Cyclops",
+      "expect_key": "defeat the cyclops",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10070",
+      "input": "Proceed To Vernworth",
+      "expect_key": "proceed to vernworth",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10070",
+      "input": "",
+      "expect_key": "defeat the cyclops",
+      "kind": "fallback"
+    },
+    {
+      "qid": "10080",
+      "input": "Enter Vernworth",
+      "expect_key": "enter vernworth",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10080",
+      "input": "Speak With Captain Brant In The Tavern Anight",
+      "expect_key": "speak with captain brant in the tavern anight",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10080",
+      "input": "Find Another Path To Vernworth",
+      "expect_key": "find another path to vernworth",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10080",
+      "input": "",
+      "expect_key": "enter vernworth",
+      "kind": "fallback"
+    },
+    {
+      "qid": "10085",
+      "input": "Contend With Your Pursuer",
+      "expect_key": "contend with your pursuer",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10085",
+      "input": "Wait A Few Days Then Speak With Captain Brant",
+      "expect_key": "wait a few days then speak with captain brant",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10085",
+      "input": "Speak With Captain Brant",
+      "expect_key": "speak with captain brant",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10085",
+      "input": "",
+      "expect_key": "contend with your pursuer",
+      "kind": "fallback"
+    },
+    {
+      "qid": "10090",
+      "input": "Deal With The Monster Threats",
+      "expect_key": "deal with the monster threats",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10090",
+      "input": "Cull The Goblins At Trevo Mine",
+      "expect_key": "cull the goblins at trevo mine",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10090",
+      "input": "Aid The Soldiers Sent To Harve Village",
+      "expect_key": "aid the soldiers sent to harve village",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10090",
+      "input": "Find The Soldiers On Vermund S Eastern Edge",
+      "expect_key": "find the soldiers on vermund s eastern edge",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10090",
+      "input": "Report Back To Captain Brant",
+      "expect_key": "report back to captain brant",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10090",
+      "input": "",
+      "expect_key": "deal with the monster threats",
+      "kind": "fallback"
+    },
+    {
+      "qid": "10100",
+      "input": "Search For Evidence Of Disa S Misdeeds",
+      "expect_key": "search for evidence of disa s misdeeds",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10100",
+      "input": "Report Back To Captain Brant",
+      "expect_key": "report back to captain brant",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10100",
+      "input": "",
+      "expect_key": "search for evidence of disa s misdeeds",
+      "kind": "fallback"
+    },
+    {
+      "qid": "10110",
+      "input": "Search Allard S Chambers",
+      "expect_key": "search allard s chambers",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10110",
+      "input": "Report Back To Captain Brant",
+      "expect_key": "report back to captain brant",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10110",
+      "input": "",
+      "expect_key": "search allard s chambers",
+      "kind": "fallback"
+    },
+    {
+      "qid": "10120",
+      "input": "Meet With Magistrate Waldhar",
+      "expect_key": "meet with magistrate waldhar",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10120",
+      "input": "Find A Place With Plenty Of Tomes",
+      "expect_key": "find a place with plenty of tomes",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10120",
+      "input": "Lead Waldhar Out Of The Dungeons",
+      "expect_key": "lead waldhar out of the dungeons",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10120",
+      "input": "Report Back To Captain Brant",
+      "expect_key": "report back to captain brant",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10120",
+      "input": "",
+      "expect_key": "meet with magistrate waldhar",
+      "kind": "fallback"
+    },
+    {
+      "qid": "10130",
+      "input": "Investigate The False Sovran And Report To Brant",
+      "expect_key": "investigate the false sovran and report to brant",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10130",
+      "input": "",
+      "expect_key": "investigate the false sovran and report to brant",
+      "kind": "fallback"
+    },
+    {
+      "qid": "10140",
+      "input": "Dress Formally And Speak With Captain Brant",
+      "expect_key": "dress formally and speak with captain brant",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10140",
+      "input": "Await Captain Brant S Plan Of Action",
+      "expect_key": "await captain brant s plan of action",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10140",
+      "input": "Consult With Captain Brant",
+      "expect_key": "consult with captain brant",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10140",
+      "input": "Make For Battahl",
+      "expect_key": "make for battahl",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10140",
+      "input": "",
+      "expect_key": "dress formally and speak with captain brant",
+      "kind": "fallback"
+    },
+    {
+      "qid": "10150",
+      "input": "Journey To Battahl",
+      "expect_key": "journey to battahl",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10150",
+      "input": "Make For The Rockmouse S Burrow",
+      "expect_key": "make for the rockmouse s burrow",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10150",
+      "input": "",
+      "expect_key": "journey to battahl",
+      "kind": "fallback"
+    },
+    {
+      "qid": "10151",
+      "input": "Enter Bakbattahl",
+      "expect_key": "enter bakbattahl",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10151",
+      "input": "Speak With Ambrosius",
+      "expect_key": "speak with ambrosius",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10151",
+      "input": "Seek Information About Larger Blue Crystal Shards",
+      "expect_key": "seek information about larger blue crystal shards",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10151",
+      "input": "Seek He Who Was Dragon Forged In Harve Village",
+      "expect_key": "seek he who was dragon forged in harve village",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10151",
+      "input": "Find Blue Crystal Shards For Ambrosius",
+      "expect_key": "find blue crystal shards for ambrosius",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10151",
+      "input": "",
+      "expect_key": "speak with ambrosius",
+      "kind": "fallback"
+    },
+    {
+      "qid": "10160",
+      "input": "Explore The Seafloor Shrine",
+      "expect_key": "explore the seafloor shrine",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10160",
+      "input": "",
+      "expect_key": "explore the seafloor shrine",
+      "kind": "fallback"
+    },
+    {
+      "qid": "10170",
+      "input": "Deliver The Godsbane To Ambrosius",
+      "expect_key": "deliver the godsbane to ambrosius",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10170",
+      "input": "Obtain Fifteen Wyrmslife Crystals",
+      "expect_key": "obtain fifteen wyrmslife crystals",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10170",
+      "input": "Await The New Godsway",
+      "expect_key": "await the new godsway",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10170",
+      "input": "Give The Wyrmslife Crystals To Ambrosius",
+      "expect_key": "give the wyrmslife crystals to ambrosius",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10170",
+      "input": "See If The Godsway Is Ready",
+      "expect_key": "see if the godsway is ready",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10170",
+      "input": "",
+      "expect_key": "deliver the godsbane to ambrosius",
+      "kind": "fallback"
+    },
+    {
+      "qid": "10180",
+      "input": "Take The Godsbane To Phaesus",
+      "expect_key": "take the godsbane to phaesus",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10180",
+      "input": "You Encountered The Gigantus",
+      "expect_key": "you encountered the gigantus",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10180",
+      "input": "",
+      "expect_key": "take the godsbane to phaesus",
+      "kind": "fallback"
+    },
+    {
+      "qid": "10190",
+      "input": "Defeat The Imposter",
+      "expect_key": "defeat the imposter",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10190",
+      "input": "Face The Dragon",
+      "expect_key": "face the dragon",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10190",
+      "input": "Phaesus Summoned A Lesser Dragon",
+      "expect_key": "phaesus summoned a lesser dragon",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10190",
+      "input": "",
+      "expect_key": "defeat the imposter",
+      "kind": "fallback"
+    },
+    {
+      "qid": "10200",
+      "input": "Visit The Seafloor Shrine",
+      "expect_key": "visit the seafloor shrine",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10200",
+      "input": "Lead The Evacuation Effort",
+      "expect_key": "lead the evacuation effort",
+      "kind": "canonical"
+    },
+    {
+      "qid": "10200",
+      "input": "",
+      "expect_key": "visit the seafloor shrine",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20010",
+      "input": "Deliver The Nbsp Fruit Roborant",
+      "expect_key": "deliver the nbsp fruit roborant",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20010",
+      "input": "Deliver The Fruit Roborant",
+      "expect_key": "deliver the fruit roborant",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20010",
+      "input": "",
+      "expect_key": "deliver the nbsp fruit roborant",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20020",
+      "input": "Aid Accardo Go To Accardo S Aid And See To It That The Recruit Survives His First Brush With Harpies",
+      "expect_key": "aid accardo go to accardo s aid and see to it that the recruit survives his first brush with harpies",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20020",
+      "input": "Report Back To Phill",
+      "expect_key": "report back to phill",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20020",
+      "input": "Aid Accardo",
+      "expect_key": "aid accardo",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20020",
+      "input": "",
+      "expect_key": "aid accardo go to accardo s aid and see to it that the recruit survives his first brush with harpies",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20030",
+      "input": "Deliver The Provisioner S Note To Markus",
+      "expect_key": "deliver the provisioner s note to markus",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20030",
+      "input": "Procure Some Harspud Nbsp And Salubrious Draught",
+      "expect_key": "procure some harspud nbsp and salubrious draught",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20030",
+      "input": "Give Markus The Provisions",
+      "expect_key": "give markus the provisions",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20030",
+      "input": "Report Back To Geoffrey",
+      "expect_key": "report back to geoffrey",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20030",
+      "input": "Procure Some Harspuds And Salubrious Draughts",
+      "expect_key": "procure some harspuds and salubrious draughts",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20030",
+      "input": "Procure Three Harspuds",
+      "expect_key": "procure three harspuds",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20030",
+      "input": "Procure Two Salubrious Draughts",
+      "expect_key": "procure two salubrious draughts",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20030",
+      "input": "",
+      "expect_key": "deliver the provisioner s note to markus",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20040",
+      "input": "Throw Explosive Casks Into The Saurian Nest",
+      "expect_key": "throw explosive casks into the saurian nest",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20040",
+      "input": "Report Back To Lennart",
+      "expect_key": "report back to lennart",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20040",
+      "input": "Throw A Jar Of Poison Into The Saurian Nest",
+      "expect_key": "throw a jar of poison into the saurian nest",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20040",
+      "input": "",
+      "expect_key": "throw explosive casks into the saurian nest",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20050",
+      "input": "Find Norbert",
+      "expect_key": "find norbert",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20050",
+      "input": "Escort The Brothers Back To Melve",
+      "expect_key": "escort the brothers back to melve",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20050",
+      "input": "",
+      "expect_key": "find norbert",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20060",
+      "input": "Deliver The Letter To Ernesto",
+      "expect_key": "deliver the letter to ernesto",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20060",
+      "input": "Deliver The Letter To Barbas",
+      "expect_key": "deliver the letter to barbas",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20060",
+      "input": "Rescue The Traveler",
+      "expect_key": "rescue the traveler",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20060",
+      "input": "Escort The Traveler",
+      "expect_key": "escort the traveler",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20060",
+      "input": "Return To Safety",
+      "expect_key": "return to safety",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20060",
+      "input": "",
+      "expect_key": "deliver the letter to ernesto",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20070",
+      "input": "Speak To Margit",
+      "expect_key": "speak to margit",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20070",
+      "input": "Aid Gregor At The Illdoers Resting Place",
+      "expect_key": "aid gregor at the illdoers resting place",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20070",
+      "input": "Report Back To Margit",
+      "expect_key": "report back to margit",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20070",
+      "input": "Aid Gregor",
+      "expect_key": "aid gregor",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20070",
+      "input": "Report Back",
+      "expect_key": "report back",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20070",
+      "input": "",
+      "expect_key": "speak to margit",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20080",
+      "input": "Rid The Village Of Its Saurian Infestation",
+      "expect_key": "rid the village of its saurian infestation",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20080",
+      "input": "Report Back To Fyoran",
+      "expect_key": "report back to fyoran",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20080",
+      "input": "Wait A Few Days Then Return To Harve Village",
+      "expect_key": "wait a few days then return to harve village",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20080",
+      "input": "Rid The Village Of Its Saurian Infestation Once Again",
+      "expect_key": "rid the village of its saurian infestation once again",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20080",
+      "input": "Those Scaly Fiends Fared No Better Against You Than Their Predecessors Hopefully This Will Be The Last The Village Sees Of Their Ilk",
+      "expect_key": "those scaly fiends fared no better against you than their predecessors hopefully this will be the last the village sees of their ilk",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20080",
+      "input": "Defeat The Saurians",
+      "expect_key": "defeat the saurians",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20080",
+      "input": "",
+      "expect_key": "rid the village of its saurian infestation",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20082",
+      "input": "Make For Stormwind Cave",
+      "expect_key": "make for stormwind cave",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20082",
+      "input": "Search The Cave With Ulrika",
+      "expect_key": "search the cave with ulrika",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20082",
+      "input": "Escort Zoran Back To Harve Village",
+      "expect_key": "escort zoran back to harve village",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20082",
+      "input": "Search The Cave With Fyoran",
+      "expect_key": "search the cave with fyoran",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20082",
+      "input": "",
+      "expect_key": "make for stormwind cave",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20090",
+      "input": "Watch The Beggar As He Goes About His Day And See If You Can T Find Out How He Makes His Coin",
+      "expect_key": "watch the beggar as he goes about his day and see if you can t find out how he makes his coin",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20090",
+      "input": "You Have Acquired The Garments Worn By A Nobleman With A Penchant For Disguising Himself As A Beggar",
+      "expect_key": "you have acquired the garments worn by a nobleman with a penchant for disguising himself as a beggar",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20090",
+      "input": "You Gave The Garb To Celina Hilda Albert Give The Garb To Celina Nbsp Visit Celina In A Few Days Time",
+      "expect_key": "you gave the garb to celina hilda albert give the garb to celina nbsp visit celina in a few days time",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20090",
+      "input": "Give The Garb To Hilda Nbsp Visit Hilda In A Few Days Time",
+      "expect_key": "give the garb to hilda nbsp visit hilda in a few days time",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20090",
+      "input": "Deliver The Beggar S Garb",
+      "expect_key": "deliver the beggar s garb",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20090",
+      "input": "Keep An Eye On The Beggar",
+      "expect_key": "keep an eye on the beggar",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20090",
+      "input": "Visit Celina In A Few Days Time",
+      "expect_key": "visit celina in a few days time",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20090",
+      "input": "Visit Hilda In A Few Days Time",
+      "expect_key": "visit hilda in a few days time",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20090",
+      "input": "You Gave The Garb To Celina Hilda Albert Give The Garb To Celina Nbsp Visit Celina In A Few Days' Time",
+      "expect_key": "you gave the garb to celina hilda albert give the garb to celina nbsp visit celina in a few days' time",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20090",
+      "input": "Give The Garb To Hilda Nbsp Visit Hilda In A Few Days' Time",
+      "expect_key": "give the garb to hilda nbsp visit hilda in a few days' time",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20090",
+      "input": "",
+      "expect_key": "watch the beggar as he goes about his day and see if you can t find out how he makes his coin",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20100",
+      "input": "Provide Aid",
+      "expect_key": "provide aid",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20100",
+      "input": "Escort Oskar",
+      "expect_key": "escort oskar",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20100",
+      "input": "Conditional Find The Nation S Death Knell",
+      "expect_key": "conditional find the nation s death knell",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20100",
+      "input": "Conditional Return The Nation S Death Knell",
+      "expect_key": "conditional return the nation s death knell",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20100",
+      "input": "Traverse The Ancient Battleground",
+      "expect_key": "traverse the ancient battleground",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20100",
+      "input": "Find The Missing Grimoire",
+      "expect_key": "find the missing grimoire",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20100",
+      "input": "Report Back To The Merchant",
+      "expect_key": "report back to the merchant",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20100",
+      "input": "",
+      "expect_key": "provide aid",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20110",
+      "input": "Investigate The Phantom Oxcart",
+      "expect_key": "investigate the phantom oxcart",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20110",
+      "input": "Question The Soldier",
+      "expect_key": "question the soldier",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20110",
+      "input": "Find Out Who Is Behind The Phantom Oxcart",
+      "expect_key": "find out who is behind the phantom oxcart",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20110",
+      "input": "Pursue The Oxcart",
+      "expect_key": "pursue the oxcart",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20110",
+      "input": "Gather Evidence And Report To Captain Brant",
+      "expect_key": "gather evidence and report to captain brant",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20110",
+      "input": "Eavesdrop At West Vernworth Oxcart Station",
+      "expect_key": "eavesdrop at west vernworth oxcart station",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20110",
+      "input": "Investigate The Crossroads At Night",
+      "expect_key": "investigate the crossroads at night",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20110",
+      "input": "Question The Soldier Navil",
+      "expect_key": "question the soldier navil",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20110",
+      "input": "Report To Captain Brant",
+      "expect_key": "report to captain brant",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20110",
+      "input": "Follow Or Board The Phantom Oxcart",
+      "expect_key": "follow or board the phantom oxcart",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20110",
+      "input": "Obtain Labor Requisition Orders",
+      "expect_key": "obtain labor requisition orders",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20110",
+      "input": "Return Evidence To Captain Brant",
+      "expect_key": "return evidence to captain brant",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20110",
+      "input": "",
+      "expect_key": "investigate the phantom oxcart",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20120",
+      "input": "Determine Malcolm S Location",
+      "expect_key": "determine malcolm s location",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20120",
+      "input": "Report Back To Kendrick",
+      "expect_key": "report back to kendrick",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20120",
+      "input": "Search The Vaults For Malcolm",
+      "expect_key": "search the vaults for malcolm",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20120",
+      "input": "You Spoke To The Children Of The Gracious Hand",
+      "expect_key": "you spoke to the children of the gracious hand",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20120",
+      "input": "You Reported Back To Kendrick",
+      "expect_key": "you reported back to kendrick",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20120",
+      "input": "You Found Malcolm",
+      "expect_key": "you found malcolm",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20120",
+      "input": "You Discovered An Archive In The Vaults",
+      "expect_key": "you discovered an archive in the vaults",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20120",
+      "input": "Follow Malcolm",
+      "expect_key": "follow malcolm",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20120",
+      "input": "",
+      "expect_key": "determine malcolm s location",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20130",
+      "input": "Give Elena The Medicinal Ingredient",
+      "expect_key": "give elena the medicinal ingredient",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20130",
+      "input": "Follow Lady Elena",
+      "expect_key": "follow lady elena",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20130",
+      "input": "Investigate The Gracious Hand",
+      "expect_key": "investigate the gracious hand",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20130",
+      "input": "Report Back To Lubomir",
+      "expect_key": "report back to lubomir",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20130",
+      "input": "Gather Evidence And Apprehend The Abbess",
+      "expect_key": "gather evidence and apprehend the abbess",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20130",
+      "input": "You Turned Over Elena",
+      "expect_key": "you turned over elena",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20130",
+      "input": "Deliver The Miasmite To Lady Elena",
+      "expect_key": "deliver the miasmite to lady elena",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20130",
+      "input": "Medicinal",
+      "expect_key": "medicinal",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20130",
+      "input": "Follow",
+      "expect_key": "follow",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20130",
+      "input": "Gather Evidence",
+      "expect_key": "gather evidence",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20130",
+      "input": "",
+      "expect_key": "give elena the medicinal ingredient",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20140",
+      "input": "Find A Bunch Of Flowers",
+      "expect_key": "find a bunch of flowers",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20140",
+      "input": "Find Some Silver Ore",
+      "expect_key": "find some silver ore",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20140",
+      "input": "Return In A Few Days Time",
+      "expect_key": "return in a few days time",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20140",
+      "input": "Obtain Two Pieces Of Gold Ore",
+      "expect_key": "obtain two pieces of gold ore",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20140",
+      "input": "Bring Daphne Medicine For Treating Blight",
+      "expect_key": "bring daphne medicine for treating blight",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20140",
+      "input": "Bring Daphne The Bunch Of Flowers",
+      "expect_key": "bring daphne the bunch of flowers",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20140",
+      "input": "Bring Daphne The Silver Ore",
+      "expect_key": "bring daphne the silver ore",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20140",
+      "input": "Bring Daphne The Gold Ore",
+      "expect_key": "bring daphne the gold ore",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20140",
+      "input": "Give Daphne The Medicine",
+      "expect_key": "give daphne the medicine",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20140",
+      "input": "",
+      "expect_key": "find a bunch of flowers",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20150",
+      "input": "Visit The Manor",
+      "expect_key": "visit the manor",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20150",
+      "input": "Find Sebastian S Look Alike",
+      "expect_key": "find sebastian s look alike",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20150",
+      "input": "Escort Daphne To The Manor",
+      "expect_key": "escort daphne to the manor",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20150",
+      "input": "Help Sebastian Prepare By Giving Him The Necessary Items",
+      "expect_key": "help sebastian prepare by giving him the necessary items",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20150",
+      "input": "Help Sebastian Prepare",
+      "expect_key": "help sebastian prepare",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20150",
+      "input": "Wait A Day Or So Then Return To The Manor",
+      "expect_key": "wait a day or so then return to the manor",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20150",
+      "input": "Find Sebastian",
+      "expect_key": "find sebastian",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20150",
+      "input": "Report Back To The Manor",
+      "expect_key": "report back to the manor",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20150",
+      "input": "Procure The Necessary Supplies For Sebastian",
+      "expect_key": "procure the necessary supplies for sebastian",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20150",
+      "input": "Give Sebastian Something That Reeks Of Cyclops",
+      "expect_key": "give sebastian something that reeks of cyclops",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20150",
+      "input": "Give Sebastian An Antidote For Blight",
+      "expect_key": "give sebastian an antidote for blight",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20150",
+      "input": "Look Alike",
+      "expect_key": "look alike",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20150",
+      "input": "Prepare",
+      "expect_key": "prepare",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20150",
+      "input": "Return To The Manor",
+      "expect_key": "return to the manor",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20150",
+      "input": "Find Sebastian's Look Alike",
+      "expect_key": "find sebastian's look alike",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20150",
+      "input": "",
+      "expect_key": "visit the manor",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20190",
+      "input": "Exchange Gifts",
+      "expect_key": "exchange gifts",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20190",
+      "input": "Clear Yourself Of Suspicion",
+      "expect_key": "clear yourself of suspicion",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20190",
+      "input": "Clear Yourself",
+      "expect_key": "clear yourself",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20190",
+      "input": "Suspicion",
+      "expect_key": "suspicion",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20190",
+      "input": "",
+      "expect_key": "exchange gifts",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20200",
+      "input": "The Riddle Of Eyes",
+      "expect_key": "the riddle of eyes",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20200",
+      "input": "The Riddle Of Madness",
+      "expect_key": "the riddle of madness",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20200",
+      "input": "The Riddle Of Wisdom",
+      "expect_key": "the riddle of wisdom",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20200",
+      "input": "The Riddle Of Conviction",
+      "expect_key": "the riddle of conviction",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20200",
+      "input": "The Riddle Of Rumination",
+      "expect_key": "the riddle of rumination",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20200",
+      "input": "Answer The Sphinx S Riddles",
+      "expect_key": "answer the sphinx s riddles",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20200",
+      "input": "Answer The Sphinx",
+      "expect_key": "answer the sphinx",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20200",
+      "input": "Reach The Frontier Shrine",
+      "expect_key": "reach the frontier shrine",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20200",
+      "input": "Answer Remaining Riddles",
+      "expect_key": "answer remaining riddles",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20200",
+      "input": "",
+      "expect_key": "the riddle of eyes",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20220",
+      "input": "Investigate The False Sovran And Report To Brant",
+      "expect_key": "investigate the false sovran and report to brant",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20220",
+      "input": "",
+      "expect_key": "investigate the false sovran and report to brant",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20230",
+      "input": "Meet Mildred At Her Home",
+      "expect_key": "meet mildred at her home",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20230",
+      "input": "Occupy The Dwelling For A Week",
+      "expect_key": "occupy the dwelling for a week",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20230",
+      "input": "Speak With Mildred",
+      "expect_key": "speak with mildred",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20230",
+      "input": "Purchase Mildred S Dwelling",
+      "expect_key": "purchase mildred s dwelling",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20230",
+      "input": "Help The Refugee",
+      "expect_key": "help the refugee",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20230",
+      "input": "Find A Place To Call Home",
+      "expect_key": "find a place to call home",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20230",
+      "input": "Furnish The Home",
+      "expect_key": "furnish the home",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20230",
+      "input": "",
+      "expect_key": "meet mildred at her home",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20240",
+      "input": "Obtain An Archistaff And Greatsword",
+      "expect_key": "obtain an archistaff and greatsword",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20240",
+      "input": "You Were Advised To Speak With The Local Armorer",
+      "expect_key": "you were advised to speak with the local armorer",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20240",
+      "input": "Bring The Weapons You Have Acquired To The Guild And Present Them To The Guildhead",
+      "expect_key": "bring the weapons you have acquired to the guild and present them to the guildhead",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20240",
+      "input": "Take The Archistaff And Greatsword To The Guild",
+      "expect_key": "take the archistaff and greatsword to the guild",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20240",
+      "input": "Obtain A Greatsword",
+      "expect_key": "obtain a greatsword",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20240",
+      "input": "Obtain An Archistaff",
+      "expect_key": "obtain an archistaff",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20240",
+      "input": "",
+      "expect_key": "obtain an archistaff and greatsword",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20250",
+      "input": "Find Rodge And Go To His Aid",
+      "expect_key": "find rodge and go to his aid",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20250",
+      "input": "Escort Rodge To The Checkpoint Rest Town",
+      "expect_key": "escort rodge to the checkpoint rest town",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20250",
+      "input": "Report Back To Morris",
+      "expect_key": "report back to morris",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20250",
+      "input": "Inform Morris Of Rodge S Wellbeing",
+      "expect_key": "inform morris of rodge s wellbeing",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20250",
+      "input": "Hunt The Wolves",
+      "expect_key": "hunt the wolves",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20250",
+      "input": "",
+      "expect_key": "find rodge and go to his aid",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20270",
+      "input": "Give Lamond What He Seeks",
+      "expect_key": "give lamond what he seeks",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20270",
+      "input": "Bring Lamond More Newt Liqueur",
+      "expect_key": "bring lamond more newt liqueur",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20270",
+      "input": "Find The Sotted Sage",
+      "expect_key": "find the sotted sage",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20270",
+      "input": "Speak To The Sotted Sage",
+      "expect_key": "speak to the sotted sage",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20270",
+      "input": "Complete The Sage's Request",
+      "expect_key": "complete the sage's request",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20270",
+      "input": "",
+      "expect_key": "give lamond what he seeks",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20280",
+      "input": "Allow Yourself To Be Poisoned By An Asp",
+      "expect_key": "allow yourself to be poisoned by an asp",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20280",
+      "input": "Return To Jarle Afflicted With Asp Venom",
+      "expect_key": "return to jarle afflicted with asp venom",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20280",
+      "input": "Allow Yourself To Be Poisoned By A Venin Harpy",
+      "expect_key": "allow yourself to be poisoned by a venin harpy",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20280",
+      "input": "Return To Jarle Afflicted With Venin Harpy Venom",
+      "expect_key": "return to jarle afflicted with venin harpy venom",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20280",
+      "input": "Join Jarle At The Meeting Place",
+      "expect_key": "join jarle at the meeting place",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20280",
+      "input": "Aid Jarle In Being Poisoned By The Chimera",
+      "expect_key": "aid jarle in being poisoned by the chimera",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20280",
+      "input": "Find Out How Jarle Fared",
+      "expect_key": "find out how jarle fared",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20280",
+      "input": "Heed Jarle S Request",
+      "expect_key": "heed jarle s request",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20280",
+      "input": "",
+      "expect_key": "allow yourself to be poisoned by an asp",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20290",
+      "input": "Bring Isaac A Ripened Quince",
+      "expect_key": "bring isaac a ripened quince",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20290",
+      "input": "Find The Grimoire S Second Volume Give Isaac The Original Grimoire",
+      "expect_key": "find the grimoire s second volume give isaac the original grimoire",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20290",
+      "input": "Create A Forgery Of The Grimoire",
+      "expect_key": "create a forgery of the grimoire",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20290",
+      "input": "Find The Grimoire S Second Volume",
+      "expect_key": "find the grimoire s second volume",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20290",
+      "input": "Seek Out A Ripened Quince",
+      "expect_key": "seek out a ripened quince",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20290",
+      "input": "Deliver On The Transference Of Souls 2",
+      "expect_key": "deliver on the transference of souls 2",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20290",
+      "input": "Follow Isaac",
+      "expect_key": "follow isaac",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20290",
+      "input": "Visit Isaac In A Few Days Time",
+      "expect_key": "visit isaac in a few days time",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20290",
+      "input": "Speak To Isaac",
+      "expect_key": "speak to isaac",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20290",
+      "input": "Find A Ripened Quince",
+      "expect_key": "find a ripened quince",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20290",
+      "input": "Find The Second Volume Of The Grimoire",
+      "expect_key": "find the second volume of the grimoire",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20290",
+      "input": "Give Isaac The Forged Grimoire",
+      "expect_key": "give isaac the forged grimoire",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20290",
+      "input": "Find The Grimoire's Second Volume Give Isaac The Original Grimoire",
+      "expect_key": "find the grimoire's second volume give isaac the original grimoire",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20290",
+      "input": "",
+      "expect_key": "bring isaac a ripened quince",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20310",
+      "input": "Visit Fulvio In Battahl",
+      "expect_key": "visit fulvio in battahl",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20310",
+      "input": "Accompany Fulvio",
+      "expect_key": "accompany fulvio",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20310",
+      "input": "Wait A Few Days Then Check On Fulvio S Progress",
+      "expect_key": "wait a few days then check on fulvio s progress",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20310",
+      "input": "Attend The Unveiling At Klark S Estate",
+      "expect_key": "attend the unveiling at klark s estate",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20310",
+      "input": "Make For The Meeting Place",
+      "expect_key": "make for the meeting place",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20310",
+      "input": "Do Extended Battle With The Griffin",
+      "expect_key": "do extended battle with the griffin",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20310",
+      "input": "Help The Sculptor",
+      "expect_key": "help the sculptor",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20310",
+      "input": "Wait For Fulvio Progress",
+      "expect_key": "wait for fulvio progress",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20310",
+      "input": "Attend The Unveiling",
+      "expect_key": "attend the unveiling",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20310",
+      "input": "",
+      "expect_key": "visit fulvio in battahl",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20320",
+      "input": "Escort Nadinia Without Exposing Her Identity",
+      "expect_key": "escort nadinia without exposing her identity",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20320",
+      "input": "Escort Nadinia To The Oxcart",
+      "expect_key": "escort nadinia to the oxcart",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20320",
+      "input": "",
+      "expect_key": "escort nadinia without exposing her identity",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20330",
+      "input": "Apprehend The Assassin",
+      "expect_key": "apprehend the assassin",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20330",
+      "input": "Go To Flamebearer Palace In The Morning",
+      "expect_key": "go to flamebearer palace in the morning",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20330",
+      "input": "Identify The Assassin",
+      "expect_key": "identify the assassin",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20330",
+      "input": "",
+      "expect_key": "apprehend the assassin",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20340",
+      "input": "Check On Sara S Progress",
+      "expect_key": "check on sara s progress",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20340",
+      "input": "Find Sara",
+      "expect_key": "find sara",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20340",
+      "input": "Escort Sara To The Cave Entrance",
+      "expect_key": "escort sara to the cave entrance",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20340",
+      "input": "Return To Brokkr S Smithy",
+      "expect_key": "return to brokkr s smithy",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20340",
+      "input": "Report Back To Roman",
+      "expect_key": "report back to roman",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20340",
+      "input": "Deliver Sara To The Cave Entrance",
+      "expect_key": "deliver sara to the cave entrance",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20340",
+      "input": "Return To The Smithy",
+      "expect_key": "return to the smithy",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20340",
+      "input": "Return For The Regalia Sword In A Few Days Time",
+      "expect_key": "return for the regalia sword in a few days time",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20340",
+      "input": "Wait A Day Or So Then Check On Sara",
+      "expect_key": "wait a day or so then check on sara",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20340",
+      "input": "",
+      "expect_key": "check on sara s progress",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20350",
+      "input": "Hunt For The Jadeite Orb",
+      "expect_key": "hunt for the jadeite orb",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20350",
+      "input": "You Received A Second Request For The Jadeite Orb",
+      "expect_key": "you received a second request for the jadeite orb",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20350",
+      "input": "Deliver The Jadeite Orb Bring The Jadeite Orb To The Individual Who Requested It Everard Offulve",
+      "expect_key": "deliver the jadeite orb bring the jadeite orb to the individual who requested it everard offulve",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20350",
+      "input": "Find The Jadeite Orb",
+      "expect_key": "find the jadeite orb",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20350",
+      "input": "Deliver The Jadeite Orb",
+      "expect_key": "deliver the jadeite orb",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20350",
+      "input": "Search The Castle",
+      "expect_key": "search the castle",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20350",
+      "input": "Return The Orb",
+      "expect_key": "return the orb",
+      "kind": "alternate"
+    },
+    {
+      "qid": "20350",
+      "input": "",
+      "expect_key": "hunt for the jadeite orb",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20360",
+      "input": "Find Your Pawn",
+      "expect_key": "find your pawn",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20360",
+      "input": "",
+      "expect_key": "find your pawn",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20370",
+      "input": "Pursue The Skyfallen Dragon",
+      "expect_key": "pursue the skyfallen dragon",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20370",
+      "input": "",
+      "expect_key": "pursue the skyfallen dragon",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20380",
+      "input": "Follow Phaesus",
+      "expect_key": "follow phaesus",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20380",
+      "input": "",
+      "expect_key": "follow phaesus",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20390",
+      "input": "Aid In The Evacuation Of Vermund",
+      "expect_key": "aid in the evacuation of vermund",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20390",
+      "input": "",
+      "expect_key": "aid in the evacuation of vermund",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20420",
+      "input": "Aid In The Evacuation Of Battahl",
+      "expect_key": "aid in the evacuation of battahl",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20420",
+      "input": "",
+      "expect_key": "aid in the evacuation of battahl",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20450",
+      "input": "Aid In The Evacuation Of The Sacred Arbor",
+      "expect_key": "aid in the evacuation of the sacred arbor",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20450",
+      "input": "Speak With Taliesin",
+      "expect_key": "speak with taliesin",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20450",
+      "input": "Take The Arborheart Cutting To The Seafloor Shrine",
+      "expect_key": "take the arborheart cutting to the seafloor shrine",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20450",
+      "input": "Report Back To Taliesin",
+      "expect_key": "report back to taliesin",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20450",
+      "input": "",
+      "expect_key": "aid in the evacuation of the sacred arbor",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20460",
+      "input": "Aid In The Evacuation Of Volcanic Island",
+      "expect_key": "aid in the evacuation of volcanic island",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20460",
+      "input": "",
+      "expect_key": "aid in the evacuation of volcanic island",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20470",
+      "input": "Aid In The Pawns Escape",
+      "expect_key": "aid in the pawns escape",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20470",
+      "input": "",
+      "expect_key": "aid in the pawns escape",
+      "kind": "fallback"
+    },
+    {
+      "qid": "20480",
+      "input": "Make For Melve And Deliver The Letter To Ser Lennart",
+      "expect_key": "make for melve and deliver the letter to ser lennart",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20480",
+      "input": "Report Back To Donovan",
+      "expect_key": "report back to donovan",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20480",
+      "input": "Make For Melve And Deliver The Letter To Lennart",
+      "expect_key": "make for melve and deliver the letter to lennart",
+      "kind": "canonical"
+    },
+    {
+      "qid": "20480",
+      "input": "",
+      "expect_key": "make for melve and deliver the letter to ser lennart",
+      "kind": "fallback"
+    },
+    {
+      "qid": "30010",
+      "input": "Find Out What S Going On",
+      "expect_key": "find out what s going on",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30010",
+      "input": "Receive Recompense From Sven In A Few Days",
+      "expect_key": "receive recompense from sven in a few days",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30010",
+      "input": "Sven Made Sure To Thank You For The Generosity You Showed Him",
+      "expect_key": "sven made sure to thank you for the generosity you showed him",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30010",
+      "input": "Receive Recompense From Sven In A Few Days Time",
+      "expect_key": "receive recompense from sven in a few days time",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30010",
+      "input": "Find Out",
+      "expect_key": "find out",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30010",
+      "input": "Recompense",
+      "expect_key": "recompense",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30010",
+      "input": "Ornate Box",
+      "expect_key": "ornate box",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30010",
+      "input": "",
+      "expect_key": "find out what s going on",
+      "kind": "fallback"
+    },
+    {
+      "qid": "30020",
+      "input": "Procure Weapons And Find A Motivated Soldier",
+      "expect_key": "procure weapons and find a motivated soldier",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30020",
+      "input": "Have A Bout With Beren",
+      "expect_key": "have a bout with beren",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30020",
+      "input": "Follow Beren",
+      "expect_key": "follow beren",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30020",
+      "input": "Return To The Encampment",
+      "expect_key": "return to the encampment",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30020",
+      "input": "Find Beren A Motivated Soldier To Train",
+      "expect_key": "find beren a motivated soldier to train",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30020",
+      "input": "Procure Three Swords For Beren",
+      "expect_key": "procure three swords for beren",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30020",
+      "input": "Speak With Beren",
+      "expect_key": "speak with beren",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30020",
+      "input": "Procure Swords For Beren",
+      "expect_key": "procure swords for beren",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30020",
+      "input": "Recruit Humphrey",
+      "expect_key": "recruit humphrey",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30020",
+      "input": "Assist The Sparring Bout",
+      "expect_key": "assist the sparring bout",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30020",
+      "input": "",
+      "expect_key": "procure weapons and find a motivated soldier",
+      "kind": "fallback"
+    },
+    {
+      "qid": "30030",
+      "input": "Intercept The Cyclops",
+      "expect_key": "intercept the cyclops",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30030",
+      "input": "Pay Beren Another Visit Before He Leaves",
+      "expect_key": "pay beren another visit before he leaves",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30030",
+      "input": "",
+      "expect_key": "intercept the cyclops",
+      "kind": "fallback"
+    },
+    {
+      "qid": "30040",
+      "input": "Approach The False Sovran",
+      "expect_key": "approach the false sovran",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30040",
+      "input": "Report Back To Captain Brant",
+      "expect_key": "report back to captain brant",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30040",
+      "input": "",
+      "expect_key": "approach the false sovran",
+      "kind": "fallback"
+    },
+    {
+      "qid": "30041",
+      "input": "Deliver The Letter To Lord Patrick",
+      "expect_key": "deliver the letter to lord patrick",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30041",
+      "input": "Report Back To Regentkin Sven",
+      "expect_key": "report back to regentkin sven",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30041",
+      "input": "",
+      "expect_key": "deliver the letter to lord patrick",
+      "kind": "fallback"
+    },
+    {
+      "qid": "30042",
+      "input": "Find Waldhar S Confiscated Spectacles",
+      "expect_key": "find waldhar s confiscated spectacles",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30042",
+      "input": "Return The Spectacles To Waldhar",
+      "expect_key": "return the spectacles to waldhar",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30042",
+      "input": "Find The Spectacles",
+      "expect_key": "find the spectacles",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30042",
+      "input": "",
+      "expect_key": "find waldhar s confiscated spectacles",
+      "kind": "fallback"
+    },
+    {
+      "qid": "30050",
+      "input": "Gather Evidence Within Three Days",
+      "expect_key": "gather evidence within three days",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30050",
+      "input": "Deliver The Evidence To Captain Brant To Secure His Aid",
+      "expect_key": "deliver the evidence to captain brant to secure his aid",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30050",
+      "input": "Deliver The Evidence To Wilhelmina",
+      "expect_key": "deliver the evidence to wilhelmina",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30050",
+      "input": "Speak To Wilhelmina At Night",
+      "expect_key": "speak to wilhelmina at night",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30050",
+      "input": "Assist In The Assassination",
+      "expect_key": "assist in the assassination",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30050",
+      "input": "Speak With Wilhelmina",
+      "expect_key": "speak with wilhelmina",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30050",
+      "input": "",
+      "expect_key": "gather evidence within three days",
+      "kind": "fallback"
+    },
+    {
+      "qid": "30060",
+      "input": "Make For Glyndwr S Place Of Training",
+      "expect_key": "make for glyndwr s place of training",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30060",
+      "input": "Arrived At The Ruins",
+      "expect_key": "arrived at the ruins",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30060",
+      "input": "Help Glyndwr Train With His New Bow",
+      "expect_key": "help glyndwr train with his new bow",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30060",
+      "input": "Make For Glyndwr's Place Of Training",
+      "expect_key": "make for glyndwr's place of training",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30060",
+      "input": "",
+      "expect_key": "make for glyndwr s place of training",
+      "kind": "fallback"
+    },
+    {
+      "qid": "30070",
+      "input": "Attend Glyndwr S Trial Of Archery",
+      "expect_key": "attend glyndwr s trial of archery",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30070",
+      "input": "Accompany Glyndwr",
+      "expect_key": "accompany glyndwr",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30070",
+      "input": "Make For The Ancestral Chamber",
+      "expect_key": "make for the ancestral chamber",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30070",
+      "input": "Venture In And Rescue Doireann",
+      "expect_key": "venture in and rescue doireann",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30070",
+      "input": "Carry Doireann Out Of The Ancestral Chamber",
+      "expect_key": "carry doireann out of the ancestral chamber",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30070",
+      "input": "Speak With Taliesin",
+      "expect_key": "speak with taliesin",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30070",
+      "input": "Attend Glyndwr's Trial Of Archery",
+      "expect_key": "attend glyndwr's trial of archery",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30070",
+      "input": "",
+      "expect_key": "attend glyndwr s trial of archery",
+      "kind": "fallback"
+    },
+    {
+      "qid": "30080",
+      "input": "Find Out What Gwyfencha Is",
+      "expect_key": "find out what gwyfencha is",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30080",
+      "input": "Speak With A Battahli Blacksmith",
+      "expect_key": "speak with a battahli blacksmith",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30080",
+      "input": "Check In With Sara Again Later",
+      "expect_key": "check in with sara again later",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30080",
+      "input": "",
+      "expect_key": "find out what gwyfencha is",
+      "kind": "fallback"
+    },
+    {
+      "qid": "30090",
+      "input": "Report Back To Doireann",
+      "expect_key": "report back to doireann",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30090",
+      "input": "Obtain The Ingredients For Nutriabh",
+      "expect_key": "obtain the ingredients for nutriabh",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30090",
+      "input": "Deliver The Ingredients To Doireann",
+      "expect_key": "deliver the ingredients to doireann",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30090",
+      "input": "Follow Doireann",
+      "expect_key": "follow doireann",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30090",
+      "input": "Follow Sara",
+      "expect_key": "follow sara",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30090",
+      "input": "Gather Plenty Of Scalecinder",
+      "expect_key": "gather plenty of scalecinder",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30090",
+      "input": "Deliver The Nutriabh To Sara",
+      "expect_key": "deliver the nutriabh to sara",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30090",
+      "input": "Check In With Sara Again Later",
+      "expect_key": "check in with sara again later",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30090",
+      "input": "Procure Some Rotten Apples",
+      "expect_key": "procure some rotten apples",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30090",
+      "input": "Procure Some Rotten Fish",
+      "expect_key": "procure some rotten fish",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30090",
+      "input": "",
+      "expect_key": "report back to doireann",
+      "kind": "fallback"
+    },
+    {
+      "qid": "30100",
+      "input": "Repel The Dragon",
+      "expect_key": "repel the dragon",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30100",
+      "input": "Visit Melve From Time To Time",
+      "expect_key": "visit melve from time to time",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30100",
+      "input": "Find Ulrika",
+      "expect_key": "find ulrika",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30100",
+      "input": "Inform Lennart Of Ulrika S Wellbeing",
+      "expect_key": "inform lennart of ulrika s wellbeing",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30100",
+      "input": "Visit Melve",
+      "expect_key": "visit melve",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30100",
+      "input": "Inform Lennart",
+      "expect_key": "inform lennart",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30100",
+      "input": "",
+      "expect_key": "repel the dragon",
+      "kind": "fallback"
+    },
+    {
+      "qid": "30110",
+      "input": "Speak With Lennart",
+      "expect_key": "speak with lennart",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30110",
+      "input": "Procure Four Swords And Give Them To Lennart",
+      "expect_key": "procure four swords and give them to lennart",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30110",
+      "input": "Repel The Soldiers Stationed In Melve",
+      "expect_key": "repel the soldiers stationed in melve",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30110",
+      "input": "Bring Word Of Melve To Ulrika In A Few Days Time",
+      "expect_key": "bring word of melve to ulrika in a few days time",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30110",
+      "input": "Meet Ulrika At Nighttime",
+      "expect_key": "meet ulrika at nighttime",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30110",
+      "input": "Report Back To Lennart",
+      "expect_key": "report back to lennart",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30110",
+      "input": "Speak With Ulrika",
+      "expect_key": "speak with ulrika",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30110",
+      "input": "",
+      "expect_key": "speak with lennart",
+      "kind": "fallback"
+    },
+    {
+      "qid": "30120",
+      "input": "Find Someone To Repair The Dulled Regalia Sword",
+      "expect_key": "find someone to repair the dulled regalia sword",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30120",
+      "input": "Find Fifteen Or More Pieces Of Glimmercoal",
+      "expect_key": "find fifteen or more pieces of glimmercoal",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30120",
+      "input": "Deliver The Glimmercoal To Sara",
+      "expect_key": "deliver the glimmercoal to sara",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30120",
+      "input": "Find Someone Else Who Can Repair The Regalia Sword",
+      "expect_key": "find someone else who can repair the regalia sword",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30120",
+      "input": "Receive The Dulled Regalia Sword",
+      "expect_key": "receive the dulled regalia sword",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30120",
+      "input": "Speak With The Vernworth Armorer",
+      "expect_key": "speak with the vernworth armorer",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30120",
+      "input": "Speak With Brokkr At Bakbattahl",
+      "expect_key": "speak with brokkr at bakbattahl",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30120",
+      "input": "Speak With Sara",
+      "expect_key": "speak with sara",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30120",
+      "input": "Deliver The Glimmercoal Nbsp To Sara",
+      "expect_key": "deliver the glimmercoal nbsp to sara",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30120",
+      "input": "Entrust The Regalia Sword To Sara",
+      "expect_key": "entrust the regalia sword to sara",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30120",
+      "input": "",
+      "expect_key": "find someone to repair the dulled regalia sword",
+      "kind": "fallback"
+    },
+    {
+      "qid": "30140",
+      "input": "Defeat The Ruffians",
+      "expect_key": "defeat the ruffians",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30140",
+      "input": "Conditional Participate In The Duel",
+      "expect_key": "conditional participate in the duel",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30140",
+      "input": "Enter The Wanderer S Haven",
+      "expect_key": "enter the wanderer s haven",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30140",
+      "input": "Participate In The Duel",
+      "expect_key": "participate in the duel",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30140",
+      "input": "",
+      "expect_key": "defeat the ruffians",
+      "kind": "fallback"
+    },
+    {
+      "qid": "30150",
+      "input": "Gather The Grimoires",
+      "expect_key": "gather the grimoires",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30150",
+      "input": "Bring Trysha The Nbsp Grimoires",
+      "expect_key": "bring trysha the nbsp grimoires",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30150",
+      "input": "Visit Trysha After A Few Days",
+      "expect_key": "visit trysha after a few days",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30150",
+      "input": "Exhaust Trysha S Magick Reserves",
+      "expect_key": "exhaust trysha s magick reserves",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30150",
+      "input": "Check On Trysha After A Few Days",
+      "expect_key": "check on trysha after a few days",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30150",
+      "input": "Bring Trysha Some Grimoires",
+      "expect_key": "bring trysha some grimoires",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30150",
+      "input": "Visit Trysha In A Few Days Time",
+      "expect_key": "visit trysha in a few days time",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30150",
+      "input": "Wait For Trysha To Wake",
+      "expect_key": "wait for trysha to wake",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30150",
+      "input": "Check On Trysha In A Few Days Time",
+      "expect_key": "check on trysha in a few days time",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30150",
+      "input": "Bring Trysha Let There Be Light",
+      "expect_key": "bring trysha let there be light",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30150",
+      "input": "Bring Trysha Fulminous Shield",
+      "expect_key": "bring trysha fulminous shield",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30150",
+      "input": "Bring Trysha Nation S Death Knell",
+      "expect_key": "bring trysha nation s death knell",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30150",
+      "input": "Bring Trysha Howling Blizzard",
+      "expect_key": "bring trysha howling blizzard",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30150",
+      "input": "Bring Trysha Towering Earth",
+      "expect_key": "bring trysha towering earth",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30150",
+      "input": "Pay Eini A Visit In A Few Days Time",
+      "expect_key": "pay eini a visit in a few days time",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30150",
+      "input": "Collect Grimoires For Trysha",
+      "expect_key": "collect grimoires for trysha",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30150",
+      "input": "Bring Trysha The Grimoires",
+      "expect_key": "bring trysha the grimoires",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30150",
+      "input": "Exhaust Trysha's Magick Reserves",
+      "expect_key": "exhaust trysha's magick reserves",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30150",
+      "input": "",
+      "expect_key": "gather the grimoires",
+      "kind": "fallback"
+    },
+    {
+      "qid": "30160",
+      "input": "Gather Grimoires For Myrddin",
+      "expect_key": "gather grimoires for myrddin",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30160",
+      "input": "Prove Your Friendship With Trysha",
+      "expect_key": "prove your friendship with trysha",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30160",
+      "input": "Revisit Myrddin In A Few Days Time",
+      "expect_key": "revisit myrddin in a few days time",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30160",
+      "input": "Bring Myrddin Let There Be Light",
+      "expect_key": "bring myrddin let there be light",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30160",
+      "input": "Bring Myrddin Fulminous Shield",
+      "expect_key": "bring myrddin fulminous shield",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30160",
+      "input": "Bring Myrddin Nation S Death Knell",
+      "expect_key": "bring myrddin nation s death knell",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30160",
+      "input": "Bring Myrddin Howling Blizzard",
+      "expect_key": "bring myrddin howling blizzard",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30160",
+      "input": "Bring Myrddin Towering Earth",
+      "expect_key": "bring myrddin towering earth",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30160",
+      "input": "Wear Noble Clothing",
+      "expect_key": "wear noble clothing",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30160",
+      "input": "Deliver Grimoires To Myrddin",
+      "expect_key": "deliver grimoires to myrddin",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30160",
+      "input": "Revisit Myrddin After A Few Days",
+      "expect_key": "revisit myrddin after a few days",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30160",
+      "input": "Revisit Myrddin In A Few Days' Time",
+      "expect_key": "revisit myrddin in a few days' time",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30160",
+      "input": "",
+      "expect_key": "gather grimoires for myrddin",
+      "kind": "fallback"
+    },
+    {
+      "qid": "30170",
+      "input": "Find Three Wildflowers",
+      "expect_key": "find three wildflowers",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30170",
+      "input": "Deliver The Wildflowers",
+      "expect_key": "deliver the wildflowers",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30170",
+      "input": "Visit Gautstafr S Home For A Reward",
+      "expect_key": "visit gautstafr s home for a reward",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30170",
+      "input": "Escort Gautstafr To Geyser Hamlet",
+      "expect_key": "escort gautstafr to geyser hamlet",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30170",
+      "input": "Report Back To Nbsp Cliodhna",
+      "expect_key": "report back to nbsp cliodhna",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30170",
+      "input": "Report Back To Cliodhna",
+      "expect_key": "report back to cliodhna",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30170",
+      "input": "Speak To The Dancer",
+      "expect_key": "speak to the dancer",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30170",
+      "input": "Gather Festival Materials",
+      "expect_key": "gather festival materials",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30170",
+      "input": "Attend The Festival",
+      "expect_key": "attend the festival",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30170",
+      "input": "Visit Gautstafr's Home For A Reward",
+      "expect_key": "visit gautstafr's home for a reward",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30170",
+      "input": "",
+      "expect_key": "find three wildflowers",
+      "kind": "fallback"
+    },
+    {
+      "qid": "30180",
+      "input": "Investigate The Letter And Report Back To Sven You Spoke With Magistrate Waldhar",
+      "expect_key": "investigate the letter and report back to sven you spoke with magistrate waldhar",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30180",
+      "input": "You Spoke With Lady Elena",
+      "expect_key": "you spoke with lady elena",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30180",
+      "input": "You Found The Delivered Letter",
+      "expect_key": "you found the delivered letter",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30180",
+      "input": "You Reported Back To Sven",
+      "expect_key": "you reported back to sven",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30180",
+      "input": "Investigate The Letter And Report Back To Sven",
+      "expect_key": "investigate the letter and report back to sven",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30180",
+      "input": "",
+      "expect_key": "investigate the letter and report back to sven you spoke with magistrate waldhar",
+      "kind": "fallback"
+    },
+    {
+      "qid": "30200",
+      "input": "Speak With The Gaoled Brigand",
+      "expect_key": "speak with the gaoled brigand",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30200",
+      "input": "Report Back To Ser Menella",
+      "expect_key": "report back to ser menella",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30200",
+      "input": "Leak Information To The Coral Snakes",
+      "expect_key": "leak information to the coral snakes",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30200",
+      "input": "Unmask The Mastermind",
+      "expect_key": "unmask the mastermind",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30200",
+      "input": "Uncover The Truth Behind The Empress S Death",
+      "expect_key": "uncover the truth behind the empress s death",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30200",
+      "input": "",
+      "expect_key": "speak with the gaoled brigand",
+      "kind": "fallback"
+    },
+    {
+      "qid": "30210",
+      "input": "Inquire About The Bandit Gang",
+      "expect_key": "inquire about the bandit gang",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30210",
+      "input": "Locate The Coral Snakes Hideout",
+      "expect_key": "locate the coral snakes hideout",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30210",
+      "input": "Pursue The Bandit",
+      "expect_key": "pursue the bandit",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30210",
+      "input": "Storm The Coral Snakes Hideout",
+      "expect_key": "storm the coral snakes hideout",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30210",
+      "input": "Visit The Site Of The Oxcart Raid",
+      "expect_key": "visit the site of the oxcart raid",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30210",
+      "input": "Feed Toumi",
+      "expect_key": "feed toumi",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30210",
+      "input": "Speak To The Oxcart Men",
+      "expect_key": "speak to the oxcart men",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30210",
+      "input": "Speak To Lyssandro",
+      "expect_key": "speak to lyssandro",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30210",
+      "input": "Find The Coral Snakes Hideout",
+      "expect_key": "find the coral snakes hideout",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30210",
+      "input": "",
+      "expect_key": "inquire about the bandit gang",
+      "kind": "fallback"
+    },
+    {
+      "qid": "30220",
+      "input": "Offer Hugo Guidance",
+      "expect_key": "offer hugo guidance",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30220",
+      "input": "Confront Lanzo At The Ancient Battleground",
+      "expect_key": "confront lanzo at the ancient battleground",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30220",
+      "input": "Help Hugo Find Honest Work",
+      "expect_key": "help hugo find honest work",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30220",
+      "input": "Speak With Hugo",
+      "expect_key": "speak with hugo",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30220",
+      "input": "",
+      "expect_key": "offer hugo guidance",
+      "kind": "fallback"
+    },
+    {
+      "qid": "30230",
+      "input": "Escort The Oxcart",
+      "expect_key": "escort the oxcart",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30230",
+      "input": "Take A Side",
+      "expect_key": "take a side",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30230",
+      "input": "Pursue Raghnall",
+      "expect_key": "pursue raghnall",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30230",
+      "input": "Seek An Exit",
+      "expect_key": "seek an exit",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30230",
+      "input": "Escort On The Highroad",
+      "expect_key": "escort on the highroad",
+      "kind": "alternate"
+    },
+    {
+      "qid": "30230",
+      "input": "",
+      "expect_key": "escort the oxcart",
+      "kind": "fallback"
+    },
+    {
+      "qid": "30240",
+      "input": "Defeat Raghnall",
+      "expect_key": "defeat raghnall",
+      "kind": "canonical"
+    },
+    {
+      "qid": "30240",
+      "input": "",
+      "expect_key": "defeat raghnall",
+      "kind": "fallback"
+    }
+  ]
+}

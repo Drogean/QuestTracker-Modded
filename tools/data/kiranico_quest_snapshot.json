@@ -1,0 +1,826 @@
+[
+  {
+    "title": "Gaoled Awakening",
+    "description": "You awaken from a pleasant dream of plaudits and revelry to find yourself in a gaol cell, with no memory of how you came to be there.",
+    "objectives": [
+      "Heed the overseer.",
+      "Fend off the beast.",
+      "Flee for your life.",
+      "Pick up a boulder.",
+      "Carry the boulder back to Rook.",
+      "Investigate the disturbance."
+    ]
+  },
+  {
+    "title": "The Hand That Guides",
+    "description": "As you toil away amidst the downtrodden pawns, an enormous serpentine creature descends upon the site, forcing you to take a weapon in hand and fight for your very life.",
+    "objectives": [
+      "Fend off the beast.",
+      "Flee for your life."
+    ]
+  },
+  {
+    "title": "Tale's Beginning",
+    "description": "You gained your freedom and crossed the sea on griffin wing, only to have your pawn companion swallowed up by the Brine. Now alone, you must seek aid and information.",
+    "objectives": [
+      "Follow Justinn.",
+      "Make for the lodgings."
+    ]
+  },
+  {
+    "title": "In Dragon's Wake",
+    "description": "As the Arisen, you bear a deep connection to the dragon. Having heard that Melve was ravaged by its attack, you make for the village in the hope of regaining your lost memories.",
+    "objectives": [
+      "Look around Melve.",
+      "Speak with Lennart.",
+      "Speak with Gregor.",
+      "Accompany Gregor to the capital.",
+      "Make for Melve."
+    ]
+  },
+  {
+    "title": "One-Eyed Interloper",
+    "description": "As you make for the capital to prove your identity, a gargantuan cyclops crashes into your midst. Such beasts have little care for titles and destinies, it seems.",
+    "objectives": [
+      "Defeat the cyclops.",
+      "Proceed to Vernworth."
+    ]
+  },
+  {
+    "title": "Seat of the Sovran",
+    "description": "You have arrived in Vernworth, capital of Vermund and seat of its Sovran. As the Arisen, it would seem that throne is yours to claim by right. Is this where your destiny begins?",
+    "objectives": [
+      "Enter Vernworth.",
+      "Speak with Captain Brant in the tavern anight.",
+      "Find another path to Vernworth."
+    ]
+  },
+  {
+    "title": "Monster Culling",
+    "description": "You must earn the right to attend the coronation if you are to have any chance of proving your identity. Gain renown by aiding Vermund's soldiers in their monster-culling duties.",
+    "objectives": [
+      "Deal with the monster threats.",
+      "Report back to Captain Brant.",
+      "Cull the goblins at Trevo Mine.",
+      "Aid the soldiers sent to Harve Village.",
+      "Find the soldiers on Vermund's eastern edge."
+    ]
+  },
+  {
+    "title": "Disa's Plot",
+    "description": "Queen Regent Disa would pursue her ambitions at any cost— even at the expense of the kingdom. If you are to put an end to her schemes, you must uncover the evidence to prove them.",
+    "objectives": [
+      "Search for evidence of Disa's misdeeds.",
+      "Report back to Captain Brant."
+    ]
+  },
+  {
+    "title": "An Unsettling Encounter",
+    "description": "Disa's plot may not be the only nefarious scheme unfolding within the palace. Minister Allard, one of the queen regent's staunchest supporters, also bears investigating.",
+    "objectives": [
+      "Search Allard's chambers.",
+      "Report back to Captain Brant.",
+      "Search Allard's chambers."
+    ]
+  },
+  {
+    "title": "The Caged Magistrate",
+    "description": "An ally well versed in the Code of Vermund would make all the difference in proving the legitimacy of your claim. The magistrate in the palace dungeons may prove to be just that.",
+    "objectives": [
+      "Meet with Magistrate Waldhar.",
+      "Find a place with plenty of tomes.",
+      "Lead Waldhar out of the dungeons.",
+      "Report back to Captain Brant."
+    ]
+  },
+  {
+    "title": "The Arisen's Shadow",
+    "description": "A shadow dogs your every step—perhaps sent by someone who did not take kindly to you prying into palace affairs? You had best confront this individual and find out their intent.",
+    "objectives": [
+      "Contend with your pursuer.",
+      "Wait a few days, then speak with Captain Brant.",
+      "Speak with Captain Brant."
+    ]
+  },
+  {
+    "title": "Feast of Deception",
+    "description": "The coronation is the perfect opportunity to expose Disa's schemes and unseat the false Sovran once and for all. Your preparations made, you set out to attend the grand event.",
+    "objectives": [
+      "Dress formally and speak with Captain Brant.",
+      "Await Captain Brant's plan of action.",
+      "Consult with Captain Brant.",
+      "Make for Battahl."
+    ]
+  },
+  {
+    "title": "Nation of the Lambent Flame",
+    "description": "The false Arisen displayed the power to control pawns at the coronation—a power Brant believes to be derived from the godsway. Make for Battahl and learn more of this artifact.",
+    "objectives": [
+      "Journey to Battahl.",
+      "Make for the Rockmouse's Burrow."
+    ]
+  },
+  {
+    "title": "Flickering Shadows",
+    "description": "You have arrived in Bakbattahl seeking answers about the godsway. As you try to find your feet in this unfamiliar land, someone gives you a suggestion of where to begin.",
+    "objectives": [
+      "Speak with Ambrosius.",
+      "Find blue crystal shards for Ambrosius.",
+      "Seek information about larger blue crystal shards.",
+      "Seek \"he who was dragon-forged\" in Harve Village.",
+      "Enter Bakbattahl."
+    ]
+  },
+  {
+    "title": "Convergence",
+    "description": "At around the same time that a mysterious shrine rose from the sea off the coast of Harve Village, a passage revealed itself in the depths of Stormwind Cave.",
+    "objectives": [
+      "Explore the seafloor shrine."
+    ]
+  },
+  {
+    "title": "A New Godsway",
+    "description": "The Godsbane that Rothais entrusted into your care is no mere blade, but his own soul—the soul of an Arisen. This, it seems, is what Ambrosius has been so desperately seeking.",
+    "objectives": [
+      "Deliver the godsbane to Ambrosius.",
+      "Obtain fifteen wyrmslife crystals.",
+      "Await the new godsway.",
+      "Give the wyrmslife crystals to Ambrosius.",
+      "See if the godsway is ready."
+    ]
+  },
+  {
+    "title": "The Guardian Gigantus",
+    "description": "Ambrosius has instructed you to pass the Godsbane blade he crafted from a relic of the Forgotten Sovran into the hands of Lord Phaesus.",
+    "objectives": [
+      "Take the godsbane to Phaesus."
+    ]
+  },
+  {
+    "title": "Legacy",
+    "description": "Led by the Godsbane blade, you followed Phaesus to Moonglint Tower, where he intends to create a dragon and control the world's fate. Your own destiny—the ultimate choice—is nigh.",
+    "objectives": [
+      "Defeat the imposter.",
+      "Face the dragon."
+    ]
+  },
+  {
+    "title": "Medicament Predicament",
+    "description": "A merchant is no less than the sum of their wares. This simple truth is not lost on young Flora, who ventured out from Vernworth to procure a medicament sold only in Melve.",
+    "objectives": [
+      "Deliver the fruit roborant."
+    ]
+  },
+  {
+    "title": "Ordeals of a New Recruit",
+    "description": "To a monster, new recruits are simply easy pickings. As such, sending an untrained soldier into the heart of a harpy flock was probably not the wisest choice.",
+    "objectives": [
+      "Aid Accardo.",
+      "Report back to Phill.",
+      "Report back to Phill."
+    ]
+  },
+  {
+    "title": "The Provisioner's Plight",
+    "description": "Oft what matters is that the work gets done, not the hands that do it. When saddled with another's task, you can but hope that the trust you earn will make it worth the effort.",
+    "objectives": [
+      "Deliver the provisioner's note to Markus.",
+      "Procure some harspuds and salubrious draughts.",
+      "Give Markus the provisions.",
+      "Report back to Geoffrey.",
+      "Report back to Geoffrey.",
+      "Procure three harspuds.",
+      "Procure two salubrious draughts."
+    ]
+  },
+  {
+    "title": "Nesting Troubles",
+    "description": "Melve's defenses are greatly diminished in the wake of the dragon's attack, making the village a target for all manner of opportunistic monsters.",
+    "objectives": [
+      "Throw explosive casks into the saurian nest.",
+      "Throw a jar of poison into the saurian nest.",
+      "Report back to Lennart.",
+      "Report back to Lennart."
+    ]
+  },
+  {
+    "title": "Brothers Brave and Timid",
+    "description": "Norbert ventured into the forest to collect medicinal herbs, sorely needed in Melve in the wake of the dragon's fury. But he has yet to return, and his brother, Ian, is very worried.",
+    "objectives": [
+      "Find Norbert.",
+      "Escort the brothers back to Melve."
+    ]
+  },
+  {
+    "title": "'Twixt a Rock and a Hard Place",
+    "description": "While many develop strong ties to the land of their birth, there are no few who seek to leave their homeland behind. One can only hope that they will find happiness elsewhere.",
+    "objectives": [
+      "Deliver the letter to Ernesto.",
+      "Deliver the letter to Barbas."
+    ]
+  },
+  {
+    "title": "Till Death Do Us Part",
+    "description": "The lecherous Ser Ludolph has no qualms about abusing his station to get what he wants. And when that happens to be Gregor's wife, he has the man sent on an impossible mission.",
+    "objectives": [
+      "Aid Gregor at the Illdoers' Resting Place.",
+      "Report back to Margit."
+    ]
+  },
+  {
+    "title": "Scaly Invaders",
+    "description": "The people of Harve fled the dragon's fury, only to return to find the village occupied by saurians. However, they may yet reclaim their homes if you cull the scaly fiends.",
+    "objectives": [
+      "Defeat the saurians.",
+      "Report back to Fyoran.",
+      "Wait a few days, then return to Harve Village.",
+      "Defeat the saurians."
+    ]
+  },
+  {
+    "title": "Trouble on the Cape",
+    "description": "The people of Harve have regained their village, but are far from at peace. The monster threat has brought unresolved tensions to the fore, sparking conflict among the villagers.",
+    "objectives": [
+      "Make for Stormwind Cave.",
+      "Make for Stormwind Cave.",
+      "Search the cave with Ulrika.",
+      "Search the cave with Fyoran.",
+      "Escort Zoran back to Harve Village."
+    ]
+  },
+  {
+    "title": "A Beggar's Tale",
+    "description": "Albert of the slums seems to be doing quite well for himself, but even his fellow beggars are baffled by how much coin he has in spite of his meager means.",
+    "objectives": [
+      "Deliver the beggar's garb.",
+      "Keep an eye on the beggar.",
+      "Visit Celina in a few days' time.",
+      "Visit Hilda in a few days' time."
+    ]
+  },
+  {
+    "title": "Tolled to Rest",
+    "description": "Once the site of a war between Vermund and Battahl, the ancient battleground is now overrun with monsters. Yet there is one soul who braves it still, driven by a sense of duty.",
+    "objectives": [
+      "Traverse the ancient battleground.",
+      "Provide aid.",
+      "Escort Oskar.",
+      "Find the missing grimoire.",
+      "Report back to the merchant."
+    ]
+  },
+  {
+    "title": "The Phantom Oxcart",
+    "description": "The roads are well tended, but they are by no means fit to be traveled anight, and carts are prohibited from leaving after dark. All but one obey: the so-called phantom oxcart.",
+    "objectives": [
+      "Investigate the phantom oxcart.",
+      "Question the soldier.",
+      "Find out who is behind the phantom oxcart.",
+      "Pursue the oxcart.",
+      "Gather evidence and report to Captain Brant."
+    ]
+  },
+  {
+    "title": "The Heel of History",
+    "description": "In a land overrun with monsters, orphans are no rarity. The Gracious Hand provides for as many as it can, but one of its wards, a boy named Malcolm, seems to have gone missing.",
+    "objectives": [
+      "Determine Malcolm's location.",
+      "Report back to Kendrick.",
+      "Search the vaults for Malcolm.",
+      "Follow Malcolm."
+    ]
+  },
+  {
+    "title": "Saint of the Slums",
+    "description": "The slums of Vernworth are a harsh place, where illness is oft synonymous with death. Yet amidst the despair, the abbess of the Gracious Hand stands out as a beacon of hope.",
+    "objectives": [
+      "Give Elena the medicinal ingredient.",
+      "Follow Lady Elena.",
+      "Investigate the Gracious Hand.",
+      "Report back to Lubomir.",
+      "Gather evidence and apprehend the abbess.",
+      "Deliver the miasmite to Lady Elena."
+    ]
+  },
+  {
+    "title": "The Gift of Giving",
+    "description": "The Gracious Hand is home to many an orphan, including one young girl whose kind heart impels her to do whatever she can to help the community that took her in.",
+    "objectives": [
+      "Find a bunch of flowers.",
+      "Bring Daphne the bunch of flowers.",
+      "Find some silver ore.",
+      "Bring Daphne the silver ore.",
+      "Return in a few days' time.",
+      "Obtain two pieces of gold ore.",
+      "Bring Daphne the gold ore.",
+      "Bring Daphne medicine for treating blight.",
+      "Give Daphne the medicine."
+    ]
+  },
+  {
+    "title": "House of the Blue Sunbright",
+    "description": "A maid serving a noble family in Vernworth has approached you with a request. You've not met her before, but she seems to know who you are. Just what does she want from you?",
+    "objectives": [
+      "Visit the manor.",
+      "Find Sebastian's look-alike.",
+      "Escort Daphne to the manor.",
+      "Help Sebastian prepare.",
+      "Wait a day or so, then return to the manor.",
+      "Find Sebastian.",
+      "Report back to the manor.",
+      "Procure the necessary supplies for Sebastian.",
+      "Give Sebastian something that reeks of cyclops.",
+      "Give Sebastian an antidote for blight."
+    ]
+  },
+  {
+    "title": "The Expeditious Explorer",
+    "description": "Self-proclaimed explorer that he is, Vidal is all too eager to pursue the rumors of the godsbeast's treasure. He hastily plans an expedition, undaunted by the perils that may await.",
+    "objectives": [
+      "Supply Vidal with enough food and medicine.",
+      "Await Vidal's return.",
+      "Find out how Vidal fared."
+    ]
+  },
+  {
+    "title": "The Inveterate Explorer",
+    "description": "Still intent on finding treasure, Vidal has set up camp within Curiosity's Mountainside, the better to plumb its depths. But is he prepared for the dangers that lie ahead?",
+    "objectives": [
+      "Supply Vidal with quality food and medicine.",
+      "Await Vidal's return.",
+      "Find out how Vidal fared.",
+      "Defeat the monsters.",
+      "Report back to Vidal.",
+      "Accompany Vidal."
+    ]
+  },
+  {
+    "title": "Belle of the Bar",
+    "description": "Adelina, the beloved serving girl of a local tavern, has gone missing. With no shortage of admirers worried for her safety, her whereabouts cannot be ascertained too soon.",
+    "objectives": [
+      "Determine Adelina's whereabouts.",
+      "Go to Adelina's rescue.",
+      "Distract the ogre.",
+      "Report back to Walter."
+    ]
+  },
+  {
+    "title": "A Noble Exchange",
+    "description": "It seems that the masquerade held this day is no ordinary event, but an occasion of gift-giving. You yourself have received a gift, in the form of a finely wrought staff.",
+    "objectives": [
+      "Exchange gifts.",
+      "Clear yourself of suspicion."
+    ]
+  },
+  {
+    "title": "A Game of Wits",
+    "description": "You have encountered the legendary sphinx, a beast of intellect who seeks to pit its riddles against sage and warrior alike. How will you fare against it?",
+    "objectives": [
+      "Answer the sphinx's riddles."
+    ]
+  },
+  {
+    "title": "The Nameless Village",
+    "description": "Suspicions alone will not suffice if you are to expose the false Sovran. Venture to Vermund's eastern edge and scour for evidence that will help you prove him a pretender.",
+    "objectives": [
+      "Investigate the false Sovran and report to Brant."
+    ]
+  },
+  {
+    "title": "A Place to Call Home",
+    "description": "A place to set down one's pack and put up one's feet makes all the difference at the end of a long journey. Looking to travel herself, Mildred has offered to lend you her home.",
+    "objectives": [
+      "Occupy the dwelling for a week.",
+      "Speak with Mildred.",
+      "Purchase Mildred's dwelling.",
+      "Meet Mildred at her home."
+    ]
+  },
+  {
+    "title": "Vocation Frustration",
+    "description": "It seems certain vocations are unavailable for registration at the guild hall at present, unless you have the weapons required to hand. Perhaps the townsfolk can tell you more.",
+    "objectives": [
+      "Obtain an archistaff and greatsword.",
+      "Take the archistaff and greatsword to the guild.",
+      "Obtain a greatsword.",
+      "Obtain an archistaff."
+    ]
+  },
+  {
+    "title": "Prey for the Pack",
+    "description": "A pall hangs over the checkpoint rest town, as fear for the grandson of the local apothecary lines every face. It falls to you to find the boy, and spare him a grizzly fate.",
+    "objectives": [
+      "Find Rodge and go to his aid.",
+      "Escort Rodge to the checkpoint rest town.",
+      "Report back to Morris.",
+      "Report back to Morris.",
+      "Report back to Morris."
+    ]
+  },
+  {
+    "title": "The Sotted Sage",
+    "description": "You encountered Lamond, a tippled patron of the hot springs. But is that all he is? There's a curious air about him that hints at something more—unless that's just the sulfur?",
+    "objectives": [
+      "Give Lamond what he seeks.",
+      "Bring Lamond more newt liqueur."
+    ]
+  },
+  {
+    "title": "A Poisonous Proposal",
+    "description": "You encountered Jarle, an eccentric researcher who wishes to study the effects of poison on a living specimen. Whether indulging his request will benefit you remains to be seen.",
+    "objectives": [
+      "Allow yourself to be poisoned by an asp.",
+      "Return to Jarle afflicted with asp venom.",
+      "Allow yourself to be poisoned by a venin harpy.",
+      "Return to Jarle afflicted with venin harpy venom.",
+      "Join Jarle at the meeting place.",
+      "Aid Jarle in being poisoned by the chimera.",
+      "Find out how Jarle fared.",
+      "Heed Jarle's request."
+    ]
+  },
+  {
+    "title": "Short-Sighted Ambition",
+    "description": "For some, peaceful days breed not satisfaction, but a yearning for something more. So it is with the apothecary Isaac, who seeks to improve his lot by studying a grimoire.",
+    "objectives": [
+      "Bring Isaac a ripened quince.",
+      "Find the grimoire's second volume.",
+      "Seek out a ripened quince.",
+      "Deliver \"On the Transference of Souls 2.\"",
+      "Follow Isaac.",
+      "Visit Isaac in a few days' time."
+    ]
+  },
+  {
+    "title": "A Case of Sculptor's Block",
+    "description": "You happened upon the estate of a noble marked for its collection of sculptures, but it seems to be one masterpiece short. Perhaps a word with the sculptor himself is in order.",
+    "objectives": [
+      "Visit Fulvio in Battahl.",
+      "Make for the meeting place.",
+      "Accompany Fulvio.",
+      "Do extended battle with the griffin.",
+      "Wait a few days, then check on Fulvio's progress.",
+      "Attend the unveiling at Klark's estate."
+    ]
+  },
+  {
+    "title": "Shadowed Prayers",
+    "description": "An attempt was made on the life of the Empress of Battahl, and Ser Menella has asked your assistance in apprehending the assassin before he strikes again.",
+    "objectives": [
+      "Apprehend the assassin.",
+      "Go to Flamebearer Palace in the morning."
+    ]
+  },
+  {
+    "title": "Crossing in Shadow",
+    "description": "Who should knock upon your door late anight but an attendant to Her Majesty Nadinia, Empress of Battahl? Her purpose is as yet unknown, but it is clear that it demands secrecy.",
+    "objectives": [
+      "Escort Nadinia without exposing her identity.",
+      "Escort Nadinia to the oxcart."
+    ]
+  },
+  {
+    "title": "Hunt for the Jadeite Orb",
+    "description": "On your wanderings, you encountered a man desperate to reclaim a stolen treasure: the Jadeite Orb.",
+    "objectives": [
+      "Find the Jadeite Orb.",
+      "Deliver the Jadeite Orb."
+    ]
+  },
+  {
+    "title": "Dreams Apart",
+    "description": "You find yourself in a world unchosen—a desolate place, on the verge of plummeting into oblivion. If you would not face this chaos alone, you had best seek out your loyal pawn.",
+    "objectives": [
+      "Find your pawn."
+    ]
+  },
+  {
+    "title": "Halls of the First Dawn",
+    "description": "Perhaps Rothais can tell you more of this \"world unchosen\" the Pathfinder spoke of. He is, after all, the Forgotten Sovran—and no one knows more of the watching one than he.",
+    "objectives": [
+      "Visit the seafloor shrine.",
+      "Lead the evacuation effort."
+    ]
+  },
+  {
+    "title": "When Wills Collide",
+    "description": "It appears Phaesus has been working to avert this world's destruction. Perhaps you should find out what he intends.",
+    "objectives": [
+      "Follow Phaesus."
+    ]
+  },
+  {
+    "title": "The Regentkin's Resolve",
+    "description": "Sven seeks to orchestrate a full-scale evacuation of the citizenry, and you have pledged to lend him your aid.",
+    "objectives": [
+      "Aid in the evacuation of Vermund."
+    ]
+  },
+  {
+    "title": "Civil Unrest",
+    "description": "The sudden changes in the world have sowed a deep unrest in the hearts of the Battahli people. You have been tasked with resolving their quarrels, to facilitate the evacuation.",
+    "objectives": [
+      "Aid in the evacuation of Battahl."
+    ]
+  },
+  {
+    "title": "A Scholarly Pursuit",
+    "description": "There is no surer mark of the red clouds' advance than a pillar of light, and one now shines in Battahl. Join hands with Phaesus to forestall this land's destruction.",
+    "objectives": [
+      "Pursue the skyfallen dragon."
+    ]
+  },
+  {
+    "title": "Wandering Roots",
+    "description": "Calamity comes for all, even the elves of the Sacred Arbor. Though the seafloor shrine offers a chance for survival, this proud people remains rooted by their ancient code.",
+    "objectives": [
+      "Aid in the evacuation of the Sacred Arbor.",
+      "Speak with Taliesin.",
+      "Take the Arborheart Cutting to the seafloor shrine.",
+      "Report back to Taliesin."
+    ]
+  },
+  {
+    "title": "The Importance of Aiding Ernesto",
+    "description": "Not even the impending calamity can dissuade Ernesto from fulfilling his duty. Charged with the defense of Volcanic Island and its people, he strives to save every life he can.",
+    "objectives": [
+      "Aid in the evacuation of Volcanic Island."
+    ]
+  },
+  {
+    "title": "Shepherd of the Pawns",
+    "description": "Unaffected by the prejudices of his homeland, the Battahli soldier Henrique refuses to abandon the pawns of the Agamen Ruins. Yet though his cause is noble, time is not his ally.",
+    "objectives": [
+      "Aid in the pawns' escape."
+    ]
+  },
+  {
+    "title": "Oxcart Courier",
+    "description": "Oxcart service to Melve has resumed, and the proprietor of the carts has asked your aid in inspecting the road and delivering a letter. This could make a nice change of pace.",
+    "objectives": [
+      "Make for Melve and deliver the letter to Lennart.",
+      "Report back to Donovan."
+    ]
+  },
+  {
+    "title": "The Ornate Box",
+    "description": "Amidst the bustle and clamor of Vernworth's marketplace, you espy a young man arguing with the proprietor of one of the shops.",
+    "objectives": [
+      "Find out what's going on.",
+      "Receive recompense from Sven in a few days' time."
+    ]
+  },
+  {
+    "title": "Claw Them Into Shape",
+    "description": "You encountered Beren, a beastren training recruits at the encampment by the border. Though he is a warrior of skill, his presence seems to be discouraging new enlistments.",
+    "objectives": [
+      "Procure weapons and find a motivated soldier.",
+      "Have a bout with Beren.",
+      "Follow Beren.",
+      "Return to the encampment.",
+      "Find Beren a motivated soldier to train.",
+      "Procure three swords for Beren."
+    ]
+  },
+  {
+    "title": "Beren's Final Lesson",
+    "description": "Just as Beren's dismissal is decided, the cyclops returns to wreak its vengeance on the recruits—and this time, it isn't likely to be so easily repelled.",
+    "objectives": [
+      "Intercept the cyclops.",
+      "Pay Beren another visit before he leaves."
+    ]
+  },
+  {
+    "title": "The Stolen Throne",
+    "description": "The Sovran is said to be convalescing, and has yet to appear before the public. But if you are the one true Arisen, then who is this man now sitting upon your rightful throne?",
+    "objectives": [
+      "Approach the false Sovran.",
+      "Report back to Captain Brant."
+    ]
+  },
+  {
+    "title": "Masked Correspondence",
+    "description": "Sven bade you deliver a letter to a potential ally in his stead, as Disa does not allow him to attend masquerades—and there is no better opportunity for covert correspondence.",
+    "objectives": [
+      "Deliver the letter to Lord Patrick.",
+      "Report back to Regentkin Sven."
+    ]
+  },
+  {
+    "title": "A Magisterial Amenity",
+    "description": "Being confined to a gaol cell was hardly a punishment for Waldhar; having his spectacles confiscated was the crueler sentence. Find them, and he might readily share his wisdom.",
+    "objectives": [
+      "Find Waldhar's confiscated spectacles.",
+      "Return the spectacles to Waldhar."
+    ]
+  },
+  {
+    "title": "Every Rose Has Its Thorn",
+    "description": "Wilhelmina, proprietress of the Myrmecoleon, is determined to exact vengeance on the man who wronged her—but what crime could possibly have inspired such hatred?",
+    "objectives": [
+      "Gather evidence within three days.",
+      "Assist in the assassination.",
+      "Speak with Wilhelmina.",
+      "Deliver the evidence to Wilhelmina."
+    ]
+  },
+  {
+    "title": "Gift of the Bow",
+    "description": "You encountered Glyndwr, a lone elf wandering the streets of Vernworth. Elves are typically withdrawn and reluctant to travel, but curiosity has drawn this one out of the forest.",
+    "objectives": [
+      "Make for Glyndwr's place of training.",
+      "Help Glyndwr train with his new bow."
+    ]
+  },
+  {
+    "title": "A Trial of Archery",
+    "description": "In preparation for his Trial of Archery, Glyndwr has devoted himself to training with the bow you gifted him. Now the time has come for him to show his people all he has learned.",
+    "objectives": [
+      "Attend Glyndwr's Trial of Archery.",
+      "Accompany Glyndwr.",
+      "Make for the ancestral chamber.",
+      "Venture in and rescue Doireann.",
+      "Carry Doireann out of the ancestral chamber.",
+      "Speak with Taliesin."
+    ]
+  },
+  {
+    "title": "The Ailing Arborheart",
+    "description": "Under the boughs of the Arborheart you encountered Doireann, a young elven woman, who informed you of the great tree's ailment, and that only the nourishing gwyfencha can cure it.",
+    "objectives": [
+      "Find out what gwyfencha is.",
+      "Speak with a Battahli blacksmith.",
+      "Check in with Sara again later.",
+      "Speak with a Battahli blacksmith."
+    ]
+  },
+  {
+    "title": "Out of the Forest, Into the Forge",
+    "description": "Though reviled by its creators, the elven dish nutriabh is apparently a delicacy among dwarves. And so a path to gwyfencha is opened; may your nose survive the trek.",
+    "objectives": [
+      "Report back to Doireann.",
+      "Obtain the ingredients for nutriabh.",
+      "Deliver the ingredients to Doireann.",
+      "Deliver the nutriabh to Sara.",
+      "Follow Sara.",
+      "Gather plenty of scalecinder.",
+      "Check in with Sara again later.",
+      "Deliver the nutriabh to Sara.",
+      "Procure some rotten apples.",
+      "Procure some rotten fish.",
+      "Follow Doireann."
+    ]
+  },
+  {
+    "title": "Readvent of Calamity",
+    "description": "To suffer the dragon's attack once is a nightmare. To suffer it twice is nothing short of ill luck—and it seems Melve's fortunes are determined not to turn.",
+    "objectives": [
+      "Repel the dragon.",
+      "Visit Melve from time to time.",
+      "Find Ulrika.",
+      "Inform Lennart of Ulrika's wellbeing."
+    ]
+  },
+  {
+    "title": "Home Is Where the Hearth Is",
+    "description": "A regiment of soldiers occupies Melve, keeping the villagers as prisoners in their homes and turning outsiders away.",
+    "objectives": [
+      "Procure four swords and give them to Lennart.",
+      "Report back to Lennart.",
+      "Repel the soldiers stationed in Melve.",
+      "Bring word of Melve to Ulrika in a few days' time.",
+      "Meet Ulrika at nighttime.",
+      "Speak with Lennart."
+    ]
+  },
+  {
+    "title": "Dulled Steel, Cold Forge",
+    "description": "You have been entrusted with the repair of a regalia sword wielded by generations of Vermundian rulers. Having it at your hip would do much to aid your claim to the throne.",
+    "objectives": [
+      "Find someone to repair the dulled regalia sword.",
+      "Find fifteen or more pieces of glimmercoal.",
+      "Deliver the glimmercoal to Sara.",
+      "Find someone else who can repair the regalia sword."
+    ]
+  },
+  {
+    "title": "Steeled Resolve, Blazing Forge",
+    "description": "Some time has passed since Sara—Brokkr's most promising apprentice—undertook the task of repairing the regalia sword. Perhaps you should go and see how it's coming along?",
+    "objectives": [
+      "Check on Sara's progress.",
+      "Find Sara.",
+      "Deliver Sara to the cave entrance.",
+      "Return to the smithy.",
+      "Return for the regalia sword in a few days' time.",
+      "Report back to Roman.",
+      "Wait a day or so, then check on Sara.",
+      "Report back to Roman."
+    ]
+  },
+  {
+    "title": "Welcome to Battahl",
+    "description": "As you wandered through Battahl, a man offered to buy you a drink at the local tavern, in exchange for a tale or two.",
+    "objectives": [
+      "Enter the Wanderer's Haven.",
+      "Defeat the ruffians.",
+      "Participate in the duel."
+    ]
+  },
+  {
+    "title": "Spellbound",
+    "description": "You encountered Trysha, a young girl living with her grandparents on the outskirts of Vermund. Fed up with her dreary days, she dreams of only one thing: studying magick.",
+    "objectives": [
+      "Bring Trysha some grimoires.",
+      "Visit Trysha in a few days' time.",
+      "Exhaust Trysha's magick reserves.",
+      "Wait for Trysha to wake.",
+      "Check on Trysha in a few days' time.",
+      "Bring Trysha \"Let There Be Light.\"",
+      "Bring Trysha \"Fulminous Shield.\"",
+      "Bring Trysha \"Nation's Death Knell.\"",
+      "Bring Trysha \"Howling Blizzard.\"",
+      "Bring Trysha \"Towering Earth.\"",
+      "Pay Eini a visit in a few days' time."
+    ]
+  },
+  {
+    "title": "The Sorcerer's Appraisal",
+    "description": "Residing in a manor in the checkpoint rest town is Myrddin, a sorcerer of great renown. He is even willing to share the secrets of his art—provided he finds you worthy, that is.",
+    "objectives": [
+      "Gather grimoires for Myrddin.",
+      "Prove your friendship with Trysha.",
+      "Revisit Myrddin in a few days' time.",
+      "Bring Myrddin \"Let There Be Light.\"",
+      "Bring Myrddin \"Fulminous Shield.\"",
+      "Bring Myrddin \"Nation's Death Knell.\"",
+      "Bring Myrddin \"Howling Blizzard.\"",
+      "Bring Myrddin \"Towering Earth.\""
+    ]
+  },
+  {
+    "title": "Put a Spring in Thy Step",
+    "description": "While traveling in the south, you encountered an old dwarf with an achy back, groaning in pain by the wayside. It would be most unseemly if you were to abandon him to his plight.",
+    "objectives": [
+      "Find three wildflowers.",
+      "Deliver the wildflowers.",
+      "Visit Gautstafr's home for a reward.",
+      "Escort Gautstafr to Geyser Hamlet.",
+      "Report back to Cliodhna."
+    ]
+  },
+  {
+    "title": "A Veil of Gossamer Clouds",
+    "description": "You are not the only one investigating the queen regent's plots. Her son, Regentkin Sven, has been prying also, and uncovered an intriguing letter that hints at untold secrets.",
+    "objectives": [
+      "Investigate the letter and report back to Sven."
+    ]
+  },
+  {
+    "title": "A Candle in the Storm",
+    "description": "As the empress performed her supplications to the Lambent Flame, an assassin's dagger took aim at her back. Though the brigand was caught, the true mastermind is still at large.",
+    "objectives": [
+      "Speak with the gaoled brigand.",
+      "Report back to Ser Menella.",
+      "Leak information to the Coral Snakes.",
+      "Report back to Ser Menella.",
+      "Unmask the mastermind.",
+      "Uncover the truth behind the empress's death."
+    ]
+  },
+  {
+    "title": "Mercy among Thieves",
+    "description": "A gang of bandits has been menacing the highroad of late, targeting oxcarts with deadly efficiency. But their days are numbered, now that you have been called upon to rout them.",
+    "objectives": [
+      "Locate the Coral Snakes' hideout.",
+      "Visit the site of the oxcart raid.",
+      "Pursue the bandit.",
+      "Storm the Coral Snakes' hideout.",
+      "Inquire about the bandit gang."
+    ]
+  },
+  {
+    "title": "Off the Pilfered Path",
+    "description": "Though he yearns for an honest life, banditry is all that Hugo has ever known. Now freedom is within his grasp, but he knows not what to do with it. Perhaps you can advise him?",
+    "objectives": [
+      "Offer Hugo guidance."
+    ]
+  },
+  {
+    "title": "Tensions on the Highroad",
+    "description": "You have been asked to escort Ser Augustin, backbone of the opposition against the queen regent, back to Vermund. Make for the highroad, and tell no one—not even Captain Brant.",
+    "objectives": [
+      "Escort the oxcart.",
+      "Take a side.",
+      "Pursue Raghnall.",
+      "Seek an exit.",
+      "Take a side."
+    ]
+  },
+  {
+    "title": "Clash and Conclusion",
+    "description": "When you reached the tower, you found your path obstructed by the storied mercenary, Raghnall. He seeks a challenge, and would have you earn your way through glorious combat.",
+    "objectives": [
+      "Defeat Raghnall."
+    ]
+  }
+]

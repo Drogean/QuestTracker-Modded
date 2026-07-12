@@ -154,6 +154,9 @@ function M.install(ctx)
       _G["_qt_pref_win_w"] = rw
       _G["_qt_pref_win_h"] = rh
       _G["_qt_pref_font_size"] = fs
+      if type(data.tip_font_size) == "number" then
+          _G["_qt_pref_tip_font_size"] = data.tip_font_size
+      end
       _G._qt_layout_source = source
       mlog_boot(string.format("[QT] restored margin_r=%.0f y=%.0f %dx%d → x=%.0f display=%dx%d (source=%s)",
           mr, ry, rw, rh, x, dw, dh, source))
@@ -280,6 +283,55 @@ function M.install(ctx)
           end
       end
       _migrate_layout_v10(data)
+      if type(data.prefs_version) ~= "number" or data.prefs_version < 12 then
+          _G["_qt_pref_deep_sniff"] = false
+          _G["_qt_pref_deep_sniff_heavy"] = false
+          data.prefs_version = 12
+          mlog_boot("[QT] prefs migrate v12: deep_sniff default OFF (was stuck ON in old saves)")
+      end
+      if type(data.prefs_version) ~= "number" or data.prefs_version < 13 then
+          _G["_qt_pref_deep_sniff"] = false
+          _G["_qt_pref_deep_sniff_heavy"] = false
+          data.prefs_version = 13
+          mlog_boot("[QT] prefs migrate v13: deep_sniff forced OFF (crash safety)")
+      end
+      if type(data.prefs_version) ~= "number" or data.prefs_version < 14 then
+          if data.show_quest_tiers == nil then
+              _G["_qt_pref_show_quest_tiers"] = true
+          end
+          data.prefs_version = 14
+          mlog_boot("[QT] prefs migrate v14: show_quest_tiers default ON")
+      end
+      if type(data.prefs_version) ~= "number" or data.prefs_version < 15 then
+          -- Captain: tip text unreadable at 28pt; raise floor (v15 overshot to 56 — fixed in v16).
+          local old_fs = (type(data.font_size) == "number") and data.font_size or 28
+          if old_fs < 32 then
+              _G["_qt_pref_font_size"] = 36
+              data.font_size = 36
+          end
+          data.prefs_version = 15
+          mlog_boot(string.format("[QT] prefs migrate v15: font_size %s -> %s (readable default)",
+              tostring(old_fs), tostring(_G["_qt_pref_font_size"] or data.font_size or 36)))
+      end
+      if type(data.prefs_version) ~= "number" or data.prefs_version < 16 then
+          -- v15 set 56pt — billboard-sized on captain screen. Force readable mid size.
+          local old_fs = (type(_G["_qt_pref_font_size"]) == "number") and _G["_qt_pref_font_size"]
+              or ((type(data.font_size) == "number") and data.font_size or 56)
+          _G["_qt_pref_font_size"] = 36
+          data.font_size = 36
+          data.prefs_version = 16
+          mlog_boot(string.format("[QT] prefs migrate v16: font_size %s -> 36 (dial back from billboard)",
+              tostring(old_fs)))
+      end
+      if type(data.prefs_version) ~= "number" or data.prefs_version < 18 then
+          -- Captain FAIL: tip/STEP at 52pt was terrible. One font size for whole window (title+body).
+          _G["_qt_pref_font_size"] = 28
+          data.font_size = 28
+          data.tip_font_size = 28
+          _G["_qt_pref_tip_font_size"] = 28
+          data.prefs_version = 18
+          mlog_boot("[QT] prefs migrate v18: single font_size=28 (title+body+tips; no tip blow-up)")
+      end
       if type(data.layout_margin_r) == "number" then
           _G["_qt_pref_layout_margin_r"] = data.layout_margin_r
       end
@@ -325,7 +377,7 @@ function M.install(ctx)
       for k, v in pairs(QUEST_START_HOURS) do sh[tostring(k)] = v end
       out.quest_start_hours = sh
       out.learned_chara_names = LEARNED_CHARA_NAMES
-      out.prefs_version = 11
+      out.prefs_version = 18
       -- JSON-safe scalars only (userdata in mod table broke silent dumps on some installs)
       local safe = {}
       for _, k in ipairs(PREF_KEYS) do
@@ -346,7 +398,7 @@ function M.install(ctx)
       _apply_layout_coords_to_mod()
       safe.layout_margin_r = mod.layout_margin_r
       safe.win_y = mod.win_y
-      safe.prefs_version = 11
+      safe.prefs_version = 18
       if type(safe.win_w) == "number" and type(safe.win_h) == "number" then
           safe.win_w, safe.win_h = _clamp_layout_size(safe.win_w, safe.win_h)
           mod.win_w, mod.win_h = safe.win_w, safe.win_h
@@ -517,6 +569,7 @@ function M.install(ctx)
     do
       local fs = (type(mod.font_size) == "number") and mod.font_size or 28
       mod.font_size = math.max(18, math.min(38, math.floor(fs + 0.5)))
+      mod.tip_font_size = mod.font_size
     end
     if type(mod.layout_margin_r) ~= "number" then
       mod.layout_margin_r = DEFAULT_QUEST_WIN_MARGIN_R

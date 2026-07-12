@@ -29,7 +29,7 @@ One line per fuckup. Auditor appends on FAIL. Builder marks FIXED only with log 
 - Move locals above first use (same class as 3.0.88 prefs forward-ref)
 - Always `end_child_window` in finally path after `begin_child_window`
 
-## PATH B ROLLBACK — v1.3.3 to v1.3.6 FAIL RECORD
+## PATH B ROLLBACK ï¿½ v1.3.3 to v1.3.6 FAIL RECORD
 
 | Version | Date | Failure | Root Cause | Status |
 |---------|------|---------|-----------|--------|
@@ -39,4 +39,11 @@ One line per fuckup. Auditor appends on FAIL. Builder marks FIXED only with log 
 | 1.3.6 | 2026-06 | both label FAIL + blob spam | PATH B journal_live architecture: inject_tracked_journal_markers + _mark_tracked_journal_without_pin_quest added; never converged | ROLLED BACK |
 
 PATH B verdict: journal_live inject-only approach failed. Proven path: reinject from pinned_data on setupMapIcon (1.3.2 base).
-v1.4.0 surgical patches on 1.3.2 base — do NOT rebuild PATH B architecture.
+v1.4.0 surgical patches on 1.3.2 base ï¿½ do NOT rebuild PATH B architecture.
+
+| Version | Date | Symptom | Log proof | Root cause | Status |
+|---------|------|---------|-----------|------------|--------|
+| v1.4.16 | 2026-06-15 | CTD pause menu load_gui | overlay ALLOWED load=1 map=0; sniff+ImGui | window.lua no load_gui skip | FIXED in v1.4.21 |
+| v1.4.18-19 | 2026-06-15 | deep_sniff stuck ON | prefs migrate v12 not re-run | prefs v13 force OFF | FIXED in v1.4.21 |
+| v1.4.18-19 | 2026-06-15 | ALL TP dead write_failed | [QT][tp] ok=false reason=write_failed | direct PlUPos poke | FIXED in v1.4.20 |
+| v1.4.18 | 2026-06-15 | Beren TP rows This/Him | hint regex on wiki paragraphs | quest_data_loader | FIXED in v1.4.20 |

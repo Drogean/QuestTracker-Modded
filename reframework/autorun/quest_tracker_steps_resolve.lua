@@ -6,6 +6,7 @@ M = {}
 function M.install(ctx)
   local mod = ctx.mod
   local mlog = ctx.mlog
+  local mlog_boot = ctx.mlog_boot or ctx.mlog
   local QD = ctx.QD
   local safe_get_field = ctx.safe_get_field
   local safe_call = ctx.safe_call
@@ -42,7 +43,9 @@ function M.install(ctx)
   local _resolve_info_dest_step = ctx._resolve_info_dest_step
   local _probe_step_api = ctx._probe_step_api
 
-  local function _quest_progress_done_count(qlm, qid)
+  local _text_blobs_for_step_match
+
+  local function _quest_progress_game_done(qlm, qid)
       local best = 0
       if qlm then
           local entry = _log_info_entry(qlm, qid)
@@ -58,14 +61,45 @@ function M.install(ctx)
       return best
   end
 
+  local function _quest_progress_done_count(qlm, qid)
+      local best = _quest_progress_game_done(qlm, qid)
+      local game_best = best
+      if QD and QD.effective_progress_done and _text_blobs_for_step_match then
+          best = QD.effective_progress_done(qid, best, _text_blobs_for_step_match(qlm, qid))
+      end
+      -- #region agent log
+      if tonumber(qid) == 30220 then
+          local ok_dbg, _ = pcall(function()
+              local f = io.open("c:/Users/jzafi/Desktop/New folder/OTHERMODS/QuestTracker-Modded/debug-62ebea.log", "a")
+              if f then
+                  f:write(string.format(
+                      '{"sessionId":"62ebea","hypothesisId":"A","location":"steps_resolve.lua:_quest_progress_done_count","message":"30220 done counts","data":{"game_done":%d,"effective_done":%d},"timestamp":%d}\n',
+                      game_best, best, os.time() * 1000))
+                  f:close()
+              end
+          end)
+      end
+      -- #endregion
+      return best
+  end
+
+  local function _quest_current_task_index(qlm, qid)
+      if not qlm then return nil end
+      local entry = _log_info_entry(qlm, qid)
+      if not entry then return nil end
+      return _info_task_index(entry)
+  end
+
   local function _wiki_step_from_progress(qid, qlm)
       if not QD or not QD.get_wiki_step_for_progress then return nil, nil end
       if QD.has_wiki_step_order and not QD.has_wiki_step_order(qid) then return nil, nil end
       local done = _quest_progress_done_count(qlm, qid)
-      local ok, title, idx, total = pcall(QD.get_wiki_step_for_progress, qid, done)
+      local task_idx = _quest_current_task_index(qlm, qid)
+      local ok, title, idx, total = pcall(QD.get_wiki_step_for_progress, qid, done, task_idx)
       if not ok or not title then return nil, nil end
       mod._step_field_src = mod._step_field_src or {}
-      mod._step_field_src[qid] = string.format("wiki_progress done=%d step=%d/%d", done, idx or 0, total or 0)
+      mod._step_field_src[qid] = string.format("wiki_progress done=%d task_idx=%s step=%d/%d",
+          done, tostring(task_idx), idx or 0, total or 0)
       local detail = mod.summary_cache and mod.summary_cache[qid] or nil
       if detail and _is_flavor_text(detail, qid) == false and title == detail then detail = nil end
       return title, detail
@@ -87,6 +121,11 @@ function M.install(ctx)
       if t then
           mod._step_field_src[qid] = "active_dest"
           return t, nil
+      end
+      -- Try live info dict early: game's current objective beats noisy resource/task scavenge
+      do
+          local t_lid, d_lid = _step_from_log_info_dict(qlm, qid)
+          if t_lid then return t_lid, d_lid end
       end
       local jt, jd = _journal_step_from_sources(qlm, qid)
       local t, d = _pick_step(qid, jt, jd, "journal_tree")
@@ -206,7 +245,7 @@ function M.install(ctx)
       return out
   end
 
-  local function _text_blobs_for_step_match(qlm, qid)
+  _text_blobs_for_step_match = function(qlm, qid)
       local blobs, seen = {}, {}
       local function add(s)
           if type(s) ~= "string" or s == "" or #s < 4 then return end
@@ -218,8 +257,33 @@ function M.install(ctx)
       if qlm then resolve_meta(qlm, qid) end
       local vi = qlm and safe_call(qlm, "getQuestLog", qid) or nil
       for _, b in ipairs(_scrape_quest_log_strings(vi)) do add(b) end
-      add(mod.summary_cache[qid])
+      if _log_objective_from_vi and vi then
+          local ok_o, ot = pcall(_log_objective_from_vi, vi, qid)
+          if ok_o and type(ot) == "string" then add(ot) end
+      end
+      if mod.summary_cache and type(mod.summary_cache[qid]) == "string" then add(mod.summary_cache[qid]) end
       return blobs
+  end
+
+  local function _wiki_step_from_blob_index(qid, qlm)
+      if not QD or not QD.get_wiki_step_order or not QD.get_step_title_from_order_index then return nil end
+      local order = QD.get_wiki_step_order(qid)
+      if not order or #order == 0 then return nil end
+      local max_idx = 0
+      for _, blob in ipairs(_text_blobs_for_step_match(qlm, qid)) do
+          local idx = QD.max_matched_step_index and QD.max_matched_step_index(qid, blob)
+          if idx and idx > max_idx then max_idx = idx end
+      end
+      if max_idx <= 0 then return nil end
+      local done = _quest_progress_done_count(qlm, qid)
+      local cur = math.max(done + 1, max_idx)
+      cur = math.min(cur, #order)
+      local title = QD.get_step_title_from_order_index(qid, cur)
+      if title then
+          mod._step_field_src[qid] = string.format("wiki_blob_idx done=%d max=%d cur=%d", done, max_idx, cur)
+          return title
+      end
+      return nil
   end
 
   local function _wiki_step_from_scraped_text(qid, qlm)
@@ -231,18 +295,6 @@ function M.install(ctx)
           elseif QD.match_step_key_from_text then
               local t = QD.match_step_key_from_text(qid, blob)
               if t then return t end
-          end
-          if QD.match_wiki_step_index then
-              local idx, steps = QD.match_wiki_step_index(qid, blob)
-              if idx and steps then
-                  local s = steps[idx]
-                  if type(s) == "string" then
-                      if QD.titleize_step_key and not s:find("%s") then
-                          return QD.titleize_step_key(s) or s
-                      end
-                      return s
-                  end
-              end
           end
       end
       return nil
@@ -263,25 +315,131 @@ function M.install(ctx)
       return nil, nil, false
   end
 
-  -- Progress-first resolver: wiki walkthrough keyed off completed objectives, then safe live strings.
-  -- Live game strings first, then wiki journal match, then task tree, then progress index last resort.
+  -- Journal-first when quest log is open for this qid; else live game strings, then wiki.
   local function _resolve_ongoing_step(qlm, qid)
       mod._step_field_src = mod._step_field_src or {}
       mod._step_field_src[qid] = nil
 
-      local step_title, step_detail = _get_live_quest_step(qlm, qid)
-      local step_from_game = step_title ~= nil
+      local step_title, step_detail = nil, nil
+      local step_from_game = false
       local wiki_fallback = false
       local wiki_progress = false
+      local has_wiki_order = QD and QD.has_wiki_step_order and QD.has_wiki_step_order(qid)
 
-      if not step_title then
-          step_title = _wiki_step_from_scraped_text(qid, qlm)
-          if step_title then
-              wiki_fallback = true
-              wiki_progress = false
-              mod._step_field_src[qid] = "wiki_scraped"
+      local journal_open = (mod._qt_journal_qid and tonumber(mod._qt_journal_qid) == tonumber(qid))
+          or (mod._qt_journal_menu_qid and tonumber(mod._qt_journal_menu_qid) == tonumber(qid))
+      local jt_raw, jd_raw = nil, nil
+      if journal_open and qlm then
+          jt_raw, jd_raw = _journal_step_from_sources(qlm, qid)
+          local t, d = _pick_step(qid, jt_raw, jd_raw, "journal")
+          if t then
+              step_title, step_detail = t, d
+              step_from_game = true
+              mod._step_field_src[qid] = "journal"
           end
       end
+
+      local live_title, live_detail = nil, nil
+      if not step_title then
+          live_title, live_detail = _get_live_quest_step(qlm, qid)
+          step_title, step_detail = live_title, live_detail
+          step_from_game = step_title ~= nil
+      end
+      -- Prefer journal/objective TEXT → wiki step key (global). Game done-count often
+      -- overshoots curated step_order (e.g. 30220 done=2 → last tip while still in gaol).
+      if not step_title and has_wiki_order and QD and QD.match_step_key_from_text and _text_blobs_for_step_match then
+          local blobs = _text_blobs_for_step_match(qlm, qid)
+          local best_t, best_len = nil, 0
+          for _, blob in ipairs(blobs or {}) do
+              if type(blob) == "string" and blob ~= "" then
+                  local t = QD.match_step_key_from_text(qid, blob)
+                  if type(t) == "string" and #t > best_len then
+                      best_t, best_len = t, #t
+                  end
+              end
+          end
+          if best_t then
+              step_title = best_t
+              wiki_fallback = true
+              wiki_progress = false
+              mod._step_field_src[qid] = "wiki_text_match"
+          end
+      end
+      if not step_title then
+          if has_wiki_order then
+              local wt, wd = _wiki_step_from_progress(qid, qlm)
+              if wt then
+                  -- Guard: do not show the LAST curated tip unless journal text mentions that step.
+                  local order = QD.get_wiki_step_order and QD.get_wiki_step_order(qid)
+                  local guarded = false
+                  if type(order) == "table" and #order >= 2 then
+                      local field_src = mod._step_field_src and mod._step_field_src[qid] or ""
+                      local idx = tonumber(field_src:match("step=(%d+)/")) or 0
+                      if idx >= #order then
+                          local late_key = order[#order]
+                          local late_hit = false
+                          local blobs = _text_blobs_for_step_match and _text_blobs_for_step_match(qlm, qid) or {}
+                          local late_l = type(late_key) == "string" and late_key:lower() or ""
+                          for _, blob in ipairs(blobs) do
+                              if type(blob) == "string" and late_l ~= "" and blob:lower():find(late_l, 1, true) then
+                                  late_hit = true
+                                  break
+                              end
+                          end
+                          if not late_hit and QD.get_fallback_step_title then
+                              local ok_fb, fb = pcall(QD.get_fallback_step_title, qid)
+                              if ok_fb and type(fb) == "string" and fb ~= "" then
+                                  step_title, step_detail = fb, nil
+                                  wiki_fallback = true
+                                  wiki_progress = false
+                                  mod._step_field_src[qid] = "wiki_fallback_guard"
+                                  guarded = true
+                              end
+                          end
+                      end
+                  end
+                  if not guarded then
+                      step_title, step_detail = wt, wd
+                      wiki_fallback = true
+                      wiki_progress = true
+                  end
+              end
+          end
+      end
+      -- #region agent log
+      if tonumber(qid) == 30220 then
+          pcall(function()
+              local function esc(s)
+                  if type(s) ~= "string" then return "" end
+                  return (s:gsub("[\\\"]", "\\%0"):gsub("\n", " "):sub(1, 80))
+              end
+              local paths = {
+                  "reframework/data/debug-62ebea.log",
+                  "c:/Users/jzafi/Desktop/New folder/OTHERMODS/QuestTracker-Modded/debug-62ebea.log",
+              }
+              local line = string.format(
+                  '{"sessionId":"62ebea","runId":"post-fix","hypothesisId":"B","location":"steps_resolve.lua:_resolve_ongoing_step","message":"30220 resolve branches","data":{"journal_open":%s,"jt":"%s","live":"%s","picked":"%s","field":"%s","has_wiki_order":%s},"timestamp":%d}\n',
+                  journal_open and "true" or "false",
+                  esc(jt_raw), esc(live_title), esc(step_title),
+                  esc(mod._step_field_src and mod._step_field_src[qid]),
+                  has_wiki_order and "true" or "false",
+                  os.time() * 1000)
+              for _, p in ipairs(paths) do
+                  local f = io.open(p, "a")
+                  if f then f:write(line); f:close() end
+              end
+          end)
+          if mlog_boot then
+              mlog_boot(string.format("[QT][dbg62ebea] 30220 jopen=%s jt=%s live=%s picked=%s field=%s",
+                  tostring(journal_open), tostring(jt_raw and jt_raw:sub(1,40)), tostring(live_title and live_title:sub(1,40)),
+                  tostring(step_title and step_title:sub(1,40)), tostring(mod._step_field_src and mod._step_field_src[qid])))
+          elseif mlog then
+              mlog(string.format("[QT][dbg62ebea] 30220 jopen=%s jt=%s live=%s picked=%s field=%s",
+                  tostring(journal_open), tostring(jt_raw and jt_raw:sub(1,40)), tostring(live_title and live_title:sub(1,40)),
+                  tostring(step_title and step_title:sub(1,40)), tostring(mod._step_field_src and mod._step_field_src[qid])))
+          end
+      end
+      -- #endregion
       if not step_title then
           local pt, pd, pg = _wiki_step_from_task_progress(qlm, qid)
           if pt then
@@ -290,7 +448,22 @@ function M.install(ctx)
               wiki_progress = false
           end
       end
-      if not step_title then
+      if not step_title and not has_wiki_order then
+          step_title = _wiki_step_from_blob_index(qid, qlm)
+          if step_title then
+              wiki_fallback = true
+              wiki_progress = true
+          end
+      end
+      if not step_title and not has_wiki_order then
+          step_title = _wiki_step_from_scraped_text(qid, qlm)
+          if step_title then
+              wiki_fallback = true
+              wiki_progress = false
+              mod._step_field_src[qid] = "wiki_scraped"
+          end
+      end
+      if not step_title and not has_wiki_order then
           local wt, wd = _wiki_step_from_progress(qid, qlm)
           if wt then
               step_title, step_detail = wt, wd
@@ -309,7 +482,16 @@ function M.install(ctx)
       end
       mod._step_last_title = mod._step_last_title or {}
       local field = (mod._step_field_src and mod._step_field_src[qid]) or "-"
-      if field:find("wiki_progress", 1, true) then
+      if field == "journal" then
+          step_from_game = true
+          wiki_fallback = false
+          wiki_progress = false
+      elseif field == "wiki_text_match" or field == "wiki_fallback_key" or field == "wiki_scraped"
+          or field == "wiki_fallback_guard" then
+          wiki_fallback = true
+          wiki_progress = false
+          step_from_game = false
+      elseif field:find("wiki_blob_idx", 1, true) or field:find("wiki_progress", 1, true) then
           wiki_fallback = true
           wiki_progress = true
           step_from_game = false
@@ -318,17 +500,21 @@ function M.install(ctx)
           step_from_game = step_title ~= nil
           wiki_fallback = false
           wiki_progress = false
-      elseif field == "wiki_fallback_key" or field == "wiki_scraped" then
-          wiki_fallback = true
-          wiki_progress = false
-          step_from_game = false
       end
       mod._wiki_progress_flag = mod._wiki_progress_flag or {}
       mod._wiki_progress_flag[qid] = wiki_progress
-      local src = wiki_progress and "wiki_progress" or (wiki_fallback and "wiki_fallback" or (step_from_game and "game" or "none"))
+      if qlm and _text_blobs_for_step_match then
+          mod._qt_step_blobs = mod._qt_step_blobs or {}
+          mod._qt_step_blobs[qid] = _text_blobs_for_step_match(qlm, qid)
+      end
+      local src = (field == "journal") and "journal"
+          or (wiki_progress and "wiki_progress" or (wiki_fallback and "wiki_fallback" or (step_from_game and "live" or "none")))
       local title_key = (step_title or "") .. "|" .. src .. "|" .. field
       if mod._step_last_title[qid] ~= title_key then
           mod._step_last_title[qid] = title_key
+          local idx = (QD and QD.get_step_order_index and step_title) and (QD.get_step_order_index(qid, step_title) or "-") or "-"
+          mlog(string.format("[QT][resolve] qid=%d src=%s idx=%s field=%s step=%s",
+              qid, src, tostring(idx), field, step_title or "(none)"))
           mlog(string.format("[QT][step] qid=%d title=%s src=%s field=%s", qid, step_title or "(none)", src, field))
           if not step_title and QD and QD.get_wiki_hint_lines then
               local ok_ln, ln = pcall(QD.get_wiki_hint_lines, qid)
@@ -346,6 +532,7 @@ function M.install(ctx)
       return step_title, step_detail, step_from_game, wiki_fallback
   end
   ctx._quest_progress_done_count = _quest_progress_done_count
+  ctx._quest_current_task_index = _quest_current_task_index
   ctx._get_live_quest_step = _get_live_quest_step
   ctx._text_blobs_for_step_match = _text_blobs_for_step_match
   ctx._resolve_ongoing_step = _resolve_ongoing_step

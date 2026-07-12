@@ -1,0 +1,63 @@
+---
+description: Copy known-good QT / Vanilla / v1.0.9 code — never reinvent map labels or other golden paths.
+alwaysApply: true
+---
+
+# Golden working code — copy, don't invent
+
+## Hard gate
+
+Before inventing a new API ladder, hook order, or "clever" success gate for anything that **already worked** in a known build:
+
+1. **Open the golden source on disk** (paths below).
+2. **Diff** our file against that golden.
+3. **Restore / adapt** the golden pattern — do not rewrite from memory or from Almanac alone when QT Vanilla already has the feature.
+
+If logs + golden disagree, **golden + logs win**. Invented ladders lose.
+
+## Golden sources (priority order)
+
+| Priority | What | Path / fact |
+|----------|------|-------------|
+| **P0** | **Quest Tracker Vanilla** (this mod's base — working map name labels) | `OTHERMODS/Quest Tracker - Vanilla/reframework/autorun/quest_tracker.lua` (labeled map icons section ~L879+) |
+| **P1** | **Reduxx v1.0.9** — user **PASS** on map labels ("DO NOT REGRESS") | Fluffy zip / git history / backup when present; transcript sign-off |
+| **P2** | `_zip_verify_122` map label call | `OTHERMODS/_zip_verify_122/reframework/autorun/quest_tracker_map.lua` |
+| **P3** | Almanac (collectible markers only) | gibbed Almanac / Riadyn TU gist — **not** a substitute for Vanilla QT labels |
+
+Also useful: `_BACKUP_TOUCHES/` timestamped restores; GitHub history when user says "last one that worked".
+
+## Map labels — Vanilla pattern (canonical)
+
+Do **not** invent multi-path invoke ladders, UniqueID hacks, IconType list gates, or RemoveAt fake_ok rollbacks unless golden proves them.
+
+Vanilla (and v1.0.9 PASS) shape:
+
+```lua
+-- name_guid: QuestLogManager:getQuestLog(qid).QuestNameId  (prefer this first)
+-- info: IsEnable, IsNavi=false, IconId=0, SortNo=0, IconType=25, Pos, Area=-1, …
+this:call("addMapIconInfoList", info, 0, idx_obj:get_address() + INT_T_VOFF, -1, name_guid)
+-- then: this:call("updateMapIcon")
+```
+
+**Only allowed TU delta** (if 5-param throws on current game): append `false` as 6th arg (`dispDisable`), still `p2=0`. Nothing else.
+
+## Forbidden
+
+- Replacing a working Vanilla/v1.0.9 call with a 6+ path "ladder"
+- Preferring `meta_cache` / catalog GUID over `QuestNameId` when the quest is in the log
+- Treating Almanac UniqueID / collectible setup as required for QT quest name banners
+- Shipping label "fixes" without opening Vanilla on disk first
+
+## When labels break again
+
+1. Read `quest_tracker_log.txt` + `re2_framework_log.txt`
+2. Open Vanilla `_add_one_labeled_icon` + `get_quest_name_guid`
+3. Diff `quest_tracker_map_labels.lua` against that
+4. Restore Vanilla shape (+ TU `false` only if needed)
+5. Then ask for Hugo world-map playtest
+
+## Pair with
+
+- `read-game-logs-first.mdc`
+- `no-spaghetti-decomposition.mdc`
+- `no-grok-web-search-only.mdc` (Grok credits) — web + disk golden still mandatory

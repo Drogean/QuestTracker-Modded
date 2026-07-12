@@ -1,54 +1,5 @@
-Quest Tracker Reduxx — Fluffy / manual install
-============================================
-
-FOR FLUFFY: do NOT zip this whole repo folder.
-  Every ship runs _ship_check.ps1 -> auto-builds OTHERMODS/QuestTracker-Reduxx-vVERSION-fluffy.zip
-  Install that zip in Fluffy (ONLY modinfo.ini + reframework/ inside)
-
-REQUIRED autorun scripts (all must be present):
-  reframework/autorun/quest_tracker.lua
-  reframework/autorun/quest_tracker_steps.lua   <-- required; steps break without this
-  reframework/autorun/quest_tracker_steps_resolve.lua
-  reframework/autorun/quest_tracker_prefs.lua
-  reframework/autorun/quest_tracker_sdk.lua
-  reframework/autorun/quest_tracker_gather.lua
-  reframework/autorun/quest_tracker_cache.lua   <-- required; cache/tick logic
-  reframework/autorun/quest_tracker_autolock.lua
-  reframework/autorun/quest_data_loader.lua
-  reframework/autorun/quest_tracker_map.lua
-  reframework/autorun/quest_tracker_time.lua
-  reframework/autorun/quest_tracker_journal.lua
-  reframework/autorun/quest_tracker_plugins.lua
-  reframework/autorun/quest_tracker_window.lua
-  reframework/autorun/quest_tracker_sniff.lua
-  reframework/autorun/quest_tracker_diag.lua
-  reframework/autorun/qt_timesniffer.lua        (optional helper)
-
-REQUIRED data (merge into game reframework/data/):
-  quest_tracker_data.json
-  quest_tracker_meta.json
-  quest_tracker_wiki_hints.json
-  quest_tracker_baked_layout.json
-  (runtime, not in zip) quest_tracker_permanent_layout.json
-
-Runtime (game reframework/data/, NOT in mod zip — auto-created on save):
-  quest_tracker_last_layout.json   last window pos+size if prefs wiped
-
-Builder: after every ship run _wipe_game_logs.ps1 (truncates quest_tracker_log, re2_framework_log, MM Log.txt — never deletes).
-
-After install, check reframework/data/quest_tracker_log.txt for:
-  mod loaded v1.3.2
-  [QT][time] module ok
-  [QT][cache] refresh OK rows=N built=N draw=N
-  [QT] quest_tracker_steps OK
-  [QT] quest_tracker_cache OK
-  [QT] startup: state=15s npc=30s
-  quest_tracker_steps OK
-  quest_tracker_cache OK
-  verbose debug ON (default)
-
-If you see FATAL quest_tracker_steps require failed, the steps file was not deployed.
-
-Normal play: Verbose ON (default), Deep Sniff OFF. Deep Sniff is dev-only — turn Heavy ON only for full SDK dumps.
-
-Time tools conflict: disable Simple Time Scaler (or rename this mod to z_quest_tracker.lua) — other time mods overwrite scale each frame.
+Fluffy: Install QuestTracker-Reduxx-v2.0.0-fluffy.zip from OTHERMODS folder.
+Disable/remove any Quest Tracker REMIX mod first.
+Boot log must say: Quest Tracker Reduxx ===== mod loaded v2.0.0 =====
+Must NOT say REMIX.
+Required: reframework/autorun/*.lua from zip + reframework/autorun/quest_tracker/quest_tracker_overlay.lua

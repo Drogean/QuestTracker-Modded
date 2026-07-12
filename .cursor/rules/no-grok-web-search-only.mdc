@@ -1,0 +1,37 @@
+---
+description: Grok credits exhausted — use web search only (all mods, all chats in this workspace)
+alwaysApply: true
+---
+
+# No Grok — web search only
+
+**User rule (2026-06-29):** Grok MCP credits are exhausted. **Do not call `grok_search` or any user-grok MCP tool** in this workspace unless the user explicitly says Grok is funded again.
+
+## Instead of Grok
+
+Before risky edits (IVSDK, REFramework hooks, ImGui, natives, pool APIs):
+
+1. **`WebSearch`** — forums, Reddit, Nexus, GitHub, refdocs, IV-SDK-DotNet docs
+2. **`WebFetch`** — official docs, GitHub raw files, release notes when a URL is known
+3. **Read logs and game files on disk** — still mandatory first for bugs
+4. **Golden / reference mods in `OTHERMODS/`** — same as before
+
+## Ship / audit replies
+
+- **Do not** include `GROK #1 #2 #3` blocks.
+- **Do** note what you searched and what you found, e.g. `WEB: [query] → [source + takeaway]`.
+
+## Overrides (this rule wins)
+
+- `grok-inner-voice-mandatory.mdc`
+- `grok-megalens-ship.mdc`
+- `grok-trigger-phrase.mdc` (trigger phrase inactive until user re-enables Grok)
+- `web-plus-grok-search.mdc`
+
+## MegaLens
+
+Unchanged — only when user okays cost and static + logs + web still disagree.
+
+## Re-enable Grok
+
+User must say explicitly: **"Grok is funded again"** or similar.

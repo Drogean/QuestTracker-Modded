@@ -2,7 +2,7 @@
 -- Submodules: quest_tracker_prefs/sdk/gather, quest_tracker_steps(+resolve), plugins, window, map, cache
 
 local MOD_NAME = "Quest Tracker Reduxx"
-local MOD_VERSION = "1.4.0"
+local MOD_VERSION = "2.2.6"
 
 local DEFAULT_QUEST_WIN_W = 786
 local DEFAULT_QUEST_WIN_H = 877
@@ -11,8 +11,9 @@ local DEFAULT_QUEST_WIN_MARGIN_R = 0
 local DEFAULT_QUEST_WIN_MARGIN_B = 72
 local MIN_SAVE_WIN_W = 520
 local MIN_SAVE_WIN_H = 280
-local COL_NPC_ORANGE = 0xFF00A5FF
-local COL_NPC_GOOD   = 0xFF33FF33
+local COL_NPC_ORANGE     = 0xFF00A5FF
+local COL_NPC_GOOD       = 0xFF33FF33
+local COL_NPC_NEON_GREEN = 0xFF66FF66
 
 local QT_TIME_INTERVAL       = 5.0
 local QT_STATE_PROBE_INTERVAL = 15.0
@@ -71,7 +72,7 @@ if _log_needs_wipe() then
     mlog_boot("[QT] log wiped for new build v" .. MOD_VERSION .. " (file kept, contents cleared)")
 end
 mlog_boot("[" .. MOD_NAME .. "] ===== mod loaded v" .. MOD_VERSION .. " =====")
-mlog_boot("[QT] via.gui.message text lookup: OFF (crash-safe; progress-first steps)")
+mlog_boot("[QT] via.gui.message text lookup: lazy journal-gated (per-call pcall, streak bypass when journal open)")
 
 local MANUAL_POS_OVERRIDES = {
     [10110] = { x = 493.9796600341797,   y = 27.427902221679688, z = -1025.0746459960938 },
@@ -100,6 +101,7 @@ local MANUAL_POS_OVERRIDES = {
     [30040] = { x = 493.96543884277344,  y = 27.427902221679688, z = -1024.906347155571 },
     [30050] = { x = 377.1,               y = 70.1,               z = -887.4 },
     [30070] = { x = 480.5570602416992,   y = 24.031455993652344, z = -1072.866901397705 },
+    [30080] = { x = -1694.2,              y = 214.8,              z = -1588.5 },
     [30090] = { x = -578.5190048217773,  y = 127.0729392170906,   z = -2219.5535011291504 },
     [30110] = { x = 99.80061149597168,   y = 157.997220993042,   z = -2122.4835624694824 },
     [30200] = { x = -269.24205780029297, y = 28.95209503173828,   z = 1114.0038223266602 },
@@ -124,7 +126,7 @@ local MANUAL_GIVER_OVERRIDES = {
     [20270] = 3252066890, [20280] = 2151757684, [20290] = 1545619405,
     [20310] = 2884679268, [20330] = 4137867127, [20480] = 542068695,
     [30030] = 4006438697, [30041] = 1210835050, [30042] = 4267448965,
-    [30050] = 1461307325, [30060] = 3560980369, [30080] = 1007143618,
+    [30050] = 1461307325, [30060] = 3560980369, [30070] = 3560980369, [30080] = 1007143618,
     [30100] = 240278635,  [30120] = 1424070675, [30140] = 2145444378,
     [30150] = 678396953,  [30160] = 1603137626, [30170] = 1468499554,
     [30180] = 1210835050, [30230] = 43671194,
@@ -183,10 +185,10 @@ local LAST_LAYOUT_PATH = "quest_tracker_last_layout.json"
 local PERMANENT_LAYOUT_PATH = "quest_tracker_permanent_layout.json"
 local PREF_KEYS  = {
     "show_window", "sort_mode", "highlight_recent", "tab", "label_pins", "debug_logging",
-    "deep_sniff", "deep_sniff_heavy", "font_size",
+    "deep_sniff", "deep_sniff_heavy", "font_size", "tip_font_size",
     "layout_margin_r", "win_y", "win_w", "win_h", "win_alpha",
     "auto_pin_journal", "auto_pin_ongoing", "auto_pin_available",
-    "time_longer_days", "time_faster_nights", "time_pause",
+    "time_longer_days", "time_faster_nights", "time_pause", "show_quest_tiers", "show_overlay_on_map",
 }
 
 local function is_bundled_giver(qid, cid) return BUNDLED_GIVER_OVERRIDES[qid] == cid end
@@ -201,9 +203,9 @@ local SORT_NAMES = { "Last Updated", "Recent", "Distance" }
 local FEAST_MILESTONE = 10140
 local PONR_NAMES = {
     [10140] = "Feast of Deception",
-    [10160] = "A New Godsway",
-    [10170] = "The Guardian Gigantus",
-    [10180] = "Legacy",
+    [10170] = "A New Godsway",
+    [10180] = "The Guardian Gigantus",
+    [10190] = "Legacy",
 }
 
 local ctx = {
@@ -251,14 +253,16 @@ mod = {
     debug_logging    = true,
     deep_sniff       = false,
     deep_sniff_heavy = false,
-    _guid_lookup_ok  = false,
     auto_pin_journal  = true,
     auto_pin_ongoing  = false,
     auto_pin_available = false,
     time_longer_days = false,
     time_faster_nights = false,
     time_pause = false,
+    show_quest_tiers = true,
+    show_overlay_on_map = true,
     font_size        = 28,
+    tip_font_size    = 28,
     win_alpha        = 0.4,
     layout_margin_r  = DEFAULT_QUEST_WIN_MARGIN_R,
     win_x            = 0,
@@ -266,6 +270,10 @@ mod = {
     win_w            = DEFAULT_QUEST_WIN_W,
     win_h            = DEFAULT_QUEST_WIN_H,
     _game_ready      = false,
+    _qt_game_ready_at = nil,
+    _qt_post_save_block_until = nil,
+    _qt_post_av_block_until = nil,
+    _qt_save_deferred_refresh_at = nil,
     _qt_shutdown     = false,
     state_counts     = {0, 0, 0, 0, 0},
     progressing_ids  = {},
@@ -282,9 +290,31 @@ mod = {
     _npc_scan_cache = {},
 }
 
+function mod._qt_is_draw_suppressed()
+    local now = os.clock()
+    if mod._qt_sdk_suppress_until and now < mod._qt_sdk_suppress_until then return true end
+    if mod._qt_suppress_draw_until and now < mod._qt_suppress_draw_until then return true end
+    if mod._qt_post_save_block_until and now < mod._qt_post_save_block_until then return true end
+    if mod._qt_post_av_block_until and now < mod._qt_post_av_block_until then return true end
+    return false
+end
+
 ctx.mod = mod
 ctx.mlog = mlog
 ctx._QT_FRAME_GEN = _QT_FRAME_GEN
+mlog_boot("[QT] mod table ready")
+
+mlog_boot("[QT] overlay install starting")
+local _ov_ok, Overlay = pcall(require, "quest_tracker/quest_tracker_overlay")
+if _ov_ok and Overlay and Overlay.install then
+    local _ov_inst_ok, _ov_inst_err = pcall(Overlay.install, ctx)
+    if not _ov_inst_ok then
+        mlog_boot("[QT] overlay install FAIL err=" .. tostring(_ov_inst_err))
+    end
+else
+    mlog_boot("[QT] overlay require FAIL ok=" .. tostring(_ov_ok) .. " err=" .. tostring(Overlay))
+end
+
 if _QT_FRAME_GEN > 1 then package.loaded["quest_tracker_prefs"] = nil end
 local Prefs = require("quest_tracker_prefs")
 Prefs.install(ctx)
@@ -292,6 +322,9 @@ ctx.load_prefs_early()
 ctx.apply_prefs_to_mod()
 
 if _QT_FRAME_GEN > 1 then
+    package.loaded["quest_tracker_window"] = nil
+    package.loaded["quest_tracker/quest_tracker_overlay"] = nil
+    mod._qt_window_installed = nil
     mod._step_last_title = {}
     mod._steps_module_ok = nil
     mod._cache_module_ok = nil
@@ -346,24 +379,77 @@ ctx.BUNDLED_LOCKOUTS = BUNDLED_LOCKOUTS
 ctx.BUNDLED_POS_OVERRIDES = BUNDLED_POS_OVERRIDES
 ctx.COL_NPC_GOOD = COL_NPC_GOOD
 ctx.COL_NPC_ORANGE = COL_NPC_ORANGE
+ctx.COL_NPC_NEON_GREEN = COL_NPC_NEON_GREEN
 ctx.NPC_SCAN_CACHE_TTL = NPC_SCAN_CACHE_TTL
 
-local function _teleport_player_to(x, y, z)
-    if type(x) ~= "number" or type(y) ~= "number" or type(z) ~= "number" then return false end
+local _qt_prevent_ferrystone = false
+local _qt_ferrystone_hook_ok = false
+
+local function _qt_install_ferrystone_hook()
+    if _qt_ferrystone_hook_ok then return end
+    local td = sdk.find_type_definition("app.ItemManager")
+    local del = td and td:get_method("deleteItem")
+    if not del then return end
+    sdk.hook(del, function(args)
+        if _qt_prevent_ferrystone then
+            _qt_prevent_ferrystone = false
+            if sdk.to_int64(args[3]) == 80 then
+                return sdk.PreHookResult.SKIP_ORIGINAL
+            end
+        end
+    end, nil)
+    _qt_ferrystone_hook_ok = true
+end
+
+local function _qt_write_valuetype(parent_obj, offset, value)
+    for i = 0, value.type:get_valuetype_size() - 1 do
+        parent_obj:write_byte(offset + i, value:read_byte(i))
+    end
+end
+
+local function _teleport_player_to(x, y, z, log_ctx)
+    if type(x) ~= "number" or type(y) ~= "number" or type(z) ~= "number" then
+        if log_ctx and ctx._log_tp then ctx._log_tp(log_ctx.qid, log_ctx.cid, false, log_ctx.src, "bad_coords") end
+        return false
+    end
+    _qt_install_ferrystone_hook()
+    local fc = sdk.get_managed_singleton("app.FerrystoneFlowController")
+    if fc then
+        local pos_str = string.format("%f, %f, %f", x, y, z)
+        local ok = pcall(function()
+            _qt_prevent_ferrystone = true
+            local tp = fc.TeleportPosition:Parse(pos_str)
+            _qt_write_valuetype(fc, 0x30, tp)
+            fc:gatherTeleportCharactersAndLostDeadPawns()
+            fc:activateFlow()
+        end)
+        if ok then
+            if log_ctx and ctx._log_tp then ctx._log_tp(log_ctx.qid, log_ctx.cid, true, "ferrystone", nil) end
+            return true
+        end
+        if log_ctx and ctx._log_tp then ctx._log_tp(log_ctx.qid, log_ctx.cid, false, log_ctx.src, "ferrystone_failed") end
+        return false
+    end
     local mp = ctx._get_manual_player and ctx._get_manual_player()
-    if not mp then return false end
+    if not mp then
+        if log_ctx and ctx._log_tp then ctx._log_tp(log_ctx.qid, log_ctx.cid, false, log_ctx.src, "no_ferrystone_controller") end
+        return false
+    end
     local ok = pcall(function()
         local p = mp:get_UniversalPosition()
         if p then p.x, p.y, p.z = x, y, z end
     end)
+    if log_ctx and ctx._log_tp then
+        ctx._log_tp(log_ctx.qid, log_ctx.cid, ok, log_ctx.src, ok and "plupos_fallback" or "write_failed")
+    end
     return ok
 end
-ctx._teleport_player_to = _teleport_player_to
 
 local Map
 local _map_ok, MapMod = pcall(require, "quest_tracker_map")
 ctx.Map = MapMod
 require("quest_tracker_gather").install(ctx)
+ctx._teleport_player_to = _teleport_player_to
 ALL_IDS = ctx.ALL_IDS
 
 local TimeMod
@@ -444,6 +530,9 @@ if _map_ok and MapMod and MapMod.install then
         qd_givers = ctx.qd_givers,
         qd_givers_display_order = ctx.qd_givers_display_order,
         TAB_NAMES = TAB_NAMES,
+        get_all_giver_cids = ctx.get_all_giver_cids,
+        QD = ctx.QD,
+        BUNDLED_POS_OVERRIDES = BUNDLED_POS_OVERRIDES,
     })
     if not ok_inst then mlog("[QT] WARN quest_tracker_map install returned false") end
     pcall(function() if MapMod.init_map_api then MapMod.init_map_api() end end)
@@ -456,6 +545,7 @@ if _map_ok and MapMod and MapMod.install then
     MapBridge.run_autopin_if_enabled = MapMod.run_autopin_if_enabled
     MapBridge.pin_quest = MapMod.pin_quest
     MapBridge.unpin_quest = MapMod.unpin_quest
+    MapBridge.sweep_ghost_pins = MapMod.sweep_ghost_pins
     MapBridge.unpin_candidate = MapMod.unpin_candidate
     MapBridge.restore_candidate = MapMod.restore_candidate
     MapBridge.restore_all_candidates = MapMod.restore_all_candidates
@@ -510,6 +600,7 @@ do
         StepsBridge._resolve_ongoing_step = st_ctx._resolve_ongoing_step
         StepsBridge._quest_progress_done_count = st_ctx._quest_progress_done_count
         mod._quest_progress_done_count = st_ctx._quest_progress_done_count
+        mod._quest_current_task_index = st_ctx._quest_current_task_index
         StepsBridge._is_flavor_text = st_ctx._is_flavor_text
         StepsBridge._get_live_quest_step = st_ctx._get_live_quest_step
         StepsBridge._text_blobs_for_step_match = st_ctx._text_blobs_for_step_match
@@ -580,7 +671,24 @@ require("quest_tracker_window").install({
     safe_get_field = ctx.safe_get_field, to_int = ctx.to_int, is_bundled_pos = is_bundled_pos,
     _qt_force_refresh = _qt_plugin_out._qt_force_refresh, _qt_run_logic_tick = _qt_plugin_out._qt_run_logic_tick,
     qt_background_log_tick = _qt_plugin_out.qt_background_log_tick,
+    QD = QD, MANUAL_GIVER_OVERRIDES = MANUAL_GIVER_OVERRIDES,
+    resolve_teleport_pos = ctx.resolve_teleport_pos,
 })
+
+pcall(function()
+    if not QD or not QD.iter_meta_qids then return end
+    local total, so, sh = 0, 0, 0
+    for _, qid in ipairs(QD.iter_meta_qids()) do
+        total = total + 1
+        local ok_o, ord = pcall(QD.get_wiki_step_order, qid)
+        if ok_o and type(ord) == "table" and #ord > 0 then so = so + 1 end
+        if QD.get_fallback_step_hints then
+            local ok_h, fh = pcall(QD.get_fallback_step_hints, qid)
+            if ok_h and type(fh) == "table" and #fh > 0 then sh = sh + 1 end
+        end
+    end
+    mlog_boot(string.format("[QT] wiki coverage step_order=%d/%d step_hints=%d/%d", so, total, sh, total))
+end)
 
 mod._logic_force = false
 mod._last_state_probe = 0

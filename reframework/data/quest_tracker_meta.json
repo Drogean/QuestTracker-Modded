@@ -1,34 +1,49 @@
 {
   "version": 5,
   "note": "Quest metadata from Fextralife wiki buckets. Vermund Quests 1 = lockout_after 10140 (before Feast). Vermund Quests 2 = available_after 10140. lockout_after = miss forever if Feast completes while still Available. must_before_feast = reddit/story gates. See https://dragonsdogma2.wiki.fextralife.com/Quests",
-
   "ponr": {
-    "10140": "Feast of Deception (Coronation) — endgame transition",
-    "10160": "A New Godsway",
-    "10170": "The Guardian Gigantus",
-    "10180": "Legacy (Unmoored World)"
+    "10140": "Feast of Deception (Coronation) — early side-content transition",
+    "10170": "A New Godsway — late side-content transition",
+    "10180": "The Guardian Gigantus — Moonglint Tower approach",
+    "10190": "Legacy — transition to the Unmoored World"
   },
-
   "chains": {
     "sven_side": {
       "name": "Sven (related quests)",
       "note": "Sven appears in several side quests. Auto-lock is NOT done from chain order — only the Feast of Deception milestone (10140) actually moves him out of the marketplace.",
-      "quests": [30010, 30040, 30041, 30042, 30180]
+      "quests": [
+        30010,
+        30040,
+        30041,
+        30042,
+        30180
+      ]
     },
     "ulrika_romance": {
       "name": "Ulrika romance (sequential)",
-      "quests": [20080, 30100, 20082, 30110]
+      "quests": [
+        20080,
+        30100,
+        20082,
+        30110
+      ]
     },
     "wilhelmina_romance": {
       "name": "Wilhelmina romance",
-      "quests": [30040, 30050]
+      "quests": [
+        30040,
+        30050
+      ]
     },
     "sacred_arbor": {
       "name": "Sacred Arbor / Doireann",
-      "quests": [30070, 30080, 30090]
+      "quests": [
+        30070,
+        30080,
+        30090
+      ]
     }
   },
-
   "chara_names": {
     "1065353216": "Lennart",
     "1210835050": "Sven",
@@ -36,6 +51,8 @@
     "678396953": "Trysha",
     "1603137626": "Myrdin",
     "1007143618": "Doireann",
+    "1363233817": "Taliesin",
+    "3560980369": "Glyndwr",
     "240278635": "Ulrika",
     "2696396312": "Oswald (rumor NPC, Noble Quarter fountain)",
     "2005149068": "Normann"
@@ -46,77 +63,1621 @@
     "2629601821": "unknown — appears in 20070 givers, identify via TP HERE",
     "_note": "These CIDs were in the original mod's chara_names but never confirmed against the wiki. Use the per-row TP HERE buttons in-game to identify them, then promote to chara_names with the right name."
   },
-
   "quests": {
-    "10030": { "name": "Gaoled Awakening",              "region": "Vermund" },
-    "10050": { "name": "Tale's Beginning",               "region": "Vermund" },
-    "10060": { "name": "In Dragon's Wake",               "region": "Vermund" },
-    "10080": { "name": "Seat of the Sovran",             "region": "Vermund", "trigger": "Main quest. While in Vernworth Castle, guard Norman asks if you've seen Sven — your answer matters: LIE for Sven if you want The Ornate Box later." },
-    "10090": { "name": "Monster Culling",                "region": "Vermund", "must_before_feast": true, "trigger": "Brant at Stardrop Inn — accept monster culling. Needed for Arisen's Shadow and the road to Feast." },
-    "10100": { "name": "Disa's Plot",                    "region": "Vermund", "must_before_feast": true },
-    "10110": { "name": "An Unsettling Encounter",        "region": "Vermund", "must_before_feast": true, "trigger": "After Disa's Plot: ask Brant at night about rumors on Allard. Leads to Feast of Deception." },
-    "10120": { "name": "The Caged Magistrate",           "region": "Vermund", "must_before_feast": true },
-    "10130": { "name": "The Nameless Village",           "region": "Vermund", "must_before_feast": true },
-    "10140": { "name": "Feast of Deception",             "region": "Vermund", "trigger": "Coronation event. WARNING: completing this PERMANENTLY locks most Vermund side quests (Sven, Margit, etc.). Finish them first." },
-    "10150": { "name": "Nation of the Lambent Flame",    "region": "Battahl" },
-    "10160": { "name": "A New Godsway",                  "region": "Battahl" },
-    "10170": { "name": "The Guardian Gigantus",          "region": "Battahl" },
-    "10180": { "name": "Legacy",                         "region": "Battahl" },
-
-    "20010": { "name": "Medicament Predicament",         "region": "Vermund", "lockout_after": 10140, "urgent": false, "giver_name": "Flora", "trigger": "Speak to Flora outside Auriol's shop in the Vernworth marketplace.", "note": "Helping Flora get the Fruit Roborant gives Auriol a discount on the Ornate Box later." },
-    "20020": { "name": "Ordeals of a New Recruit",       "region": "Vermund", "lockout_after": 10140, "urgent": false, "giver_name": "Hugo", "trigger": "Speak to recruit Hugo at the Vernworth Castle training yard." },
-    "20030": { "name": "The Provisioner's Plight",       "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to provisioner near the Vernworth Castle gate or merchant district." },
-    "20040": { "name": "Nesting Troubles",               "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to the harried farmer at the small hamlet northwest of Borderwatch Outpost." },
-    "20050": { "name": "Brothers Brave and Timid",       "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to twin brothers Glyndwr (brave) and Lyle (timid) near the Vernworth training grounds." },
-    "20060": { "name": "Twixt a Rock and a Hard Place",  "region": "Battahl", "available_after": 10140, "lockout_after": 10170, "urgent": false, "trigger": "Speak to the trapped traveler in the volcanic ravine south of Bakbattahl." },
-    "20070": { "name": "Till Death Do Us Part",          "region": "Vermund", "lockout_after": 10140, "urgent": true, "time_limit_days": 4, "giver_name": "Margit", "wiki_cast": ["Margit", "Oswald", "Gregor", "Dullahan"], "prereq_quests": [20220], "trigger": "Finish The Nameless Village (20220) first. Then hear Oswald's rumor at the Noble Quarter fountain in Vernworth (Townsend's Estate) — only AFTER that can you speak to Margit outside Watchhead's Home in Vernworth (north). Margit, Oswald, and Gregor (rescue target at Illdoers' Resting Place) are all involved.", "note": "Gregor dies if you stall after starting (4-day in-game timer). Wiki: bring camping kit + Wakestones; ride to Misty Marshes. DO NOT try to kill the Dullahan — you survive by dealing ENOUGH DAMAGE to make it FLEE while keeping Gregor alive (heal/buff him, revive with Wakestone if he goes down). Once the Dullahan flees, talk to Gregor, then report back to Margit at Watchhead's Home. Margit's CharaID is not yet identified by the mod — use the per-row TP HERE buttons to find her, then click 'Set as Primary' on her line, or walk to her and click 'Save HERE as TP Start'." },
-    "20080": { "name": "Scaly Invaders",                 "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Travel to Melve and witness/intervene with the saurian attack on the village.", "note": "Triggers Ulrika's romance line — Readvent of Calamity follows when you return to Melve." },
-    "20090": { "name": "A Beggar's Tale",                "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to the beggar near the Vernworth slums entrance / Stardrop Inn area." },
-    "20100": { "name": "Tolled to Rest",                 "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to the priest at the Vernworth Cathedral — needs the bell." },
-    "20110": { "name": "The Phantom Oxcart",             "region": "Battahl", "available_after": 10140, "lockout_after": 10170, "urgent": true, "trigger": "Find the suspicious oxcart on the Battahl highroad after dark." },
-    "20120": { "name": "The Heel of History",            "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to scholar in The Gracious Hand's Vaults after The Caged Magistrate (10120) opens it up." },
-    "20130": { "name": "Saint of the Slums",             "region": "Vermund", "lockout_after": 10140, "urgent": false, "giver_name": "Elena", "wiki_cast": ["Elena", "Lottie", "Lubomir", "Vlasly", "Bruno", "Jehan", "Radcliff", "Alois"], "trigger": "Speak to Elena in the Vernworth slums (NOT Vlasly — he is the corrupt guard, not the giver)." },
-    "20140": { "name": "The Gift of Giving",             "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to the giver near the Vernworth merchant quarter at midday." },
-    "20150": { "name": "House of the Blue Sunbright",    "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to the proprietor of the House of the Blue Sunbright in Vernworth Noble Quarter." },
-    "20190": { "name": "A Noble Exchange",               "region": "Vermund", "lockout_after": 10140, "urgent": false, "giver_name": "Lennart", "trigger": "Speak to Praetor Lennart near the Vernworth market during the banquet phase. He is only there before Feast of Deception (10140).", "timing_note": "Banquet window only.", "note": "Auto-hides if missed." },
-    "20200": { "name": "A Game of Wits",                 "region": "Vermund", "available_after": 10140, "lockout_after": 10170, "urgent": false, "trigger": "Find the Sphinx at the Mountain Shrine north of Vernworth (sapphire-topped peak). Available only AFTER Feast of Deception." },
-    "20220": { "name": "The Nameless Village",           "region": "Vermund", "lockout_after": 10140, "wiki_bucket": "vermund_1", "trigger": "Find the hidden village in the eastern Vermund forests — usually triggered by following the Disa's Plot story beats." },
-    "20230": { "name": "A Place to Call Home",           "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to the displaced Battahl refugee near the Vernworth slums or Stardrop Inn." },
-    "20240": { "name": "Vocation Frustration",           "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to the disgruntled vocation guild member at the Vernworth Vocation Guild." },
-    "20250": { "name": "Prey for the Pack",              "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to the hunter near Borderwatch Outpost or Melve about wolf attacks." },
-    "20270": { "name": "The Sotted Sage",                "region": "Volcanic", "available_after": 10140, "lockout_after": 10170, "urgent": false, "trigger": "Find the drunken sage in a Volcanic Island tavern (Bakbattahl)." },
-    "20280": { "name": "A Poisonous Proposal",           "region": "Battahl", "available_after": 10140, "lockout_after": 10170, "urgent": true, "trigger": "Speak to vendor in Bakbattahl marketplace who suspects rival is poisoning customers." },
-    "20290": { "name": "Short-Sighted Ambition",         "region": "Battahl", "available_after": 10140, "lockout_after": 10170, "urgent": false, "giver_name": "Isaac", "trigger": "Speak to apothecary Isaac in Bakbattahl about a grimoire he wants. Pairs well with Spellbound — collect the same grimoires." },
-    "20310": { "name": "A Case of Sculptor's Block",     "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to the sculptor in Vernworth — he needs inspiration." },
-    "20330": { "name": "Shadowed Prayers",               "region": "Volcanic", "available_after": 10140, "lockout_after": 10170, "urgent": true, "trigger": "Speak to the troubled priest in Bakbattahl temple at night." },
-    "20340": { "name": "Steeled Resolve, Blazing Forge", "region": "Battahl", "available_after": 10140, "lockout_after": 10170, "urgent": true, "trigger": "Speak to the smith in Bakbattahl about a special commission." },
-    "20350": { "name": "Hunt for the Jadeite Orb",       "region": "Vermund", "available_after": 10140, "lockout_after": 10170, "urgent": false, "trigger": "Available only AFTER Feast of Deception. Speak to Sven's mother in Vernworth Castle." },
-    "20480": { "name": "Oxcart Courier",                 "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to oxcart driver at any oxcart stop and ask about courier work." },
-    "20082": { "name": "Trouble on the Cape",            "region": "Vermund", "lockout_after": 10140, "urgent": false, "giver_name": "Ulrika", "prereq_quests": [30100], "trigger": "Find Ulrika in Harve Village (south coast) AFTER Readvent of Calamity (30100) completes. Speaking to her there auto-starts this quest." },
-
-    "30010": { "name": "The Ornate Box",                 "region": "Vermund", "lockout_after": 10140, "urgent": true, "giver_name": "Sven", "primary_giver_cid": 1210835050, "extra_giver_cids": [2005149068], "wiki_cast": ["Sven", "Normann", "Auriol"], "trigger": "PRE-REQ: when guard Norman asks if you've seen Sven during Seat of the Sovran (10080), you MUST LIE for him. Then witness Sven arguing with shopkeeper Auriol in the Vernworth marketplace — quest auto-triggers on cutscene.", "note": "Sven leaves the marketplace permanently after Feast of Deception (10140) — quest is gone. If you completed Medicament Predicament (20010), Auriol drops the Ornate Box price from 1000 to 800 G. Normann (castle guard, Seat of the Sovran) gates the quest — see Also." },
-    "30020": { "name": "Claw Them Into Shape",           "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to the cat owner near the Vernworth slums — needs help training her cats." },
-    "30030": { "name": "Beren's Final Lesson",           "region": "Vermund", "lockout_after": 10140, "urgent": false, "giver_name": "Beren", "trigger": "Speak to Beren the warrior maister in Melve once you have warrior unlocked." },
-    "30040": { "name": "The Stolen Throne",              "region": "Vermund", "lockout_after": 10140, "wiki_bucket": "vermund_1", "must_before_feast": true, "giver_name": "Sven", "trigger": "Pick up Brant's intel at the Stardrop Inn about Sven and the throne — then investigate at Vernworth Castle. Finish before Feast or it can lock out." },
-    "30041": { "name": "Masked Correspondence",          "region": "Vermund", "lockout_after": 10140, "urgent": false, "giver_name": "Sven", "trigger": "Continues from The Stolen Throne (30040) — speak to Sven in Vernworth Castle." },
-    "30042": { "name": "A Magisterial Amenity",          "region": "Vermund", "lockout_after": 10140, "urgent": false, "giver_name": "Sven", "trigger": "Continues from Masked Correspondence (30041) — speak to Sven in Vernworth Castle." },
-    "30050": { "name": "Every Rose Has Its Thorn",       "region": "Vermund", "available_after": 10140, "lockout_after": 10170, "urgent": true, "time_limit_days": 3, "giver_name": "Wilhelmina", "avail_hour_start": 20, "avail_hour_end": 6, "prereq_quests": [30040, 10110], "trigger": "After The Stolen Throne (30040) and An Unsettling Encounter (10110): get the Myrmecoleon Card from Wilhelmina to enter Rose Chateau Bordelrie. Visit her room (TOP floor) ONLY between 8PM and 6AM — otherwise she's not there.", "note": "Wilhelmina romance. Gifts: Adorable/Beautiful, ONE per day, sleep at inn between gifts. After her 'Here I am...' speech: peephole cutscene → 'Offer your assistance' (do NOT 'Dissuade her'). 3-day timer activates: Murder Report from Allard's Estate + Bribery Findings near Clovis's Barberie. Hand the Murder Report to her at night → 'Continue offering your aid'." },
-    "30060": { "name": "Gift of the Bow",                "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to Glyndwr (the brave twin) in Vernworth — needs an archery bow." },
-    "30070": { "name": "A Trial of Archery",             "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to Glyndwr in Vernworth after Gift of the Bow (30060) — he wants to test your archery." },
-    "30080": { "name": "The Ailing Arborheart",          "region": "Vermund", "lockout_after": 10140, "urgent": false, "giver_name": "Doireann", "prereq_quests": [30070], "locked_if_completed": [30090], "trigger": "After A Trial of Archery (30070), travel to Sacred Arbor (Elven enclave deep in the western Vermund woods) and speak to Doireann at The Arborheart.", "note": "Needs Battahl access (Gwyfencha) to finish — start it BEFORE finishing Out of the Forest, Into the Forge (30090), or it locks." },
-    "30090": { "name": "Out of the Forest, Into the Forge", "region": "Battahl", "available_after": 10140, "lockout_after": 10170, "urgent": true, "trigger": "Available only AFTER Feast of Deception. Speak to the elf forger in Bakbattahl forge district." },
-    "30100": { "name": "Readvent of Calamity",           "region": "Vermund", "lockout_after": 10140, "urgent": true, "giver_name": "Ulrika", "prereq_quests": [20080], "trigger": "After Scaly Invaders (20080), RETURN to Melve — a dragon attack triggers automatically on arrival. Time-sensitive: if you delay too long, this fails and Ulrika's romance line is permanently locked." },
-    "30110": { "name": "Home Is Where the Hearth Is",   "region": "Vermund", "lockout_after": 10140, "urgent": false, "giver_name": "Ulrika", "avail_hour_start": 8, "avail_hour_end": 22, "prereq_quests": [20082], "trigger": "After Trouble on the Cape (20082), find Ulrika in Harve Village during the day. Max her affinity (Adorable/Beautiful gifts daily) until she blushes BEFORE completing for the romance ending." },
-    "30120": { "name": "Dulled Steel, Cold Forge",       "region": "Vermund", "lockout_after": 10140, "urgent": false, "trigger": "Speak to the Vernworth blacksmith about a fading craft." },
-    "30140": { "name": "Welcome to Battahl",             "region": "Battahl", "wiki_bucket": "battahl_1", "available_after": 10140, "lockout_after": 10160, "urgent": true, "trigger": "Wiki Battahl Quests 1: AFTER Feast of Deception. Auto-starts at Battahl border checkpoint. Finish before A New Godsway (10160)." },
-    "30150": { "name": "Spellbound",                     "region": "Vermund", "lockout_after": 10140, "urgent": false, "giver_name": "Trysha", "trigger": "Travel to Eini's Home north of Melve. Trysha will only talk to you about magick if her grandparents Eini & Eino are NOT in the house — pick the grandparents up (R2) and put them outside, OR pick TRYSHA up (R2) and carry her outside, then talk to her.", "note": "Grimoires: Let There Be Light (Myrddin's desk), Fulminous Shield (Dudley in Melve), Nation's Death Knell (Ancient Battleground), Howling Blizzard (Wendy, Nameless Village — give her a forged Fulminous Shield, NOT the original), Towering Earth (Waldhar after The Caged Magistrate). Use Ibrahim in Checkpoint Rest Town to forge copies so you can complete Sorcerer's Appraisal (30160) too. Recommended: give Trysha 3 originals (gets you Meteoron + 2 maister skills)." },
-    "30160": { "name": "The Sorcerer's Appraisal",       "region": "Vermund", "lockout_after": 10140, "urgent": false, "giver_name": "Myrdin", "trigger": "Speak to Myrdin at Myrdin's Home (riverside cottage). WARNING: Myrdin attacks on sight as a TEST — DO NOT KILL HIM. If you did, revive with a Wakestone (Courtly Outfit helps). After surviving, talk to him to start the quest." },
-    "30170": { "name": "Put a Spring in Thy Step",       "region": "Volcanic", "available_after": 10140, "lockout_after": 10170, "urgent": false, "trigger": "Speak to the dancer/performer in Bakbattahl about reviving an old festival." },
-    "30180": { "name": "A Veil of Gossamer Clouds",      "region": "Vermund", "available_after": 10140, "lockout_after": 10170, "urgent": false, "giver_name": "Sven", "trigger": "Available only AFTER Feast of Deception (10140). Speak to Sven in Vernworth Castle (Sven's Chambers / Guest Chambers)." },
-    "30200": { "name": "A Candle in the Storm",          "region": "Volcanic", "available_after": 10140, "lockout_after": 10170, "urgent": false, "trigger": "Speak to the lighthouse keeper on the Volcanic Island coast at night." },
-    "30210": { "name": "Mercy Among Thieves",            "region": "Battahl", "wiki_bucket": "vermund_2", "available_after": 10140, "lockout_after": 10170, "urgent": false, "giver_name": "Lyssandro", "trigger": "Wiki Vermund Quests 2: AFTER Feast of Deception completes. Checkpoint Rest Town — feed Toumi twice (not rotten), talk to men by oxcart, then Lyssandro (white robes). Must pass border gate first.", "note": "Complete before Guardian Gigantus (10170). Leads to Off the Pilfered Path (Hugo)." },
-    "30220": { "name": "Off the Pilfered Path",          "region": "Battahl", "available_after": 10140, "lockout_after": 10170, "urgent": true, "trigger": "Speak to victim of theft on the Battahl highroad." },
-    "30230": { "name": "Tensions on the Highroad",       "region": "Battahl", "wiki_bucket": "battahl_1", "available_after": 10140, "lockout_after": 10160, "urgent": true, "trigger": "Wiki Battahl Quests 1: AFTER Feast, BEFORE A New Godsway (10160)." },
-    "30240": { "name": "Clash and Conclusion",           "region": "Volcanic", "available_after": 10140, "lockout_after": 10170, "urgent": true, "trigger": "Speak to combatants in the Volcanic Island arena / dueling grounds." }
+    "10030": {
+      "name": "Gaoled Awakening",
+      "region": "Vermund",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Gaoled+Awakening",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "10050": {
+      "name": "Tale's Beginning",
+      "region": "Vermund",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Tale's+Beginning",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "10060": {
+      "name": "In Dragon's Wake",
+      "region": "Vermund",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/In+Dragon's+Wake",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "10080": {
+      "name": "Seat of the Sovran",
+      "region": "Vermund",
+      "trigger": "Main quest. While in Vernworth Castle, guard Norman asks if you've seen Sven — your answer matters: LIE for Sven if you want The Ornate Box later.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Seat+of+the+Sovran",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "10090": {
+      "name": "Monster Culling",
+      "region": "Vermund",
+      "must_before_feast": true,
+      "trigger": "Brant at Stardrop Inn — accept monster culling. Needed for Arisen's Shadow and the road to Feast.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Monster+Culling",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "10100": {
+      "name": "Disa's Plot",
+      "region": "Vermund",
+      "must_before_feast": true,
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Disa's+Plot",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "10110": {
+      "name": "An Unsettling Encounter",
+      "region": "Vermund",
+      "must_before_feast": true,
+      "trigger": "After Disa's Plot: ask Brant at night about rumors on Allard. Leads to Feast of Deception.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/An+Unsettling+Encounter",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "10120": {
+      "name": "The Caged Magistrate",
+      "region": "Vermund",
+      "must_before_feast": true,
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/The+Caged+Magistrate",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "10130": {
+      "name": "The Nameless Village",
+      "region": "Vermund",
+      "must_before_feast": true,
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/The+Nameless+Village",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "10140": {
+      "name": "Feast of Deception",
+      "region": "Vermund",
+      "trigger": "Coronation event. WARNING: completing this PERMANENTLY locks most Vermund side quests (Sven, Margit, etc.). Finish them first.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Feast+of+Deception",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "10150": {
+      "name": "Nation of the Lambent Flame",
+      "region": "Battahl",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Nation+of+the+Lambent+Flame",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "10170": {
+      "name": "A New Godsway",
+      "region": "Battahl",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/A+New+Godsway",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "10180": {
+      "name": "The Guardian Gigantus",
+      "region": "Battahl",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/The+Guardian+Gigantus",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20010": {
+      "name": "Medicament Predicament",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "urgent": false,
+      "giver_name": "Flora",
+      "trigger": "Speak to Flora outside Auriol's shop in the Vernworth marketplace.",
+      "note": "Helping Flora get the Fruit Roborant gives Auriol a discount on the Ornate Box later.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Medicament+Predicament",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20020": {
+      "name": "Ordeals of a New Recruit",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "urgent": false,
+      "giver_name": "Hugo",
+      "trigger": "Speak to recruit Hugo at the Vernworth Castle training yard.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Ordeals+of+a+New+Recruit",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20030": {
+      "name": "The Provisioner's Plight",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "urgent": false,
+      "trigger": "Speak to provisioner near the Vernworth Castle gate or merchant district.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/The+Provisioner's+Plight",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20040": {
+      "name": "Nesting Troubles",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "urgent": false,
+      "trigger": "Speak to the harried farmer at the small hamlet northwest of Borderwatch Outpost.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Nesting+Troubles",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20050": {
+      "name": "Brothers Brave and Timid",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "urgent": false,
+      "trigger": "Speak to twin brothers Glyndwr (brave) and Lyle (timid) near the Vernworth training grounds.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Brothers+Brave+and+Timid",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20060": {
+      "name": "'Twixt a Rock and a Hard Place",
+      "region": "Battahl",
+      "available_after": 10140,
+      "lockout_after": 10180,
+      "urgent": false,
+      "trigger": "Speak to the trapped traveler in the volcanic ravine south of Bakbattahl.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/'Twixt+a+Rock+and+a+Hard+Place",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20070": {
+      "name": "Till Death Do Us Part",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "urgent": true,
+      "time_limit_days": 4,
+      "giver_name": "Margit",
+      "wiki_cast": [
+        "Margit",
+        "Oswald",
+        "Gregor",
+        "Dullahan"
+      ],
+      "prereq_quests": [
+        20220
+      ],
+      "trigger": "Finish The Nameless Village (20220) first. Then hear Oswald's rumor at the Noble Quarter fountain in Vernworth (Townsend's Estate) — only AFTER that can you speak to Margit outside Watchhead's Home in Vernworth (north). Margit, Oswald, and Gregor (rescue target at Illdoers' Resting Place) are all involved.",
+      "note": "Gregor dies if you stall after starting (4-day in-game timer). Wiki: bring camping kit + Wakestones; ride to Misty Marshes. DO NOT try to kill the Dullahan — you survive by dealing ENOUGH DAMAGE to make it FLEE while keeping Gregor alive (heal/buff him, revive with Wakestone if he goes down). Once the Dullahan flees, talk to Gregor, then report back to Margit at Watchhead's Home. Margit's CharaID is not yet identified by the mod — use the per-row TP HERE buttons to find her, then click 'Set as Primary' on her line, or walk to her and click 'Save HERE as TP Start'.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Till+Death+Do+Us+Part",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20080": {
+      "name": "Scaly Invaders",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "urgent": false,
+      "trigger": "Travel to Melve and witness/intervene with the saurian attack on the village.",
+      "note": "Triggers Ulrika's romance line — Readvent of Calamity follows when you return to Melve.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Scaly+Invaders",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20090": {
+      "name": "A Beggar's Tale",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "urgent": false,
+      "trigger": "Speak to the beggar near the Vernworth slums entrance / Stardrop Inn area.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/A+Beggar's+Tale",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20100": {
+      "name": "Tolled to Rest",
+      "region": "Vermund",
+      "urgent": false,
+      "trigger": "WORLD START (not in Available list): NE of Checkpoint Rest Town at Ancient Battleground east approach — save Oskar (red mage) from monsters. If missing/dead: Vernworth Charnel House + Wakestone.",
+      "note": "Does NOT appear under Available until you walk into the start area. Still doable after Feast of Deception. Helps Brefft spawn for Off the Pilfered Path.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Tolled+to+Rest",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20110": {
+      "name": "The Phantom Oxcart",
+      "region": "Battahl",
+      "available_after": 10140,
+      "lockout_after": 10180,
+      "urgent": true,
+      "trigger": "Find the suspicious oxcart on the Battahl highroad after dark.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/The+Phantom+Oxcart",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20120": {
+      "name": "The Heel of History",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "urgent": false,
+      "trigger": "Speak to scholar in The Gracious Hand's Vaults after The Caged Magistrate (10120) opens it up.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/The+Heel+of+History",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20130": {
+      "name": "Saint of the Slums",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "urgent": false,
+      "giver_name": "Elena",
+      "wiki_cast": [
+        "Elena",
+        "Lottie",
+        "Lubomir",
+        "Vlasly",
+        "Bruno",
+        "Jehan",
+        "Radcliff",
+        "Alois"
+      ],
+      "trigger": "Speak to Elena in the Vernworth slums (NOT Vlasly — he is the corrupt guard, not the giver).",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Saint+of+the+Slums",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20140": {
+      "name": "The Gift of Giving",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "urgent": false,
+      "trigger": "Speak to the giver near the Vernworth merchant quarter at midday.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/The+Gift+of+Giving",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20150": {
+      "name": "House of the Blue Sunbright",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "urgent": false,
+      "trigger": "Speak to the proprietor of the House of the Blue Sunbright in Vernworth Noble Quarter.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/House+of+the+Blue+Sunbright",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20190": {
+      "name": "A Noble Exchange",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "urgent": false,
+      "giver_name": "Lennart",
+      "trigger": "Speak to Praetor Lennart near the Vernworth market during the banquet phase. He is only there before Feast of Deception (10140).",
+      "timing_note": "Banquet window only.",
+      "note": "Auto-hides if missed.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/A+Noble+Exchange",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20200": {
+      "name": "A Game of Wits",
+      "region": "Vermund",
+      "available_after": 10140,
+      "lockout_after": 10180,
+      "urgent": false,
+      "trigger": "Find the Sphinx at the Mountain Shrine north of Vernworth (sapphire-topped peak). Available only AFTER Feast of Deception.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/A+Game+of+Wits",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20220": {
+      "name": "The Nameless Village",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "wiki_bucket": "vermund_1",
+      "trigger": "Find the hidden village in the eastern Vermund forests — usually triggered by following the Disa's Plot story beats.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/The+Nameless+Village",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20230": {
+      "name": "A Place to Call Home",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "urgent": false,
+      "trigger": "Speak to the displaced Battahl refugee near the Vernworth slums or Stardrop Inn.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/A+Place+to+Call+Home",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20240": {
+      "name": "Vocation Frustration",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "urgent": false,
+      "trigger": "Speak to the disgruntled vocation guild member at the Vernworth Vocation Guild.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Vocation+Frustration",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20250": {
+      "name": "Prey for the Pack",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "urgent": false,
+      "trigger": "Speak to the hunter near Borderwatch Outpost or Melve about wolf attacks.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Prey+for+the+Pack",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20270": {
+      "name": "The Sotted Sage",
+      "region": "Volcanic",
+      "available_after": 10140,
+      "lockout_after": 10180,
+      "urgent": false,
+      "trigger": "Find the drunken sage in a Volcanic Island tavern (Bakbattahl).",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/The+Sotted+Sage",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20280": {
+      "name": "A Poisonous Proposal",
+      "region": "Battahl",
+      "available_after": 10140,
+      "lockout_after": 10180,
+      "urgent": true,
+      "trigger": "Speak to vendor in Bakbattahl marketplace who suspects rival is poisoning customers.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/A+Poisonous+Proposal",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20290": {
+      "name": "Short-Sighted Ambition",
+      "region": "Battahl",
+      "available_after": 10140,
+      "lockout_after": 10180,
+      "urgent": false,
+      "giver_name": "Isaac",
+      "trigger": "Speak to apothecary Isaac in Bakbattahl about a grimoire he wants. Pairs well with Spellbound — collect the same grimoires.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Short-Sighted+Ambition",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20310": {
+      "name": "A Case of Sculptor's Block",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "urgent": false,
+      "trigger": "Speak to the sculptor in Vernworth — he needs inspiration.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/A+Case+of+Sculptor's+Block",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20330": {
+      "name": "Shadowed Prayers",
+      "region": "Volcanic",
+      "available_after": 10140,
+      "lockout_after": 10180,
+      "urgent": true,
+      "trigger": "Speak to the troubled priest in Bakbattahl temple at night.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Shadowed+Prayers",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20340": {
+      "name": "Steeled Resolve, Blazing Forge",
+      "region": "Battahl",
+      "available_after": 10140,
+      "lockout_after": 10180,
+      "urgent": true,
+      "prereq_quests": [
+        30120
+      ],
+      "giver_name": "Brokkr",
+      "trigger": "After Dulled Steel, Cold Forge (30120): speak to Brokkr/Sara at Brokkr's Smithy in Bakbattahl.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Steeled+Resolve,+Blazing+Forge",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20350": {
+      "name": "Hunt for the Jadeite Orb",
+      "region": "Vermund",
+      "available_after": 10140,
+      "lockout_after": 10180,
+      "urgent": false,
+      "trigger": "Available only AFTER Feast of Deception. Speak to Sven's mother in Vernworth Castle.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Hunt+for+the+Jadeite+Orb",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20480": {
+      "name": "Oxcart Courier",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "urgent": false,
+      "trigger": "Speak to oxcart driver at any oxcart stop and ask about courier work.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Oxcart+Courier",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20082": {
+      "name": "Trouble on the Cape",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "urgent": false,
+      "giver_name": "Ulrika",
+      "prereq_quests": [
+        30100
+      ],
+      "trigger": "Find Ulrika in Harve Village (south coast) AFTER Readvent of Calamity (30100) completes. Speaking to her there auto-starts this quest.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Trouble+on+the+Cape",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "30010": {
+      "name": "The Ornate Box",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "urgent": true,
+      "giver_name": "Sven",
+      "primary_giver_cid": 1210835050,
+      "extra_giver_cids": [
+        2005149068
+      ],
+      "wiki_cast": [
+        "Sven",
+        "Normann",
+        "Auriol"
+      ],
+      "trigger": "PRE-REQ: when guard Norman asks if you've seen Sven during Seat of the Sovran (10080), you MUST LIE for him. Then witness Sven arguing with shopkeeper Auriol in the Vernworth marketplace — quest auto-triggers on cutscene.",
+      "note": "Sven leaves the marketplace permanently after Feast of Deception (10140) — quest is gone. If you completed Medicament Predicament (20010), Auriol drops the Ornate Box price from 1000 to 800 G. Normann (castle guard, Seat of the Sovran) gates the quest — see Also.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/The+Ornate+Box",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "runtime_verified",
+        "schedule": "not_claimed"
+      }
+    },
+    "30020": {
+      "name": "Claw Them Into Shape",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "urgent": false,
+      "trigger": "Speak to the cat owner near the Vernworth slums — needs help training her cats.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Claw+Them+Into+Shape",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "30030": {
+      "name": "Beren's Final Lesson",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "urgent": false,
+      "giver_name": "Beren",
+      "trigger": "Speak to Beren the warrior maister in Melve once you have warrior unlocked.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Beren's+Final+Lesson",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "30040": {
+      "name": "The Stolen Throne",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "wiki_bucket": "vermund_1",
+      "must_before_feast": true,
+      "giver_name": "Sven",
+      "trigger": "Pick up Brant's intel at the Stardrop Inn about Sven and the throne — then investigate at Vernworth Castle. Finish before Feast or it can lock out.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/The+Stolen+Throne",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "30041": {
+      "name": "Masked Correspondence",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "urgent": false,
+      "giver_name": "Sven",
+      "trigger": "Continues from The Stolen Throne (30040) — speak to Sven in Vernworth Castle.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Masked+Correspondence",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "30042": {
+      "name": "A Magisterial Amenity",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "urgent": false,
+      "giver_name": "Sven",
+      "trigger": "Continues from Masked Correspondence (30041) — speak to Sven in Vernworth Castle.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/A+Magisterial+Amenity",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "30050": {
+      "name": "Every Rose Has Its Thorn",
+      "region": "Vermund",
+      "available_after": 10140,
+      "lockout_after": 10180,
+      "urgent": true,
+      "time_limit_days": 3,
+      "giver_name": "Wilhelmina",
+      "avail_hour_start": 20,
+      "avail_hour_end": 6,
+      "prereq_quests": [
+        30040,
+        10110
+      ],
+      "trigger": "After The Stolen Throne (30040) and An Unsettling Encounter (10110): get the Myrmecoleon Card from Wilhelmina to enter Rose Chateau Bordelrie. Visit her room (TOP floor) ONLY between 8PM and 6AM — otherwise she's not there.",
+      "note": "Wilhelmina romance. Gifts: Adorable/Beautiful, ONE per day, sleep at inn between gifts. After her 'Here I am...' speech: peephole cutscene → 'Offer your assistance' (do NOT 'Dissuade her'). 3-day timer activates: Murder Report from Allard's Estate + Bribery Findings near Clovis's Barberie. Hand the Murder Report to her at night → 'Continue offering your aid'.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Every+Rose+Has+Its+Thorn",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "sourced"
+      }
+    },
+    "30060": {
+      "name": "Gift of the Bow",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "urgent": false,
+      "giver_name": "Glyndwr",
+      "primary_giver_cid": 3560980369,
+      "trigger": "Speak to Glyndwr (the brave twin) in Vernworth — needs an archery bow.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Gift+of+the+Bow",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "runtime_verified",
+        "schedule": "not_claimed"
+      }
+    },
+    "30070": {
+      "name": "A Trial of Archery",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "urgent": false,
+      "giver_name": "Glyndwr",
+      "primary_giver_cid": 3560980369,
+      "wiki_cast": [
+        "Glyndwr",
+        "Taliesin",
+        "Doireann"
+      ],
+      "trigger": "Speak to Glyndwr in Vernworth after Gift of the Bow (30060) — he wants to test your archery.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/A+Trial+of+Archery",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "runtime_verified",
+        "schedule": "not_claimed"
+      }
+    },
+    "30080": {
+      "name": "The Ailing Arborheart",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "urgent": false,
+      "giver_name": "Doireann",
+      "primary_giver_cid": 1007143618,
+      "wiki_cast": [
+        "Doireann",
+        "Glyndwr",
+        "Sara",
+        "Brokkr"
+      ],
+      "prereq_quests": [
+        30070
+      ],
+      "locked_if_completed": [
+        30090
+      ],
+      "trigger": "After A Trial of Archery (30070), travel to Sacred Arbor and speak to Doireann at The Arborheart.",
+      "note": "Finish before Out of the Forest, Into the Forge (30090) or quest locks. Battahl access needed for step 2.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/The+Ailing+Arborheart",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "runtime_verified",
+        "schedule": "not_claimed"
+      }
+    },
+    "30090": {
+      "name": "Out of the Forest, Into the Forge",
+      "region": "Battahl",
+      "available_after": 10140,
+      "lockout_after": 10180,
+      "urgent": true,
+      "prereq_quests": [
+        30080
+      ],
+      "giver_name": "Sara",
+      "trigger": "After The Ailing Arborheart (30080): speak to Sara at Brokkr's Smithy in Bakbattahl.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Out+of+the+Forest,+Into+the+Forge",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "30100": {
+      "name": "Readvent of Calamity",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "urgent": true,
+      "giver_name": "Ulrika",
+      "prereq_quests": [
+        20080
+      ],
+      "trigger": "After Scaly Invaders (20080), RETURN to Melve — a dragon attack triggers automatically on arrival. Time-sensitive: if you delay too long, this fails and Ulrika's romance line is permanently locked.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Readvent+of+Calamity",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "30110": {
+      "name": "Home Is Where the Hearth Is",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "urgent": false,
+      "giver_name": "Ulrika",
+      "avail_hour_start": 8,
+      "avail_hour_end": 22,
+      "prereq_quests": [
+        20082
+      ],
+      "trigger": "After Trouble on the Cape (20082), find Ulrika in Harve Village during the day. Max her affinity (Adorable/Beautiful gifts daily) until she blushes BEFORE completing for the romance ending.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Home+Is+Where+the+Hearth+Is",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "sourced"
+      }
+    },
+    "30120": {
+      "name": "Dulled Steel, Cold Forge",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "urgent": false,
+      "trigger": "Speak to the Vernworth blacksmith about a fading craft.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Dulled+Steel,+Cold+Forge",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "30140": {
+      "name": "Welcome to Battahl",
+      "region": "Battahl",
+      "wiki_bucket": "battahl_1",
+      "available_after": 10140,
+      "lockout_after": 10170,
+      "urgent": true,
+      "trigger": "Wiki Battahl Quests 1: AFTER Feast of Deception. Auto-starts at Battahl border checkpoint. Finish before A New Godsway (10170).",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Welcome+to+Battahl",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "30150": {
+      "name": "Spellbound",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "urgent": false,
+      "giver_name": "Trysha",
+      "trigger": "Travel to Eini's Home north of Melve. Trysha will only talk to you about magick if her grandparents Eini & Eino are NOT in the house — pick the grandparents up (R2) and put them outside, OR pick TRYSHA up (R2) and carry her outside, then talk to her.",
+      "note": "Grimoires: Let There Be Light (Myrddin's desk), Fulminous Shield (Dudley in Melve), Nation's Death Knell (Ancient Battleground), Howling Blizzard (Wendy, Nameless Village — give her a forged Fulminous Shield, NOT the original), Towering Earth (Waldhar after The Caged Magistrate). Use Ibrahim in Checkpoint Rest Town to forge copies so you can complete Sorcerer's Appraisal (30160) too. Recommended: give Trysha 3 originals (gets you Meteoron + 2 maister skills).",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Spellbound",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "30160": {
+      "name": "The Sorcerer's Appraisal",
+      "region": "Vermund",
+      "lockout_after": 10140,
+      "urgent": false,
+      "giver_name": "Myrdin",
+      "trigger": "Speak to Myrdin at Myrdin's Home (riverside cottage). WARNING: Myrdin attacks on sight as a TEST — DO NOT KILL HIM. If you did, revive with a Wakestone (Courtly Outfit helps). After surviving, talk to him to start the quest.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/The+Sorcerer's+Appraisal",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "30170": {
+      "name": "Put a Spring in Thy Step",
+      "region": "Volcanic",
+      "available_after": 10140,
+      "lockout_after": 10180,
+      "urgent": false,
+      "trigger": "Speak to the dancer/performer in Bakbattahl about reviving an old festival.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Put+a+Spring+in+Thy+Step",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "30180": {
+      "name": "A Veil of Gossamer Clouds",
+      "region": "Vermund",
+      "available_after": 10140,
+      "lockout_after": 10180,
+      "urgent": false,
+      "giver_name": "Sven",
+      "trigger": "Available only AFTER Feast of Deception (10140). Speak to Sven in Vernworth Castle (Sven's Chambers / Guest Chambers).",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/A+Veil+of+Gossamer+Clouds",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "30200": {
+      "name": "A Candle in the Storm",
+      "region": "Volcanic",
+      "available_after": 10140,
+      "lockout_after": 10180,
+      "urgent": false,
+      "trigger": "Speak to the lighthouse keeper on the Volcanic Island coast at night.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/A+Candle+in+the+Storm",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "30210": {
+      "name": "Mercy among Thieves",
+      "region": "Battahl",
+      "wiki_bucket": "vermund_2",
+      "available_after": 10140,
+      "lockout_after": 10180,
+      "urgent": false,
+      "giver_name": "Lyssandro",
+      "trigger": "Wiki Vermund Quests 2: AFTER Feast of Deception completes. Checkpoint Rest Town — feed Toumi twice (not rotten), talk to men by oxcart, then Lyssandro (white robes). Must pass border gate first.",
+      "note": "Complete before Guardian Gigantus (10180). Leads to Off the Pilfered Path (Hugo).",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Mercy+among+Thieves",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "30220": {
+      "name": "Off the Pilfered Path",
+      "region": "Battahl",
+      "available_after": 10140,
+      "lockout_after": 10180,
+      "urgent": true,
+      "trigger": "Bakbattahl Gaol: speak to Brefft (cell left of Hugo), then offer Hugo guidance. Timed if you tell him about Lanzo.",
+      "note": "Finish before The Guardian Gigantus (10180). Best jobs need Short-Sighted Ambition / Every Rose Has Its Thorn.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Off+the+Pilfered+Path",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "30230": {
+      "name": "Tensions on the Highroad",
+      "region": "Battahl",
+      "wiki_bucket": "battahl_1",
+      "available_after": 10140,
+      "lockout_after": 10170,
+      "urgent": true,
+      "trigger": "Wiki Battahl Quests 1: AFTER Feast, BEFORE A New Godsway (10170).",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Tensions+on+the+Highroad",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "30240": {
+      "name": "Clash and Conclusion",
+      "region": "Volcanic",
+      "available_after": 10140,
+      "lockout_after": 10180,
+      "urgent": true,
+      "trigger": "Speak to combatants in the Volcanic Island arena / dueling grounds.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Clash+and+Conclusion",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "10190": {
+      "name": "Legacy",
+      "region": "Battahl",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Legacy",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "10070": {
+      "name": "One-Eyed Interloper",
+      "region": "Vermund",
+      "available_after": 10050,
+      "trigger": "During In Dragon's Wake, follow Gregor's party toward Vernworth; the cyclops encounter starts automatically.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/One-Eyed+Interloper",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "10085": {
+      "name": "The Arisen's Shadow",
+      "region": "Vermund",
+      "available_after": 10080,
+      "lockout_after": 10140,
+      "urgent": true,
+      "giver_name": "Bermudo",
+      "primary_giver_cid": 663264662,
+      "trigger": "After enough of Brant's early requests, catch the hooded man stalking you in Vernworth.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/The+Arisen's+Shadow",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "runtime_verified",
+        "schedule": "not_claimed"
+      }
+    },
+    "10151": {
+      "name": "Flickering Shadows",
+      "region": "Unclassified",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Flickering+Shadows",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "10160": {
+      "name": "Convergence",
+      "region": "Battahl",
+      "available_after": 10151,
+      "prereq_quests": [
+        10151
+      ],
+      "trigger": "Starts automatically after Flickering Shadows; enter Stormwind Cave from Harve and descend into the Seafloor Shrine.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Convergence",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20320": {
+      "name": "Crossing in Shadow",
+      "region": "Vermund",
+      "available_after": 10140,
+      "lockout_after": 10190,
+      "urgent": true,
+      "prereq_quests": [
+        20230,
+        30200
+      ],
+      "giver_name": "Vera",
+      "primary_giver_cid": 407577432,
+      "avail_hour_start": 20,
+      "avail_hour_end": 6,
+      "trigger": "Complete A Place to Call Home and A Candle in the Storm, then enter your Vernworth home at night.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Crossing+in+Shadow",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "runtime_verified",
+        "schedule": "sourced"
+      }
+    },
+    "20360": {
+      "name": "Dreams Apart",
+      "region": "Unmoored World",
+      "available_after": 10190,
+      "urgent": true,
+      "trigger": "Starts on entering the Unmoored World; find Phaesus in the Forbidden Magick Research Lab.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Dreams+Apart",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "10200": {
+      "name": "Halls of the First Dawn",
+      "region": "Unmoored World",
+      "available_after": 10190,
+      "urgent": true,
+      "trigger": "In the Unmoored World, speak with Rothais at the Seafloor Shrine and begin all five evacuations.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Halls+of+the+First+Dawn",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20380": {
+      "name": "When Wills Collide",
+      "region": "Unmoored World",
+      "available_after": 10200,
+      "prereq_quests": [
+        20360
+      ],
+      "urgent": true,
+      "trigger": "After reuniting with your pawn, follow Phaesus toward the fallen Gigantus at the Excavation Site.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/When+Wills+Collide",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20390": {
+      "name": "The Regentkin's Resolve",
+      "region": "Unmoored World",
+      "available_after": 10200,
+      "prereq_quests": [
+        10200
+      ],
+      "urgent": true,
+      "giver_name": "Brant",
+      "primary_giver_cid": 189868107,
+      "trigger": "During Halls of the First Dawn, speak to Brant and Sven to evacuate Vernworth.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/The+Regentkin's+Resolve",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "runtime_verified",
+        "schedule": "not_claimed"
+      }
+    },
+    "20420": {
+      "name": "Civil Unrest",
+      "region": "Unmoored World",
+      "available_after": 10200,
+      "prereq_quests": [
+        10200
+      ],
+      "urgent": true,
+      "giver_name": "Menella",
+      "primary_giver_cid": 4137867127,
+      "trigger": "During Halls of the First Dawn, meet Menella at Bakbattahl's palace entrance.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Civil+Unrest",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "runtime_verified",
+        "schedule": "not_claimed"
+      }
+    },
+    "20370": {
+      "name": "A Scholarly Pursuit",
+      "region": "Unmoored World",
+      "available_after": 20360,
+      "prereq_quests": [
+        20360
+      ],
+      "urgent": true,
+      "trigger": "After Dreams Apart, interact with Bakbattahl's red beacon and follow Phaesus.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/A+Scholarly+Pursuit",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "name_only",
+        "schedule": "not_claimed"
+      }
+    },
+    "20450": {
+      "name": "Wandering Roots",
+      "region": "Unmoored World",
+      "available_after": 10200,
+      "prereq_quests": [
+        10200
+      ],
+      "urgent": true,
+      "giver_name": "Doireann",
+      "primary_giver_cid": 1007143618,
+      "trigger": "During Halls of the First Dawn, speak with Taliesin and Doireann in Sacred Arbor.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Wandering+Roots",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "runtime_verified",
+        "schedule": "not_claimed"
+      }
+    },
+    "20460": {
+      "name": "The Importance of Aiding Ernesto",
+      "region": "Unmoored World",
+      "available_after": 10200,
+      "prereq_quests": [
+        10200
+      ],
+      "urgent": true,
+      "giver_name": "Ernesto",
+      "primary_giver_cid": 3059207198,
+      "trigger": "During Halls of the First Dawn, speak with Ernesto at the Volcanic Island Camp entrance.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/The+Importance+of+Aiding+Ernesto",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "runtime_verified",
+        "schedule": "not_claimed"
+      }
+    },
+    "20470": {
+      "name": "Shepherd of the Pawns",
+      "region": "Unmoored World",
+      "available_after": 10200,
+      "prereq_quests": [
+        10200
+      ],
+      "urgent": true,
+      "giver_name": "Henrique",
+      "primary_giver_cid": 3530434734,
+      "trigger": "During Halls of the First Dawn, help Henrique clear the Excavation Site and lead the pawns out.",
+      "sources": [
+        "https://dragonsdogma2.kiranico.com/en/data/quests",
+        "https://dragonsdogma2.wiki.fextralife.com/Shepherd+of+the+Pawns",
+        "https://game8.co/games/Dragons-Dogma-2/archives/Quests"
+      ],
+      "fact_confidence": {
+        "title_qid": "game_decomp",
+        "trigger_prereq_lockout": "cross_checked",
+        "npc_identity": "runtime_verified",
+        "schedule": "not_claimed"
+      }
+    }
   }
 }

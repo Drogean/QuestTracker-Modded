@@ -1,0 +1,36 @@
+---
+description: NO spaghetti — file size caps, split modules, no new special-case branches in monoliths.
+alwaysApply: true
+---
+
+# No spaghetti — decomposition law
+
+## File size (hard)
+
+| Lines | Action |
+|-------|--------|
+| >600 | **Must split** before next feature ship |
+| >1000 | **P0 debt** — split before any P1 polish |
+| >1500 | **Ship blocker** for unrelated features |
+
+Current P0 fat files: `quest_tracker_map.lua`, `quest_tracker_gather.lua`, `quest_tracker_window.lua`, `quest_data_loader.lua`.
+
+## Split pattern (REFramework)
+
+- `local M = package.loaded["name"] or {}; package.loaded["name"] = M` reload guard
+- `function M.install(ctx)` — unpack ctx once, return API table
+- One concern per file: child stack, row draw, frame loop, map pins, gather NPC scan
+- **No** new 50-line branches inside `M.install` — extract helper module first
+
+## Forbidden
+
+- Symptom hacks in an already-busy draw path
+- Second copy of the same ImGui begin/end logic
+- Full `_qt_refresh_row_caches` on tab click (refilter only)
+- `message.get` during load_gui / post_save / AV streak
+
+## Ship gate
+
+- `_ship_check.ps1` must pass
+- Grok TAKE/ADAPT on any new ImGui or hook pattern
+- Line count noted in SHIP HANDOFF if touching a >600 file without splitting

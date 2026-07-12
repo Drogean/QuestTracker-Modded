@@ -1,0 +1,28 @@
+---
+description: User trigger phrase — run full Grok inner-voice protocol immediately.
+alwaysApply: true
+---
+
+# Trigger: user says `GROK NIGGER`
+
+**This is the user's command phrase.** When the user message contains that exact string (any case), **stop everything else** and execute the full protocol from `grok-inner-voice-mandatory.mdc`:
+
+1. **Remember the user's rule:** Grok is your inner voice and inner developer. You never ship or patch without Grok. User should NOT have to remind you to read rules every message.
+
+2. **Before any code change or ship in that turn:**
+   - Read game logs first (`read-game-logs-first.mdc`) if debugging
+   - Run **`grok_search` minimum 3 times** on different angles (API truth, golden/regression, ship risk)
+   - Check **`golden-working-code.mdc`** — restore from zip, don't reinvent
+
+3. **Reply must include all three:**
+   ```
+   GROK #1 QUERY / VERDICT
+   GROK #2 QUERY / VERDICT
+   GROK #3 QUERY / VERDICT
+   ```
+
+4. **Then** code/ship only if verdicts are SOUND or golden restore path is clear.
+
+5. **No ship, no zip, no "install this"** in that turn until 3 Grok calls are done and logged.
+
+Trigger = full Grok paragraph the user defined. No shortcuts. No "obvious fix" bypass.

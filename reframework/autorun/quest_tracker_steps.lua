@@ -18,6 +18,7 @@ function M.install(ctx)
   local QD = ctx.QD
   local safe_get_field = ctx.safe_get_field
   local safe_call = ctx.safe_call
+  local safe_dict_get = ctx.safe_dict_get
   local iter_list = ctx.iter_list
   local get_quest_resource = ctx.get_quest_resource
   local _guid_to_en_text = ctx._guid_to_en_text
@@ -476,46 +477,10 @@ local function _log_info_entry(qlm, qid)
     local dict = safe_get_field(qlm, "_QuestLogInfoDict")
     if not dict then return nil end
     local want = tonumber(qid) or qid
-    local entry = nil
-    local function try_key(k)
-        if entry or k == nil then return end
-        pcall(function() entry = dict[k] end)
-        if not entry then
-            pcall(function()
-                if dict.get_Item then entry = dict:call("get_Item", k) end
-            end)
-        end
-        if not entry then
-            pcall(function()
-                local ok, val = dict:TryGetValue(k)
-                if ok and val then entry = val end
-            end)
-        end
-        if not entry then
-            pcall(function()
-                local ok, val = dict:call("TryGetValue", k)
-                if ok and val then entry = val end
-            end)
-        end
+    if safe_dict_get then
+        return safe_dict_get(dict, qid) or safe_dict_get(dict, want)
     end
-    try_key(qid)
-    try_key(want)
-    if not entry then
-        pcall(function()
-            local en = dict.GetEnumerator and dict:call("GetEnumerator") or safe_call(dict, "GetEnumerator")
-            if not en then return end
-            for _ = 1, 512 do
-                local ok, has = pcall(function() return en:MoveNext() end)
-                if not ok or not has then break end
-                local cur = safe_get_field(en, "Current") or safe_call(en, "get_Current")
-                if not cur then break end
-                local k = safe_get_field(cur, "Key") or safe_call(cur, "get_Key")
-                local v = safe_get_field(cur, "Value") or safe_call(cur, "get_Value")
-                if k ~= nil and tonumber(k) == want then entry = v; break end
-            end
-        end)
-    end
-    return entry
+    return nil
 end
 
 local function _info_task_index(entry)

@@ -1,0 +1,36 @@
+---
+description: Manual model tier routing — Composer T1, Grok T2 default, Sol T3 only when stuck
+alwaysApply: true
+---
+
+# Model tier routing (credit gate)
+
+## Tiers (hard)
+
+| Tier | Model | Role |
+|------|--------|------|
+| **1** | **Composer** (e.g. Composer 2.5, not fast unless asked) | Cheap execution: one-file fixes, typos, version bumps, small scripts, zip/ship checks, follow-a-plan steps |
+| **2** | **Grok** (e.g. Grok 4.5 / Grok Medium — not fast unless asked) | Default brain for plans, diagnosis, multi-file work, REFramework/ImGui judgment, normal QT/PC/DD2 jobs |
+| **3** | **Sol / GPT-5.x Sol** (e.g. GPT-5.6 Sol) | Escalation only. Best ideas/code when lower tiers are stuck. **Not** the daily driver |
+
+## Default
+
+- Start jobs on **Tier 2 (Grok)** unless the user picks a model or the task is clearly Tier 1.
+- **Do not** burn Tier 3 (Sol) on long continuous rebuilds, bulk scraping, or “keep going” loops when Tier 2 can finish.
+- Every non-trivial job: **manually split** into steps and assign a tier per step (plan vs execute vs stuck-escalation). Say the assigned model/tier before acting.
+
+## Call Sol (Tier 3) only when
+
+- User explicitly asks for Sol / GPT Sol, **or**
+- Tier 1 + Tier 2 are **getting nowhere** (same bug class after retries, architecture dead-end, contradictory logs+golden+web), **or**
+- Critical “everything broken” path already routes to Sonnet/fallback per `OTHERMODS/.cursor/rules/sonnet-when-broken.mdc` — Sol is **not** a substitute for that chain unless the user says so
+
+## Forbidden
+
+- Using Sol as the default for whole sessions “because it’s good”
+- Auto-escalating to Sol without saying **why** (one line: stuck reason)
+- Running Tier 3 for hours of bulk data work while cheaper tiers can execute a written plan
+
+## Voice to user
+
+If credits are the issue: switch to Grok (T2) or Composer (T1), pause Sol, and continue from the last checkpoint — don’t restart the whole job.

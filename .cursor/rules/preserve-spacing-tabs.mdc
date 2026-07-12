@@ -1,0 +1,15 @@
+---
+description: Preserve original indentation (tabs vs spaces) on every file edit
+alwaysApply: true
+---
+
+# Preserve spacing and tabs
+
+On **any** file change:
+
+1. **Match the file** — if it uses tabs, keep tabs; if spaces, keep spaces. Never convert.
+2. **Same indent width** — don't reindent unrelated lines or reflow blocks you didn't need to touch.
+3. **Minimal diff** — only change lines required for the fix; don't "clean up" whitespace on the way past.
+4. **Read before edit** — open the surrounding lines and copy the same leading whitespace on new or replaced lines.
+
+Forbidden: running formatters, "normalize indentation," or bulk replace that mixes tabs/spaces unless the user explicitly asked for that.

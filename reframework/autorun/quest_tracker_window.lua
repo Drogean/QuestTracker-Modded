@@ -38,6 +38,9 @@ function M.install(ctx)
     local unpin_quest = ctx.unpin_quest
     local get_player_universal_pos = ctx.get_player_universal_pos
     local _teleport_player_to = ctx._teleport_player_to
+    local resolve_teleport_pos = ctx.resolve_teleport_pos
+    local MANUAL_GIVER_OVERRIDES = ctx.MANUAL_GIVER_OVERRIDES
+    local QD = ctx.QD
     local _draw_npc_rows_cached = ctx._draw_npc_rows_cached
     local _name_for_qid = ctx._name_for_qid
     local milestone_label = ctx.milestone_label
@@ -64,10 +67,43 @@ function M.install(ctx)
     end
     local is_bundled_pos = ctx.is_bundled_pos
 
+    local function _qt_prequire(name)
+        local ok, lib = pcall(require, name)
+        if ok then return lib end
+        return nil
+    end
+    local Child = {
+        begin = function() return false end,
+        end_child = function() end,
+        ensure_closed = function() end,
+    }
+    local ChildMod = _qt_prequire("quest_tracker_window_child")
+    if ChildMod and ChildMod.install then
+        local installed = ChildMod.install({ mod = mod, mlog_boot = mlog_boot, _imgui_vec2 = _imgui_vec2 })
+        if installed and type(installed.begin) == "function" then
+            Child = installed
+        else
+            mlog_boot("[QT] FATAL child install bad return — quest list draw disabled")
+        end
+    else
+        mlog_boot("[QT] FATAL child module missing — quest list draw disabled")
+    end
+
     local function _qt_num_field(v, key)
         if type(v) == "number" then return v end
         if v and type(v[key]) == "number" then return v[key] end
         return nil
+    end
+
+    local function _qt_parse_vec2(v, fb_x, fb_y)
+        if type(v) == "number" then return v, fb_y end
+        if v == nil then return fb_x, fb_y end
+        local x, y = fb_x, fb_y
+        pcall(function()
+            if type(v.x) == "number" then x = v.x end
+            if type(v.y) == "number" then y = v.y end
+        end)
+        return x, y
     end
 
     local function _qt_item_rect_max_x()
@@ -233,37 +269,6 @@ function M.install(ctx)
         return (now - mod._qt_boot_layout_at) >= 2.0
     end
 
-    local function _qt_begin_quest_list_child()
-        mod._qt_quest_child_open = false
-        if not imgui.begin_child_window then return false end
-        local ok, open = pcall(function()
-            if _imgui_vec2 then
-                return imgui.begin_child_window("##qtquestscroll", _imgui_vec2(0, -40), true)
-            end
-            return imgui.begin_child_window("##qtquestscroll", 0, -40, true)
-        end)
-        if ok then
-            mod._qt_quest_child_open = true
-            return open == true
-        end
-        if not mod._qt_child_begin_fail_logged then
-            mod._qt_child_begin_fail_logged = true
-            mlog_boot("[QT] draw child begin fail pcall=false")
-        end
-        return false
-    end
-
-    local function _qt_end_quest_list_child()
-        if mod._qt_quest_child_open then
-            mod._qt_quest_child_open = false
-            if imgui.end_child_window then pcall(imgui.end_child_window) end
-        end
-    end
-
-    local function _qt_ensure_child_closed()
-        if mod._qt_quest_child_open then _qt_end_quest_list_child() end
-    end
-
     local function _qt_draw_tab_row()
         mod._qt_wrap_right_local = nil
         local avail = _qt_content_width()
@@ -280,9 +285,12 @@ function M.install(ctx)
             if type(count) ~= "number" then count = 0 end
             local label = use_short and (TAB_SHORT_NAMES[i] .. "(" .. tostring(count) .. ")") or full_labels[i]
             if imgui.button(label .. "##qttab" .. i) then
+                Child.ensure_closed()
                 mod.tab = i
                 mod._qt_tab_scroll_reset = true
-                pcall(mod._qt_schedule_cache_refresh)
+                if mod._qt_refilter_draw_list then
+                    pcall(mod._qt_refilter_draw_list)
+                end
                 mod._last_win_save = os.clock()
                 mark_prefs_dirty()
             end
@@ -369,7 +377,7 @@ function M.install(ctx)
                 _qt_ui_font_path = path
                 if not _qt_font_ok_logged then
                     _qt_font_ok_logged = true
-                    mlog_boot("[QT] UI font OK: " .. path .. " @ " .. sz .. "pt")
+                    mlog_boot("[QT] UI font OK: " .. path .. " @ " .. sz .. "pt (title+body same)")
                 end
                 return _qt_ui_font
             end
@@ -381,25 +389,14 @@ function M.install(ctx)
         return nil
     end
 
-    local function _qt_parse_vec2(v, fb_x, fb_y)
-        if type(v) == "number" then return v, fb_y end
-        if v == nil then return fb_x, fb_y end
-        local x, y = fb_x, fb_y
-        pcall(function()
-            if type(v.x) == "number" then x = v.x end
-            if type(v.y) == "number" then y = v.y end
-        end)
-        return x, y
-    end
-
     mod.font_size = clamp_font_size(mod.font_size)
 
     local COL_AVAIL = 0xFFFFFFFF
-    local COL_ONGO  = 0xFF33CCFF
+    local COL_ONGO  = 0xFFFFFFFF
     local COL_DONE  = 0xFF66FF66
     local COL_HL    = 0xFF66FFFF
     local COL_RED    = 0xFF4444FF
-    local COL_MUST   = 0xFF00D7FF  -- AABBGGRR: yellow-orange must-do-before-milestone (not red)
+    local COL_GREY   = 0xFF888888
 
     local function cat_color(c)
         if c == "Ongoing"   then return COL_ONGO end
@@ -425,6 +422,17 @@ function M.install(ctx)
         return 0xFF888888
     end
 
+    local function _draw_compact_links(q, c)
+        if not QD or not QD.format_quest_links then return end
+        local ok, links = pcall(QD.format_quest_links, q.id, _name_for_qid)
+        if not ok or type(links) ~= "table" or #links == 0 then return end
+        imgui.text_colored("More detail:", 0xFFAAAA88)
+        for _, ln in ipairs(links) do
+            _qt_draw_wrapped_text(0xFFCCCCAA, ln)
+        end
+        imgui.spacing()
+    end
+
     local function _draw_row_body(q, c)
         mod._qt_row_width = nil
         _qt_align_row_full_width()
@@ -436,82 +444,38 @@ function M.install(ctx)
         end
         if q.category == "Ongoing" then
             if c.step_title then
-                imgui.text_colored(c.step_title, 0xFFFFCC66)
-                if c.wiki_progress then
-                    imgui.text_colored("(walkthrough step — matched to your quest progress)", 0xFF888888)
-                    _qt_set_row_width(_qt_measure_anchor_width())
-                elseif c.wiki_fallback and not c.journal_lines then
-                    imgui.text_colored("(wiki fallback — no progress data for this quest)", 0xFF888888)
-                    _qt_set_row_width(_qt_measure_anchor_width())
-                elseif mod.debug_logging and mod._step_field_src and mod._step_field_src[q.id] then
-                    imgui.text_colored("(" .. mod._step_field_src[q.id] .. ")", 0xFF666666)
-                    _qt_set_row_width(_qt_measure_anchor_width())
-                end
-                if c.step_detail then
-                    _qt_draw_wrapped_text(0xFFCCDDEE, c.step_detail)
-                end
-                if c.journal_lines then
-                    for _, jl in ipairs(c.journal_lines) do
-                        if jl ~= c.step_title and jl ~= c.step_detail then
-                            _qt_draw_wrapped_text(0xFFCCDDEE, jl)
-                        end
-                    end
-                end
+                _qt_draw_wrapped_text(0xFFFFCC66, "STEP: " .. c.step_title)
             else
-                imgui.text_colored("(step unknown)", 0xFF888888)
+                imgui.text_colored("STEP: (unknown — open in-game journal)", 0xFF888888)
             end
-            if c.tips then
-                _qt_draw_colored_lines(0xFFCCDDEE, c.tips)
-            end
-            if c.wiki_lines then
-                imgui.text_colored("Tips (Fextralife):", 0xFF88DDFF)
-                _qt_draw_colored_lines(0xFFCCDDEE, c.wiki_lines)
-            end
-            imgui.spacing()
-        elseif q.category == "Available" and c.trig then
-            _qt_draw_wrapped_text(0xFFFFEE99, c.trig)
-            imgui.spacing()
-        end
-        if c.chain_info then
-            imgui.text_colored("Related: " .. (c.chain_info.name or "group"), 0xFFFFCC66)
-            for _, sq in ipairs(c.chain_info.quests) do
-                local tag = _status_tag(sq)
-                local marker = (sq == q.id) and ">" or " "
-                imgui.text_colored(string.format("  %s %s [%s]", marker, _name_for_qid(sq), tag), _status_color(tag))
+            if c.tips and #c.tips > 0 then
+                _qt_draw_colored_lines(0xFFEEEEEE, c.tips)
+            elseif c.step_title and QD and QD.get_step_hints_for_title then
+                local ok_t, t = pcall(QD.get_step_hints_for_title, q.id, c.step_title, c.wiki_substep_key)
+                if ok_t and type(t) == "table" and #t > 0 then
+                    _qt_draw_colored_lines(0xFFEEEEEE, t)
+                end
             end
             imgui.spacing()
-        end
-        if type(c.prereqs) == "table" and #c.prereqs > 0 then
-            imgui.text_colored("Required first:", 0xFFFFCC44)
-            for _, pqid in ipairs(c.prereqs) do
-                local tag = _status_tag(pqid)
-                local mark = (tag == "done") and "OK" or "NEED"
-                imgui.text_colored(string.format("  %s  %s", mark, _name_for_qid(pqid)), _status_color(tag))
+        elseif q.category == "Available" then
+            local start_txt = nil
+            if c.tips and c.tips[1] then start_txt = c.tips[1]
+            elseif c.step_title then start_txt = c.step_title
+            elseif QD and QD.get_fallback_step_title then
+                local ok_f, fb = pcall(QD.get_fallback_step_title, q.id)
+                if ok_f and type(fb) == "string" and fb ~= "" then start_txt = fb end
+            end
+            if start_txt then
+                _qt_draw_wrapped_text(0xFFFFEE99, "START: " .. start_txt)
+            end
+            if c.tips and #c.tips > 1 then
+                local extra = {}
+                for i = 2, #c.tips do extra[#extra + 1] = c.tips[i] end
+                _qt_draw_colored_lines(0xFFEEEEEE, extra)
             end
             imgui.spacing()
         end
-        if c.timing_note then
-            imgui.text_colored("Timing: " .. c.timing_note, 0xFFFFAA88)
-        end
-        if type(c.available_after) == "number" and not mod.completed_ids[c.available_after] then
-            local prog = mod.progressing_ids[c.available_after]
-            imgui.text_colored(
-                (prog and "Unlocks after you FINISH: " or "Unlocks after: ") .. milestone_label(c.available_after),
-                prog and 0xFFFFAA44 or 0xFFFFCC44)
-            imgui.spacing()
-        end
-        if c.lockout and type(c.lockout.after) == "number" then
-            local milestone_done = mod.completed_ids[c.lockout.after]
-            local qdone = mod.completed_ids[q.id]
-            local mname = c.lockout.after == 10140 and "Feast of Deception"
-                       or c.lockout.after == 30180 and "A Veil of Gossamer Clouds"
-                       or ("quest " .. tostring(c.lockout.after))
-            if milestone_done and not qdone then
-                imgui.text_colored("LOCKED â€” " .. mname .. " already done", COL_RED)
-            elseif not milestone_done and not qdone then
-                imgui.text_colored("Must do before: " .. mname, COL_MUST)
-            end
-        end
+        _draw_compact_links(q, c)
         if c.time_limit and q.category == "Ongoing" then
             if c.timer_rem_h then
                 local rem_h = c.timer_rem_h
@@ -526,23 +490,6 @@ function M.install(ctx)
             else
                 imgui.text_colored(string.format("~%d day time limit (start day unknown)", c.time_limit), 0xFFFFCC44)
             end
-        end
-        if c.summary and c.summary ~= "" then
-            _qt_draw_wrapped_text(0xFF999999, c.summary)
-        end
-        if c.wiki_lines and q.category ~= "Ongoing" then
-            imgui.text_colored("Tips (Fextralife):", 0xFF88DDFF)
-            _qt_draw_wrapped_text(0xFFCCDDEE, table.concat(c.wiki_lines, "\n"))
-            imgui.spacing()
-        end
-        if c.note and c.note ~= "" then
-            imgui.text_colored("More detail:", 0xFFFFCC66)
-            _qt_draw_wrapped_text(0xFFFFEE99, c.note)
-            imgui.spacing()
-        end
-        if c.during then
-            imgui.text_colored("During: " .. c.during, 0xFF99FFCC)
-            imgui.spacing()
         end
         if c.sched and q.category ~= "Completed" and c.sched_s and c.sched_f then
             local s, f = c.sched_s, c.sched_f
@@ -570,16 +517,23 @@ function M.install(ctx)
                 end
             end
         end
-        if c.tp_x and row_active then
+        if row_active then
             imgui.same_line()
             if imgui.button("TP start##tps" .. q.id) then
-                if _teleport_player_to(c.tp_x, c.tp_y, c.tp_z) then
-                    MAP_API.last_msg = MANUAL_POS_OVERRIDES[q.id] and "TP to quest start" or "TP to giver"
-                else MAP_API.last_msg = "TP failed â€” check log" end
+                local tx, ty, tz, src = nil, nil, nil, "cache_tp"
+                if resolve_teleport_pos then
+                    local cid = MANUAL_GIVER_OVERRIDES and MANUAL_GIVER_OVERRIDES[q.id]
+                    tx, ty, tz, src = resolve_teleport_pos(q.id, cid)
+                end
+                if not tx and c.tp_x then tx, ty, tz, src = c.tp_x, c.tp_y, c.tp_z, "cache_tp" end
+                local ok = tx and _teleport_player_to and _teleport_player_to(tx, ty, tz, {
+                    qid = q.id, cid = MANUAL_GIVER_OVERRIDES and MANUAL_GIVER_OVERRIDES[q.id], src = src,
+                })
+                MAP_API.last_msg = ok and "TP to quest start" or "TP failed — see log"
                 _qt_force_refresh()
             end
         end
-        if row_active then
+        if row_active and (c.tp_x or (MANUAL_POS_OVERRIDES and MANUAL_POS_OVERRIDES[q.id])) then
             imgui.same_line()
             if imgui.button("Mark start##savehere" .. q.id) then
                 local px, py, pz = get_player_universal_pos()
@@ -613,18 +567,18 @@ function M.install(ctx)
         if cv then
             VOIDED_QUESTS[q.id] = vv or nil
             mark_prefs_dirty()
-            pcall(rebuild); pcall(mod._qt_schedule_cache_refresh)
+            pcall(rebuild); pcall(mod._qt_schedule_cache_refresh, "lock")
         end
         imgui.same_line()
         if LOCKED_QUESTS[q.id] then
             if imgui.button("Unlock##ulk" .. q.id) then
                 LOCKED_QUESTS[q.id] = nil; VOIDED_QUESTS[q.id] = nil
-                mark_prefs_dirty(); pcall(rebuild); pcall(mod._qt_schedule_cache_refresh)
+                mark_prefs_dirty(); pcall(rebuild); pcall(mod._qt_schedule_cache_refresh, "lock")
             end
         else
             if imgui.button("Mark Locked##lck" .. q.id) then
                 LOCKED_QUESTS[q.id] = true; VOIDED_QUESTS[q.id] = true
-                mark_prefs_dirty(); pcall(rebuild); pcall(mod._qt_schedule_cache_refresh)
+                mark_prefs_dirty(); pcall(rebuild); pcall(mod._qt_schedule_cache_refresh, "lock")
             end
         end
     end
@@ -634,32 +588,60 @@ function M.install(ctx)
         local c = mod._row_cache and mod._row_cache[q.id]
         local is_recent = mod.highlight_recent and mod.newest_completed == q.id
         local is_locked = LOCKED_QUESTS[q.id] == true
-        local before_milestone = c and c.before_milestone or false
 
         local prefix = is_recent and "* " or "  "
-        local label  = prefix .. (q.name or "?")
-        local color  = before_milestone and COL_MUST
-                  or (is_locked and COL_RED)
+        local tier_col = nil
+        local tier_name = nil
+        if mod.show_quest_tiers ~= false and QD and QD.get_quest_tier then
+            tier_name = QD.get_quest_tier(q.id)
+        end
+        if mod.show_quest_tiers ~= false and QD and QD.get_quest_tier_color then
+            tier_col = QD.get_quest_tier_color(q.id)
+        end
+        local show_fan_suffix = (mod.show_quest_tiers ~= false) and QD and QD.show_fan_stars and QD.show_fan_stars(q.id)
+        local raw_name = (QD and QD.strip_fan_markers_from_name and QD.strip_fan_markers_from_name(q.name))
+            or q.name or "?"
+        local label  = prefix .. raw_name
+        local color  = is_locked and (QD and QD.get_locked_quest_color and QD.get_locked_quest_color() or COL_GREY)
+                  or tier_col
                   or (is_recent and COL_HL or cat_color(q.category))
+
+        if mod.show_quest_tiers ~= false and QD and QD.get_quest_tier and not mod._qt_color_logged then
+            mod._qt_color_logged = mod._qt_color_logged or {}
+        end
+        if mod.show_quest_tiers ~= false and QD and QD.get_quest_tier and not (mod._qt_color_logged and mod._qt_color_logged[q.id]) then
+            mod._qt_color_logged = mod._qt_color_logged or {}
+            mod._qt_color_logged[q.id] = true
+            local tier = tier_name or QD.get_quest_tier(q.id)
+            local fan = (QD.is_fan_favorite and QD.is_fan_favorite(q.id)) and 1 or 0
+            local reward = (QD.is_reward_quest and QD.is_reward_quest(q.id)) and 1 or 0
+            mlog_boot(string.format("[QT][color] qid=%d tier=%s fan=%d reward=%d locked=%d",
+                q.id, tostring(tier), fan, reward, is_locked and 1 or 0))
+        end
 
         local open = imgui.tree_node("##qt" .. tostring(q.id))
         imgui.same_line()
         imgui.text_colored(label, color)
-        if is_locked and not before_milestone then
-            imgui.same_line(); imgui.text_colored("[LOCKED]", COL_RED)
+        if show_fan_suffix then
+            imgui.same_line()
+            local star_glyph = (QD.get_fan_star_glyph and QD.get_fan_star_glyph(q.id)) or "★"
+            local star_col = QD.get_fan_star_color(q.id)
+            imgui.text_colored(star_glyph, star_col)
         end
 
         mod._row_open_prev = mod._row_open_prev or {}
         local was_open = mod._row_open_prev[q.id] == true
         if open then
             mod._qt_last_expanded_qid = q.id
-            if not was_open and (not c) and mod._refresh_one_row then
+            if not was_open then
                 if q.category == "Ongoing" then
                     mod._step_last_title = mod._step_last_title or {}
                     mod._step_last_title[q.id] = nil
                 end
-                pcall(mod._refresh_one_row, q)
-                c = mod._row_cache and mod._row_cache[q.id]
+                if mod._refresh_one_row then
+                    pcall(mod._refresh_one_row, q)
+                    c = mod._row_cache and mod._row_cache[q.id]
+                end
             end
             if not was_open and mod._log_quest_expand then pcall(mod._log_quest_expand, q, c) end
             local ok, err = pcall(function() _draw_row_body(q, c) end)
@@ -680,63 +662,96 @@ function M.install(ctx)
 
     -- =========== RE FRAME ===========
 
-    re.on_frame(function()
-        if _G._qt_frame_gen ~= _QT_FRAME_GEN then return end
+    local _SAVE_GUARD_HOOKED = false
 
+    local function _qt_arm_suppress_draw(secs, reason)
+        local dur = (type(secs) == "number" and secs > 0) and secs or 2.0
         local now = os.clock()
-        local was_ready = mod._game_ready
-        if _check_game_ready then _check_game_ready() end
-        if mod._qt_shutdown then return end
-
-        if TimeMod and TimeMod.tick then pcall(TimeMod.tick) end
-
-        if mod._game_ready and not was_ready then
-            mod._qt_display_refreshed = false
-            mod._win_apply_count = 0
-            mod._win_capture_after = nil
-            mod._qt_boot_layout_done = false
-            mod._qt_boot_apply_frames = 0
-            mod._qt_frame1_layout_logged = false
-            mod._win_draw_logged = false
-            mod._qt_wrap_logged = false
-            mod._qt_list_draw_logged = false
-            mod._qt_last_logged_draw_n = nil
-            mod._qt_draw_list_logged = false
+        if reason == "execSave" then
+            mod._qt_sdk_suppress_until = now + dur
+            mod._qt_post_save_block_until = now + 1.0
+            mod._qt_save_deferred_refresh_at = now + 0.5
+            mlog_boot("[QT] sdk suppressed reason=execSave secs=" .. tostring(dur) .. " (overlay never blocked)")
+            return
         end
-        if mod._game_ready then
-            pcall(_qt_run_logic_tick, now)
-            local dlist_n = #(mod._draw_quest_list or {})
-            if mod._qt_last_logged_draw_n ~= dlist_n then
-                mod._qt_last_logged_draw_n = dlist_n
-                mlog_boot("[QT] draw_list count=" .. tostring(dlist_n))
+        mod._qt_suppress_draw_until = now + dur
+        mlog_boot("[QT] draw suppressed reason=" .. tostring(reason or "?") .. " secs=" .. tostring(dur))
+    end
+
+    local function _qt_tick_suppress_clear(now)
+        if mod._qt_suppress_draw_until and now >= mod._qt_suppress_draw_until then
+            mod._qt_suppress_draw_until = nil
+        end
+        if mod._qt_sdk_suppress_until and now >= mod._qt_sdk_suppress_until then
+            mod._qt_sdk_suppress_until = nil
+            mlog_boot("[QT] sdk suppress expired")
+        end
+    end
+
+    local function _qt_install_save_guard_hooks()
+        if _SAVE_GUARD_HOOKED then return end
+        local tdef = sdk.find_type_definition("app.GuiManager")
+        if tdef == nil then return end
+        local n = 0
+        pcall(function()
+            for _, m in ipairs(tdef:get_methods()) do
+                if m:get_name() == "execSave" then
+                    local ok = pcall(function()
+                        sdk.hook(m,
+                            function(_args) _qt_arm_suppress_draw(2.0, "execSave") end,
+                            function(ret)
+                                mod._qt_save_completed_at = os.clock()
+                                return ret
+                            end)
+                    end)
+                    if ok then n = n + 1 end
+                end
             end
+        end)
+        if n > 0 then
+            _SAVE_GUARD_HOOKED = true
+            mlog_boot("[QT] save guard hooks installed: " .. tostring(n))
         end
+    end
+    pcall(_qt_install_save_guard_hooks)
 
-        -- Window drag: debounced prefs flush (0.5s after last layout change)
-        if mod._game_ready and mod._prefs_dirty and mod._last_win_save
-            and (now - mod._last_win_save) >= 0.5 and _qt_boot_save_allowed(now) then
-            mod._last_prefs_flush = now
-            mod._last_win_save = nil
-            pcall(save_prefs)
-        end
+    local function _qt_is_true_load_gui()
+        local gm = sdk.get_managed_singleton("app.GuiManager")
+        if not gm then return false end
+        local load_gui = false
+        pcall(function()
+            load_gui = gm:get_IsLoadGui() == true
+        end)
+        return load_gui
+    end
 
-        if mod._game_ready then
-            qt_background_log_tick(now)
-            if mod._journal_poll_on_frame then pcall(mod._journal_poll_on_frame, now) end
-            if mod._journal_on_frame and mod.debug_logging then pcall(mod._journal_on_frame, now) end
-            if mod._sniff_on_frame then pcall(mod._sniff_on_frame, now) end
-        end
+    local function _qt_is_load_gui_pause()
+        if _qt_is_true_load_gui() then return true end
+        if mod._qt_is_draw_suppressed and mod._qt_is_draw_suppressed() then return true end
+        return false
+    end
+    ctx._qt_is_load_gui_pause = _qt_is_load_gui_pause
 
+    local function _qt_draw_quest_overlay()
+        if _G._qt_frame_gen ~= _QT_FRAME_GEN then return end
+        if mod._qt_shutdown then return end
         if not mod.show_window then
             if not mod._qt_skip_win_logged then
                 mod._qt_skip_win_logged = true
-                mlog_boot("[QT] window hidden (Show Window off)")
+                mlog_boot("[QT] window hidden (Show Window off — mod checkbox only)")
             end
             return
         end
-        if not mod._game_ready then return end
+        mod._qt_skip_win_logged = nil
+        if not mod._game_ready then
+            return
+        end
+        if not mod._qt_overlay_should_draw or not mod._qt_overlay_should_draw() then
+            return
+        end
+        if mod._qt_overlay_log_sig then mod._qt_overlay_log_sig() end
+        if mod._qt_overlay_before_window then mod._qt_overlay_before_window() end
 
-        local _win_ok, _win_err = pcall(function()
         if _refresh_display_cache and not mod._qt_display_refreshed then
             mod._qt_display_refreshed = true
             pcall(_refresh_display_cache)
@@ -750,6 +765,7 @@ function M.install(ctx)
             pcall(imgui.set_next_window_size_constraints, vmin, vmax)
         end
 
+        local _fnt = ensure_quest_tracker_ui_font()
         mod._qt_style_pops = 0
         local wa = tonumber(mod.win_alpha) or 1.0
         wa = math.max(0.0, math.min(1.0, wa))
@@ -759,20 +775,40 @@ function M.install(ctx)
             if pcall(imgui.push_style_color, 2, bg) then mod._qt_style_pops = mod._qt_style_pops + 1 end
             if imgui.Col and imgui.Col.WindowBg then
                 if pcall(imgui.push_style_color, imgui.Col.WindowBg, bg) then
-                    mod._qt_style_pops = (mod._qt_style_pops > 0) and mod._qt_style_pops or 1
+                    mod._qt_style_pops = mod._qt_style_pops + 1
                 end
             end
         end
 
-        local _fnt = ensure_quest_tracker_ui_font()
+        -- Push font BEFORE begin_window so title bar matches Tools/list (not microscopic default).
+        local _font_pushed = false
+        if _fnt and pcall(imgui.push_font, _fnt) then _font_pushed = true end
+
         local draw = imgui.begin_window(MOD_NAME .. " [" .. MOD_VERSION .. "]", nil, 0)
         if not mod._win_draw_logged then
             mod._win_draw_logged = true
             mlog_boot("[QT] window draw visible=" .. tostring(draw))
         end
 
+        local function _qt_pop_font_if_needed()
+            if _font_pushed and _fnt then
+                pcall(imgui.pop_font)
+                _font_pushed = false
+            end
+        end
+        local function _qt_pop_style_if_needed()
+            for _ = 1, (mod._qt_style_pops or 0) do pcall(imgui.pop_style_color) end
+            mod._qt_style_pops = 0
+        end
+        local function _qt_finish_window()
+            Child.ensure_closed()
+            if draw then pcall(imgui.end_window) end
+            _qt_pop_font_if_needed()
+            _qt_pop_style_if_needed()
+        end
+
+        local ok_body, err_body = pcall(function()
         if draw then
-            if _fnt then pcall(imgui.push_font, _fnt) end
             if not mod._qt_frame1_layout_logged then
                 mod._qt_frame1_layout_logged = true
                 local ok_p, p = pcall(imgui.get_window_pos)
@@ -793,9 +829,6 @@ function M.install(ctx)
                     if ok_io and io and io.MouseDrawCursor ~= nil then io.MouseDrawCursor = true end
                 end
             end)
-            local _draw_ok, _draw_err = true, nil
-
-            local ok_top, err_top = pcall(function()
 
             local ch
             local hint_n = mod._cached_wiki_hint_n or 0
@@ -825,6 +858,11 @@ function M.install(ctx)
                 imgui.text_colored(MAP_API.last_msg, 0xFF88CC88)
             end
 
+            if not mod._qt_draw_shell_logged then
+                mod._qt_draw_shell_logged = true
+                mlog_boot("[QT] draw shell enter")
+            end
+
             if imgui.set_next_item_open and not mod._qt_tools_tree_inited then
                 mod._qt_tools_tree_inited = true
                 pcall(imgui.set_next_item_open, false, 4)
@@ -835,22 +873,27 @@ function M.install(ctx)
                     if imgui.push_item_width then pcall(imgui.push_item_width, 200) end
                     ch, mod.sort_mode = imgui.combo("##srt", mod.sort_mode, SORT_NAMES)
                     if imgui.pop_item_width then pcall(imgui.pop_item_width) end
-                    if ch then pcall(rebuild); pcall(mod._qt_schedule_cache_refresh)
+                    if ch then pcall(rebuild); pcall(mod._qt_schedule_cache_refresh, "sort")
                         mod._last_win_save = os.clock(); mark_prefs_dirty() end
                     imgui.same_line()
                     ch, mod.highlight_recent = imgui.checkbox("Newest", mod.highlight_recent)
                     if ch then mod._last_win_save = os.clock(); mark_prefs_dirty() end
                 end
                 if imgui.button("Pin Available") then
-                    if Map and Map.pin_all_available then Map.pin_all_available() end
+                    if Map and Map.pin_all_available then Map.pin_all_available(true) end
                 end
                 imgui.same_line()
                 if imgui.button("Pin Ongoing") then
+                    if Map and Map.pin_all_current then Map.pin_all_current(true)
+                    elseif Map and Map.pin_all_ongoing_all then Map.pin_all_ongoing_all(true) end
+                end
+                imgui.same_line()
+                if imgui.button("Pin MAIN") then
                     if Map and Map.pin_all_ongoing then Map.pin_all_ongoing() end
                 end
                 imgui.same_line()
                 if imgui.button("Clear pins") then pcall(clear_injected_markers) end
-                ch, mod.auto_pin_journal = imgui.checkbox("Autopin Journal", mod.auto_pin_journal ~= false)
+                ch, mod.auto_pin_journal = imgui.checkbox("Autopin MAIN", mod.auto_pin_journal ~= false)
                 if ch then mod._last_win_save = os.clock(); mark_prefs_dirty() end
                 imgui.same_line()
                 ch, mod.auto_pin_ongoing = imgui.checkbox("Autopin Ongoing", mod.auto_pin_ongoing == true)
@@ -866,7 +909,17 @@ function M.install(ctx)
                     mod._last_win_save = os.clock(); mark_prefs_dirty()
                     if Map and Map.run_autopin_if_enabled then pcall(Map.run_autopin_if_enabled) end
                 end
-                imgui.text_colored("Journal: pins priority quest when map opens. Ongoing/Available: ~25s batch.", 0xFF888888)
+                imgui.text_colored("Pin Ongoing = all Ongoing. Pin Available = Available only. MAIN = priority.", 0xFF888888)
+                imgui.separator()
+                imgui.text("Quest name colors")
+                ch, mod.show_quest_tiers = imgui.checkbox("Show tier colors", mod.show_quest_tiers ~= false)
+                if ch then mod._last_win_save = os.clock(); mark_prefs_dirty() end
+                imgui.text_colored("Gold = Good reward", 0xFF00D7FF)
+                imgui.text_colored("Green = Main story", 0xFF66FF66)
+                imgui.text_colored("White = Normal side / ongoing / available", 0xFFFFFFFF)
+                imgui.text_colored("Purple = Rare special", 0xFFAA00FF)
+                imgui.text_colored("Cyan ★ = Fan favorite (after name)", 0xFFFFFF00)
+                imgui.text_colored("Grey = Locked by you", COL_GREY)
                 imgui.separator()
                 imgui.text("Time")
                 ch, mod.time_longer_days = imgui.checkbox("Longer days (before dark = half speed)", mod.time_longer_days == true)
@@ -896,35 +949,33 @@ function M.install(ctx)
                     mlog("[SAVE] manual save triggered")
                 end
                 if imgui.tree_node("Active pins##qttoolspins") then
-                    local ok_pins, err_pins = pcall(function()
-                        local qname_for = {}
-                        for _, q in ipairs(mod.quests or {}) do qname_for[q.id] = q.name end
-                        local any = false
-                        for qid, pins in pairs(MAP_API.pinned_pos) do
+                    local qname_for = {}
+                    for _, q in ipairs(mod.quests or {}) do qname_for[q.id] = q.name end
+                    local any = false
+                    for qid, _ in pairs(MAP_API.pinned_pos or {}) do
+                        any = true
+                        imgui.text_colored((qname_for[qid] or ("Quest " .. qid)) .. ":", 0xFFFFCC66)
+                    end
+                    for qid in pairs(MAP_API.pinned_data or {}) do
+                        if not (MAP_API.pinned_pos and MAP_API.pinned_pos[qid]) then
                             any = true
-                            imgui.text_colored((qname_for[qid] or ("Quest " .. qid)) .. ":", 0xFFFFCC66)
+                            imgui.text_colored((qname_for[qid] or ("Quest " .. qid)) .. " (objective)", 0xFFAABBFF)
                         end
-                        for qid in pairs(MAP_API.pinned_data) do
-                            if not MAP_API.pinned_pos[qid] then
-                                any = true
-                                imgui.text_colored((qname_for[qid] or ("Quest " .. qid)) .. " (objective)", 0xFFAABBFF)
-                            end
-                        end
-                        if not any then imgui.text("(no active pins)") end
-                        if imgui.button("Clear all pins") then pcall(clear_injected_markers) end
-                    end)
+                    end
+                    if not any then imgui.text("(no active pins)") end
+                    if imgui.button("Clear all pins") then pcall(clear_injected_markers) end
                     imgui.tree_pop()
-                    if not ok_pins then mlog("[QT][draw] Active Pins: " .. tostring(err_pins)) end
                 end
                 imgui.tree_pop()
             end
-            end)
-            if not ok_top then _draw_ok, _draw_err = false, err_top end
 
-            local child_open = _qt_begin_quest_list_child()
+            local child_open = Child.begin()
             local ok_list, err_list = pcall(function()
             if not child_open then
-                mlog_boot("[QT] list child window failed to open")
+                if not mod._qt_list_child_fail_logged then
+                    mod._qt_list_child_fail_logged = true
+                    mlog_boot("[QT] list child window failed to open")
+                end
                 return
             end
             if mod._qt_tab_scroll_reset then
@@ -954,9 +1005,8 @@ function M.install(ctx)
                     mod._qt_row_width or -1, mod._qt_wrap_right_local or -1, mod.win_w or -1))
             end
             end)
-            _qt_end_quest_list_child()
+            Child.end_child()
             if not ok_list then
-                _draw_ok, _draw_err = false, err_list
                 mlog_boot("[QT] list draw CRASH: " .. tostring(err_list))
             end
 
@@ -1012,37 +1062,110 @@ function M.install(ctx)
                 mlog_boot(string.format("[QT] prefs stub — auto-saving layout %.0f,%.0f %dx%d",
                     mod.win_x, mod.win_y, mod.win_w, mod.win_h))
             end
-
-            for _ = 1, (mod._qt_style_pops or 0) do pcall(imgui.pop_style_color) end
-            mod._qt_style_pops = 0
-            if not _draw_ok then
-                mlog("[QT][draw] main window crashed (matches red REFramework box if Lua threw): " .. tostring(_draw_err))
-            end
-            if _fnt then pcall(function() imgui.pop_font() end) end
         end
-        _qt_ensure_child_closed()
-        imgui.end_window()
-        end) -- pcall window path
+        end)
 
-        if not _win_ok and not mod._qt_win_fatal_logged then
-            mod._qt_win_fatal_logged = true
-            mlog("[QT][FATAL] quest window path crashed: " .. tostring(_win_err))
+        _qt_finish_window()
+        if not ok_body and not mod._qt_draw_body_err_logged then
+            mod._qt_draw_body_err_logged = true
+            mlog_boot("[QT][draw] window body CRASH: " .. tostring(err_body))
+        end
+    end
+
+
+    re.on_frame(function()
+        if _G._qt_frame_gen ~= _QT_FRAME_GEN then return end
+
+        local now = os.clock()
+        local was_ready = mod._game_ready
+        if _check_game_ready then _check_game_ready() end
+        if mod._qt_shutdown then return end
+
+        if TimeMod and TimeMod.tick then pcall(TimeMod.tick) end
+
+        if mod._game_ready and not was_ready then
+            mod._qt_game_ready_at = now
+            mod._qt_display_refreshed = false
+            mod._win_apply_count = 0
+            mod._win_capture_after = nil
+            mod._qt_boot_layout_done = false
+            mod._qt_boot_apply_frames = 0
+            mod._qt_frame1_layout_logged = false
+            mod._qt_child_deferred_logged = false
+            mod._qt_list_child_fail_logged = false
+            mod._win_draw_logged = false
+            mod._qt_wrap_logged = false
+            mod._qt_list_draw_logged = false
+            mod._qt_last_logged_draw_n = nil
+            mod._qt_draw_list_logged = false
+            mod._qt_menu_draw_err_logged = false
+            mod._qt_draw_body_err_logged = false
+            mod._qt_draw_skip_menu_logged = false
+            mod._qt_draw_shell_logged = false
+        end
+        _qt_tick_suppress_clear(now)
+        if mod._qt_overlay_tick then mod._qt_overlay_tick() end
+        if mod._game_ready then
+            if _qt_is_load_gui_pause() then
+                mod._qt_was_load_gui_pause = true
+            else
+                if mod._qt_was_load_gui_pause then
+                    mod._qt_was_load_gui_pause = false
+                    if mod._qt_schedule_cache_refresh then
+                        pcall(mod._qt_schedule_cache_refresh, "load_gui_resume")
+                    end
+                end
+                pcall(_qt_run_logic_tick, now)
+                local dlist_n = #(mod._draw_quest_list or {})
+                if mod._qt_last_logged_draw_n ~= dlist_n then
+                    mod._qt_last_logged_draw_n = dlist_n
+                    mlog_boot("[QT] draw_list count=" .. tostring(dlist_n))
+                end
+            end
+        end
+
+        -- Window drag: debounced prefs flush (0.5s after last layout change)
+        if mod._game_ready and mod._prefs_dirty and mod._last_win_save
+            and (now - mod._last_win_save) >= 0.5 and _qt_boot_save_allowed(now) then
+            mod._last_prefs_flush = now
+            mod._last_win_save = nil
+            pcall(save_prefs)
+        end
+
+        if mod._qt_overlay_should_draw and mod._qt_overlay_should_draw() then
+            qt_background_log_tick(now)
+            if mod._journal_poll_on_frame then pcall(mod._journal_poll_on_frame, now) end
+            if mod._journal_on_frame and mod.debug_logging then pcall(mod._journal_on_frame, now) end
+            if mod._sniff_on_frame then pcall(mod._sniff_on_frame, now) end
+            mod._qt_imgui_overlay_active = true
+            pcall(_qt_draw_quest_overlay)
+            mod._qt_imgui_overlay_active = false
         end
     end)
 
+    -- REFramework settings tree only — never draw the floating quest window here.
+    -- NOTE: imgui.begin_window MUST stay in on_frame (REF docs) — on_draw_ui is REF menu tree only.
     re.on_draw_ui(function()
-        if imgui.tree_node(MOD_NAME .. " [" .. MOD_VERSION .. "]") then
-            local _menu_cw = (type(mod.win_w) == "number" and mod.win_w > 80) and (mod.win_w - 32)
-                or (DEFAULT_QUEST_WIN_W - 32)
-            local _menu_fnt = ensure_quest_tracker_ui_font(_menu_cw)
-            if _menu_fnt then imgui.push_font(_menu_fnt) end
-            local ch
-            ch, mod.show_window = imgui.checkbox("Show Window", mod.show_window)
+        if not imgui.tree_node(MOD_NAME .. " [" .. MOD_VERSION .. "]") then return end
+        local _menu_font_pushed = false
+        local function _menu_finish()
+            if _menu_font_pushed then pcall(imgui.pop_font); _menu_font_pushed = false end
+            pcall(imgui.tree_pop)
+        end
+        local _menu_cw = (type(mod.win_w) == "number" and mod.win_w > 80) and (mod.win_w - 32)
+            or (DEFAULT_QUEST_WIN_W - 32)
+        local _menu_fnt = ensure_quest_tracker_ui_font(_menu_cw)
+        if _menu_fnt and pcall(imgui.push_font, _menu_fnt) then _menu_font_pushed = true end
+        local ok_menu, err_menu = pcall(function()
+        local ch
+        ch, mod.show_window = imgui.checkbox("Show Window", mod.show_window)
             if ch then
                 mod._qt_skip_win_logged = nil
                 mod._win_draw_logged = nil
                 save_prefs()
             end
+            ch, mod.show_overlay_on_map = imgui.checkbox("Show tracker on map", mod.show_overlay_on_map ~= false)
+            if ch then save_prefs() end
             if imgui.button("Clear saved window position") then
                 _clear_saved_window_position()
                 mod._win_pos_saved_logged = nil
@@ -1055,7 +1178,10 @@ function M.install(ctx)
             end
             imgui.text("Search filter (applies to quest list below):")
             ch, mod.filter_text = imgui.input_text("##flt_menu", mod.filter_text)
-            if ch then pcall(mod._qt_schedule_cache_refresh) end
+            if ch then
+                if mod._qt_refilter_draw_list then pcall(mod._qt_refilter_draw_list)
+                else pcall(mod._qt_schedule_cache_refresh, "filter") end
+            end
             ch, mod.label_pins = imgui.checkbox("Label map pins with quest name", mod.label_pins)
             if ch then mod._last_win_save = os.clock(); mark_prefs_dirty() end
             ch, mod.debug_logging = imgui.checkbox("Verbose debug (extra disk log — ON by default)", mod.debug_logging)
@@ -1096,17 +1222,23 @@ function M.install(ctx)
                 end
                 imgui.text_colored("Log: reframework/data/quest_tracker_log.txt — grep [QT][sniff] and [QT][hook]", 0xFF88CCFF)
             end
-            local ch_fs, fs_new = imgui.slider_int("Quest window + menu text size", mod.font_size, 18, 38)
-            if fs_new ~= nil then mod.font_size = clamp_font_size(fs_new) end
+            local ch_fs, fs_new = imgui.slider_int("Quest window text size", mod.font_size, 18, 38)
+            if fs_new ~= nil then
+                mod.font_size = clamp_font_size(fs_new)
+                mod._qt_font_cache_key = nil
+            end
             if ch_fs then mod._last_win_save = os.clock(); mark_prefs_dirty() end
             local ch_a, a_new = imgui.slider_int("Window background %", math.floor((mod.win_alpha or 1) * 100), 0, 100)
             if a_new ~= nil then mod.win_alpha = math.max(0.0, math.min(1.0, a_new / 100.0)) end
             if ch_a then mod._last_win_save = os.clock(); mark_prefs_dirty() end
             imgui.text_colored("0% = most transparent panel (not true glass).", 0xFF666666)
             imgui.text_colored("Move or resize the quest window â€” position is remembered automatically.", 0xFF888888)
-            imgui.text_colored(MAP_API.status, 0xFF888888)
-            if _menu_fnt then pcall(function() imgui.pop_font() end) end
-            imgui.tree_pop()
+        imgui.text_colored(MAP_API.status, 0xFF888888)
+        end)
+        _menu_finish()
+        if not ok_menu and not mod._qt_menu_draw_err_logged then
+            mod._qt_menu_draw_err_logged = true
+            mlog_boot("[QT][draw] menu CRASH: " .. tostring(err_menu))
         end
     end)
 

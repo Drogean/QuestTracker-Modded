@@ -1,0 +1,51 @@
+---
+description: Captain never reads logs or text files — agent reads everything from disk, zero exceptions
+alwaysApply: true
+---
+
+# Captain never reads logs (agent does)
+
+## Hard gate — zero exceptions
+
+The **user / captain never** opens, reads, pastes, or checks:
+- game logs
+- mod logs
+- error dumps
+- JSON/data files
+- build reports
+- transcripts
+- any text file on disk
+
+**That is always the agent's job.** Read from disk with Read / Grep / Shell. If a path is wrong, search the disk. Report findings in plain English.
+
+**Never ask the captain to do file/log work. Ever.**
+
+## Forbidden (never say or imply)
+
+- "Paste the log"
+- "Open quest_tracker_log and tell me…"
+- "Check re2_framework_log for errors"
+- "Send me the output of…"
+- "Can you look at the log and see if…"
+- "After you play, read the log and confirm…"
+- Putting log-reading on any user/captain todo list
+
+## Captain's job (only these)
+
+- Install mods via Fluffy when asked
+- Play the game
+- Say what they saw (PASS/FAIL, what felt wrong)
+- Screenshots when something looks wrong on screen
+- Yes/no on code or config changes
+
+## Agent paths (DD2)
+
+- Game: `C:\Program Files (x86)\Steam\steamapps\common\Dragons Dogma 2\re2_framework_log.txt`
+- Quest Tracker: `...\reframework\data\quest_tracker_log.txt`
+- Other mods: `reframework\data\*_log.txt`
+- Workspace: `tools\`, `_BACKUP_TOUCHES\`, agent transcripts
+
+## Related
+
+- `read-game-logs-first.mdc` — read game logs before debugging QT
+- This rule wins for **all** files, not only game logs

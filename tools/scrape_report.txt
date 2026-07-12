@@ -1,0 +1,8 @@
+quests=82
+step_order=82
+step_cast=82
+stripped_lines=0
+nbsp_keys_fixed=0
+empty_after_strip=0
+cast_inferred=0
+paragraph_lines_remaining=0

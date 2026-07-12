@@ -37,11 +37,32 @@ local TYPE_CANDIDATES = {
     "app.QuestDefine",
 }
 
+-- Methods that crash or duplicate-hook on TU 3.1 (re2: IP relative instruction out of range)
+local HOOK_BLACKLIST = {
+    onUpdateQuestDestination = true,
+}
+
+local LIVE_DEST_TYPES = {
+    "app.QuestLogManager",
+    "app.GuiManager",
+}
+
+-- Working siblings per Grok/re2 log — use instead of onUpdateQuestDestination
+local LIVE_DEST_METHODS = {
+    "updateQuestMarker",
+    "onQuestContextUpdate",
+    "setCurrentDestination",
+    "SetCurrentDestination",
+}
+
+local _live_dest_hooks_installed = false
+
 function M.install(ctx)
     local mod = ctx.mod
     local mlog = ctx.mlog
     local safe_get_field = ctx.safe_get_field
     local safe_call = ctx.safe_call
+    local safe_dict_get = ctx.safe_dict_get
     local iter_list = ctx.iter_list
     local to_int = ctx.to_int
     local td = ctx.td
@@ -52,6 +73,16 @@ function M.install(ctx)
     local _resolve_ongoing_step = ctx._resolve_ongoing_step
     local _text_from_dest = ctx._text_from_dest
     local on_journal_progress_bump = ctx.on_journal_progress_bump
+
+    local function _sniff_load_gui_pause()
+        if ctx._qt_is_load_gui_pause then return ctx._qt_is_load_gui_pause() end
+        if mod._qt_map_ui_active == true then return false end
+        local gm = sdk.get_managed_singleton("app.GuiManager")
+        if not gm then return false end
+        local lg = false
+        pcall(function() lg = gm:get_IsLoadGui() == true end)
+        return lg
+    end
 
     local function _iter_managed_list(lst, fn)
         if lst == nil then return end
@@ -228,15 +259,9 @@ function M.install(ctx)
     end
 
     local function _dict_entry(dict, qid)
+        if safe_dict_get then return safe_dict_get(dict, qid) end
         if not dict then return nil end
-        local entry = nil
-        pcall(function() entry = dict[qid] end)
-        if not entry then
-            pcall(function()
-                if dict.get_Item then entry = dict:call("get_Item", qid) end
-            end)
-        end
-        return entry
+        return nil
     end
 
     local function _can_dump(key)
@@ -330,20 +355,68 @@ function M.install(ctx)
         mlog("[QT][sniff] ######## END qid=" .. qid .. " ########")
     end
 
-    local function _hook_method(tdef, method, type_label)
-        local name = method:get_name()
-        if not _name_matches(name, METHOD_PAT) then return false end
+    local mlog_boot = ctx.mlog_boot or mlog
+
+    local function _method_skip_hook(name)
+        if not name or name == "" then return true end
+        if HOOK_BLACKLIST[name] then return true end
+        local low = name:lower()
+        if low:sub(1, 4) == "add_" or low:sub(1, 7) == "remove_" then return true end
+        return false
+    end
+
+    local function _hook_post_fire()
+        pcall(_jhook_on_fire)
+        if mod._map_try_upgrade_fallback then pcall(mod._map_try_upgrade_fallback) end
+    end
+
+    local function _try_hook_method(method, type_label, name, on_post, tag)
+        if _method_skip_hook(name) then return false end
         local addr = nil
         pcall(function() addr = method:get_address() end)
         local dedup_key = addr or (type_label .. "::" .. name)
-        if ctx._sniff_hooked_addrs and ctx._sniff_hooked_addrs[dedup_key] then return false end
         ctx._sniff_hooked_addrs = ctx._sniff_hooked_addrs or {}
-        ctx._sniff_hooked_addrs[dedup_key] = true
+        ctx._sniff_hook_failed = ctx._sniff_hook_failed or {}
+        if ctx._sniff_hooked_addrs[dedup_key] or ctx._sniff_hook_failed[dedup_key] then
+            return false
+        end
 
-        local ok = pcall(function()
+        local ok, err = pcall(function()
+            sdk.hook(method,
+                function(_args) end,
+                function(retval)
+                    if on_post then pcall(on_post) end
+                    return retval
+                end)
+        end)
+        if ok then
+            ctx._sniff_hooked_addrs[dedup_key] = true
+            mlog_boot(string.format("[QT][sniff] hook OK %s:%s%s", type_label, name, tag and (" " .. tag) or ""))
+            return true
+        end
+        ctx._sniff_hook_failed[dedup_key] = true
+        mlog_boot(string.format("[QT][sniff] hook FAIL %s:%s err=%s", type_label, name, tostring(err)))
+        return false
+    end
+
+    local function _hook_method(tdef, method, type_label)
+        local name = method:get_name()
+        if not _name_matches(name, METHOD_PAT) then return false end
+        if _method_skip_hook(name) then return false end
+        local addr = nil
+        pcall(function() addr = method:get_address() end)
+        local dedup_key = addr or (type_label .. "::" .. name)
+        ctx._sniff_hooked_addrs = ctx._sniff_hooked_addrs or {}
+        ctx._sniff_hook_failed = ctx._sniff_hook_failed or {}
+        if ctx._sniff_hooked_addrs[dedup_key] or ctx._sniff_hook_failed[dedup_key] then
+            return false
+        end
+
+        local ok, err = pcall(function()
             sdk.hook(method,
                 function(args)
                     if not mod.deep_sniff then return end
+                    if _sniff_load_gui_pause() then return end
                     local arg_bits = {}
                     for i = 3, 6 do
                         pcall(function()
@@ -358,9 +431,13 @@ function M.install(ctx)
                 function(r) return r end)
         end)
         if ok then
+            ctx._sniff_hooked_addrs[dedup_key] = true
             _hook_count = _hook_count + 1
+            mlog_boot(string.format("[QT][sniff] hook OK %s:%s (deep)", type_label, name))
             return true
         end
+        ctx._sniff_hook_failed[dedup_key] = true
+        mlog_boot(string.format("[QT][sniff] hook FAIL %s:%s err=%s", type_label, name, tostring(err)))
         return false
     end
 
@@ -390,13 +467,12 @@ function M.install(ctx)
             end
         end
         _hooks_installed = true
-        mlog(string.format("[QT][sniff] hooks installed: %d methods on %d types (leave Deep Sniff on while testing journal)",
+        mlog(string.format("[QT][sniff] hooks installed: %d methods on %d types (Deep Sniff dev only — toggle in UI)",
             _hook_count, types_hit))
         return _hook_count
     end
 
-    -- Journal select hooks — installed lazily when quest menu is open (not at mod load).
-    local _journal_hooks_installed = false
+    -- Journal / live-dest hooks — live dest at boot; journal menu re-ensures
     local _JOURNAL_QLM_METHODS = {
         "setCurrentDestination", "SetCurrentDestination",
         "setCurrentQuestLog", "SetCurrentQuestLog",
@@ -444,7 +520,6 @@ function M.install(ctx)
     end
 
     local _jhook_last_fire = 0
-    local mlog_boot = ctx.mlog_boot or mlog
 
     local function _jhook_on_fire()
         local now = os.clock()
@@ -461,52 +536,28 @@ function M.install(ctx)
         end
     end
 
-    local function _jhook_name_wants(name)
-        local low = name:lower()
-        if low:find("^get") or low:find("^is") or low:find("^add_") or low:find("^remove_") then return false end
-        return low == "set_targetquestid" or low:find("setcurrentdestination")
-            or low:find("onquestlogtaskupdate")
-    end
-
-    local function _jhook_scan_type(type_name, cap)
-        local tdef = (td and td(type_name)) or sdk.find_type_definition(type_name)
-        if not tdef then return 0 end
-        local methods = nil
-        pcall(function() methods = tdef:get_methods() end)
-        if not methods then return 0 end
+    function ctx.install_live_dest_hooks()
+        if _live_dest_hooks_installed then return 0 end
+        _live_dest_hooks_installed = true
         local n = 0
-        ctx._sniff_hooked_addrs = ctx._sniff_hooked_addrs or {}
-        for _, m in ipairs(methods) do
-            if n >= (cap or 20) then break end
-            local mn = m:get_name()
-            if _jhook_name_wants(mn) then
-                local dedup_key = type_name .. "::" .. mn
-                if not ctx._sniff_hooked_addrs[dedup_key] then
-                    ctx._sniff_hooked_addrs[dedup_key] = true
-                    local ok = pcall(function()
-                        sdk.hook(m,
-                            function(_args) end,
-                            function(retval) pcall(_jhook_on_fire); return retval end)
-                    end)
-                    if ok then n = n + 1 end
+        for _, type_name in ipairs(LIVE_DEST_TYPES) do
+            local tdef = (td and td(type_name)) or sdk.find_type_definition(type_name)
+            if tdef then
+                for _, mn in ipairs(LIVE_DEST_METHODS) do
+                    local m = nil
+                    pcall(function() m = tdef:get_method(mn) end)
+                    if m and _try_hook_method(m, type_name, mn, _hook_post_fire, "(live-dest)") then
+                        n = n + 1
+                    end
                 end
             end
         end
+        mlog_boot(string.format("[QT][live] dest hooks installed: %d", n))
         return n
     end
 
     function ctx.install_journal_hooks()
-        if _journal_hooks_installed then return end
-        _journal_hooks_installed = true
-        local ok, n = pcall(function()
-            return _jhook_scan_type("app.QuestLogManager", 20)
-                + _jhook_scan_type("app.GuiManager", 20)
-        end)
-        if ok then
-            mlog_boot(string.format("[QT][jhook] hooks installed: %d", n or 0))
-        else
-            mlog_boot("[QT][jhook] hooks FAILED: " .. tostring(n))
-        end
+        pcall(ctx.install_live_dest_hooks)
     end
 
     local _last_poll_qid = nil
@@ -600,6 +651,7 @@ function M.install(ctx)
     function ctx.sniff_on_frame(now)
         if mod._qt_shutdown then return end
         if not mod.deep_sniff then return end
+        if _sniff_load_gui_pause() then return end
         if not _hooks_installed then pcall(ctx.sniff_install_hooks) end
 
         local qlm = sdk.get_managed_singleton("app.QuestLogManager")

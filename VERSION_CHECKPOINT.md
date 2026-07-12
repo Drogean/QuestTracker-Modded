@@ -1,5 +1,11 @@
-# VERSION CHECKPOINT v1.4.0
+# VERSION CHECKPOINT v1.4.8
 
-Base: v1.3.2 (commit 57d2088) — last known good, journal pin via setupQuestTargetMarker
-Patches: P1 EndChild tracking+ensure_closed | P2 blob dedupe guard never wiped outside layer-change | P3 label FAIL per-qid logging | P4 pin_all_ongoing journal-one-pin only | P5 on_journal_progress_bump force_marker_refresh | P6 _resolve_ongoing_step live-first order
-Pass criteria: zero "label FAIL summary want=1 labels=0" spam | sculpt reinject blob ONE log per qid per layer change (not dozens/sec) | child window no ImGui EndChild errors on minimize | step src=game not wiki_progress for active journal quest
+Sniff/prefs/live-dest cluster only (no map-pin refactor this ship).
+
+- deep_sniff OFF default + prefs migrate v12 forces OFF on old saves
+- Live dest hooks always at boot (updateQuestMarker, onQuestContextUpdate, setCurrentDestination)
+- onUpdateQuestDestination blacklisted (TU 3.1 crash)
+- Deep sniff METHOD_PAT scan only when user toggles ON; skip add_/remove_; hook FAIL once
+- Map exports try_upgrade_fallback_pins for sniff callback
+
+NOT TESTED — user boot + log proof required before READY-FOR-TEST.

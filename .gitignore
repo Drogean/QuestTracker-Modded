@@ -43,3 +43,12 @@ reframework/data/quest_tracker_permanent_layout.json
 # Game install logs (never commit live DD2 logs)
 quest_tracker_log.txt
 re2_framework_log.txt
+
+# Local touch backups
+_BACKUP_TOUCHES/
+
+
+# Stray GTA/DD2 timecycle dumps (not QT)
+timecyc*.dat
+timecyclemodifiers*.dat
+

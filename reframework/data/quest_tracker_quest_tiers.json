@@ -1,0 +1,61 @@
+{
+  "version": 3,
+  "sources": [
+    "https://game8.co/games/Dragons-Dogma-2/archives/448509",
+    "https://steamcommunity.com/app/2054970/discussions/0/4352240180488225008/"
+  ],
+    "tier_colors_abgr": {
+    "story": 4284940134,
+    "reward_quest": 4278255615,
+    "special": 4294934527,
+    "side": 4294967295,
+    "normal": 4294967295,
+    "fan_star_cyan": 4294967040,
+    "fan_star_blue": 4294936320,
+    "fan_star_purple": 4294934527,
+    "locked": 4286611584
+  },
+  "reward_qids": [30150, 30070, 30060, 30170, 20270, 20340, 30090],
+  "fan_qids": [20200, 20080, 30100, 20082, 30110, 20140, 20150],
+  "by_qid": {
+    "10030": "story",
+    "10050": "story",
+    "10060": "story",
+    "10080": "story",
+    "10090": "story",
+    "10100": "story",
+    "10110": "story",
+    "10120": "story",
+    "10130": "story",
+    "10140": "story",
+    "10150": "story",
+    "10160": "story",
+    "10170": "story",
+    "10180": "story",
+    "20240": "side",
+    "30020": "side",
+    "30030": "side",
+    "30160": "special",
+    "30150": "side",
+    "30100": "side",
+    "20082": "side",
+    "30110": "side",
+    "30050": "side",
+    "30060": "side",
+    "30070": "side",
+    "30080": "side",
+    "30090": "side",
+    "20200": "side",
+    "30120": "side",
+    "20340": "side",
+    "30170": "side",
+    "20270": "side"
+  },
+  "scrape_notes": {
+    "v3": "gold=reward_qids, green=story, white=side/normal, purple=special rare, cyan **=all fan_qids, grey=locked",
+    "fan_qids": "Steam thread — ** in UI only when fan + special/story",
+    "30160": "Sorcerer's Appraisal = special purple, NOT fan",
+    "fan_dual_stars": "20200,30100,20082,30110 when tier story/special",
+    "fan_normal_blue": "20080,20140,20150 when tier side/normal"
+  }
+}
